@@ -85,9 +85,10 @@ Onay gelirse şu kurallara göre üret:
 - Scroll bar gizli ve taşıma engelli (`overflow: hidden;`)
 - **Notion Embed Limitasyonu (Laptop & 15.6 inç Uyumu):** Çıktılar **kesinlikle scroll bar oluşturmamalıdır.** Bunun yerine bir "slayt" mantığıyla çalışılmalı. 15.6 inç notebook ekranlarındaki Notion sınırlarına sığması ve çok geniş kalmaması için:
   - Base font-size küçültülmeli (Örn: `html { font-size: 14px; }`).
-  - Tarayıcı penceresinin (100vw, 100vh) içine sığan, ancak üst/alt/sağ/sol yönlerinden **%10'luk boşluklar** (Örn: `padding: 10vh 10vw;`) bırakan bir sabit konteyner kullanılmalı.
+  - Tarayıcı penceresinin içine sığan, ancak üst/alt/sağ/sol yönlerinden **%10'luk boşluklar** (Örn: `padding: 10vh 10vw;`) bırakan bir sabit konteyner kullanılmalı.
   - Slayt kutusuna gerekirse maksimum genişlik (Örn: `max-width: 1200px; margin: 0 auto;`) atanarak aşırı yatay uzama engellenmeli.
-- **Bölme:** Eğer içerik bu daraltılmış slayt konteynerine sığmıyorsa, asla aşağı uzatılmaz; hemen 2., 3. bir HTML dosyasına bölünür.
+- **Bölme ve Bütünlük:** Eğer içerik sığmıyorsa 2., 3. bir sayfaya bölünür ANCAK birbiriyle doğrudan bağı kopmaması gereken ana gruplar (Örn: Olasılığın 5 Temel Öğesi) asla bölünmemelidir. Bunun yerine fontları küçülterek, padding'leri kısarak veya daha kompakt (2x3 grid, sıkı dikey liste vb.) yerleşimler (layout) kullanarak aynı sayfa içinde birleştirici bir bütünlük sağlanmalıdır.
+- **Görsel Analoji (SVG Infographic):** Sayfa içindeki SVG temsili sadece çok soyut şekillerden (iki daire, bir nokta) ibaret olmamalıdır. Eğer içerikte bir analoji (Örn: Dart tahtası) kullanılıyorsa, SVG doğrudan o analojiyi çizmeli ve her bir parçayı anlaşılır şekilde etiketlemelidir (Tahtaya `Ω`, kırmızı hedefe `E`, saplanan oka `ω` oklar çıkartılıp gösterilmelidir). Görseller salt dekarosyan değil bir infografik haritası gibi işlemelidir.
 
 ### Dosya Mimarisi ve Formatı (Notion DB Senkronizasyonu):
 Çıktılar, Notion veritabanındaki hiyerarşiye (`Track > Module > Lesson`) uygun şekilde klasörlenmelidir. Her ders üretimi öncesinde kullanıcıya: "Veritabanın veya Klasör isimlerinde bir değişiklik oldu mu? Track, Module ve Lesson adlarını klasör yapısı için belirtebilir misin?" diye sorulmalıdır. Klasör ve dosya isimleri daima küçük harf, İngilizce karakter ve alt tire (`_`) ile oluşturulmalıdır.

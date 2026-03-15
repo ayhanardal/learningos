@@ -18,15 +18,11 @@
         h1 { margin: 0; font-size: 2rem; color: #fff; font-weight: 600; letter-spacing: -0.02em;}
         .subtitle { color: #888; font-size: 1.1rem; margin-top: 0.5rem; font-weight: 300; }
         
-        .content { flex: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: center; }
-        .text-section { display: flex; flex-direction: column; gap: 1.5rem; }
+        .content { flex: 1; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; align-content: center; }
         
-        .card { background: rgba(255,255,255,0.03); padding: 1.5rem; border-radius: 8px; border-left: 3px solid var(--accent); }
-        .concept-title { color: var(--accent); font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem;}
-        .analogy { font-style: italic; color: #aaa; font-size: 0.95rem; margin-top: 0.5rem;}
+        .card { background: rgba(255,255,255,0.03); padding: 2rem; border-radius: 8px; border-top: 4px solid var(--accent); text-align: center; }
+        .concept-title { color: var(--accent); font-size: 1.1rem; font-weight: 600; margin-bottom: 1rem;}
         
-        .svg-container { flex: 1; display: flex; justify-content: center; align-items: center; }
-        .badge { background: #333; padding: 0.1rem 0.5rem; border-radius: 4px; font-family: monospace;}
         .page-indicator { position: absolute; bottom: 2rem; right: 2rem; background: rgba(0,0,0,0.5); padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.8rem; color: #888; }
     </style>
 </head>
@@ -34,38 +30,32 @@
 
     <div class="slide">
         <header>
-            <h1>Hesaplanabilir Filtreler</h1>
-            <div class="subtitle">Bölüm 1 / NE? (2/3) — Olay ve Matematiksel Dağılım</div>
+            <h1>Kolmogorov Aksiyomları: Olasılığın Anayasası</h1>
+            <div class="subtitle">Bölüm 1 / NE? (2/2) — Değiştirilemez 3 Doğa Kuralı</div>
         </header>
 
+        <p style="text-align:center; color: #aaa; margin-bottom: 2rem; padding: 0 4rem;">Olasılık hesaplarken kullandığımız o %10, %50 gibi değerler aslında uzayda kaplanan bir "hacim" ölçümüdür. Evrenimizi devasa bir harita (\(\Omega\)), elimizdeki %100 olasılığı da <strong>1 Kilogramlık Sihirli Altın Tozu</strong> olarak düşünürsek:</p>
+
         <div class="content">
-            <div class="text-section">
-                <div class="card">
-                    <div class="concept-title">4. Olay <span class="badge">\(E\)</span></div>
-                    <p style="margin:0;">\(\Omega\) içinden seçtiğimiz, hesaplamak istediğimiz belirli bir özelliğe uyan çıktılar kümesidir.</p>
-                    <div class="analogy">"Kırmızı Bölge" veya "Tam Merkez"dir. Ok o kırmızılıktaki rastgele bir noktaya (\(\omega\)) saplanırsa, "Kırmızı vurma olayı" (\(E\)) gerçekleşmiş sayılır.</div>
-                </div>
-                
-                <div class="card" style="border-color: #63b3ed;">
-                    <div class="concept-title" style="color: #63b3ed;">5. Olasılık Ölçüsü / Mekanizması <span class="badge">\(P\)</span></div>
-                    <p style="margin:0;">\(\Omega\) uzayındaki \(E\) olaylarına, olasılık değerini <strong>hangi kurala göre</strong> atayacağımızı belirleyen matematiksel fonksiyondur.</p>
-                    <div class="analogy">Atışların tahtaya nasıl dağılacağını belirleyen <strong>atıcı profili</strong>dir. Her yere eşit mi atıyor, yoksa merkeze mi odaklanıyor? Bu "rastgelelik atama" karakteristiği \(P\)'dir.</div>
-                </div>
+            <div class="card">
+                <div class="concept-title">1. Negatif Olmama</div>
+                <p>Haritanın neresini seçersen seç, oraya "negatif" miktarda toz serpemezsin. En kötü ihtimalle sıfır düşer.</p>
+                <div style="font-size: 1.5rem; color: white; margin-top: 1.5rem;">\[ P(E) \ge 0 \]</div>
+            </div>
+            
+            <div class="card">
+                <div class="concept-title">2. Bütünlük / Kesinlik</div>
+                <p>Toz buharlaşamaz. Haritaya serptiğin 1 Kg tozun <i>tamamı</i> evrenin bir yerlerine düşmek zorundadır.</p>
+                <div style="font-size: 1.5rem; color: white; margin-top: 1.5rem;">\[ P(\Omega) = 1 \]</div>
             </div>
 
-            <div class="svg-container">
-                <svg width="100%" height="100%" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="100" cy="100" r="90" stroke="#333" stroke-width="2" fill="#191919"/>
-                    <circle cx="100" cy="100" r="40" stroke="#facc15" stroke-width="2" fill="rgba(250, 204, 21, 0.1)"/>
-                    <circle cx="115" cy="85" r="3" fill="#fff"/>
-                    <text x="100" y="110" fill="#facc15" font-size="24" font-weight="bold" text-anchor="middle">E</text>
-                    <text x="175" y="180" fill="#666" font-size="20" font-family="sans-serif" font-weight="bold">Ω</text>
-                    <path d="M150 20 L120 75" stroke="#63b3ed" stroke-width="3" stroke-linecap="round" stroke-dasharray="4 4"/>
-                    <text x="160" y="20" fill="#63b3ed" font-size="16" font-weight="bold" font-family="sans-serif">P()</text>
-                </svg>
+            <div class="card">
+                <div class="concept-title">3. Toplanabilirlik</div>
+                <p>Eğer iki bölge (A ve B) birbiriyle hiç kesişmiyorsa (\(A \cap B = \emptyset\)), ikisindeki toz toplamı ayrı ayrı tartımlarının toplamıdır.</p>
+                <div style="font-size: 1.3rem; color: white; margin-top: 1.5rem;">\[ P(A \cup B) = P(A) + P(B) \]</div>
             </div>
         </div>
-        <div class="page-indicator">2 / 3</div>
+        <div class="page-indicator">2 / 2</div>
     </div>
 
 </body>
