@@ -86,13 +86,17 @@ Onay gelirse şu kurallara göre üret:
 - **Notion Embed Limitasyonu (Sabit Ekran ve Sayfalama):** Çıktılar **kesinlikle scroll bar oluşturmamalıdır.** Bunun yerine bir "slayt" mantığıyla çalışılmalı. Tarayıcı penceresinin (100vw, 100vh) içine tam sığan, üst/alt/sağ/sol %10 (veya padding: `+4vmin`) boşluk bırakan bir sabit konteyner kullanılmalı.
 - **Bölme:** Eğer içerik bu sığdırılmış konteynere sığmıyorsa, asla aşağı uzatılmaz; hemen 2., 3. bir HTML dosyasına bölünür.
 
-### Dosya adı formatı:
-```
-[ders_no]_[bölüm]_[sayfa_no].html (Tek sayfaysa sonuna _1 ekle)
-Örnek: 1_4_ne_1.html / 1_4_ne_2.html / 1_4_neden_1.html
-```
+### Dosya Mimarisi ve Formatı (Notion DB Senkronizasyonu):
+Çıktılar, Notion veritabanındaki hiyerarşiye (`Track > Module > Lesson`) uygun şekilde klasörlenmelidir. Her ders üretimi öncesinde kullanıcıya: "Veritabanın veya Klasör isimlerinde bir değişiklik oldu mu? Track, Module ve Lesson adlarını klasör yapısı için belirtebilir misin?" diye sorulmalıdır. Klasör ve dosya isimleri daima küçük harf, İngilizce karakter ve alt tire (`_`) ile oluşturulmalıdır.
 
-### GitHub push notu:
-Dosya hazır olduğunda kullanıcıya şunu söyle:
-> "Dosyayı GitHub'a push ettikten sonra Notion'da şu URL'i embed et:
-> `https://[kullanıcı].github.io/learningos/[dosya_adı].html`"
+**Örnek Hiyerarşi ve Format:**
+```
+[track_adi]/m[modul_no]_[modul_adi]/l[ders_no]_[ders_adi]/[bölüm]_[sayfa_no].html
+```
+Örnek: `statistics/m1_probability_theory/l1_1_axiomatic_probability/ne_1.html`
+Örnek: `statistics/m1_probability_theory/l1_1_axiomatic_probability/neden_2.html`
+
+### GitHub Push ve Embed Notu:
+Dosya hazır olduğunda kullanıcıya şunu söyle (Yeni klasör yoluna göre URL belirleyerek):
+> "Dosyayı GitHub'a push ettikten sonra Notion'da şu URL'leri embed edebilirsin:
+> `https://[kullanıcı].github.io/learningos/[track]/[module]/[lesson]/[dosya].html`"
