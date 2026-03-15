@@ -82,13 +82,14 @@ Onay gelirse şu kurallara göre üret:
 - LaTeX: KaTeX CDN ile render
 - Her kavram için imgesel SVG: minimal, sembolik, kavramın özünü taşıyan — o anki içeriğin neye ihtiyaç duyduğuna göre layout serbestçe şekillensin
 - Analoji: sarı sol border'lı italik kutu
-- Scroll bar gizli (`scrollbar-width: none`)
-- **Layout içeriğe göre değişir** — iki kolon, tek kolon, kart grid, tam sayfa görsel — hangisi o kavrama hizmet ediyorsa o kullanılır
+- Scroll bar gizli ve taşıma engelli (`overflow: hidden;`)
+- **Notion Embed Limitasyonu (Sabit Ekran ve Sayfalama):** Çıktılar **kesinlikle scroll bar oluşturmamalıdır.** Bunun yerine bir "slayt" mantığıyla çalışılmalı. Tarayıcı penceresinin (100vw, 100vh) içine tam sığan, üst/alt/sağ/sol %10 (veya padding: `+4vmin`) boşluk bırakan bir sabit konteyner kullanılmalı.
+- **Bölme:** Eğer içerik bu sığdırılmış konteynere sığmıyorsa, asla aşağı uzatılmaz; hemen 2., 3. bir HTML dosyasına bölünür.
 
 ### Dosya adı formatı:
 ```
-[ders_no]_[bölüm].html
-Örnek: 1_4_ne.html / 1_4_neden.html / 1_4_nasil.html
+[ders_no]_[bölüm]_[sayfa_no].html (Tek sayfaysa sonuna _1 ekle)
+Örnek: 1_4_ne_1.html / 1_4_ne_2.html / 1_4_neden_1.html
 ```
 
 ### GitHub push notu:

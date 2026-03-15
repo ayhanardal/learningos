@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1.1 - NEDEN? - Sayfa 2</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
+        onload="renderMathInElement(document.body);"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root { --bg: #121212; --text: #e0e0e0; --accent: #ff4444; --slide-bg: #1e1e1e; --border: #333;}
+        body { margin: 0; padding: 4vmin; width: 100vw; height: 100vh; box-sizing: border-box; background-color: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; overflow: hidden; display: flex; align-items: center; justify-content: center;}
+        .slide { width: 100%; height: 100%; background: var(--slide-bg); border: 1px solid var(--border); border-radius: 1rem; padding: 2.5rem 3.5rem; box-sizing: border-box; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.5);}
+        header { flex-shrink: 0; border-bottom: 1px solid var(--border); padding-bottom: 1rem; margin-bottom: 2rem;}
+        h1 { margin: 0; font-size: 2rem; color: #fff; font-weight: 600; letter-spacing: -0.02em;}
+        .subtitle { color: #888; font-size: 1.1rem; margin-top: 0.5rem; font-weight: 300; }
+        
+        .content { flex: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: start; }
+        
+        .card { background: rgba(255,255,255,0.03); padding: 1.5rem; border-radius: 8px; border-top: 3px solid var(--accent); }
+        .concept-title { color: var(--accent); font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem;}
+        
+        .paradox-box { background: rgba(255, 68, 68, 0.1); padding: 1.5rem; border-radius: 8px; border: 1px solid #ff4444; margin-top: 1rem; text-align: center;}
+        
+        .page-indicator { position: absolute; bottom: 2rem; right: 2rem; background: rgba(0,0,0,0.5); padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.8rem; color: #888; }
+    </style>
+</head>
+<body>
+
+    <div class="slide">
+        <header>
+            <h1>Uzunluk mu, Alan mı?</h1>
+            <div class="subtitle">Bölüm 2 / NEDEN? (2/2) — Aynı Fabrika, Farklı Sonuçlar</div>
+        </header>
+
+        <div class="content">
+            <div class="card" style="border-top-color: #63b3ed;">
+                <div class="concept-title" style="color: #63b3ed;">Yaklaşım 1 (Uzunluk Merceği)</div>
+                <p><strong>Soru:</strong> Karenin kenarının 1m ile 2m arasında olma olasılığı?</p>
+                <p><strong>Hesap:</strong> Evren \(\Omega\) = [1, 3] (2 birim aralık). İstenilen \(E\) = [1, 2] (1 birim aralık).</p>
+                <div style="font-size: 1.5rem; text-align: center; color: white; margin-top: 1rem;">\[ P(E) = \frac{1}{2} = \%50 \]</div>
+            </div>
+            
+            <div class="card" style="border-top-color: #ecc94b;">
+                <div class="concept-title" style="color: #ecc94b;">Yaklaşım 2 (Alan Merceği)</div>
+                <p><strong>Soru:</strong> Karenin alanının 1m² ile 4m² arasında olması? <i>(Soru fiziksel olarak aynı sorudur)</i></p>
+                <p><strong>Hesap:</strong> Alan Evreni \(\Omega\) = [1², 3²] = [1, 9] (8 birim). Alan \(E\) = [1, 4] (3 birim).</p>
+                <div style="font-size: 1.5rem; text-align: center; color: white; margin-top: 1rem;">\[ P(E) = \frac{3}{8} = \%37.5 \]</div>
+            </div>
+        </div>
+
+        <div class="paradox-box">
+            <strong style="color: #ff4444; font-size: 1.2rem;">Matematikte Hata Yok!</strong>
+            <p style="margin-bottom:0;">Soruyu "uzunluk" cetveliyle sorarsan %50, "alan" cetveliyle sorarsan %37.5 çıkıyor. Eğer başlamak için seçtiğin cetvel sonucu değiştiriyorsa, güvenilir hiçbir istatistik üretemezsin. <strong>Ölçüm Teorisi'ne (Measure Theory) bu şizofreniyi önlemek için geçeriz.</strong></p>
+        </div>
+        
+        <div class="page-indicator">2 / 2</div>
+    </div>
+
+</body>
+</html>

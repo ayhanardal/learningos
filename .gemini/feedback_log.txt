@@ -1,0 +1,1 @@
+[2026-03-15] [2_pedagoji.md] → Notion embed limitasyonları (ve scroll zorunluluğu) nedeniyle, oluşturulan HTML çıktıları çok uzun olmamalı. İçerik (Örn. NE, NEDEN, NASIL) uzunsa, 16:9 çerçeveye scroll gerektirmeden sığacak şekilde 2, 3 veya daha fazla alt HTML dosyasına (Örn: 1_1_ne_1.html, 1_1_ne_2.html) bölünmelidir.

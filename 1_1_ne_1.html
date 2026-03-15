@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1.1 - NE? (Aksiyomatik Olasılık) - Sayfa 1</title>
+    <!-- KaTeX -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
+        onload="renderMathInElement(document.body);"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #121212; --text: #e0e0e0; --accent: #facc15;
+            --slide-bg: #1e1e1e; --border: #333;
+        }
+        body {
+            margin: 0; padding: 4vmin; /* %10'a tekabül edecek boşluk çerçevesi */
+            width: 100vw; height: 100vh; box-sizing: border-box;
+            background-color: var(--bg);
+            color: var(--text); font-family: 'Inter', sans-serif;
+            overflow: hidden; /* Scroll tamamen iptal */
+            display: flex; align-items: center; justify-content: center;
+        }
+        .slide {
+            width: 100%; height: 100%;
+            background: var(--slide-bg);
+            border: 1px solid var(--border);
+            border-radius: 1rem;
+            padding: 2.5rem 3.5rem;
+            box-sizing: border-box;
+            display: flex; flex-direction: column;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+        }
+        header { flex-shrink: 0; border-bottom: 1px solid var(--border); padding-bottom: 1rem; margin-bottom: 2rem;}
+        h1 { margin: 0; font-size: 2rem; color: #fff; font-weight: 600; letter-spacing: -0.02em;}
+        .subtitle { color: #888; font-size: 1.1rem; margin-top: 0.5rem; font-weight: 300; }
+        
+        .content { flex: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: center; }
+        .text-section { display: flex; flex-direction: column; gap: 1.5rem; }
+        
+        .card { background: rgba(255,255,255,0.03); padding: 1.5rem; border-radius: 8px; border-left: 3px solid var(--accent); }
+        .concept-title { color: var(--accent); font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem;}
+        .analogy { font-style: italic; color: #aaa; font-size: 0.95rem; margin-top: 0.5rem;}
+        
+        .svg-container { flex: 1; display: flex; justify-content: center; align-items: center; }
+        .badge { background: #333; padding: 0.1rem 0.5rem; border-radius: 4px; font-family: monospace;}
+        
+        .page-indicator {
+            position: absolute; bottom: 2rem; right: 2rem;
+            background: rgba(0,0,0,0.5); padding: 0.5rem 1rem;
+            border-radius: 20px; font-size: 0.8rem; color: #888;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="slide">
+        <header>
+            <h1>Olasılık Oyunundaki Temel Aktörler</h1>
+            <div class="subtitle">Bölüm 1 / NE? (1/3) — Sınırların ve Kuralların İnşası</div>
+        </header>
+
+        <div class="content">
+            <div class="text-section">
+                <div class="card">
+                    <div class="concept-title">1. Deney (Experiment)</div>
+                    <p style="margin:0;">Sonucu önceden kesin olarak bilinemeyen, ancak tekrarlanabilir ve gözlemlenebilir fiziksel veya teorik süreçtir.</p>
+                    <div class="analogy">Gözlerin kapalı bir şekilde dart okunu tahtaya fırlatma eyleminin bütünüdür.</div>
+                </div>
+                
+                <div class="card">
+                    <div class="concept-title">2. Örneklem Uzayı <span class="badge">\(\Omega\)</span></div>
+                    <p style="margin:0;">Deney sonucunda ortaya çıkabilecek <strong>istisnasız tüm</strong> olası durumların oluşturduğu en büyük kümedir.</p>
+                    <div class="analogy">Dart tahtasının fiziki yüzeyinin tamamıdır. (Sınırların dışına çıkılamaz)</div>
+                </div>
+
+                <div class="card">
+                    <div class="concept-title">3. Çıktı <span class="badge">\(\omega\)</span></div>
+                    <p style="margin:0;">Gerçekleşen, daha fazla alt parçaya bölünemeyen en temel ve nihai sonuçtur.</p>
+                    <div class="analogy">Okun saptandığı o tek, bölünemez ve spesifik milimetrik nokta.</div>
+                </div>
+            </div>
+
+            <div class="svg-container">
+                <svg width="100%" height="100%" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="100" cy="100" r="90" stroke="#333" stroke-width="2" fill="#191919"/>
+                    <circle cx="100" cy="100" r="60" stroke="#444" stroke-width="1" stroke-dasharray="4 4"/>
+                    <circle cx="130" cy="70" r="3" fill="#fff"/>
+                    <path d="M160 40 L134 66" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+                    <text x="175" y="180" fill="#666" font-size="20" font-family="sans-serif" font-weight="bold">Ω (Evren)</text>
+                    <text x="145" y="65" fill="#fff" font-size="14" font-family="sans-serif">ω (Çıktı)</text>
+                </svg>
+            </div>
+        </div>
+        <div class="page-indicator">1 / 3</div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1.1 - NASIL? - Sayfa 2</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
+        onload="renderMathInElement(document.body);"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root { --bg: #121212; --text: #e0e0e0; --accent: #68d391; --slide-bg: #1e1e1e; --border: #333;}
+        body { margin: 0; padding: 4vmin; width: 100vw; height: 100vh; box-sizing: border-box; background-color: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; overflow: hidden; display: flex; align-items: center; justify-content: center;}
+        .slide { width: 100%; height: 100%; background: var(--slide-bg); border: 1px solid var(--border); border-radius: 1rem; padding: 2.5rem 3.5rem; box-sizing: border-box; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.5);}
+        header { flex-shrink: 0; border-bottom: 1px solid var(--border); padding-bottom: 1rem; margin-bottom: 1rem;}
+        h1 { margin: 0; font-size: 2rem; color: #fff; font-weight: 600; letter-spacing: -0.02em;}
+        .subtitle { color: #888; font-size: 1.1rem; margin-top: 0.5rem; font-weight: 300; }
+        
+        .content { flex: 1; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; align-items: stretch; }
+        .card { background: rgba(255,255,255,0.03); padding: 1.5rem; border-radius: 8px; border-top: 3px solid; display: flex; flex-direction: column;}
+        .concept-title { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem;}
+        
+        .page-indicator { position: absolute; bottom: 2rem; right: 2rem; background: rgba(0,0,0,0.5); padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.8rem; color: #888; }
+        .svg-container { flex: 1; margin-top: 1rem; display: flex; align-items: center; justify-content: center;}
+    </style>
+</head>
+<body>
+
+    <div class="slide">
+        <header>
+            <h1>Simülasyon Bulguları (Alan vs Uzunluk)</h1>
+            <div class="subtitle">Bölüm 3 / NASIL? (2/2) — Adaletin Dağılma Şekli</div>
+        </header>
+
+        <div class="content">
+            <div class="card" style="border-top-color: #63b3ed;">
+                <div class="concept-title" style="color: #63b3ed;">1. Uzunluk (\(P_{uzunluk}\))</div>
+                <p>Eğer makinede boyuta hassas sensör varsa ve eşit rastgelelikle kesiyorsa; olasılık <strong>%50</strong> (Mavi Grafik) olarak ölçülür.</p>
+                <div class="svg-container">
+                    <svg width="100" height="80" viewBox="0 0 100 80">
+                        <rect x="0" y="20" width="45" height="60" fill="#2c5282"/>
+                        <rect x="47" y="20" width="53" height="60" fill="#2c5282" fill-opacity="0.5"/>
+                    </svg>
+                </div>
+            </div>
+            
+            <div class="card" style="border-top-color: #ecc94b;">
+                <div class="concept-title" style="color: #ecc94b;">2. Alan (\(P_{alan}\))</div>
+                <p>Eğer makinede alana hassas sensör varsa, [1, 9] evreninde 4 birim (\(2^2\)) alanın orta değil, solda kalması sonucu ölçüm <strong>%37.5</strong> çıkar.</p>
+                <div class="svg-container">
+                    <svg width="100" height="80" viewBox="0 0 100 80">
+                        <rect x="0" y="20" width="37.5" height="60" fill="#b7791f"/>
+                        <rect x="39" y="20" width="61" height="60" fill="#b7791f" fill-opacity="0.5"/>
+                    </svg>
+                </div>
+            </div>
+
+            <div class="card" style="border-top-color: #68d391;">
+                <div class="concept-title" style="color: #68d391;">3. Yığılma (\(P_{alan} \rightarrow \) \(L\))</div>
+                <p>Alanı eşit dağıtan makinenin çıktılarını kenar cetveliyle ölçtüğümüzde veriler sağa (büyük karelere) doğru yığılır.</p>
+                <div class="svg-container">
+                    <svg width="100" height="80" viewBox="0 0 100 80">
+                        <path d="M0 80 Q50 30 100 10 L100 80 Z" fill="#2f855a"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+        
+        <p style="text-align:center; color: #888; font-style:italic; margin-top: 1rem;">"Alanın adil dağıtılması, uzunluğun adil dağıtılacağı anlamına gelmez."</p>
+
+        <div class="page-indicator">2 / 2</div>
+    </div>
+
+</body>
+</html>

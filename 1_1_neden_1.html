@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1.1 - NEDEN? - Sayfa 1</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
+        onload="renderMathInElement(document.body);"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root { --bg: #121212; --text: #e0e0e0; --accent: #ff4444; --slide-bg: #1e1e1e; --border: #333;}
+        body { margin: 0; padding: 4vmin; width: 100vw; height: 100vh; box-sizing: border-box; background-color: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; overflow: hidden; display: flex; align-items: center; justify-content: center;}
+        .slide { width: 100%; height: 100%; background: var(--slide-bg); border: 1px solid var(--border); border-radius: 1rem; padding: 2.5rem 3.5rem; box-sizing: border-box; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.5);}
+        header { flex-shrink: 0; border-bottom: 1px solid var(--border); padding-bottom: 1rem; margin-bottom: 2rem;}
+        h1 { margin: 0; font-size: 2rem; color: #fff; font-weight: 600; letter-spacing: -0.02em;}
+        .subtitle { color: #888; font-size: 1.1rem; margin-top: 0.5rem; font-weight: 300; }
+        
+        .content { flex: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
+        .text-section { display: flex; flex-direction: column; gap: 1.5rem; }
+        
+        .analogy { border-left: 4px solid var(--accent); padding: 1.5rem; background-color: rgba(255, 68, 68, 0.05); font-style: italic; }
+        
+        .svg-container { flex: 1; display: flex; justify-content: center; align-items: center; }
+        .page-indicator { position: absolute; bottom: 2rem; right: 2rem; background: rgba(0,0,0,0.5); padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.8rem; color: #888; }
+    </style>
+</head>
+<body>
+
+    <div class="slide">
+        <header>
+            <h1>Bertrand Paradoksu ve İllüzyonlar</h1>
+            <div class="subtitle">Bölüm 2 / NEDEN? (1/2) — "Rastgelelik" Kavramının Çöküşü</div>
+        </header>
+
+        <div class="content">
+            <div class="text-section">
+                <p>Neden bu kadar katı aksiyomlar ve matematiksel çerçeveler çizdik? Neden sadece <i>"rastgele"</i> deyip geçmiyoruz? Çünkü sürekli uzaylarda <strong>Kayıtsızlık İlkesine</strong> ("elimizde bilgi yoksa her şey eşittir" fikrine) güvenmek büyük bir çöküşe yol açar.</p>
+
+                <div class="analogy">
+                    <strong>Şizofrenik Kare Fabrikası</strong><br><br>
+                    Sürekli kare şeklinde tahtalar kesen bir fabrika düşünelim. Tahtaların ölçülerini kenar uzunluğu 1 metre ile 3 metre arasında rastgele belirleyecek şekilde kesiyor.<br><br>
+                    <strong>Soru:</strong> Üretilecek bir sonraki karenin özelliklerini doğru tahmin edebilir miyiz?
+                </div>
+            </div>
+
+            <div class="svg-container">
+                <svg width="100%" height="100%" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="50" y="50" width="100" height="100" rx="4" fill="#8B5A2B"/>
+                    <path d="M170 50 L170 150" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M165 55 L170 50 L175 55" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M165 145 L170 150 L175 145" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+                    <text x="190" y="105" fill="#fff" font-size="16" font-family="sans-serif" font-weight="bold" transform="rotate(-90 190 105)">1 ~ 3 m</text>
+                </svg>
+            </div>
+        </div>
+        <div class="page-indicator">1 / 2</div>
+    </div>
+
+</body>
+</html>
