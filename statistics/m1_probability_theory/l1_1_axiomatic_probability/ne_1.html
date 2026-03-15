@@ -117,47 +117,69 @@
                 <svg width="100%" height="100%" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
                     
                     <!-- Deney: Arkadan gelen ok izi ve hareketi -->
-                    <path d="M420 80 Q350 150 216 230" stroke="url(#dart-trail)" stroke-width="4" stroke-dasharray="10 10"/>
-                    <path d="M420 80 L380 70 L400 110 Z" fill="#888"/>
-                    <text x="350" y="60" fill="#facc15" font-size="20" font-weight="bold" font-family="sans-serif">1. Deney</text>
-                    <text x="350" y="80" fill="#aaa" font-size="14" font-family="sans-serif">(Fırlatma)</text>
+                    <path d="M420 80 Q360 140 250 210" stroke="#555" stroke-width="2" stroke-dasharray="8 8"/>
+                    <text x="350" y="60" fill="#facc15" font-size="18" font-weight="bold" font-family="sans-serif">1. Deney</text>
+                    <text x="350" y="80" fill="#aaa" font-size="13" font-family="sans-serif">(Fırlatma Eylemi)</text>
 
-                    <!-- Omega: En dış tahta yüzeyi -->
-                    <circle cx="210" cy="280" r="160" fill="#2c2419" stroke="#b08154" stroke-width="12"/>
-                    <circle cx="210" cy="280" r="140" fill="#3a3022" stroke="#4a3e2c" stroke-width="2" stroke-dasharray="8 8"/>
-                    <!-- Omega Etiketi -->
-                    <path d="M210 120 L210 80 L180 80" stroke="#fff" stroke-width="2"/>
-                    <rect x="50" y="65" width="130" height="30" fill="#111" rx="4" stroke="#555"/>
-                    <text x="115" y="85" fill="#fff" font-size="16" font-family="sans-serif" font-weight="bold" text-anchor="middle">2. Örneklem (Ω)</text>
-
-                    <!-- Olay: İç Hedef Bölgesi (Kırmızı) -->
-                    <circle cx="210" cy="280" r="70" fill="#8b3030" stroke="#e04e4e" stroke-width="4"/>
-                    <!-- Olay Etiketi -->
-                    <path d="M160 320 L100 370 L70 370" stroke="#fff" stroke-width="2"/>
-                    <rect x="20" y="355" width="100" height="30" fill="#111" rx="4" stroke="#555"/>
-                    <text x="70" y="375" fill="#e04e4e" font-size="16" font-family="sans-serif" font-weight="bold" text-anchor="middle">4. Olay (E)</text>
+                    <!-- DART TAHTASI (Omega) -->
+                    <!-- Dış tahta / Karanlık Ahşap Teması -->
+                    <circle cx="210" cy="290" r="160" fill="#1a1614" stroke="#332a24" stroke-width="10"/>
+                    <!-- Dilim Çizgileri -->
+                    <g stroke="#262626" stroke-width="2">
+                        <line x1="210" y1="130" x2="210" y2="450" />
+                        <line x1="50" y1="290" x2="370" y2="290" />
+                        <line x1="97" y1="177" x2="323" y2="403" />
+                        <line x1="97" y1="403" x2="323" y2="177" />
+                    </g>
+                    <!-- İç Halkalar (Puan Çizgileri) -->
+                    <circle cx="210" cy="290" r="110" fill="transparent" stroke="#262626" stroke-width="14"/>
+                    <circle cx="210" cy="290" r="60" fill="transparent" stroke="#262626" stroke-width="14"/>
                     
-                    <!-- P Olasılık: Atış Yoğunluğu (Odak noktasına scatter blur effect algısı) -->
-                    <circle cx="210" cy="280" r="40" fill="url(#p-focus)" opacity="0.6"/>
-                    <text x="375" y="325" fill="#63b3ed" font-size="16" font-family="sans-serif" font-weight="bold" text-anchor="middle">5. Fonksiyon P(E)</text>
-                    <text x="375" y="345" fill="#aaa" font-size="12" font-family="sans-serif" text-anchor="middle">(Dağılım Kuralı)</text>
-                    <path d="M375 300 L300 240" stroke="#63b3ed" stroke-width="2" stroke-dasharray="4 4" marker-end="url(#arrow)"/>
+                    <!-- Omega Etiketi -->
+                    <path d="M210 130 L210 90 L180 90" stroke="#fff" stroke-width="2"/>
+                    <rect x="50" y="75" width="130" height="30" fill="#1a1a1a" rx="4" stroke="#444"/>
+                    <text x="115" y="95" fill="#fff" font-size="14" font-family="sans-serif" font-weight="bold" text-anchor="middle">2. Örneklem (Ω)</text>
 
+                    <!-- Olay E: Hedef Bölgesi (İç Çember - Kırmızı Ton) -->
+                    <circle cx="210" cy="290" r="30" fill="#8b3030" stroke="#e04e4e" stroke-width="3"/>
+                    <circle cx="210" cy="290" r="10" fill="#e04e4e" />
+                    
+                    <!-- Olay Etiketi -->
+                    <path d="M185 290 L120 290 L100 270" stroke="#fff" stroke-width="2"/>
+                    <rect x="20" y="240" width="100" height="30" fill="#1a1a1a" rx="4" stroke="#444"/>
+                    <text x="70" y="260" fill="#e04e4e" font-size="14" font-family="sans-serif" font-weight="bold" text-anchor="middle">4. Olay (E)</text>
+                    
+                    <!-- P Olasılık: Atış Yoğunluğu (Mavi Işıma) -->
+                    <circle cx="210" cy="290" r="80" fill="url(#p-focus)" opacity="0.35"/>
+                    <text x="400" y="380" fill="#63b3ed" font-size="14" font-family="sans-serif" font-weight="bold" text-anchor="middle">5. P() Dağılımı</text>
+                    <text x="400" y="398" fill="#aaa" font-size="11" font-family="sans-serif" text-anchor="middle">(Matematiksel Yoğunluk)</text>
+                    <path d="M370 360 L280 320" stroke="#63b3ed" stroke-width="2" stroke-dasharray="4 4" marker-end="url(#arrow)"/>
 
-                    <!-- Çıktı: Sapanlanan Nokta -->
-                    <path d="M215 235 L190 200 L210 180 Z" fill="#ccc"/> <!-- Ok tüyü temsili -->
-                    <line x1="200" y1="190" x2="230" y2="250" stroke="#ccc" stroke-width="4"/>
-                    <circle cx="230" cy="250" r="4" fill="#fff" stroke="#facc15" stroke-width="2"/>
+                    <!-- DART OKU (ω Çıktısı) -->
+                    <g>
+                        <!-- İğne ucu (Saplanan metal kısım) -->
+                        <line x1="230" y1="265" x2="210" y2="290" stroke="#bbb" stroke-width="2" stroke-linecap="round"/>
+                        <!-- Gövde (Barrel) -->
+                        <line x1="265" y1="225" x2="230" y2="265" stroke="#facc15" stroke-width="8" stroke-linecap="round"/>
+                        <line x1="255" y1="235" x2="240" y2="252" stroke="#fff" stroke-width="2"/> <!-- Işık Parlaması -->
+                        <!-- Mil (Shaft) -->
+                        <line x1="290" y1="195" x2="265" y2="225" stroke="#777" stroke-width="4"/>
+                        <!-- Tüyler (Flight) -->
+                        <g fill="#4299e1" stroke="#2b6cb0" stroke-width="1">
+                            <path d="M290 195 L275 160 L285 180 Z"/>
+                            <path d="M290 195 L320 185 L300 198 Z"/>
+                            <path d="M290 195 L300 165 L292 185 Z" fill="#63b3ed"/>
+                        </g>
+                        <!-- Sonuç Noktası -->
+                        <circle cx="210" cy="290" r="3" fill="#fff" stroke="#000" stroke-width="1"/>
+                    </g>
+                    
                     <!-- Çıktı Etiketi -->
-                    <path d="M230 250 L320 180 L350 180" stroke="#fff" stroke-width="2"/>
-                    <rect x="350" y="165" width="100" height="30" fill="#111" rx="4" stroke="#555"/>
-                    <text x="400" y="185" fill="#fff" font-size="16" font-family="sans-serif" font-weight="bold" text-anchor="middle">3. Çıktı (ω)</text>
+                    <path d="M210 290 L210 420 L240 440" stroke="#fff" stroke-width="2"/>
+                    <rect x="240" y="425" width="100" height="30" fill="#1a1a1a" rx="4" stroke="#444"/>
+                    <text x="290" y="445" fill="#fff" font-size="14" font-family="sans-serif" font-weight="bold" text-anchor="middle">3. Çıktı (ω)</text>
 
                     <defs>
-                        <linearGradient id="dart-trail" x1="420" y1="80" x2="210" y2="250" gradientUnits="userSpaceOnUse">
-                            <stop stop-color="#fff" stop-opacity="0"/>
-                            <stop offset="1" stop-color="#fff"/>
-                        </linearGradient>
                         <radialGradient id="p-focus" cx="0.5" cy="0.5" r="0.5">
                             <stop offset="0%" stop-color="#63b3ed" stop-opacity="1"/>
                             <stop offset="100%" stop-color="#63b3ed" stop-opacity="0"/>
