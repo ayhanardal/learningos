@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1.1 - NE? (Aksiyomatik Olasılık)</title>
+    <!-- KaTeX -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
+        onload="renderMathInElement(document.body);"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #191919;
+            --text: #e0e0e0;
+            --accent: #facc15;
+            --card-bg: #242424;
+            --border: #333;
+        }
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 3rem;
+            scrollbar-width: none;
+            line-height: 1.7;
+        }
+        ::-webkit-scrollbar { display: none; }
+        h1, h2, h3 { color: #fff; font-weight: 600; }
+        h1 { font-size: 2.5rem; letter-spacing: -0.02em; margin-bottom: 0.5rem; }
+        .subtitle { color: #888; font-size: 1.2rem; margin-bottom: 3rem; font-weight: 300; }
+        
+        .analogy {
+            border-left: 4px solid var(--accent);
+            padding: 1.5rem;
+            background-color: rgba(250, 204, 21, 0.05);
+            font-style: italic;
+            margin: 2rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin: 2rem 0; }
+        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin: 2rem 0; }
+        
+        .card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+        .concept-title { color: var(--accent); font-size: 1.2rem; font-weight: 600; margin-bottom: 1rem; display: flex; align-items: center; justify-content: space-between;}
+        
+        .svg-container { width: 100%; display: flex; justify-content: center; margin: 3rem 0; }
+        .quote-box { font-size: 1.5rem; font-weight: 300; text-align: center; color: #fff; max-width: 800px; margin: 4rem auto; line-height: 1.4; }
+        
+        .badge { background: #333; padding: 0.2rem 0.6rem; border-radius: 4px; font-size: 0.9rem; font-weight: 600;}
+        
+        @media (max-width: 768px) {
+            .grid-2, .grid-3 { grid-template-columns: 1fr; }
+            body { padding: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Aksiyomatik Olasılık ve Olay Uzayları</h1>
+    <div class="subtitle">Bölüm 1 / NE? — Sınırların ve Kuralların İnşası</div>
+
+    <div class="quote-box">
+        "Sınırlarını tam olarak bilmediğin bir evrenin içinde<br>hiçbir şeyin şansını hesaplayamazsın."
+    </div>
+
+    <div class="svg-container">
+        <!-- Abstract Dart Board SVG -->
+        <svg width="300" height="300" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="50" cy="50" r="48" stroke="#333" stroke-width="2" fill="#191919"/>
+            <circle cx="50" cy="50" r="35" stroke="#444" stroke-width="1" stroke-dasharray="2 2"/>
+            <circle cx="50" cy="50" r="20" stroke="#facc15" stroke-width="2" fill="rgba(250, 204, 21, 0.1)"/>
+            <circle cx="60" cy="45" r="1.5" fill="#fff"/>
+            <path d="M75 30 L62 43" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/>
+            <text x="50" y="55" fill="#facc15" font-size="10" font-family="sans-serif" text-anchor="middle" font-weight="bold">E</text>
+            <text x="85" y="85" fill="#666" font-size="12" font-family="sans-serif">Ω</text>
+            <text x="68" y="42" fill="#fff" font-size="8" font-family="sans-serif">ω</text>
+        </svg>
+    </div>
+
+    <h2>Olasılık Oyunundaki 5 Temel Oyuncu</h2>
+    <p>Olasılığı matematikle ifade edebilmek için önce oyunu kurguladığımız evreni ve elemanlarını tanımlamalıyız.</p>
+
+    <div class="grid-2">
+        <div class="card">
+            <div class="concept-title">1. Deney (Experiment)</div>
+            <p>Sonucu önceden kesin olarak bilinemeyen, ancak tekrarlanabilir ve gözlemlenebilir fiziksel veya teorik süreçtir.</p>
+            <div class="analogy">Gözlerin kapalı bir şekilde elindeki dart okunu tahtaya doğru fırlatma eyleminin bütünüdür.</div>
+        </div>
+        <div class="card">
+            <div class="concept-title">2. Örneklem Uzayı <span class="badge">\(\Omega\)</span></div>
+            <p>Bir deney sonucunda ortaya çıkabilecek <strong>istisnasız tüm</strong> olası durumların oluşturduğu en büyük kümedir. İstatistiksel evrenimizin sınırıdır.</p>
+            <div class="analogy">Dart tahtasının fiziki yüzeyinin tamamıdır. Tahtanın dışına çıkamazsın.</div>
+        </div>
+        <div class="card">
+            <div class="concept-title">3. Çıktı <span class="badge">\(\omega\)</span></div>
+            <p>Deneyin sonucunda gerçekleşen, daha fazla alt parçaya bölünemeyen en temel ve nihai sonuçtur.</p>
+            <div class="analogy">Okun tahtaya saplandığı o tek, milimetrik nokta. O kadar küçüktür ki daha alt bölgelere ayıramazsın.</div>
+        </div>
+        <div class="card">
+            <div class="concept-title">4. Olay <span class="badge">\(E\)</span></div>
+            <p>\(\Omega\) içinden seçtiğimiz, hesaplamak istediğimiz belirli bir özelliğe uyan çıktılar kümesidir.</p>
+            <div class="analogy">"Kırmızı Bölge" veya "Tam Merkez"dir. Ok o kırmızılıktaki <i>herhangi</i> bir noktaya (\(\omega\)) saplanırsa, "Kırmızı vurma olayı" (\(E\)) gerçekleşmiş sayılır.</div>
+        </div>
+    </div>
+
+    <div class="card" style="margin-top: 2rem;">
+        <div class="concept-title">5. Olasılık Ölçüsü / Mekanizması <span class="badge">\(P\)</span></div>
+        <p>\(\Omega\) uzayındaki \(E\) olaylarına, olasılık değerini <strong>hangi kurala göre</strong> atayacağımızı belirleyen matematiksel fonksiyondur. Sadece sınırları çizmek yetmez, rastgeleliğin nasıl dağılacağını baştan ilan etmeliyiz.</p>
+        <div class="analogy">Atışların tahtaya nasıl dağılacağını belirleyen <strong>atıcı profili</strong>dir. Her yere eşit mi atıyor, yoksa merkeze mi odaklanıyor? Bu karakteristiğin matematiği \(P\)'dir.</div>
+    </div>
+
+    <hr style="border:0; border-top: 1px solid var(--border); margin: 4rem 0;">
+
+    <h2>Kolmogorov Aksiyomları: Olasılığın Anayasası</h2>
+    <p>Olasılık hesaplarken kullandığımız o %10, %50 gibi değerler aslında uzayda kaplanan bir "hacim" ölçümüdür. Evrenimizi bir harita (\(\Omega\)), elimizdeki %100 olasılığı da <strong>1 Kilogramlık Sihirli Altın Tozu</strong> olarak düşünelim.</p>
+    
+    <div class="grid-3">
+        <div class="card">
+            <div class="concept-title">1. Negatif Olmama</div>
+            <p>Haritanın neresini seçersen seç, oraya "negatif" miktarda toz serpemezsin.</p>
+            <div style="margin-top: 1rem; color: var(--text);">\[ P(E) \ge 0 \]</div>
+        </div>
+        <div class="card">
+            <div class="concept-title">2. Normalization</div>
+            <p>Altın tozunun <i>tamamı</i> haritanın (\(\Omega\)) bir yerlerine düşmek zorundadır. Toz buharlaşamaz.</p>
+            <div style="margin-top: 1rem; color: var(--text);">\[ P(\Omega) = 1 \]</div>
+        </div>
+        <div class="card">
+            <div class="concept-title">3. Toplanabilirlik</div>
+            <p>Eğer iki bölge (A ve B) kesişmiyorsa (\(A \cap B = \emptyset\)), ikisindeki toplam toz, ayrı ayrı ölçümlerin toplamıdır.</p>
+            <div style="margin-top: 1rem; color: var(--text);">\[ P(A \cup B) = P(A) + P(B) \]</div>
+        </div>
+    </div>
+
+</body>
+</html>
