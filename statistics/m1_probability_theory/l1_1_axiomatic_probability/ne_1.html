@@ -14,7 +14,7 @@
         :root {
             --bg: #121212; --text: #e0e0e0; --accent: #facc15; --slide-bg: #1e1e1e; --border: #333;
         }
-        html { font-size: 15px; } /* Okunabilirlik için fontlar büyütüldü */
+        html { font-size: 14px; } /* Okunabilirlik ve sığma dengesi için düzenlendi */
         body {
             margin: 0; padding: 4vh 6vw; /* Tüm içeriğin sığabilmesi için esnek padding */
             width: 100vw; height: 100vh; box-sizing: border-box;
@@ -58,7 +58,7 @@
 
     <div class="slide">
         <header>
-            <h1 style="color: var(--accent);">5 Temel Aktör (Matematiksel Dart Tahtası)</h1>
+            <h1 style="color: var(--accent);">4 Temel Aktör (Matematiksel Dart Tahtası)</h1>
             <div class="subtitle">Bölüm 1 / NE? (1/2) — Bütünleşik Olasılık Anatomisi</div>
         </header>
 
@@ -101,15 +101,6 @@
                     <p class="desc">\(\Omega\) içinden seçtiğimiz, ilgilendiğimiz filtre (çıktılar kümesi).</p>
                     <p class="analogy">Tahtadaki belirli bir hedef alandır (Örn: "Kırmızı Bölge").</p>
                 </div>
-
-                <div class="card blue">
-                    <div class="card-header">
-                        <span class="badge" style="color: #63b3ed;">\(P\)</span>
-                        <div class="concept-title" style="color: #63b3ed;">Olasılık Ölçüsü (Measure)</div>
-                    </div>
-                    <p class="desc">Olaylara (\(E\)) ağırlık veya alan biçen kesin yasa (matematiksel terazi).</p>
-                    <p class="analogy">Eksikliği veya iyi tanımlanmaması <strong>Bertrand Paradoksu</strong> gibi rastgelelik kaoslarını doğurur.</p>
-                </div>
             </div>
 
             <!-- Analoji Odaklı İnfografik SVG -->
@@ -118,8 +109,11 @@
                     
                     <!-- Deney: Arkadan gelen ok izi ve hareketi -->
                     <path d="M420 80 Q360 140 250 210" stroke="#555" stroke-width="2" stroke-dasharray="8 8"/>
-                    <text x="350" y="60" fill="#facc15" font-size="18" font-weight="bold" font-family="sans-serif">Deney [1]</text>
-                    <text x="350" y="80" fill="#aaa" font-size="13" font-family="sans-serif">(Fırlatma Eylemi)</text>
+                    
+                    <!-- Deney Etiketi -->
+                    <rect x="360" y="45" width="90" height="30" fill="#1a1a1a" rx="4" stroke="#444"/>
+                    <text x="405" y="65" fill="#facc15" font-size="14" font-weight="bold" font-family="sans-serif" text-anchor="middle">Deney</text>
+                    <text x="405" y="90" fill="#aaa" font-size="11" font-family="sans-serif" font-style="italic" text-anchor="middle">(Fırlatma eylemi)</text>
 
                     <!-- DART TAHTASI (Omega) -->
                     <!-- Dış tahta / Karanlık Ahşap Teması -->
@@ -139,6 +133,7 @@
                     <path d="M210 130 L210 90 L180 90" stroke="#fff" stroke-width="2"/>
                     <rect x="50" y="75" width="130" height="30" fill="#1a1a1a" rx="4" stroke="#444"/>
                     <text x="115" y="95" fill="#fff" font-size="14" font-family="sans-serif" font-weight="bold" text-anchor="middle">Örneklem [Ω]</text>
+                    <text x="115" y="120" fill="#aaa" font-size="11" font-family="sans-serif" font-style="italic" text-anchor="middle">(Dart tahtasının tamamı)</text>
 
                     <!-- Olay E: Hedef Bölgesi (İç Çember - Kırmızı Ton) -->
                     <circle cx="210" cy="290" r="30" fill="#8b3030" stroke="#e04e4e" stroke-width="3"/>
@@ -148,12 +143,7 @@
                     <path d="M185 290 L120 290 L100 270" stroke="#fff" stroke-width="2"/>
                     <rect x="20" y="240" width="100" height="30" fill="#1a1a1a" rx="4" stroke="#444"/>
                     <text x="70" y="260" fill="#e04e4e" font-size="14" font-family="sans-serif" font-weight="bold" text-anchor="middle">Olay [E]</text>
-                    
-                    <!-- P Olasılık: Atış Yoğunluğu (Mavi Işıma) -->
-                    <circle cx="210" cy="290" r="80" fill="url(#p-focus)" opacity="0.35"/>
-                    <text x="400" y="380" fill="#63b3ed" font-size="14" font-family="sans-serif" font-weight="bold" text-anchor="middle">P() Ölçüsü [P]</text>
-                    <text x="400" y="398" fill="#aaa" font-size="11" font-family="sans-serif" text-anchor="middle">(Matematiksel Yoğunluk)</text>
-                    <path d="M370 360 L280 320" stroke="#63b3ed" stroke-width="2" stroke-dasharray="4 4" marker-end="url(#arrow)"/>
+                    <text x="70" y="285" fill="#aaa" font-size="11" font-family="sans-serif" font-style="italic" text-anchor="middle">(Kırmızı hedef alan)</text>
 
                     <!-- DART OKU (ω Çıktısı) -->
                     <g>
@@ -178,16 +168,7 @@
                     <path d="M210 290 L210 420 L240 440" stroke="#fff" stroke-width="2"/>
                     <rect x="240" y="425" width="100" height="30" fill="#1a1a1a" rx="4" stroke="#444"/>
                     <text x="290" y="445" fill="#fff" font-size="14" font-family="sans-serif" font-weight="bold" text-anchor="middle">Çıktı [ω]</text>
-
-                    <defs>
-                        <radialGradient id="p-focus" cx="0.5" cy="0.5" r="0.5">
-                            <stop offset="0%" stop-color="#63b3ed" stop-opacity="1"/>
-                            <stop offset="100%" stop-color="#63b3ed" stop-opacity="0"/>
-                        </radialGradient>
-                        <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                            <path d="M 0 0 L 10 5 L 0 10 z" fill="#63b3ed" />
-                        </marker>
-                    </defs>
+                    <text x="290" y="470" fill="#aaa" font-size="11" font-family="sans-serif" font-style="italic" text-anchor="middle">(Okun tam saplandığı nokta)</text>
                 </svg>
             </div>
 
