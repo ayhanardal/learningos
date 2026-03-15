@@ -12,11 +12,21 @@
     <style>
         :root { --bg: #121212; --text: #e0e0e0; --accent: #68d391; --slide-bg: #1e1e1e; --border: #333;}
         html { font-size: 14px; }
-        body { margin: 0; padding: 10vh 10vw; width: 100vw; height: 100vh; box-sizing: border-box; background-color: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; overflow: hidden; display: flex; align-items: center; justify-content: center;}
-        .slide { width: 100%; height: 100%; max-width: 1200px; margin: 0 auto; background: var(--slide-bg); border: 1px solid var(--border); border-radius: 1rem; padding: 2.5rem 3.5rem; box-sizing: border-box; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.5);}
-        header { flex-shrink: 0; border-bottom: 1px solid var(--border); padding-bottom: 1rem; margin-bottom: 2rem;}
+        body {
+            margin: 0; padding: 4vh 6vw;
+            width: 100vw; height: 100vh; box-sizing: border-box;
+            background-color: var(--bg); color: var(--text); font-family: 'Inter', sans-serif;
+            overflow: hidden; display: flex; align-items: center; justify-content: center;
+        }
+        .slide {
+            width: 100%; height: 100%; max-width: 1300px; margin: 0 auto;
+            background: var(--slide-bg); border: 1px solid var(--border); border-radius: 1rem;
+            padding: 2rem 3rem; box-sizing: border-box; display: flex; flex-direction: column;
+            overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+        }
+        header { flex-shrink: 0; border-bottom: 1px solid var(--border); padding-bottom: 0.8rem; margin-bottom: 1.5rem;}
         h1 { margin: 0; font-size: 2rem; color: #fff; font-weight: 600; letter-spacing: -0.02em;}
-        .subtitle { color: #888; font-size: 1.1rem; margin-top: 0.5rem; font-weight: 300; }
+        .subtitle { color: #888; font-size: 1.1rem; margin-top: 0.3rem; font-weight: 300; }
         
         .analogy { border-left: 4px solid var(--accent); padding: 1.5rem; background-color: rgba(104, 211, 145, 0.05); font-style: italic; font-size: 1.1rem;}
         
