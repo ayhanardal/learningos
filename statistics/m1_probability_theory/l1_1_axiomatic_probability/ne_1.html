@@ -34,11 +34,11 @@
         .content { flex: 1; display: grid; grid-template-columns: 1fr 1.1fr; gap: 2rem; align-items: stretch; overflow: hidden; }
         
         /* Kartların listesi (Bütünlük bölümü) */
-        .text-section { display: flex; flex-direction: column; gap: 0.4rem; justify-content: center;}
+        .text-section { display: flex; flex-direction: column; gap: 1.5rem; justify-content: center;}
         
         .card { 
             background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-left: 4px solid var(--accent);
-            border-radius: 8px; padding: 1.2rem; display: flex; flex-direction: column; gap: 0.5rem;
+            border-radius: 8px; padding: 1.5rem 1.2rem; display: flex; flex-direction: column; gap: 0.8rem;
         }
         .card.blue { border-left-color: #63b3ed; }
         
@@ -105,15 +105,15 @@
 
             <!-- Analoji Odaklı İnfografik SVG -->
             <div class="svg-container">
-                <svg width="100%" height="100%" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg width="100%" height="100%" viewBox="-40 40 500 500" fill="none" xmlns="http://www.w3.org/2000/svg" style="font-family: 'Inter', sans-serif;">
                     
                     <!-- Deney: Arkadan gelen ok izi ve hareketi -->
                     <path d="M420 80 Q360 140 250 210" stroke="#555" stroke-width="2" stroke-dasharray="8 8"/>
                     
                     <!-- Deney Etiketi -->
                     <rect x="360" y="45" width="90" height="30" fill="#1a1a1a" rx="4" stroke="#444"/>
-                    <text x="405" y="65" fill="#facc15" font-size="14" font-weight="bold" font-family="sans-serif" text-anchor="middle">Deney</text>
-                    <text x="405" y="90" fill="#aaa" font-size="11" font-family="sans-serif" font-style="italic" text-anchor="middle">(Fırlatma eylemi)</text>
+                    <text x="405" y="65" fill="#facc15" font-size="14" font-weight="bold" text-anchor="middle">Deney</text>
+                    <text x="405" y="90" fill="#aaa" font-size="11" font-style="italic" text-anchor="middle">(Fırlatma eylemi)</text>
 
                     <!-- DART TAHTASI (Omega) -->
                     <!-- Dış tahta / Karanlık Ahşap Teması -->
@@ -132,8 +132,8 @@
                     <!-- Omega Etiketi -->
                     <path d="M210 130 L210 90 L180 90" stroke="#fff" stroke-width="2"/>
                     <rect x="50" y="75" width="130" height="30" fill="#1a1a1a" rx="4" stroke="#444"/>
-                    <text x="115" y="95" fill="#fff" font-size="14" font-family="sans-serif" font-weight="bold" text-anchor="middle">Örneklem [Ω]</text>
-                    <text x="115" y="120" fill="#aaa" font-size="11" font-family="sans-serif" font-style="italic" text-anchor="middle">(Dart tahtasının tamamı)</text>
+                    <text x="115" y="95" fill="#fff" font-size="14" font-weight="bold" text-anchor="middle">Örneklem [Ω]</text>
+                    <text x="115" y="120" fill="#aaa" font-size="11" font-style="italic" text-anchor="middle">(Dart tahtasının tamamı)</text>
 
                     <!-- Olay E: Hedef Bölgesi (İç Çember - Kırmızı Ton) -->
                     <circle cx="210" cy="290" r="30" fill="#8b3030" stroke="#e04e4e" stroke-width="3"/>
@@ -142,8 +142,8 @@
                     <!-- Olay Etiketi -->
                     <path d="M185 290 L120 290 L100 270" stroke="#fff" stroke-width="2"/>
                     <rect x="20" y="240" width="100" height="30" fill="#1a1a1a" rx="4" stroke="#444"/>
-                    <text x="70" y="260" fill="#e04e4e" font-size="14" font-family="sans-serif" font-weight="bold" text-anchor="middle">Olay [E]</text>
-                    <text x="70" y="285" fill="#aaa" font-size="11" font-family="sans-serif" font-style="italic" text-anchor="middle">(Kırmızı hedef alan)</text>
+                    <text x="70" y="260" fill="#e04e4e" font-size="14" font-weight="bold" text-anchor="middle">Olay [E]</text>
+                    <text x="70" y="285" fill="#aaa" font-size="11" font-style="italic" text-anchor="middle">(Kırmızı hedef alan)</text>
 
                     <!-- DART OKU (ω Çıktısı) -->
                     <g>
@@ -167,8 +167,8 @@
                     <!-- Çıktı Etiketi -->
                     <path d="M210 290 L210 420 L240 440" stroke="#fff" stroke-width="2"/>
                     <rect x="240" y="425" width="100" height="30" fill="#1a1a1a" rx="4" stroke="#444"/>
-                    <text x="290" y="445" fill="#fff" font-size="14" font-family="sans-serif" font-weight="bold" text-anchor="middle">Çıktı [ω]</text>
-                    <text x="290" y="470" fill="#aaa" font-size="11" font-family="sans-serif" font-style="italic" text-anchor="middle">(Okun tam saplandığı nokta)</text>
+                    <text x="290" y="445" fill="#fff" font-size="14" font-weight="bold" text-anchor="middle">Çıktı [ω]</text>
+                    <text x="290" y="470" fill="#aaa" font-size="11" font-style="italic" text-anchor="middle">(Okun tam saplandığı nokta)</text>
                 </svg>
             </div>
 
