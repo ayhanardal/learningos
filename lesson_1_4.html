@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>[1.4] Çok Değişkenli Dağılımlar</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<style>
+  :root {
+    --bg: #191919;
+    --bg-card: #232323;
+    --bg-callout: #2a2a2a;
+    --border: #333;
+    --accent: #e6a817;
+    --accent2: #4ea8a8;
+    --text: #e0e0e0;
+    --text-muted: #888;
+    --text-label: #aaa;
+    --radius: 10px;
+    --font: 'Segoe UI', system-ui, sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font);
+    font-size: 15px;
+    line-height: 1.7;
+    padding: 36px 28px;
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  .lesson-tag {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  h1 {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+
+  .subtitle {
+    color: var(--text-muted);
+    font-size: 13px;
+    margin-bottom: 32px;
+  }
+
+  .section-title {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 16px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* TANIM KARTI */
+  .def-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    margin-bottom: 16px;
+    overflow: hidden;
+  }
+
+  .def-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 18px 10px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .def-index {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-muted);
+    background: #2f2f2f;
+    padding: 2px 8px;
+    border-radius: 4px;
+    letter-spacing: 0.5px;
+  }
+
+  .def-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .def-title .sym {
+    color: var(--accent2);
+    font-style: italic;
+  }
+
+  /* İKİ KOLON */
+  .def-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+  }
+
+  .def-col {
+    padding: 16px 18px;
+  }
+
+  .def-col:first-child {
+    border-right: 1px solid var(--border);
+  }
+
+  .col-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+  }
+
+  .def-text {
+    font-size: 14px;
+    color: var(--text);
+    line-height: 1.65;
+  }
+
+  .def-text strong {
+    color: #fff;
+  }
+
+  .analogy-box {
+    margin-top: 10px;
+    background: #1e1e1e;
+    border-left: 3px solid var(--accent);
+    border-radius: 0 6px 6px 0;
+    padding: 10px 12px;
+    font-size: 13px;
+    color: #bbb;
+    font-style: italic;
+    line-height: 1.6;
+  }
+
+  .latex-box {
+    margin-top: 12px;
+    background: #1a1a1a;
+    border: 1px solid #333;
+    border-radius: 6px;
+    padding: 12px 14px;
+    font-size: 13px;
+    color: var(--text-muted);
+    text-align: center;
+  }
+
+  /* SVG ALANI */
+  .svg-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    min-height: 160px;
+  }
+
+  svg text { font-family: var(--font); }
+
+  .spacer { height: 32px; }
+</style>
+</head>
+<body>
+
+<div class="lesson-tag">İstatistik · Modül 1 · Ders 1.4</div>
+<h1>Çok Değişkenli Dağılımlar</h1>
+<p class="subtitle">Format demosu — yapı testi</p>
+
+<div class="section-title">Tanımlar</div>
+
+<!-- TANIM 1 -->
+<div class="def-card">
+  <div class="def-header">
+    <span class="def-index">[1]</span>
+    <span class="def-title">Ortak Dağılım <span class="sym">(Joint Distribution)</span></span>
+  </div>
+  <div class="def-body">
+    <div class="def-col">
+      <div class="col-label">Tanım &amp; Notasyon</div>
+      <div class="def-text">
+        İki veya daha fazla rastgele değişkenin <strong>aynı anda</strong> hangi değerleri alabileceğini tanımlayan olasılık yapısıdır.
+        <div class="latex-box">
+          \(f_{X,Y}(x,y) = P(X = x,\ Y = y)\)
+        </div>
+        <div class="latex-box" style="margin-top:8px">
+          \(\sum_{x}\sum_{y} f_{X,Y}(x,y) = 1\)
+        </div>
+      </div>
+      <div class="analogy-box">
+        Tek bir zarın dağılımı değil — <em>iki zarın birlikte</em> atıldığı uzaydaki tüm (x, y) çiftlerinin haritası.
+      </div>
+    </div>
+    <div class="def-col">
+      <div class="col-label">Görsel</div>
+      <div class="svg-wrap">
+        <svg viewBox="0 0 240 180" width="240" height="180" xmlns="http://www.w3.org/2000/svg">
+          <!-- eksenler -->
+          <line x1="30" y1="150" x2="220" y2="150" stroke="#555" stroke-width="1.5"/>
+          <line x1="30" y1="150" x2="30" y2="20" stroke="#555" stroke-width="1.5"/>
+          <text x="225" y="154" fill="#666" font-size="11">X</text>
+          <text x="22" y="16" fill="#666" font-size="11">Y</text>
+          <!-- grid noktaları -->
+          <g fill="none">
+            <circle cx="70"  cy="120" r="8"  fill="#4ea8a8" opacity="0.25"/>
+            <circle cx="70"  cy="90"  r="14" fill="#4ea8a8" opacity="0.45"/>
+            <circle cx="70"  cy="60"  r="7"  fill="#4ea8a8" opacity="0.20"/>
+            <circle cx="120" cy="120" r="11" fill="#4ea8a8" opacity="0.35"/>
+            <circle cx="120" cy="90"  r="22" fill="#4ea8a8" opacity="0.60"/>
+            <circle cx="120" cy="60"  r="13" fill="#4ea8a8" opacity="0.40"/>
+            <circle cx="170" cy="120" r="7"  fill="#4ea8a8" opacity="0.20"/>
+            <circle cx="170" cy="90"  r="12" fill="#4ea8a8" opacity="0.38"/>
+            <circle cx="170" cy="60"  r="6"  fill="#4ea8a8" opacity="0.18"/>
+          </g>
+          <!-- eksen etiketleri -->
+          <text x="65"  y="165" fill="#666" font-size="10" text-anchor="middle">x₁</text>
+          <text x="120" y="165" fill="#666" font-size="10" text-anchor="middle">x₂</text>
+          <text x="170" y="165" fill="#666" font-size="10" text-anchor="middle">x₃</text>
+          <text x="18" y="123" fill="#666" font-size="10" text-anchor="middle">y₁</text>
+          <text x="18" y="93"  fill="#666" font-size="10" text-anchor="middle">y₂</text>
+          <text x="18" y="63"  fill="#666" font-size="10" text-anchor="middle">y₃</text>
+          <!-- açıklama -->
+          <circle cx="50" cy="10" r="6" fill="#4ea8a8" opacity="0.5"/>
+          <text x="60" y="14" fill="#888" font-size="10">P(X,Y) büyüklüğü</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TANIM 2 -->
+<div class="def-card">
+  <div class="def-header">
+    <span class="def-index">[2]</span>
+    <span class="def-title">Marjinal Dağılım <span class="sym">(Marginal Distribution)</span></span>
+  </div>
+  <div class="def-body">
+    <div class="def-col">
+      <div class="col-label">Tanım &amp; Notasyon</div>
+      <div class="def-text">
+        Ortak dağılımdan tek bir değişkeni izole etmek için diğer değişkenin <strong>tüm değerleri üzerinden toplanmasıyla</strong> elde edilen dağılım.
+        <div class="latex-box">
+          \(f_X(x) = \sum_{y} f_{X,Y}(x,y)\)
+        </div>
+      </div>
+      <div class="analogy-box">
+        İki zarın ortak tablosunu al — sadece <em>satır toplamlarına</em> bak. X'in Y'den bağımsız davranışını görmüş olursun.
+      </div>
+    </div>
+    <div class="def-col">
+      <div class="col-label">Görsel</div>
+      <div class="svg-wrap">
+        <svg viewBox="0 0 240 180" width="240" height="180" xmlns="http://www.w3.org/2000/svg">
+          <!-- tablo gövdesi -->
+          <rect x="30" y="20" width="150" height="110" rx="4" fill="#1e1e1e" stroke="#333" stroke-width="1"/>
+          <!-- satır çizgileri -->
+          <line x1="30" y1="57"  x2="180" y2="57"  stroke="#2f2f2f" stroke-width="1"/>
+          <line x1="30" y1="94"  x2="180" y2="94"  stroke="#2f2f2f" stroke-width="1"/>
+          <!-- sütun çizgisi -->
+          <line x1="80"  y1="20" x2="80"  y2="130" stroke="#2f2f2f" stroke-width="1"/>
+          <line x1="130" y1="20" x2="130" y2="130" stroke="#2f2f2f" stroke-width="1"/>
+          <!-- değerler -->
+          <text x="55"  y="44"  fill="#4ea8a8" font-size="11" text-anchor="middle">.12</text>
+          <text x="105" y="44"  fill="#4ea8a8" font-size="11" text-anchor="middle">.18</text>
+          <text x="155" y="44"  fill="#4ea8a8" font-size="11" text-anchor="middle">.10</text>
+          <text x="55"  y="80"  fill="#4ea8a8" font-size="11" text-anchor="middle">.20</text>
+          <text x="105" y="80"  fill="#4ea8a8" font-size="11" text-anchor="middle">.15</text>
+          <text x="155" y="80"  fill="#4ea8a8" font-size="11" text-anchor="middle">.05</text>
+          <text x="55"  y="116" fill="#4ea8a8" font-size="11" text-anchor="middle">.08</text>
+          <text x="105" y="116" fill="#4ea8a8" font-size="11" text-anchor="middle">.07</text>
+          <text x="155" y="116" fill="#4ea8a8" font-size="11" text-anchor="middle">.05</text>
+          <!-- marjinal sütun -->
+          <rect x="183" y="20" width="42" height="110" rx="4" fill="#1a2a1a" stroke="#4a7a4a" stroke-width="1" stroke-dasharray="3,2"/>
+          <text x="204" y="44"  fill="#a0d0a0" font-size="11" text-anchor="middle" font-weight="600">.40</text>
+          <text x="204" y="80"  fill="#a0d0a0" font-size="11" text-anchor="middle" font-weight="600">.40</text>
+          <text x="204" y="116" fill="#a0d0a0" font-size="11" text-anchor="middle" font-weight="600">.20</text>
+          <text x="204" y="148" fill="#777" font-size="9"  text-anchor="middle">f_X(x)</text>
+          <!-- ok işareti -->
+          <text x="196" y="15" fill="#4a7a4a" font-size="9">→ topla</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="spacer"></div>
+
+<script>
+  renderMathInElement(document.body, {
+    delimiters: [
+      {left: "\\(", right: "\\)", display: false},
+      {left: "\\[", right: "\\]", display: true}
+    ]
+  });
+</script>
+</body>
+</html>
