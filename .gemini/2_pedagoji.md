@@ -83,8 +83,11 @@ Onay gelirse şu kurallara göre üret:
 - Her kavram için imgesel SVG: minimal, sembolik, kavramın özünü taşıyan — o anki içeriğin neye ihtiyaç duyduğuna göre layout serbestçe şekillensin
 - Analoji: sarı sol border'lı italik kutu
 - Scroll bar gizli ve taşıma engelli (`overflow: hidden;`)
-- **Notion Embed Limitasyonu (Sabit Ekran ve Sayfalama):** Çıktılar **kesinlikle scroll bar oluşturmamalıdır.** Bunun yerine bir "slayt" mantığıyla çalışılmalı. Tarayıcı penceresinin (100vw, 100vh) içine tam sığan, üst/alt/sağ/sol %10 (veya padding: `+4vmin`) boşluk bırakan bir sabit konteyner kullanılmalı.
-- **Bölme:** Eğer içerik bu sığdırılmış konteynere sığmıyorsa, asla aşağı uzatılmaz; hemen 2., 3. bir HTML dosyasına bölünür.
+- **Notion Embed Limitasyonu (Laptop & 15.6 inç Uyumu):** Çıktılar **kesinlikle scroll bar oluşturmamalıdır.** Bunun yerine bir "slayt" mantığıyla çalışılmalı. 15.6 inç notebook ekranlarındaki Notion sınırlarına sığması ve çok geniş kalmaması için:
+  - Base font-size küçültülmeli (Örn: `html { font-size: 14px; }`).
+  - Tarayıcı penceresinin (100vw, 100vh) içine sığan, ancak üst/alt/sağ/sol yönlerinden **%10'luk boşluklar** (Örn: `padding: 10vh 10vw;`) bırakan bir sabit konteyner kullanılmalı.
+  - Slayt kutusuna gerekirse maksimum genişlik (Örn: `max-width: 1200px; margin: 0 auto;`) atanarak aşırı yatay uzama engellenmeli.
+- **Bölme:** Eğer içerik bu daraltılmış slayt konteynerine sığmıyorsa, asla aşağı uzatılmaz; hemen 2., 3. bir HTML dosyasına bölünür.
 
 ### Dosya Mimarisi ve Formatı (Notion DB Senkronizasyonu):
 Çıktılar, Notion veritabanındaki hiyerarşiye (`Track > Module > Lesson`) uygun şekilde klasörlenmelidir. Her ders üretimi öncesinde kullanıcıya: "Veritabanın veya Klasör isimlerinde bir değişiklik oldu mu? Track, Module ve Lesson adlarını klasör yapısı için belirtebilir misin?" diye sorulmalıdır. Klasör ve dosya isimleri daima küçük harf, İngilizce karakter ve alt tire (`_`) ile oluşturulmalıdır.
