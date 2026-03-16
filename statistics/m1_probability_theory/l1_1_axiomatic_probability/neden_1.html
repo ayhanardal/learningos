@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>1.1 - Bertrand Paradoksu</title>
+    <title>1.1 - Aksiyomatik Olasılığın Getirdiği Çözüm</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
@@ -36,82 +36,105 @@
         header { flex-shrink: 0; border-bottom: 2px solid var(--accent); padding-bottom: 1rem; margin-bottom: 2rem; }
         h1 { margin: 0; font-size: 2.4rem; color: var(--accent); font-weight: 800; letter-spacing: -0.04em; }
 
-        .content { flex: 1; display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 4rem; align-items: center; }
+        .content-wrapper { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+        .content { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 4rem; align-items: center; }
 
         .info-pane { display: flex; flex-direction: column; gap: 1.5rem; }
-        .intro-text { font-size: 1.15rem; line-height: 1.6; color: #ccc; }
-        
-        .paradox-container { display: flex; flex-direction: column; gap: 1.2rem; }
-        
+        .intro-text { font-size: 1.3rem; line-height: 1.6; color: #ccc; }
+        .intro-text strong { color: #fff; }
+
+        .paradox-box {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin: 1rem 0;
+        }
         .approach {
             padding: 1.2rem; background: rgba(255,255,255,0.03); border-radius: 8px;
-            border-left: 3px solid #555;
+            border-top: 3px solid #444; display: flex; flex-direction: column; gap: 0.5rem;
         }
-        .approach-title { font-size: 1.1rem; font-weight: 700; color: #fff; margin-bottom: 0.5rem; }
-        .approach.active { border-left-color: var(--accent); background: rgba(250, 204, 21, 0.05); }
+        .approach-title { font-size: 1rem; font-weight: 700; color: #888; text-transform: uppercase; letter-spacing: 0.05em; }
+        .approach-result { font-size: 1.4rem; color: #fff; font-weight: 700; }
+        .approach.active { border-top-color: var(--accent); background: rgba(250, 204, 21, 0.05); }
+
+        .solution-pith {
+            border-left: 4px solid var(--accent); padding-left: 1.5rem; margin-top: 1rem;
+        }
+        .solution-pith p { font-size: 1.2rem; line-height: 1.6; color: #eee; font-style: italic; margin: 0; }
 
         .visual-pane {
-            background: #000; border-radius: 12px; height: 100%; max-height: 400px;
+            background: #000; border-radius: 12px; height: 100%; max-height: 420px;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
-            border: 1px solid #2a2a2a; position: relative;
+            border: 1px solid #2a2a2a; position: relative; overflow: hidden;
         }
 
-        .factory-svg { width: 100%; height: 60%; }
-        .alert-box { 
-            margin-top: 1.5rem; padding: 1rem; background: rgba(239, 68, 68, 0.1); 
-            border: 1px solid var(--error); border-radius: 6px; color: var(--error);
-            font-weight: 600; text-align: center;
-        }
+        .map-svg { width: 100%; height: 65%; }
+        .factory-belt { fill: #333; }
+        .square-plate { fill: #8B5A2B; stroke: #5d3a1e; stroke-width: 2; }
     </style>
 </head>
 <body>
 
     <div class="slide">
         <header>
-            <h1>Bertrand Paradoksu: Klasik Olasılığın Çöküşü</h1>
+            <h1>Aksiyomatik Olasılığın Getirdiği Çözüm</h1>
         </header>
 
-        <div class="content">
-            <div class="info-pane">
-                <p class="intro-text">
-                    İstatistiktekteki "Kayıtsızlık İlkesine" göre, elimizde bilgi yoksa her olaya eşit olasılık atarız. Ancak <strong>Joseph Bertrand</strong>, bu basit varsayımın sürekli uzaylarda nasıl tutarsızlık yarattığını şu örnekle kanıtlar:
-                </p>
+        <div class="content-wrapper">
+            <div class="content">
+                <div class="info-pane">
+                    <p class="intro-text">
+                        "NE?" bölümünde gördüğümüz katı tanımlar birer mühendislik çözümüdür. Eğer <strong>Örneklem Uzayını ($\Omega$)</strong> ve <strong>Olasılık Fonksiyonunu ($P$)</strong> aksiyomatik olarak en başta sabitlemezseniz; "rastgelelik" bakış açınıza göre değişen bir belirsizliğe dönüşür.
+                    </p>
 
-                <div class="paradox-container">
-                    <div class="approach active">
-                        <div class="approach-title">1. Yaklaşım (Uzunluk Merceği)</div>
-                        <p>Kenarı 1m-3m arası olan karenin kenarının 1m-2m arası olma olasılığı?</p>
-                        <strong>Sonuç: %50 ($1/2$)</strong>
+                    <div class="paradox-box">
+                        <div class="approach">
+                            <div class="approach-title">Uzunluk Bazlı Ölçüm</div>
+                            <div class="approach-result">Sonuç: %50</div>
+                        </div>
+                        <div class="approach">
+                            <div class="approach-title">Alan Bazlı Ölçüm</div>
+                            <div class="approach-result">Sonuç: %37.5</div>
+                        </div>
                     </div>
 
-                    <div class="approach">
-                        <div class="approach-title">2. Yaklaşım (Alan Merceği)</div>
-                        <p>Alanı 1m²-9m² arası olan karenin alanının 1m²-4m² arası olma olasılığı?</p>
-                        <strong>Sonuç: %37.5 ($3/8$)</strong>
+                    <div class="solution-pith">
+                        <p>
+                            Aksiyomatik sistem der ki: "Hesap yapmadan önce hangi ölçüm modelini (sensörü) kullandığını anayasaya yazmalısın." Böylece olasılık bir 'yorum' olmaktan çıkar, kesin bir <strong>Mühendislik Ölçümü</strong> haline gelir.
+                        </p>
                     </div>
                 </div>
 
-                <div class="alert-box">
-                    ORTADA HESAP HATASI YOK! Soruyu sorduğunuz "cetvel" değiştiği an olasılık da değişiyor.
-                </div>
-            </div>
+                <div class="visual-pane">
+                    <svg class="map-svg" viewBox="0 0 300 180">
+                        <!-- Fabrika Bandı -->
+                        <rect x="20" y="150" width="260" height="8" rx="4" class="factory-belt" />
+                        <!-- Kare Plaka -->
+                        <rect x="120" y="60" width="60" height="60" class="square-plate" rx="2" />
+                        
+                        <!-- Sensör 1: Uzunluk -->
+                        <g transform="translate(60, 40)">
+                            <path d="M-15 0 L15 0" stroke="#4a90e2" stroke-width="2" stroke-dasharray="2 2" />
+                            <circle r="4" fill="#4a90e2" />
+                            <text y="20" fill="#4a90e2" font-size="9" font-weight="bold" text-anchor="middle">Uzunluk Sensörü</text>
+                            <text y="-8" fill="#4a90e2" font-size="8" text-anchor="middle">P(L)</text>
+                        </g>
 
-            <div class="visual-pane">
-                <svg class="factory-svg" viewBox="0 0 200 200">
-                    <!-- Kare Levha -->
-                    <rect x="50" y="40" width="100" height="100" fill="#8B5A2B" rx="2" />
-                    <!-- Ölçüm Okları -->
-                    <line x1="170" y1="40" x2="170" y2="140" stroke="#facc15" stroke-width="2" />
-                    <path d="M165 45 L170 40 L175 45" stroke="#facc15" stroke-width="2" />
-                    <path d="M165 135 L170 140 L175 135" stroke="#facc15" stroke-width="2" />
-                    <text x="185" y="90" fill="#facc15" font-size="12" font-weight="bold" transform="rotate(90 185 90)">1m ~ 3m</text>
-                    
-                    <!-- Fabrika Elemanı -->
-                    <rect x="30" y="150" width="140" height="10" fill="#333" />
-                </svg>
-                <div style="padding: 1rem; text-align: center; font-size: 0.95rem; color: #888;">
-                    <strong>Analoji:</strong> Şizofrenik Kare Fabrikası<br>
-                    Aynı gerçeklik ($\Omega$), farklı bakış açıları.
+                        <!-- Sensör 2: Alan -->
+                        <g transform="translate(240, 40)">
+                            <rect x="-10" y="-10" width="20" height="20" fill="none" stroke="#facc15" stroke-width="2" stroke-dasharray="2 2" />
+                            <circle r="4" fill="#facc15" />
+                            <text y="25" fill="#facc15" font-size="9" font-weight="bold" text-anchor="middle">Alan Sensörü</text>
+                            <text y="-12" fill="#facc15" font-size="8" text-anchor="middle">P(A)</text>
+                        </g>
+
+                        <!-- Çatışma Noktası / Çözüm Filtresi -->
+                        <g opacity="0.1">
+                           <line x1="60" y1="40" x2="120" y2="90" stroke="#4a90e2" stroke-width="1" />
+                           <line x1="240" y1="40" x2="180" y2="90" stroke="#facc15" stroke-width="1" />
+                        </g>
+                    </svg>
+                    <div style="padding: 0.5rem 1.5rem; text-align: center; color: #888; font-size: 0.95rem;">
+                        <strong>Analoji:</strong> Şizofrenik Kare Fabrikası<br>
+                        Aksiyomlar, hangi sensörün geçeri olduğunu baştan belirleyerek çelişkiyi çözer.
+                    </div>
                 </div>
             </div>
         </div>
