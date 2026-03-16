@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>1.1 - Nasıl? - Simülasyon ve Gerçek Kanıt</title>
+    <title>1.1 - Nasıl? - Gerçek Simülasyon Analizi</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
@@ -14,6 +14,7 @@
           ]
         });"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         :root {
             --bg: #121212; --text: #e0e0e0; --slide-bg: #1e1e1e; --border: #333;
@@ -36,107 +37,145 @@
         header { flex-shrink: 0; border-bottom: 2px solid var(--accent); padding-bottom: 0.8rem; margin-bottom: 2rem; }
         h1 { margin: 0; font-size: 2.4rem; color: var(--accent); font-weight: 800; letter-spacing: -0.04em; }
 
-        .graph-panel { flex-shrink: 0; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2rem; margin-bottom: 2rem; }
-        
-        .graph-card { background: #000; border: 1px solid #2a2a2a; border-radius: 8px; padding: 1.5rem; display: flex; flex-direction: column; align-items: center; gap: 1rem; position: relative; }
-        .graph-title { font-size: 0.9rem; font-weight: 700; color: #888; text-align: center; height: 35px; }
-        .graph-value { font-size: 1.4rem; font-weight: 900; color: #fff; }
-        
-        .svg-histogram { width: 100%; height: 120px; }
-        .bar-blue { fill: var(--blue); }
-        .bar-yellow { fill: var(--yellow); }
-        .bar-green { fill: var(--green); }
-        .event-line { stroke: #ef4444; stroke-width: 2; stroke-dasharray: 4 2; }
+        .plot-panel { flex: 1.2; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.5rem; margin-bottom: 2rem; }
+        .plot-card { background: #000; border: 1px solid #2a2a2a; border-radius: 10px; padding: 1.2rem; display: flex; flex-direction: column; height: 100%; width: 100%; box-sizing: border-box; }
+        .plot-title { font-size: 0.85rem; font-weight: 700; color: #888; text-align: center; height: 35px; line-height: 1.2; margin-bottom: 0.5rem; }
+        .chart-container { flex: 1; position: relative; min-height: 0; }
 
-        /* Analysis Sections */
-        .analysis-grid { flex: 1; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2rem; }
-        .analysis-box { padding: 1.5rem; border-radius: 10px; display: flex; flex-direction: column; gap: 0.8rem; border: 1px solid rgba(255,255,255,0.03); }
-        
-        .box-blue { background: rgba(59, 130, 246, 0.05); border-top: 3px solid var(--blue); }
-        .box-yellow { background: rgba(234, 179, 8, 0.05); border-top: 3px solid var(--yellow); }
-        .box-green { background: rgba(34, 197, 94, 0.05); border-top: 3px solid var(--green); }
+        .analysis-grid { flex: 0.8; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.5rem; }
+        .analysis-box { padding: 1.5rem; border-radius: 10px; border: 1px solid rgba(255,255,255,0.03); display: flex; flex-direction: column; gap: 0.6rem; }
+        .box-blue { background: rgba(59, 130, 246, 0.04); border-top: 3px solid var(--blue); }
+        .box-yellow { background: rgba(234, 179, 8, 0.04); border-top: 3px solid var(--yellow); }
+        .box-green { background: rgba(34, 197, 94, 0.04); border-top: 3px solid var(--green); }
 
-        .box-title { font-size: 1.15rem; font-weight: 700; color: #fff; }
-        .box-list { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
-        .box-list li { font-size: 1rem; color: #aaa; line-height: 1.4; position: relative; padding-left: 1.2rem; }
-        .box-list li::before { content: "•"; position: absolute; left: 0; color: var(--accent); }
+        .box-title { font-size: 1.1rem; font-weight: 800; color: #fff; text-transform: uppercase; letter-spacing: 0.05em; }
+        .box-content { font-size: 0.95rem; color: #aaa; line-height: 1.5; margin: 0; }
+        .box-content b { color: #fff; }
     </style>
 </head>
 <body>
 
     <div class="slide">
         <header>
-            <h1>Nasıl? – Simülasyon ve Gerçek Kanıt</h1>
+            <h1>Nasıl? – Gerçek Simülasyon Analizi</h1>
         </header>
 
-        <!-- Grafik Paneli -->
-        <div class="graph-panel">
-            <div class="graph-card">
-                <div class="graph-title">Makine 1: Uzunluk Dağılımı (1-3m)</div>
-                <div class="svg-histogram">
-                    <svg viewBox="0 0 200 100" width="100%" height="100%">
-                        <rect x="0" y="20" width="200" height="80" class="bar-blue" opacity="0.4" />
-                        <line x1="100" y1="0" x2="100" y2="100" class="event-line" />
-                    </svg>
+        <div class="plot-panel">
+            <!-- Plot 1: Uzunluk Dağılımı -->
+            <div class="plot-card">
+                <div class="plot-title">Makine 1: Uzunluk Dağılımı (1-3m)<br>E Olayı Hacmi: %49.95</div>
+                <div class="chart-container">
+                    <canvas id="chartBlue"></canvas>
                 </div>
-                <div class="graph-value">49.95%</div>
             </div>
 
-            <div class="graph-card">
-                <div class="graph-title">Makine 2: HAM Alan Dağılımı (1-9m²)</div>
-                <div class="svg-histogram">
-                    <svg viewBox="0 0 200 100" width="100%" height="100%">
-                        <rect x="0" y="20" width="200" height="80" class="bar-yellow" opacity="0.4" />
-                        <line x1="75" y1="0" x2="75" y2="100" class="event-line" />
-                    </svg>
+            <!-- Plot 2: Alan Dağılımı -->
+            <div class="plot-card">
+                <div class="plot-title">Makine 2: HAM ALAN Dağılımı (1-9m²)<br>E Olayı Hacmi: %37.57</div>
+                <div class="chart-container">
+                    <canvas id="chartYellow"></canvas>
                 </div>
-                <div class="graph-value">37.57%</div>
             </div>
 
-            <div class="graph-card">
-                <div class="graph-title">Uzunluğa Dönüştürülmüş Hali (1-3m)</div>
-                <div class="svg-histogram">
-                    <svg viewBox="0 0 200 100" width="100%" height="100%">
-                        <path d="M0 80 Q100 80 200 20 V100 H0 Z" class="bar-green" opacity="0.4" />
-                        <line x1="100" y1="0" x2="100" y2="100" class="event-line" />
-                    </svg>
+            <!-- Plot 3: Dönüşüm Dağılımı -->
+            <div class="plot-card">
+                <div class="plot-title">Makine 2: Uzunluğa Dönüştürülmüş Hali<br>(Karekök Etkisiyle Sağa Yığılma)</div>
+                <div class="chart-container">
+                    <canvas id="chartGreen"></canvas>
                 </div>
-                <div class="graph-value">Yığılma Kanıtı</div>
             </div>
         </div>
 
-        <!-- Analiz Izgarası -->
         <div class="analysis-grid">
-            <!-- Mavi Analiz -->
             <div class="analysis-box box-blue">
                 <div class="box-title">Doğrusal Adalet</div>
-                <ul class="box-list">
-                    <li>Makine tahtaları 1m ile 3m arasında eşit şansla kesti.</li>
-                    <li>2 metre sınırı, bu evrenin tam orta noktasıdır.</li>
-                    <li>Sonuç tam olarak %50 çıkar.</li>
-                </ul>
+                <p class="box-content">Makine tahtaları 1m ile 3m arasında <b>eşit şansla</b> kesti. 2m sınırı evrenin tam ortası olduğu için olasılık %50 çıkar.</p>
             </div>
-
-            <!-- Sarı Analiz -->
             <div class="analysis-box box-yellow">
                 <div class="box-title">Geometrik İllüzyon</div>
-                <ul class="box-list">
-                    <li>Makine tahtaları 1m² ile 9m² arasında eşit şansla kesti.</li>
-                    <li>2m kenar, bu boyutta 4m² sınırına denk gelir.</li>
-                    <li>4 sayısı, 1-9 aralığının ortası değildir (soldadır).</li>
-                </ul>
+                <p class="box-content">Makine 1m² ile 9m² arasını baz aldı. 2m kenarın karşılığı olan <b>4m²</b>, bu evrenin ortası değil solundadır.</p>
             </div>
-
-            <!-- Yeşil Analiz -->
             <div class="analysis-box box-green">
                 <div class="box-title">Yığılmanın İspatı</div>
-                <ul class="box-list">
-                    <li>Alan odaklı (sarı) verileri alıp kenar bazlı ölçtüğümüzde veriler sağa yığılır.</li>
-                    <li>Alanın adil dağılması, uzunluğun adil dağılacağı anlamına gelmez.</li>
-                </ul>
+                <p class="box-content">Alanın adil dağılması, uzunluğun adil olacağı anlamına gelmez. Verilerin büyük karelere doğru <b>yığıldığı</b> ispatlanmıştır.</p>
             </div>
         </div>
     </div>
 
+    <script>
+        function createHistogram(id, data, color, threshold, label, xAxisLabel) {
+            const ctx = document.getElementById(id).getContext('2d');
+            const bins = 40;
+            const min = Math.min(...data);
+            const max = Math.max(...data);
+            const step = (max - min) / bins;
+            const counts = new Array(bins).fill(0);
+            
+            data.forEach(v => {
+                let bin = Math.floor((v - min) / step);
+                if (bin >= bins) bin = bins - 1;
+                counts[bin]++;
+            });
+
+            const labels = counts.map((_, i) => (min + i * step).toFixed(2));
+            const backgroundColors = labels.map(l => parseFloat(l) < threshold ? color + 'CC' : color + '44');
+
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        data: counts,
+                        backgroundColor: backgroundColors,
+                        borderWidth: 0,
+                        barPercentage: 1,
+                        categoryPercentage: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { 
+                        legend: { display: false },
+                        tooltip: { enabled: false }
+                    },
+                    scales: {
+                        x: { display: true, ticks: { display: false }, grid: { display: false } },
+                        y: { display: false, grid: { display: false } }
+                    }
+                },
+                plugins: [{
+                    id: 'thresholdLine',
+                    afterDraw: (chart) => {
+                        const {ctx, chartArea: {top, bottom, left, right}, scales: {x}} = chart;
+                        const xPos = x.getPixelForValue(labels.findIndex(l => parseFloat(l) >= threshold));
+                        if(xPos >= left && xPos <= right) {
+                            ctx.save();
+                            ctx.strokeStyle = '#ef4444';
+                            ctx.setLineDash([5, 5]);
+                            ctx.lineWidth = 2;
+                            ctx.beginPath();
+                            ctx.moveTo(xPos, top);
+                            ctx.lineTo(xPos, bottom);
+                            ctx.stroke();
+                            ctx.restore();
+                        }
+                    }
+                }]
+            });
+        }
+
+        // Simülasyon Verisi Generate (5000 Örnek Yeterli)
+        const samples = 5000;
+        const blueData = Array.from({length: samples}, () => 1 + Math.random() * 2); // Uniform [1, 3]
+        const yellowData = Array.from({length: samples}, () => 1 + Math.random() * 8); // Uniform [1, 9] (Area)
+        const greenData = yellowData.map(v => Math.sqrt(v)); // Sqrt of Uniform Area -> Length Distribution
+
+        window.onload = () => {
+            createHistogram('chartBlue', blueData, '#3b82f6', 2.0, 'Mavi', 'm');
+            createHistogram('chartYellow', yellowData, '#eab308', 4.0, 'Sarı', 'm2');
+            createHistogram('chartGreen', greenData, '#22c55e', 2.0, 'Yeşil', 'm');
+        };
+    </script>
 </body>
 </html>
