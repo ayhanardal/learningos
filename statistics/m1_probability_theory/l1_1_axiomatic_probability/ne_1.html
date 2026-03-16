@@ -11,8 +11,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #121212; --text: #e0e0e0; --accent: #facc15; --slide-bg: #1e1e1e; --border: #333;
-            --blue: #63b3ed; --green: #68d391;
+            --bg: #121212; --text: #e0e0e0; --slide-bg: #1e1e1e; --border: #333;
+            --accent: #facc15; --blue: #63b3ed; --green: #68d391;
         }
         html { font-size: 14px; }
         body {
@@ -24,66 +24,85 @@
         .slide {
             width: 100%; height: 100%; max-width: 1300px; margin: 0 auto;
             background: var(--slide-bg); border: 1px solid var(--border); border-radius: 1rem;
-            padding: 2rem 3rem; box-sizing: border-box; display: flex; flex-direction: column;
+            padding: 2rem 3rem; box-sizing: border-box;
+            display: flex; flex-direction: column;
             overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.5);
         }
-        header { flex-shrink: 0; border-bottom: 1px solid var(--border); padding-bottom: 0.8rem; margin-bottom: 1rem; }
+
+        /* --- Header --- */
+        header {
+            flex-shrink: 0; border-bottom: 1px solid var(--border);
+            padding-bottom: 0.8rem; margin-bottom: 1.5rem;
+        }
         h1 { margin: 0; font-size: 1.8rem; color: var(--accent); font-weight: 600; letter-spacing: -0.02em; }
         .subtitle { color: #888; font-size: 1rem; margin-top: 0.3rem; font-weight: 300; }
 
-        .content { flex: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; align-items: center; overflow: hidden; }
-
-        /* --- Sol: Metin Bölümü --- */
-        .text-section { display: flex; flex-direction: column; gap: 1rem; }
-
-        .opening {
-            font-size: 1.05rem; line-height: 1.65; color: #bbb;
-            border-left: 3px solid #444; padding-left: 1rem;
+        /* --- Ana Fikir Kutusu --- */
+        .hero {
+            flex-shrink: 0;
+            background: rgba(255,255,255,0.025);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem 2.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
         }
-        .opening em { color: #999; }
-
-        .bridge {
-            font-size: 1.05rem; line-height: 1.6; color: #ddd;
+        .hero-text {
+            font-size: 1.2rem; line-height: 1.7; color: #ccc;
+            max-width: 800px; margin: 0 auto;
         }
-        .bridge strong { color: #fff; }
+        .hero-text strong { color: #fff; font-weight: 600; }
+        .hero-text em { color: #999; }
 
-        .layers-label {
-            font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em;
-            color: #666; margin-bottom: -0.3rem; margin-top: 0.3rem;
-        }
-
-        .layer-card {
-            display: flex; align-items: center; gap: 1rem;
-            background: rgba(255,255,255,0.025); border: 1px solid var(--border);
-            border-radius: 8px; padding: 0.75rem 1.1rem;
-            transition: border-color 0.3s, background 0.3s;
-        }
-        .layer-card:hover { background: rgba(255,255,255,0.04); }
-        .layer-card.gold  { border-left: 3px solid var(--accent); }
-        .layer-card.blue  { border-left: 3px solid var(--blue); }
-        .layer-card.green { border-left: 3px solid var(--green); }
-
-        .layer-num {
-            width: 1.8rem; height: 1.8rem; border-radius: 50%; display: flex;
-            align-items: center; justify-content: center;
-            font-weight: 700; font-size: 0.85rem; flex-shrink: 0;
-        }
-        .gold  .layer-num { background: rgba(250,204,21,0.12); color: var(--accent); }
-        .blue  .layer-num { background: rgba(99,179,237,0.12); color: var(--blue); }
-        .green .layer-num { background: rgba(104,211,145,0.12); color: var(--green); }
-
-        .layer-info { display: flex; flex-direction: column; gap: 0.15rem; }
-        .layer-title { font-weight: 600; font-size: 0.95rem; color: #fff; }
-        .layer-title span { color: #666; font-weight: 300; font-size: 0.85rem; }
-        .layer-desc { font-size: 0.85rem; color: #888; line-height: 1.4; }
-
-        /* --- Sağ: SVG Bölümü --- */
-        .svg-container {
-            flex: 1; display: flex; justify-content: center; align-items: center;
-            background: #181818; border-radius: 8px; border: 1px solid #2a2a2a;
-            padding: 1rem;
+        /* --- 3 Kart Grid --- */
+        .cards {
+            flex: 1;
+            display: grid; grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem; align-content: center;
         }
 
+        .card {
+            background: rgba(255,255,255,0.025);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 2rem 1.8rem;
+            display: flex; flex-direction: column;
+            gap: 0.8rem;
+            transition: border-color 0.3s;
+        }
+        .card:hover { border-color: #555; }
+
+        .card-num {
+            width: 2.2rem; height: 2.2rem; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 700; font-size: 1rem; flex-shrink: 0;
+        }
+        .card.gold  { border-top: 3px solid var(--accent); }
+        .card.blue  { border-top: 3px solid var(--blue); }
+        .card.green { border-top: 3px solid var(--green); }
+
+        .card.gold  .card-num { background: rgba(250,204,21,0.12); color: var(--accent); }
+        .card.blue  .card-num { background: rgba(99,179,237,0.12); color: var(--blue); }
+        .card.green .card-num { background: rgba(104,211,145,0.12); color: var(--green); }
+
+        .card-title {
+            font-size: 1.15rem; font-weight: 600; color: #fff;
+            margin-top: 0.3rem;
+        }
+        .card-title span { color: #666; font-weight: 400; font-size: 0.9rem; display: block; margin-top: 0.2rem; }
+
+        .card-desc {
+            font-size: 0.95rem; color: #aaa; line-height: 1.55; margin: 0;
+        }
+
+        .card-symbol {
+            margin-top: auto; padding-top: 0.8rem;
+            font-size: 1.3rem; color: #555; font-weight: 300;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* --- Sayfa Göstergesi --- */
         .page-indicator {
             position: absolute; bottom: 2rem; right: 2rem;
             background: rgba(0,0,0,0.5); padding: 0.5rem 1rem;
@@ -99,138 +118,50 @@
             <div class="subtitle">Bölüm 1 / NE? (1/3) — Sezgiden Yapıya</div>
         </header>
 
-        <div class="content">
+        <!-- Ana Fikir -->
+        <div class="hero">
+            <p class="hero-text">
+                <em>"Muhtemelen yağmur yağacak"</em> gibi sezgisel ifadeler günlük hayatta yeterlidir
+                — ama bilimde değil. <strong>Aksiyomatik olasılık</strong>, belirsizliği
+                ölçülebilir kılan matematiksel bir dildir. Bu dil üç katmandan inşa edilir:
+            </p>
+        </div>
 
-            <!-- Sol: Anlatım -->
-            <div class="text-section">
-                <div class="opening">
-                    <em>"Muhtemelen yağmur yağacak."</em><br>
-                    <em>"Yarı yarıya şansım var."</em><br>
-                    Günlük hayatta bu cümleler işe yarar — ama bilimde <strong style="color:#fff;">yetersizdir.</strong>
+        <!-- Üç Katman Kartları -->
+        <div class="cards">
+
+            <div class="card gold">
+                <div class="card-num">1</div>
+                <div class="card-title">
+                    Sahne
+                    <span>Olay Uzayı</span>
                 </div>
-
-                <p class="bridge">
-                    <strong>Aksiyomatik olasılık</strong>, belirsizliği ölçülebilir kılan matematiksel bir dildir.
-                    Bu dil üç katmandan inşa edilir:
-                </p>
-
-                <div class="layers-label">Yapı Katmanları</div>
-
-                <div class="layer-card gold">
-                    <div class="layer-num">1</div>
-                    <div class="layer-info">
-                        <div class="layer-title">Sahne <span>— Olay Uzayı</span></div>
-                        <div class="layer-desc">Olayların gerçekleşeceği evreni ve bileşenlerini tanımla.</div>
-                    </div>
-                </div>
-
-                <div class="layer-card blue">
-                    <div class="layer-num">2</div>
-                    <div class="layer-info">
-                        <div class="layer-title">Oyuncular <span>— Unsurlar</span></div>
-                        <div class="layer-desc">Sahnenin aktörleri: deney, çıktı, olay.</div>
-                    </div>
-                </div>
-
-                <div class="layer-card green">
-                    <div class="layer-num">3</div>
-                    <div class="layer-info">
-                        <div class="layer-title">Kurallar <span>— Aksiyomlar</span></div>
-                        <div class="layer-desc">Sahnenin değişmez, evrensel yasaları.</div>
-                    </div>
-                </div>
+                <p class="card-desc">Olayların gerçekleşeceği evreni tanımla. Her olasılık probleminin ilk adımı: sınırları çizmek.</p>
+                <div class="card-symbol">\(\Omega\)</div>
             </div>
 
-            <!-- Sağ: İmgesel SVG — Katmanlı Yapı Diyagramı -->
-            <div class="svg-container">
-                <svg width="100%" height="100%" viewBox="0 0 400 460" fill="none" xmlns="http://www.w3.org/2000/svg" style="font-family: 'Inter', sans-serif;">
+            <div class="card blue">
+                <div class="card-num">2</div>
+                <div class="card-title">
+                    Oyuncular
+                    <span>Unsurlar</span>
+                </div>
+                <p class="card-desc">Sahnenin aktörlerini belirle: deneyi kur, olası çıktıları say, ilgilendiğin olayı seç.</p>
+                <div class="card-symbol">\(\omega, E\)</div>
+            </div>
 
-                    <defs>
-                        <!-- Katman Dolgulari -->
-                        <linearGradient id="gGold" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" stop-color="#facc15" stop-opacity="0.18"/>
-                            <stop offset="100%" stop-color="#f59e0b" stop-opacity="0.06"/>
-                        </linearGradient>
-                        <linearGradient id="gBlue" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" stop-color="#63b3ed" stop-opacity="0.18"/>
-                            <stop offset="100%" stop-color="#3182ce" stop-opacity="0.06"/>
-                        </linearGradient>
-                        <linearGradient id="gGreen" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" stop-color="#68d391" stop-opacity="0.18"/>
-                            <stop offset="100%" stop-color="#38a169" stop-opacity="0.06"/>
-                        </linearGradient>
-                        <!-- Glow Efekti -->
-                        <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
-                            <feGaussianBlur stdDeviation="8" result="blur"/>
-                            <feMerge>
-                                <feMergeNode in="blur"/>
-                                <feMergeNode in="SourceGraphic"/>
-                            </feMerge>
-                        </filter>
-                        <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
-                            <feGaussianBlur stdDeviation="4" result="blur"/>
-                            <feMerge>
-                                <feMergeNode in="blur"/>
-                                <feMergeNode in="SourceGraphic"/>
-                            </feMerge>
-                        </filter>
-                    </defs>
-
-                    <!-- ═══════════ KATMAN 1: SAHNE (Alt) ═══════════ -->
-                    <g>
-                        <!-- Platform gölgesi -->
-                        <rect x="30" y="322" width="340" height="100" rx="14" fill="#000" opacity="0.3" filter="url(#softGlow)"/>
-                        <!-- Platform -->
-                        <rect x="30" y="315" width="340" height="100" rx="14" fill="url(#gGold)" stroke="#facc15" stroke-width="1.2"/>
-                        <!-- Büyük Sembol -->
-                        <text x="200" y="362" fill="#facc15" font-size="36" font-weight="800" text-anchor="middle" filter="url(#glow)" opacity="0.5">Ω</text>
-                        <!-- Etiket -->
-                        <text x="200" y="396" fill="#facc15" font-size="13" font-weight="600" text-anchor="middle" letter-spacing="0.1em">SAHNE</text>
-                        <!-- Alt etiket -->
-                        <text x="200" y="410" fill="#facc15" font-size="10" text-anchor="middle" opacity="0.5">Olay Uzayı</text>
-                    </g>
-
-                    <!-- Ok: Sahne → Oyuncular -->
-                    <line x1="200" y1="305" x2="200" y2="260" stroke="#444" stroke-width="1.2" stroke-dasharray="5 4"/>
-                    <polygon points="195,262 205,262 200,252" fill="#555"/>
-
-                    <!-- ═══════════ KATMAN 2: OYUNCULAR (Orta) ═══════════ -->
-                    <g>
-                        <rect x="50" y="162" width="300" height="100" rx="14" fill="#000" opacity="0.3" filter="url(#softGlow)"/>
-                        <rect x="50" y="155" width="300" height="100" rx="14" fill="url(#gBlue)" stroke="#63b3ed" stroke-width="1.2"/>
-                        <!-- Semboller -->
-                        <text x="120" y="198" fill="#63b3ed" font-size="20" font-weight="700" text-anchor="middle" opacity="0.55">Deney</text>
-                        <text x="200" y="198" fill="#63b3ed" font-size="24" font-weight="700" text-anchor="middle" opacity="0.55">ω</text>
-                        <text x="270" y="198" fill="#63b3ed" font-size="24" font-weight="700" text-anchor="middle" opacity="0.55">E</text>
-                        <!-- Etiket -->
-                        <text x="200" y="236" fill="#63b3ed" font-size="13" font-weight="600" text-anchor="middle" letter-spacing="0.1em">OYUNCULAR</text>
-                        <text x="200" y="250" fill="#63b3ed" font-size="10" text-anchor="middle" opacity="0.5">Deney · Çıktı · Olay</text>
-                    </g>
-
-                    <!-- Ok: Oyuncular → Kurallar -->
-                    <line x1="200" y1="145" x2="200" y2="100" stroke="#444" stroke-width="1.2" stroke-dasharray="5 4"/>
-                    <polygon points="195,102 205,102 200,92" fill="#555"/>
-
-                    <!-- ═══════════ KATMAN 3: KURALLAR (Üst) ═══════════ -->
-                    <g>
-                        <rect x="70" y="10" width="260" height="90" rx="14" fill="#000" opacity="0.3" filter="url(#softGlow)"/>
-                        <rect x="70" y="5" width="260" height="90" rx="14" fill="url(#gGreen)" stroke="#68d391" stroke-width="1.2"/>
-                        <!-- Sembol -->
-                        <text x="200" y="48" fill="#68d391" font-size="20" font-weight="600" text-anchor="middle" opacity="0.6">P(E) ≥ 0</text>
-                        <!-- Etiket -->
-                        <text x="200" y="74" fill="#68d391" font-size="13" font-weight="600" text-anchor="middle" letter-spacing="0.1em">KURALLAR</text>
-                        <text x="200" y="88" fill="#68d391" font-size="10" text-anchor="middle" opacity="0.5">Kolmogorov Aksiyomları</text>
-                    </g>
-
-                    <!-- Yan etiketler: Hangi sayfa hangi katmanı işliyor -->
-                    <text x="390" y="370" fill="#555" font-size="9" text-anchor="end" transform="rotate(-90 390 370)">sayfa 2</text>
-                    <text x="370" y="210" fill="#555" font-size="9" text-anchor="end" transform="rotate(-90 370 210)">sayfa 2</text>
-                    <text x="350" y="55" fill="#555" font-size="9" text-anchor="end" transform="rotate(-90 350 55)">sayfa 3</text>
-
-                </svg>
+            <div class="card green">
+                <div class="card-num">3</div>
+                <div class="card-title">
+                    Kurallar
+                    <span>Aksiyomlar</span>
+                </div>
+                <p class="card-desc">Sahnenin değişmez yasalarını koy. Bu üç kural tüm olasılık matematiğinin temelini oluşturur.</p>
+                <div class="card-symbol">\(P\)</div>
             </div>
 
         </div>
+
         <div class="page-indicator">1 / 3</div>
     </div>
 
