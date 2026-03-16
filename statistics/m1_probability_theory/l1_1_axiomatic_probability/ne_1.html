@@ -3,110 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>1.1 - NE? (Aksiyomatik Olasılık) - Sayfa 1</title>
+    <title>1.1 - NE? (Aksiyomatik Olasılık) - Başlangıç</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
         onload="renderMathInElement(document.body);"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg: #121212; --text: #e0e0e0; --slide-bg: #1e1e1e; --border: #333;
-            --accent: #facc15; --blue: #63b3ed; --green: #68d391;
+            --accent: #facc15; --lead-text: #ffffff;
         }
-        html { font-size: 14px; }
+        html { font-size: 16px; } /* Daha büyük baz font */
         body {
-            margin: 0; padding: 4vh 6vw;
+            margin: 0; padding: 0;
             width: 100vw; height: 100vh; box-sizing: border-box;
             background-color: var(--bg); color: var(--text); font-family: 'Inter', sans-serif;
             overflow: hidden; display: flex; align-items: center; justify-content: center;
         }
         .slide {
-            width: 100%; height: 100%; max-width: 1300px; margin: 0 auto;
-            background: var(--slide-bg); border: 1px solid var(--border); border-radius: 1rem;
-            padding: 2rem 3rem; box-sizing: border-box;
-            display: flex; flex-direction: column;
-            overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            width: 100%; height: 100%; max-width: 1200px; margin: 0 auto;
+            background: var(--slide-bg); border: 1px solid var(--border); border-radius: 2rem;
+            padding: 4rem 5rem; box-sizing: border-box;
+            display: flex; flex-direction: column; justify-content: center;
+            position: relative; overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
         }
 
-        /* --- Header --- */
-        header {
-            flex-shrink: 0; border-bottom: 1px solid var(--border);
-            padding-bottom: 0.8rem; margin-bottom: 1.5rem;
-        }
-        h1 { margin: 0; font-size: 1.8rem; color: var(--accent); font-weight: 600; letter-spacing: -0.02em; }
-        .subtitle { color: #888; font-size: 1rem; margin-top: 0.3rem; font-weight: 300; }
-
-        /* --- Ana Fikir Kutusu --- */
-        .hero {
-            flex-shrink: 0;
-            background: rgba(255,255,255,0.025);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 2rem 2.5rem;
-            margin-bottom: 2rem;
-            text-align: center;
-        }
-        .hero-text {
-            font-size: 1.2rem; line-height: 1.7; color: #ccc;
-            max-width: 800px; margin: 0 auto;
-        }
-        .hero-text strong { color: #fff; font-weight: 600; }
-        .hero-text em { color: #999; }
-
-        /* --- 3 Kart Grid --- */
-        .cards {
-            flex: 1;
-            display: grid; grid-template-columns: repeat(3, 1fr);
-            gap: 1.5rem; align-content: center;
+        /* Arka plan dekoratif dokunuş */
+        .slide::before {
+            content: ""; position: absolute; top: -10%; right: -10%;
+            width: 40%; height: 40%; background: radial-gradient(circle, rgba(250,204,21,0.05) 0%, transparent 70%);
+            z-index: 0;
         }
 
-        .card {
-            background: rgba(255,255,255,0.025);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            padding: 2rem 1.8rem;
-            display: flex; flex-direction: column;
-            gap: 0.8rem;
-            transition: border-color 0.3s;
-        }
-        .card:hover { border-color: #555; }
+        header { z-index: 1; margin-bottom: 3rem; }
+        h1 { margin: 0; font-size: 3rem; color: var(--accent); font-weight: 800; letter-spacing: -0.04em; }
+        .subtitle { color: #888; font-size: 1.2rem; margin-top: 0.5rem; font-weight: 300; text-transform: uppercase; letter-spacing: 0.2rem; }
 
-        .card-num {
-            width: 2.2rem; height: 2.2rem; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            font-weight: 700; font-size: 1rem; flex-shrink: 0;
-        }
-        .card.gold  { border-top: 3px solid var(--accent); }
-        .card.blue  { border-top: 3px solid var(--blue); }
-        .card.green { border-top: 3px solid var(--green); }
-
-        .card.gold  .card-num { background: rgba(250,204,21,0.12); color: var(--accent); }
-        .card.blue  .card-num { background: rgba(99,179,237,0.12); color: var(--blue); }
-        .card.green .card-num { background: rgba(104,211,145,0.12); color: var(--green); }
-
-        .card-title {
-            font-size: 1.15rem; font-weight: 600; color: #fff;
-            margin-top: 0.3rem;
-        }
-        .card-title span { color: #666; font-weight: 400; font-size: 0.9rem; display: block; margin-top: 0.2rem; }
-
-        .card-desc {
-            font-size: 0.95rem; color: #aaa; line-height: 1.55; margin: 0;
+        .definition-box {
+            z-index: 1;
+            position: relative;
+            /* border-left: 2px solid var(--accent); padding-left: 3rem; */
         }
 
-        .card-symbol {
-            margin-top: auto; padding-top: 0.8rem;
-            font-size: 1.3rem; color: #555; font-weight: 300;
-            border-top: 1px solid rgba(255,255,255,0.05);
-            font-family: 'Inter', sans-serif;
+        .main-idea {
+            font-size: 1.8rem; line-height: 1.5; color: var(--lead-text);
+            font-weight: 500; margin-bottom: 2.5rem; letter-spacing: -0.01em;
+        }
+        .main-idea strong { color: var(--accent); font-weight: 700; }
+
+        .context-text {
+            font-size: 1.25rem; line-height: 1.8; color: #aaa;
+            max-width: 900px;
         }
 
-        /* --- Sayfa Göstergesi --- */
+        .roadmap {
+            display: flex; gap: 2rem; margin-top: 4rem;
+            align-items: center; z-index: 1;
+        }
+        .step { display: flex; align-items: center; gap: 1rem; color: #666; font-weight: 600; font-size: 1.1rem; }
+        .step.active { color: var(--accent); }
+        .divider { height: 1px; flex: 1; background: #333; }
+
         .page-indicator {
-            position: absolute; bottom: 2rem; right: 2rem;
-            background: rgba(0,0,0,0.5); padding: 0.5rem 1rem;
-            border-radius: 20px; font-size: 0.8rem; color: #888;
+            position: absolute; bottom: 3rem; right: 5rem;
+            font-size: 1rem; font-weight: 600; color: #444;
+            letter-spacing: 0.1em;
         }
     </style>
 </head>
@@ -114,55 +77,30 @@
 
     <div class="slide">
         <header>
-            <h1>Aksiyomatik Olasılık: Matematiksel Bir Dil</h1>
-            <div class="subtitle">Bölüm 1 / NE? (1/3) — Sezgiden Yapıya</div>
+            <div class="subtitle">Bölüm 1 / NE? (1/3)</div>
+            <h1>Matematiğin Temeli: Aksiyomlar</h1>
         </header>
 
-        <!-- Ana Fikir -->
-        <div class="hero">
-            <p class="hero-text">
-                <em>"Muhtemelen yağmur yağacak"</em> gibi sezgisel ifadeler günlük hayatta yeterlidir
-                — ama bilimde değil. <strong>Aksiyomatik olasılık</strong>, belirsizliği
-                ölçülebilir kılan matematiksel bir dildir. Bu dil üç katmandan inşa edilir:
+        <div class="definition-box">
+            <p class="main-idea">
+                <strong>Aksiyomlar</strong>, bir sistemin üzerine inşa edildiği, ispat gerektirmeyen <strong>evrensel yasalardır.</strong> 
+            </p>
+            
+            <p class="context-text">
+                Olasılık teorisinde aksiyomlar; belirsiz tahminleri ("yarı yarıya şansım var") çıkarıp, yerine kesin ve tutarlı bir hesaplama sistemi koyar. <br><br>
+                Bu bölümde; önce olasılığın gerçekleştiği <strong>"Sahne"yi</strong> (Uzay), sonra bu sahnedeki <strong>"Aktörleri"</strong> (Olaylar) ve son olarak her şeyin uyması gereken <strong>"Anayasa"yı</strong> (Aksiyomlar) tanımlayarak olasılığın alfabesini öğreneceğiz.
             </p>
         </div>
 
-        <!-- Üç Katman Kartları -->
-        <div class="cards">
-
-            <div class="card gold">
-                <div class="card-num">1</div>
-                <div class="card-title">
-                    Sahne
-                    <span>Olay Uzayı</span>
-                </div>
-                <p class="card-desc">Olayların gerçekleşeceği evreni tanımla. Her olasılık probleminin ilk adımı: sınırları çizmek.</p>
-                <div class="card-symbol">\(\Omega\)</div>
-            </div>
-
-            <div class="card blue">
-                <div class="card-num">2</div>
-                <div class="card-title">
-                    Oyuncular
-                    <span>Unsurlar</span>
-                </div>
-                <p class="card-desc">Sahnenin aktörlerini belirle: deneyi kur, olası çıktıları say, ilgilendiğin olayı seç.</p>
-                <div class="card-symbol">\(\omega, E\)</div>
-            </div>
-
-            <div class="card green">
-                <div class="card-num">3</div>
-                <div class="card-title">
-                    Kurallar
-                    <span>Aksiyomlar</span>
-                </div>
-                <p class="card-desc">Sahnenin değişmez yasalarını koy. Bu üç kural tüm olasılık matematiğinin temelini oluşturur.</p>
-                <div class="card-symbol">\(P\)</div>
-            </div>
-
+        <div class="roadmap">
+            <div class="step active">GİRİŞ</div>
+            <div class="divider"></div>
+            <div class="step">ANATOMİ</div>
+            <div class="divider"></div>
+            <div class="step">KURALLAR</div>
         </div>
 
-        <div class="page-indicator">1 / 3</div>
+        <div class="page-indicator">NE-01 / 03</div>
     </div>
 
 </body>
