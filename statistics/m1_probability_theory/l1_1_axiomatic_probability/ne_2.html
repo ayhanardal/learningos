@@ -4,13 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>1.1 - NE? (Aksiyomatik Olasılık) - Sayfa 2</title>
+    <!-- KaTeX -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
         onload="renderMathInElement(document.body);"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        :root { --bg: #121212; --text: #e0e0e0; --accent: #facc15; --slide-bg: #1e1e1e; --border: #333;}
+        :root {
+            --bg: #121212; --text: #e0e0e0; --accent: #facc15; --slide-bg: #1e1e1e; --border: #333;
+        }
         html { font-size: 14px; }
         body {
             margin: 0; padding: 4vh 6vw;
@@ -27,12 +30,33 @@
         header { flex-shrink: 0; border-bottom: 1px solid var(--border); padding-bottom: 0.8rem; margin-bottom: 1.5rem;}
         h1 { margin: 0; font-size: 2rem; color: #fff; font-weight: 600; letter-spacing: -0.02em;}
         .subtitle { color: #888; font-size: 1.1rem; margin-top: 0.3rem; font-weight: 300; }
-        
-        .content { flex: 1; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; align-content: center; }
-        
-        .card { background: rgba(255,255,255,0.03); padding: 2rem; border-radius: 8px; border-top: 4px solid var(--accent); text-align: center; }
-        .concept-title { color: var(--accent); font-size: 1.1rem; font-weight: 600; margin-bottom: 1rem;}
-        
+        /* Katman referansı */
+        .layer-tag {
+            display: inline-block; font-size: 0.75rem; font-weight: 600;
+            background: rgba(250,204,21,0.1); color: var(--accent); border: 1px solid rgba(250,204,21,0.25);
+            padding: 0.15rem 0.6rem; border-radius: 12px; margin-left: 0.6rem; vertical-align: middle;
+            letter-spacing: 0.05em; text-transform: uppercase;
+        }
+
+        .content { flex: 1; display: grid; grid-template-columns: 1fr 1.1fr; gap: 2rem; align-items: stretch; overflow: hidden; }
+
+        /* Kartlar */
+        .text-section { display: flex; flex-direction: column; gap: 1.5rem; justify-content: center;}
+
+        .card {
+            background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-left: 4px solid var(--accent);
+            border-radius: 8px; padding: 1.5rem 1.2rem; display: flex; flex-direction: column; gap: 0.8rem;
+        }
+
+        .card-header { display: flex; align-items: center; gap: 0.6rem; }
+        .badge { background: #333; padding: 0.15rem 0.5rem; border-radius: 4px; font-family: monospace; font-weight: bold; font-size: 1.1rem; color: #fff; }
+        .concept-title { font-size: 1.15rem; font-weight: 600; color: #fff; }
+
+        .desc { font-size: 1.05rem; margin: 0; line-height: 1.5; }
+        .analogy { font-style: italic; color: #aaa; font-size: 0.95rem; margin: 0;}
+
+        .svg-container { flex: 1; display: flex; justify-content: center; align-items: center; background: #181818; border-radius: 8px; border: 1px solid #2a2a2a;}
+
         .page-indicator { position: absolute; bottom: 2rem; right: 2rem; background: rgba(0,0,0,0.5); padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.8rem; color: #888; }
     </style>
 </head>
@@ -40,32 +64,124 @@
 
     <div class="slide">
         <header>
-            <h1>Kolmogorov Aksiyomları: Olasılığın Anayasası</h1>
-            <div class="subtitle">Bölüm 1 / NE? (2/2) — Değiştirilemez 3 Doğa Kuralı</div>
+            <h1 style="color: var(--accent);">Olasılık Sahnesinin Anatomisi
+                <span class="layer-tag">Katman 1 · Sahne &amp; Oyuncular</span>
+            </h1>
+            <div class="subtitle">Bölüm 1 / NE? (2/3) — Dart Tahtası Analojisi</div>
         </header>
 
-        <p style="text-align:center; color: #aaa; margin-bottom: 2rem; padding: 0 4rem;">Olasılık hesaplarken kullandığımız o %10, %50 gibi değerler aslında uzayda kaplanan bir "hacim" ölçümüdür. Evrenimizi devasa bir harita (\(\Omega\)), elimizdeki %100 olasılığı da <strong>1 Kilogramlık Sihirli Altın Tozu</strong> olarak düşünürsek:</p>
-
         <div class="content">
-            <div class="card">
-                <div class="concept-title">1. Negatif Olmama</div>
-                <p>Haritanın neresini seçersen seç, oraya "negatif" miktarda toz serpemezsin. En kötü ihtimalle sıfır düşer.</p>
-                <div style="font-size: 1.5rem; color: white; margin-top: 1.5rem;">\[ P(E) \ge 0 \]</div>
-            </div>
-            
-            <div class="card">
-                <div class="concept-title">2. Bütünlük / Kesinlik</div>
-                <p>Toz buharlaşamaz. Haritaya serptiğin 1 Kg tozun <i>tamamı</i> evrenin bir yerlerine düşmek zorundadır.</p>
-                <div style="font-size: 1.5rem; color: white; margin-top: 1.5rem;">\[ P(\Omega) = 1 \]</div>
+
+            <!-- Bilgi Kartları -->
+            <div class="text-section">
+                <div class="card">
+                    <div class="card-header">
+                        <span class="badge" style="color: var(--accent);">1</span>
+                        <div class="concept-title" style="color: var(--accent);">Deney (Experiment)</div>
+                    </div>
+                    <p class="desc">Sonucu bilinmeyen, ancak tekrarlanabilir fiziksel/teorik süreç.</p>
+                    <p class="analogy">Gözü kapalı dart okunu fırlatma eyleminin kendisidir.</p>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <span class="badge" style="color: #fff;">\(\Omega\)</span>
+                        <div class="concept-title">Örneklem Uzayı (Sample Space)</div>
+                    </div>
+                    <p class="desc">Deneyin sonucundaki <strong>tüm olası</strong> durumların oluşturduğu uzay.</p>
+                    <p class="analogy">Dart tahtasının fiziki yüzeyinin bütünüdür. (Dışına çıkılamaz)</p>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <span class="badge" style="color: #fff;">\(\omega\)</span>
+                        <div class="concept-title">Çıktı (Outcome)</div>
+                    </div>
+                    <p class="desc">Gerçekleşen, daha fazla bölünemeyen spesifik sonuç.</p>
+                    <p class="analogy">Okun tahtada deldiği o tek, nokta boyutundaki koordinat.</p>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <span class="badge" style="color: #fff;">\(E\)</span>
+                        <div class="concept-title">Olay (Event)</div>
+                    </div>
+                    <p class="desc">\(\Omega\) içinden seçtiğimiz, ilgilendiğimiz filtre (çıktılar kümesi).</p>
+                    <p class="analogy">Tahtadaki belirli bir hedef alandır (Örn: "Kırmızı Bölge").</p>
+                </div>
             </div>
 
-            <div class="card">
-                <div class="concept-title">3. Toplanabilirlik</div>
-                <p>Eğer iki bölge (A ve B) birbiriyle hiç kesişmiyorsa (\(A \cap B = \emptyset\)), ikisindeki toz toplamı ayrı ayrı tartımlarının toplamıdır.</p>
-                <div style="font-size: 1.3rem; color: white; margin-top: 1.5rem;">\[ P(A \cup B) = P(A) + P(B) \]</div>
+            <!-- Analoji Odaklı İnfografik SVG -->
+            <div class="svg-container">
+                <svg width="100%" height="100%" viewBox="-40 40 500 500" fill="none" xmlns="http://www.w3.org/2000/svg" style="font-family: 'Inter', sans-serif;">
+
+                    <!-- Deney: Arkadan gelen ok izi ve hareketi -->
+                    <path d="M420 80 Q360 140 250 210" stroke="#555" stroke-width="2" stroke-dasharray="8 8"/>
+
+                    <!-- Deney Etiketi -->
+                    <rect x="360" y="45" width="90" height="30" fill="#1a1a1a" rx="4" stroke="#444"/>
+                    <text x="405" y="65" fill="#facc15" font-size="14" font-weight="bold" text-anchor="middle">Deney</text>
+                    <text x="405" y="90" fill="#aaa" font-size="11" font-style="italic" text-anchor="middle">(Fırlatma eylemi)</text>
+
+                    <!-- DART TAHTASI (Omega) -->
+                    <!-- Dış tahta / Karanlık Ahşap Teması -->
+                    <circle cx="210" cy="290" r="160" fill="#1a1614" stroke="#332a24" stroke-width="10"/>
+                    <!-- Dilim Çizgileri -->
+                    <g stroke="#262626" stroke-width="2">
+                        <line x1="210" y1="130" x2="210" y2="450" />
+                        <line x1="50" y1="290" x2="370" y2="290" />
+                        <line x1="97" y1="177" x2="323" y2="403" />
+                        <line x1="97" y1="403" x2="323" y2="177" />
+                    </g>
+                    <!-- İç Halkalar (Puan Çizgileri) -->
+                    <circle cx="210" cy="290" r="110" fill="transparent" stroke="#262626" stroke-width="14"/>
+                    <circle cx="210" cy="290" r="60" fill="transparent" stroke="#262626" stroke-width="14"/>
+
+                    <!-- Omega Etiketi -->
+                    <path d="M210 130 L210 90 L180 90" stroke="#fff" stroke-width="2"/>
+                    <rect x="50" y="75" width="130" height="30" fill="#1a1a1a" rx="4" stroke="#444"/>
+                    <text x="115" y="95" fill="#fff" font-size="14" font-weight="bold" text-anchor="middle">Örneklem [Ω]</text>
+                    <text x="115" y="120" fill="#aaa" font-size="11" font-style="italic" text-anchor="middle">(Dart tahtasının tamamı)</text>
+
+                    <!-- Olay E: Hedef Bölgesi (İç Çember - Kırmızı Ton) -->
+                    <circle cx="210" cy="290" r="30" fill="#8b3030" stroke="#e04e4e" stroke-width="3"/>
+                    <circle cx="210" cy="290" r="10" fill="#e04e4e" />
+
+                    <!-- Olay Etiketi -->
+                    <path d="M185 290 L120 290 L100 270" stroke="#fff" stroke-width="2"/>
+                    <rect x="20" y="240" width="100" height="30" fill="#1a1a1a" rx="4" stroke="#444"/>
+                    <text x="70" y="260" fill="#e04e4e" font-size="14" font-weight="bold" text-anchor="middle">Olay [E]</text>
+                    <text x="70" y="285" fill="#aaa" font-size="11" font-style="italic" text-anchor="middle">(Kırmızı hedef alan)</text>
+
+                    <!-- DART OKU (ω Çıktısı) -->
+                    <g>
+                        <!-- İğne ucu -->
+                        <line x1="230" y1="265" x2="210" y2="290" stroke="#bbb" stroke-width="2" stroke-linecap="round"/>
+                        <!-- Gövde -->
+                        <line x1="265" y1="225" x2="230" y2="265" stroke="#facc15" stroke-width="8" stroke-linecap="round"/>
+                        <line x1="255" y1="235" x2="240" y2="252" stroke="#fff" stroke-width="2"/>
+                        <!-- Mil -->
+                        <line x1="290" y1="195" x2="265" y2="225" stroke="#777" stroke-width="4"/>
+                        <!-- Tüyler -->
+                        <g fill="#4299e1" stroke="#2b6cb0" stroke-width="1">
+                            <path d="M290 195 L275 160 L285 180 Z"/>
+                            <path d="M290 195 L320 185 L300 198 Z"/>
+                            <path d="M290 195 L300 165 L292 185 Z" fill="#63b3ed"/>
+                        </g>
+                        <!-- Sonuç Noktası -->
+                        <circle cx="210" cy="290" r="3" fill="#fff" stroke="#000" stroke-width="1"/>
+                    </g>
+
+                    <!-- Çıktı Etiketi -->
+                    <path d="M210 290 L210 420 L240 440" stroke="#fff" stroke-width="2"/>
+                    <rect x="240" y="425" width="100" height="30" fill="#1a1a1a" rx="4" stroke="#444"/>
+                    <text x="290" y="445" fill="#fff" font-size="14" font-weight="bold" text-anchor="middle">Çıktı [ω]</text>
+                    <text x="290" y="470" fill="#aaa" font-size="11" font-style="italic" text-anchor="middle">(Okun tam saplandığı nokta)</text>
+                </svg>
             </div>
+
         </div>
-        <div class="page-indicator">2 / 2</div>
+        <div class="page-indicator">2 / 3</div>
     </div>
 
 </body>

@@ -5,3 +5,7 @@
 [2026-03-15] [1.1 Ders İçeriği Tasarımı] -> Kartlar arası boşluklar azaltılıp padding ve okunabilirlik arttırıldı. Görsel atıflarında '1. Deney' yerine 'Deney [1]' köşeli parantez mantığı kullanılarak daha akademik referans sağlandı. Bertrand paradoksunun odak noktası P ölçüsünün gerekliliğine vurgu yapılarak pedagojik bağlantı kuruldu.
 
 [2026-03-15] [1.1 Ders İçeriği Tasarımı] -> Kartlardaki asimetrik boşluklar margin/padding/gap artırılarak giderildi. Dart tahtası (SVG viewBox) gerçek merkezine kaydırılarak hizalandı ve görsel içindeki fontlar sistem fontu olan Inter ile değiştirilerek görüntü kalitesi yükseltildi.
+
+[2026-03-16] [2_pedagoji.md] â†’ NE bÃ¶lÃ¼mÃ¼ doÄŸrudan terminolojiye dalmamalÄ±; kavramsal bir giriÅŸ sayfasÄ± (zihinsel Ã§erÃ§eve) ile baÅŸlamalÄ±. Ders adÄ±nÄ±n (Ã¶r: Aksiyomatik OlasÄ±lÄ±k ve Olay UzaylarÄ±) ne anlama geldiÄŸini sezgisel dÃ¼zeyde aÃ§Ä±klayan bir giriÅŸ slaytÄ± eklenmelidir.
+[2026-03-16] [2_pedagoji.md] â†’ NE bÃ¶lÃ¼mÃ¼nde baÅŸlÄ±klar (Ã¶r: "4 Temel AktÃ¶r") konu baÄŸlamÄ±ndan kopuk ve neyin Ã¶ÄŸrenileceÄŸini ifade etmiyor. BaÅŸlÄ±klar dersin adÄ±nÄ± ve iÃ§eriÄŸini yansÄ±tmalÄ± (Ã¶r: "OlasÄ±lÄ±k Sahnesinin Anatomisi").
+[2026-03-16] [2_pedagoji.md] â†’ NE bÃ¶lÃ¼mÃ¼ yapÄ±sÄ±: GiriÅŸ (zihinsel Ã§erÃ§eve) â†’ Unsurlar (terimler ve analoji) â†’ Kurallar (aksiyomlar) ÅŸeklinde 3 katmanlÄ± akÄ±ÅŸla ilerlemelidir.
