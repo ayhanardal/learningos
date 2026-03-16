@@ -3,23 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>1.1 - Kolmogorov Aksiyomları</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
-        onload="renderMathInElement(document.body, {
-          delimiters: [
-            {left: '$$', right: '$$', display: true},
-            {left: '$', right: '$', display: false},
-            {left: '\\[', right: '\\]', display: true},
-            {left: '\\(', right: '\\)', display: false}
-          ]
-        });"></script>
+    <title>1.1 - Aksiyom vs. Varsayım</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #121212; --text: #e0e0e0; --slide-bg: #1e1e1e; --border: #333;
-            --accent: #facc15; --lead-text: #ffffff;
+            --bg: #121212; --text: #e0e0e0;
+            --highlight-bg: #3d3516; /* Vurgulayıcı Altın/Olive Arka Plan */
+            --accent: #facc15; --white: #ffffff;
         }
         html { font-size: 14px; }
         body {
@@ -30,152 +20,80 @@
         }
         .slide {
             width: 100%; height: 100%; max-width: 1300px; margin: 0 auto;
-            background: var(--slide-bg); border: 1px solid var(--border); border-radius: 1rem;
-            padding: 2.5rem 3.5rem; box-sizing: border-box; display: flex; flex-direction: column;
-            overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            background: var(--highlight-bg); border: 1px solid #4d431c; border-radius: 1rem;
+            padding: 3.5rem 4.5rem; box-sizing: border-box; display: flex; flex-direction: column;
+            overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+            justify-content: center;
         }
 
-        header { flex-shrink: 0; border-bottom: 1px solid var(--border); padding-bottom: 0.8rem; margin-bottom: 1.5rem;}
-        h1 { margin: 0; font-size: 2.4rem; color: #fff; font-weight: 700; letter-spacing: -0.04em; }
+        h1 { margin: 0 0 3rem 0; font-size: 3rem; color: var(--accent); font-weight: 800; letter-spacing: -0.05em; text-align: center; }
 
-        .analogy-intro { 
-            font-size: 1.1rem; line-height: 1.5; color: #aaa; margin-bottom: 1.5rem; 
-            max-width: 1100px; border-left: 2px solid var(--accent); padding-left: 1.5rem;
-        }
-        .analogy-intro strong { color: var(--accent); }
-
-        .content { flex: 1; display: flex; flex-direction: column; gap: 0.5rem; justify-content: space-around; }
-
-        .axiom-row {
-            display: grid; grid-template-columns: 1.2fr 1.1fr; gap: 3rem;
-            align-items: center; padding: 1.2rem 0;
-            border-bottom: 1px solid rgba(255,255,255,0.03);
-        }
-        .axiom-row:last-child { border-bottom: none; }
-
-        .info-pane { display: flex; flex-direction: column; gap: 0.8rem; justify-content: center; }
-        .technical-title { font-size: 1.25rem; color: #fff; font-weight: 700; display: flex; align-items: center; gap: 0.8rem; }
-        .technical-title span { color: var(--accent); }
-        .desc { font-size: 1.05rem; line-height: 1.6; color: #ccc; margin: 0; }
-        .math-block { margin: 0.2rem 0; font-size: 1.6rem; color: #fff; }
-
-        .visual-pane {
-            height: 180px; width: 100%; background: #000; border-radius: 8px;
-            border: 1px solid #2a2a2a; display: flex; align-items: center; justify-content: center;
-            overflow: hidden;
+        .comparison-container {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start;
         }
 
-        .map-svg { width: 100%; height: 100%; }
-        .map-frame { fill: #111; stroke: #333; stroke-width: 1; }
-        .continent-base { fill: #252525; stroke: #333; stroke-width: 1; }
+        .section { display: flex; flex-direction: column; gap: 1.5rem; }
+        .section-header { border-bottom: 2px solid rgba(255,255,255,0.1); padding-bottom: 1rem; }
+        .section-title { font-size: 1.6rem; color: var(--white); font-weight: 700; margin-bottom: 0.5rem; }
+        .subtitle { font-size: 1.1rem; color: var(--accent); font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; }
+
+        .item { display: flex; flex-direction: column; gap: 0.5rem; }
+        .label { font-size: 0.9rem; color: rgba(255,255,255,0.6); text-transform: uppercase; font-weight: 600; }
+        .content-text { font-size: 1.15rem; line-height: 1.6; color: #ddd; }
+        .analogy-box { 
+            background: rgba(0,0,0,0.2); padding: 1.2rem; border-radius: 8px; border-left: 3px solid var(--accent); 
+            font-style: italic; font-size: 1.05rem; line-height: 1.5; color: #eee;
+        }
+
+        .feature-tag { 
+            align-self: flex-start; background: rgba(255,255,255,0.1); color: #fff; 
+            padding: 0.4rem 1rem; border-radius: 20px; font-size: 0.9rem; font-weight: 600; 
+        }
     </style>
 </head>
 <body>
 
     <div class="slide">
-        <header>
-            <h1>Kolmogorov Aksiyomları</h1>
-        </header>
+        <h1>Aksiyom vs. Varsayım</h1>
 
-        <p class="analogy-intro">
-            Örneklem uzayını ($\Omega$) devasa bir <strong>dikdörtgen harita</strong>, elimizdeki tam <strong>1 kg altın tozunu</strong> da toplam olasılık kütlesi olarak düşün. Olasılık hesaplamak, bu tozu harita üzerindeki bölgelere ($E$) serpmektir:
-        </p>
-
-        <div class="content">
-            
-            <svg style="display: none;">
-                <defs>
-                    <!-- Sabit Kıta Tanımları -->
-                    <path id="continent-a" d="M40 50 Q70 30 100 60 T90 110 T40 100 Z" />
-                    <path id="continent-b" d="M180 40 Q220 20 260 60 T230 120 T170 110 Z" />
-                    
-                    <!-- Altın Tozu Deseni -->
-                    <pattern id="gold-stipple" width="4" height="4" patternUnits="userSpaceOnUse">
-                        <circle cx="1" cy="1" r="0.6" fill="#facc15" />
-                        <circle cx="3" cy="3" r="0.4" fill="#facc15" fill-opacity="0.5" />
-                    </pattern>
-                </defs>
-            </svg>
-
-            <!-- Aksiyom 1 -->
-            <div class="axiom-row">
-                <div class="info-pane">
-                    <div class="technical-title"><span>[1]</span> Negatif Olmama (Non-negativity)</div>
-                    <p class="desc">Haritanın neresini seçersen seç, oraya "negatif" miktarda toz serpemezsin. Toz yoksa, kütle de 0'dır; asla daha azı değildir.</p>
-                    <div class="math-block">$$ P(E) \ge 0 $$</div>
+        <div class="comparison-container">
+            <!-- Aksiyom -->
+            <div class="section">
+                <div class="section-header">
+                    <div class="subtitle">Anayasa (Axiom)</div>
+                    <div class="section-title">Değişmez Temel Kurallar</div>
                 </div>
-                <div class="visual-pane">
-                    <svg class="map-svg" viewBox="0 0 320 180">
-                        <!-- Default Harita -->
-                        <g transform="translate(20, 20)">
-                            <rect x="0" y="0" width="280" height="140" class="map-frame" />
-                            <use href="#continent-a" class="continent-base" />
-                            <use href="#continent-b" class="continent-base" />
-                        </g>
-                        <!-- Yokluk Betimi -->
-                        <g transform="translate(160, 90)">
-                            <circle r="35" fill="none" stroke="#444" stroke-width="1" stroke-dasharray="4 4" />
-                            <text x="0" y="8" fill="#555" font-size="28" font-weight="900" text-anchor="middle">0 kg</text>
-                        </g>
-                    </svg>
+                
+                <div class="item">
+                    <div class="label">Nedir</div>
+                    <div class="content-text">Doğruluğu ispatlanamayan, sorgulanmayan ve sistemin üzerine inşa edildiği mutlak başlangıç noktalarıdır.</div>
                 </div>
+
+                <div class="analogy-box">
+                    "Fil sadece çapraz gider." Bu bir varsayım değil, satrancın anayasasıdır. Değiştirirseniz başka bir oyun oynamış olursunuz.
+                </div>
+
+                <div class="feature-tag">Evrensel / Değiştirilemez</div>
             </div>
 
-            <!-- Aksiyom 2 -->
-            <div class="axiom-row">
-                <div class="info-pane">
-                    <div class="technical-title"><span>[2]</span> Bütünlük / Kesinlik (Normalization)</div>
-                    <p class="desc">Elimizdeki altın tozunun tamamı haritanın ($\Omega$) bir yerlerine düşmek zorundadır. Tüm haritadaki toplam toz miktarı daima 1 kg'dır ($P(\Omega) = 1$).</p>
-                    <div class="math-block">$$ P(\Omega) = 1 $$</div>
+            <!-- Varsayım -->
+            <div class="section">
+                <div class="section-header">
+                    <div class="subtitle">Strateji (Assumption)</div>
+                    <div class="section-title">Geçici Hipotezler</div>
                 </div>
-                <div class="visual-pane">
-                    <svg class="map-svg" viewBox="0 0 320 180">
-                        <!-- Default Harita -->
-                        <g transform="translate(20, 20)">
-                            <rect x="0" y="0" width="280" height="140" class="map-frame" />
-                            <use href="#continent-a" class="continent-base" />
-                            <use href="#continent-b" class="continent-base" />
-                            <!-- Haritanın istisnasız tamamına altın tozu dökülmesi -->
-                            <rect x="0" y="0" width="280" height="140" fill="url(#gold-stipple)" fill-opacity="0.9" />
-                            <rect x="0" y="0" width="280" height="140" fill="var(--accent)" fill-opacity="0.1" stroke="var(--accent)" stroke-width="1" />
-                        </g>
-                        
-                        <g transform="translate(160, 90)">
-                            <rect x="-45" y="-15" width="90" height="30" rx="4" fill="#000" stroke="var(--accent)" stroke-width="1" />
-                            <text x="0" y="6" fill="var(--accent)" font-size="14" font-weight="900" text-anchor="middle">TOTAL: 1 kg</text>
-                        </g>
-                    </svg>
-                </div>
-            </div>
 
-            <!-- Aksiyom 3 -->
-            <div class="axiom-row">
-                <div class="info-pane">
-                    <div class="technical-title"><span>[3]</span> Toplanabilirlik (Additivity)</div>
-                    <p class="desc">Haritada sınırları hiç değmeyen iki bölge düşün ($A \cap B = \emptyset$). Toplam toz, her bir bölgedeki toz miktarlarının aritmetik toplamıdır.</p>
-                    <div class="math-block">$$ P(A \cup B) = P(A) + P(B) $$</div>
+                <div class="item">
+                    <div class="label">Nedir</div>
+                    <div class="content-text">Belirli bir sorunu çözmek için "doğru kabul edilen" geçici kabullerdir. Yanlış çıkarlarsa sistem çökmez, sonuç hatalı olur.</div>
                 </div>
-                <div class="visual-pane">
-                    <svg class="map-svg" viewBox="0 0 320 180">
-                        <!-- Default Harita -->
-                        <g transform="translate(20, 20)">
-                            <rect x="0" y="0" width="280" height="140" class="map-frame" />
-                            <use href="#continent-a" class="continent-base" />
-                            <use href="#continent-b" class="continent-base" />
-                            <!-- Sadece Kıtalara Altın Tozu Serpilmesi -->
-                            <use href="#continent-a" fill="url(#gold-stipple)" fill-opacity="1" stroke="var(--accent)" stroke-width="1" />
-                            <use href="#continent-b" fill="url(#gold-stipple)" fill-opacity="1" stroke="var(--accent)" stroke-width="1" />
-                        </g>
-                        
-                        <g transform="translate(160, 90)">
-                            <text x="-85" y="10" fill="#fff" font-size="20" font-weight="bold" text-anchor="middle">A</text>
-                            <text x="0" y="0" fill="#666" font-size="24" font-weight="bold" text-anchor="middle">+</text>
-                            <text x="85" y="10" fill="#fff" font-size="20" font-weight="bold" text-anchor="middle">B</text>
-                        </g>
-                    </svg>
-                </div>
-            </div>
 
+                <div class="analogy-box">
+                    "Rakibin piyonunu süreceğini varsayıyorum." Bu bir stratejidir. Rakip farklı oynarsa oyun çökmez, sadece stratejiniz patlar.
+                </div>
+
+                <div class="feature-tag">Durumsal / Test Edilebilir</div>
+            </div>
         </div>
     </div>
 
