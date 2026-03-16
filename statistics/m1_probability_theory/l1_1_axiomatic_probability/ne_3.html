@@ -10,7 +10,9 @@
         onload="renderMathInElement(document.body, {
           delimiters: [
             {left: '$$', right: '$$', display: true},
-            {left: '$', right: '$', display: false}
+            {left: '$', right: '$', display: false},
+            {left: '\\[', right: '\\]', display: true},
+            {left: '\\(', right: '\\)', display: false}
           ]
         });"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -60,12 +62,12 @@
         .visual-pane {
             height: 180px; width: 100%; background: #000; border-radius: 8px;
             border: 1px solid #2a2a2a; display: flex; align-items: center; justify-content: center;
-            overflow: hidden; box-shadow: inset 0 0 30px rgba(0,0,0,0.7);
+            overflow: hidden;
         }
 
         .map-svg { width: 100%; height: 100%; }
         .map-frame { fill: #111; stroke: #333; stroke-width: 1; }
-        .continent-base { fill: #222; stroke: #2a2a2a; stroke-width: 1; }
+        .continent-base { fill: #252525; stroke: #333; stroke-width: 1; }
     </style>
 </head>
 <body>
@@ -83,17 +85,10 @@
             
             <svg style="display: none;">
                 <defs>
-                    <!-- Kıta Yolları (Ayrı ayrı maskeleyebilmek için) -->
-                    <path id="path-continent-a" d="M30 40 Q60 20 90 50 T80 100 T30 90 Z" />
-                    <path id="path-continent-b" d="M170 30 Q210 10 250 50 T220 110 T160 100 Z" />
+                    <!-- Sabit Kıta Tanımları -->
+                    <path id="continent-a" d="M40 50 Q70 30 100 60 T90 110 T40 100 Z" />
+                    <path id="continent-b" d="M180 40 Q220 20 260 60 T230 120 T170 110 Z" />
                     
-                    <!-- Global Harita Tanımı -->
-                    <symbol id="base-map" viewBox="0 0 280 140">
-                        <rect x="0" y="0" width="280" height="140" class="map-frame" />
-                        <use href="#path-continent-a" class="continent-base" />
-                        <use href="#path-continent-b" class="continent-base" />
-                    </symbol>
-
                     <!-- Altın Tozu Deseni -->
                     <pattern id="gold-stipple" width="4" height="4" patternUnits="userSpaceOnUse">
                         <circle cx="1" cy="1" r="0.6" fill="#facc15" />
@@ -110,9 +105,15 @@
                     <div class="math-block">$$ P(E) \ge 0 $$</div>
                 </div>
                 <div class="visual-pane">
-                    <svg class="map-svg" viewBox="0 -10 320 200">
-                        <use href="#base-map" x="20" y="30" />
-                        <g transform="translate(160, 100)">
+                    <svg class="map-svg" viewBox="0 0 320 180">
+                        <!-- Default Harita -->
+                        <g transform="translate(20, 20)">
+                            <rect x="0" y="0" width="280" height="140" class="map-frame" />
+                            <use href="#continent-a" class="continent-base" />
+                            <use href="#continent-b" class="continent-base" />
+                        </g>
+                        <!-- Yokluk Betimi -->
+                        <g transform="translate(160, 90)">
                             <circle r="35" fill="none" stroke="#444" stroke-width="1" stroke-dasharray="4 4" />
                             <text x="0" y="8" fill="#555" font-size="28" font-weight="900" text-anchor="middle">0 kg</text>
                         </g>
@@ -124,16 +125,22 @@
             <div class="axiom-row">
                 <div class="info-pane">
                     <div class="technical-title"><span>[2]</span> Bütünlük / Kesinlik (Normalization)</div>
-                    <p class="desc">Elimizdeki altın tozunun tamamı haritanın ($\Omega$) bir yerlerine düşmek zorundadır. Tüm haritadaki toplam toz miktarı daima 1 kg'dır ($P = 100\%$).</p>
+                    <p class="desc">Elimizdeki altın tozunun tamamı haritanın ($\Omega$) bir yerlerine düşmek zorundadır. Tüm haritadaki toplam toz miktarı daima 1 kg'dır ($P(\Omega) = 1$).</p>
                     <div class="math-block">$$ P(\Omega) = 1 $$</div>
                 </div>
                 <div class="visual-pane">
-                    <svg class="map-svg" viewBox="0 -10 320 200">
-                        <use href="#base-map" x="20" y="30" />
-                        <!-- Tüm Alanı Kaplayan Toz -->
-                        <rect x="20" y="30" width="280" height="140" fill="url(#gold-stipple)" fill-opacity="0.8" />
+                    <svg class="map-svg" viewBox="0 0 320 180">
+                        <!-- Default Harita -->
+                        <g transform="translate(20, 20)">
+                            <rect x="0" y="0" width="280" height="140" class="map-frame" />
+                            <use href="#continent-a" class="continent-base" />
+                            <use href="#continent-b" class="continent-base" />
+                            <!-- Haritanın istisnasız tamamına altın tozu dökülmesi -->
+                            <rect x="0" y="0" width="280" height="140" fill="url(#gold-stipple)" fill-opacity="0.9" />
+                            <rect x="0" y="0" width="280" height="140" fill="var(--accent)" fill-opacity="0.1" stroke="var(--accent)" stroke-width="1" />
+                        </g>
                         
-                        <g transform="translate(160, 100)">
+                        <g transform="translate(160, 90)">
                             <rect x="-45" y="-15" width="90" height="30" rx="4" fill="#000" stroke="var(--accent)" stroke-width="1" />
                             <text x="0" y="6" fill="var(--accent)" font-size="14" font-weight="900" text-anchor="middle">TOTAL: 1 kg</text>
                         </g>
@@ -149,16 +156,18 @@
                     <div class="math-block">$$ P(A \cup B) = P(A) + P(B) $$</div>
                 </div>
                 <div class="visual-pane">
-                    <svg class="map-svg" viewBox="0 -10 320 200">
-                        <use href="#base-map" x="20" y="30" />
-                        
-                        <!-- Sadece Kıtaların Üzerine Toz Serpilmesi (Maskeleme yerine path kullanımı) -->
-                        <g transform="translate(20,30)">
-                            <use href="#path-continent-a" fill="url(#gold-stipple)" fill-opacity="1" stroke="var(--accent)" stroke-width="0.5" />
-                            <use href="#path-continent-b" fill="url(#gold-stipple)" fill-opacity="1" stroke="var(--accent)" stroke-width="0.5" />
+                    <svg class="map-svg" viewBox="0 0 320 180">
+                        <!-- Default Harita -->
+                        <g transform="translate(20, 20)">
+                            <rect x="0" y="0" width="280" height="140" class="map-frame" />
+                            <use href="#continent-a" class="continent-base" />
+                            <use href="#continent-b" class="continent-base" />
+                            <!-- Sadece Kıtalara Altın Tozu Serpilmesi -->
+                            <use href="#continent-a" fill="url(#gold-stipple)" fill-opacity="1" stroke="var(--accent)" stroke-width="1" />
+                            <use href="#continent-b" fill="url(#gold-stipple)" fill-opacity="1" stroke="var(--accent)" stroke-width="1" />
                         </g>
                         
-                        <g transform="translate(160, 100)">
+                        <g transform="translate(160, 90)">
                             <text x="-85" y="10" fill="#fff" font-size="20" font-weight="bold" text-anchor="middle">A</text>
                             <text x="0" y="0" fill="#666" font-size="24" font-weight="bold" text-anchor="middle">+</text>
                             <text x="85" y="10" fill="#fff" font-size="20" font-weight="bold" text-anchor="middle">B</text>
