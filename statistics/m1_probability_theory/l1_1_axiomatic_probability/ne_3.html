@@ -9,7 +9,6 @@
         :root {
             --bg: #121212; --text: #e0e0e0; --slide-bg: #1e1e1e; --border: #333;
             --accent: #facc15; --lead-text: #ffffff;
-            --highlight-bg: #2d2610; /* Koyu vurgu rengi */
         }
         html { font-size: 14px; }
         body {
@@ -26,32 +25,28 @@
         }
 
         header { 
-            flex-shrink: 0; border-bottom: 2px solid var(--accent); padding-bottom: 1rem; margin-bottom: 3rem;
-            display: flex; align-items: center; justify-content: space-between;
+            flex-shrink: 0; border-bottom: 2px solid var(--accent); padding-bottom: 1rem; margin-bottom: 2rem;
         }
         h1 { margin: 0; font-size: 2.4rem; color: var(--accent); font-weight: 800; letter-spacing: -0.04em; }
-        .highlight-tag { background: var(--accent); color: #000; padding: 0.3rem 0.8rem; border-radius: 4px; font-weight: 800; font-size: 0.9rem; }
 
-        .content { flex: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: stretch; }
+        .content-wrapper { 
+            flex: 1; display: flex; flex-direction: column; justify-content: center; 
+        }
+
+        .content { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
 
         .section { display: flex; flex-direction: column; gap: 2rem; }
-        .section-title-area { border-left: 4px solid var(--accent); padding-left: 1.5rem; }
-        .subtitle { font-size: 1.2rem; color: var(--accent); font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem; }
-        .section-title { font-size: 2rem; color: #fff; font-weight: 700; margin: 0; }
-
+        .section-title { font-size: 2.1rem; color: #fff; font-weight: 800; margin-bottom: 0.3rem; }
+        
         .info-block { display: flex; flex-direction: column; gap: 1rem; }
-        .label { font-size: 1rem; color: #888; font-weight: 600; text-transform: uppercase; }
-        .content-text { font-size: 1.4rem; line-height: 1.5; color: #ccc; }
+        .content-text { font-size: 1.4rem; line-height: 1.6; color: #ccc; }
 
         .analogy-box { 
-            background: rgba(250, 204, 21, 0.05); border: 1px solid rgba(250, 204, 21, 0.2);
-            padding: 1.8rem; border-radius: 12px; font-style: italic; font-size: 1.25rem; line-height: 1.6; color: #fff;
-            position: relative;
+            background: rgba(250, 204, 21, 0.03); border-left: 4px solid var(--accent);
+            padding: 1.8rem; border-radius: 4px; font-style: italic; font-size: 1.3rem; line-height: 1.6; color: #fff;
         }
-        .analogy-box::before { content: '"'; position: absolute; left: 0.5rem; top: 0rem; font-size: 4rem; color: var(--accent); opacity: 0.3; }
 
-        .feature-footer { margin-top: auto; display: flex; gap: 1rem; }
-        .tag { background: #333; color: #fff; padding: 0.5rem 1.2rem; border-radius: 6px; font-size: 1rem; font-weight: 600; border: 1px solid #444;}
+        .tag { color: var(--accent); font-size: 1rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; }
     </style>
 </head>
 <body>
@@ -59,51 +54,40 @@
     <div class="slide">
         <header>
             <h1>Aksiyom vs. Varsayım</h1>
-            <div class="highlight-tag">KRİTİK FARK</div>
         </header>
 
-        <div class="content">
-            <!-- Aksiyom -->
-            <div class="section">
-                <div class="section-title-area">
-                    <div class="subtitle">Anayasa (Axiom)</div>
-                    <h2 class="section-title">Değişmez Temel</h2>
-                </div>
-                
-                <div class="info-block">
-                    <div class="label">Sistemdeki Rolü</div>
-                    <div class="content-text">Doğruluğu ispatlanamayan, sorgulanmayan ve sistemin üzerine inşa edildiği mutlak başlangıç noktalarıdır.</div>
+        <div class="content-wrapper">
+            <div class="content">
+                <!-- Aksiyom -->
+                <div class="section">
+                    <div>
+                        <h2 class="section-title">Aksiyom (Axiom)</h2>
+                        <div class="tag">Anayasa / Değişmez</div>
+                    </div>
+                    
+                    <div class="info-block">
+                        <div class="content-text">Doğruluğu ispatlanamayan, sorgulanmayan ve sistemin üzerine inşa edildiği mutlak başlangıç noktalarıdır.</div>
+                    </div>
+
+                    <div class="analogy-box">
+                        "Fil sadece çapraz gider." Bu bir varsayım değil, satrancın anayasasıdır. Değiştirirseniz başka bir oyun oynarsınız.
+                    </div>
                 </div>
 
-                <div class="analogy-box">
-                    "Fil sadece çapraz gider." Bu bir varsayım değil, satrancın anayasasıdır. Değiştirirseniz başka bir oyun icat etmiş olursunuz.
-                </div>
+                <!-- Varsayım -->
+                <div class="section">
+                    <div>
+                        <h2 class="section-title">Varsayım (Assumption)</h2>
+                        <div class="tag">Strateji / Esnek</div>
+                    </div>
 
-                <div class="feature-footer">
-                    <span class="tag">Evrensel</span>
-                    <span class="tag">Sorgulanamaz</span>
-                </div>
-            </div>
+                    <div class="info-block">
+                        <div class="content-text">Belirli bir sorunu çözmek için "doğru kabul edilen" geçici kabullerdir. Yanlış çıkarlarsa sistem çökmez.</div>
+                    </div>
 
-            <!-- Varsayım -->
-            <div class="section">
-                <div class="section-title-area">
-                    <div class="subtitle">Strateji (Assumption)</div>
-                    <h2 class="section-title">Geçici Hipotez</h2>
-                </div>
-
-                <div class="info-block">
-                    <div class="label">Sistemdeki Rolü</div>
-                    <div class="content-text">Belirli bir sorunu çözmek için "doğru kabul edilen" geçici kabullerdir. Yanlış çıkarlarsa sistem çökmez.</div>
-                </div>
-
-                <div class="analogy-box">
-                    "Rakibin piyonunu süreceğini varsayıyorum." Bu bir stratejidir. Rakip farklı oynarsa sadece stratejiniz patlar, oyun devam eder.
-                </div>
-
-                <div class="feature-footer">
-                    <span class="tag">Durumsal</span>
-                    <span class="tag">Esnek</span>
+                    <div class="analogy-box">
+                        "Rakibin piyonunu süreceğini varsayıyorum." Bu bir stratejidir. Rakip farklı oynarsa sadece stratejiniz patlar.
+                    </div>
                 </div>
             </div>
         </div>
