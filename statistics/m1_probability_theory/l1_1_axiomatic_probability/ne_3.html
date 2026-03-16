@@ -7,9 +7,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #121212; --text: #e0e0e0;
-            --highlight-bg: #3d3516; /* Vurgulayıcı Altın/Olive Arka Plan */
-            --accent: #facc15; --white: #ffffff;
+            --bg: #121212; --text: #e0e0e0; --slide-bg: #1e1e1e; --border: #333;
+            --accent: #facc15; --lead-text: #ffffff;
+            --highlight-bg: #2d2610; /* Koyu vurgu rengi */
         }
         html { font-size: 14px; }
         body {
@@ -20,79 +20,91 @@
         }
         .slide {
             width: 100%; height: 100%; max-width: 1300px; margin: 0 auto;
-            background: var(--highlight-bg); border: 1px solid #4d431c; border-radius: 1rem;
-            padding: 3.5rem 4.5rem; box-sizing: border-box; display: flex; flex-direction: column;
-            overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.6);
-            justify-content: center;
+            background: var(--slide-bg); border: 1px solid var(--border); border-radius: 1rem;
+            padding: 2.5rem 3.5rem; box-sizing: border-box; display: flex; flex-direction: column;
+            overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.5);
         }
 
-        h1 { margin: 0 0 3rem 0; font-size: 3rem; color: var(--accent); font-weight: 800; letter-spacing: -0.05em; text-align: center; }
-
-        .comparison-container {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start;
+        header { 
+            flex-shrink: 0; border-bottom: 2px solid var(--accent); padding-bottom: 1rem; margin-bottom: 3rem;
+            display: flex; align-items: center; justify-content: space-between;
         }
+        h1 { margin: 0; font-size: 2.4rem; color: var(--accent); font-weight: 800; letter-spacing: -0.04em; }
+        .highlight-tag { background: var(--accent); color: #000; padding: 0.3rem 0.8rem; border-radius: 4px; font-weight: 800; font-size: 0.9rem; }
 
-        .section { display: flex; flex-direction: column; gap: 1.5rem; }
-        .section-header { border-bottom: 2px solid rgba(255,255,255,0.1); padding-bottom: 1rem; }
-        .section-title { font-size: 1.6rem; color: var(--white); font-weight: 700; margin-bottom: 0.5rem; }
-        .subtitle { font-size: 1.1rem; color: var(--accent); font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; }
+        .content { flex: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: stretch; }
 
-        .item { display: flex; flex-direction: column; gap: 0.5rem; }
-        .label { font-size: 0.9rem; color: rgba(255,255,255,0.6); text-transform: uppercase; font-weight: 600; }
-        .content-text { font-size: 1.15rem; line-height: 1.6; color: #ddd; }
+        .section { display: flex; flex-direction: column; gap: 2rem; }
+        .section-title-area { border-left: 4px solid var(--accent); padding-left: 1.5rem; }
+        .subtitle { font-size: 1.2rem; color: var(--accent); font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem; }
+        .section-title { font-size: 2rem; color: #fff; font-weight: 700; margin: 0; }
+
+        .info-block { display: flex; flex-direction: column; gap: 1rem; }
+        .label { font-size: 1rem; color: #888; font-weight: 600; text-transform: uppercase; }
+        .content-text { font-size: 1.4rem; line-height: 1.5; color: #ccc; }
+
         .analogy-box { 
-            background: rgba(0,0,0,0.2); padding: 1.2rem; border-radius: 8px; border-left: 3px solid var(--accent); 
-            font-style: italic; font-size: 1.05rem; line-height: 1.5; color: #eee;
+            background: rgba(250, 204, 21, 0.05); border: 1px solid rgba(250, 204, 21, 0.2);
+            padding: 1.8rem; border-radius: 12px; font-style: italic; font-size: 1.25rem; line-height: 1.6; color: #fff;
+            position: relative;
         }
+        .analogy-box::before { content: '"'; position: absolute; left: 0.5rem; top: 0rem; font-size: 4rem; color: var(--accent); opacity: 0.3; }
 
-        .feature-tag { 
-            align-self: flex-start; background: rgba(255,255,255,0.1); color: #fff; 
-            padding: 0.4rem 1rem; border-radius: 20px; font-size: 0.9rem; font-weight: 600; 
-        }
+        .feature-footer { margin-top: auto; display: flex; gap: 1rem; }
+        .tag { background: #333; color: #fff; padding: 0.5rem 1.2rem; border-radius: 6px; font-size: 1rem; font-weight: 600; border: 1px solid #444;}
     </style>
 </head>
 <body>
 
     <div class="slide">
-        <h1>Aksiyom vs. Varsayım</h1>
+        <header>
+            <h1>Aksiyom vs. Varsayım</h1>
+            <div class="highlight-tag">KRİTİK FARK</div>
+        </header>
 
-        <div class="comparison-container">
+        <div class="content">
             <!-- Aksiyom -->
             <div class="section">
-                <div class="section-header">
+                <div class="section-title-area">
                     <div class="subtitle">Anayasa (Axiom)</div>
-                    <div class="section-title">Değişmez Temel Kurallar</div>
+                    <h2 class="section-title">Değişmez Temel</h2>
                 </div>
                 
-                <div class="item">
-                    <div class="label">Nedir</div>
+                <div class="info-block">
+                    <div class="label">Sistemdeki Rolü</div>
                     <div class="content-text">Doğruluğu ispatlanamayan, sorgulanmayan ve sistemin üzerine inşa edildiği mutlak başlangıç noktalarıdır.</div>
                 </div>
 
                 <div class="analogy-box">
-                    "Fil sadece çapraz gider." Bu bir varsayım değil, satrancın anayasasıdır. Değiştirirseniz başka bir oyun oynamış olursunuz.
+                    "Fil sadece çapraz gider." Bu bir varsayım değil, satrancın anayasasıdır. Değiştirirseniz başka bir oyun icat etmiş olursunuz.
                 </div>
 
-                <div class="feature-tag">Evrensel / Değiştirilemez</div>
+                <div class="feature-footer">
+                    <span class="tag">Evrensel</span>
+                    <span class="tag">Sorgulanamaz</span>
+                </div>
             </div>
 
             <!-- Varsayım -->
             <div class="section">
-                <div class="section-header">
+                <div class="section-title-area">
                     <div class="subtitle">Strateji (Assumption)</div>
-                    <div class="section-title">Geçici Hipotezler</div>
+                    <h2 class="section-title">Geçici Hipotez</h2>
                 </div>
 
-                <div class="item">
-                    <div class="label">Nedir</div>
-                    <div class="content-text">Belirli bir sorunu çözmek için "doğru kabul edilen" geçici kabullerdir. Yanlış çıkarlarsa sistem çökmez, sonuç hatalı olur.</div>
+                <div class="info-block">
+                    <div class="label">Sistemdeki Rolü</div>
+                    <div class="content-text">Belirli bir sorunu çözmek için "doğru kabul edilen" geçici kabullerdir. Yanlış çıkarlarsa sistem çökmez.</div>
                 </div>
 
                 <div class="analogy-box">
-                    "Rakibin piyonunu süreceğini varsayıyorum." Bu bir stratejidir. Rakip farklı oynarsa oyun çökmez, sadece stratejiniz patlar.
+                    "Rakibin piyonunu süreceğini varsayıyorum." Bu bir stratejidir. Rakip farklı oynarsa sadece stratejiniz patlar, oyun devam eder.
                 </div>
 
-                <div class="feature-tag">Durumsal / Test Edilebilir</div>
+                <div class="feature-footer">
+                    <span class="tag">Durumsal</span>
+                    <span class="tag">Esnek</span>
+                </div>
             </div>
         </div>
     </div>
