@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>1.1 - Aksiyomatik Olasılığın Getirdiği Çözüm</title>
+    <title>1.1 - Aksiyomların Gerekliliği</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
@@ -17,7 +17,7 @@
     <style>
         :root {
             --bg: #121212; --text: #e0e0e0; --slide-bg: #1e1e1e; --border: #333;
-            --accent: #facc15; --error: #ef4444;
+            --accent: #facc15; --blue: #3b82f6;
         }
         html { font-size: 14px; }
         body {
@@ -33,109 +33,101 @@
             overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.5);
         }
 
-        header { flex-shrink: 0; border-bottom: 2px solid var(--accent); padding-bottom: 1rem; margin-bottom: 2rem; }
+        header { flex-shrink: 0; border-bottom: 3px solid var(--accent); padding-bottom: 1rem; margin-bottom: 2rem; }
         h1 { margin: 0; font-size: 2.4rem; color: var(--accent); font-weight: 800; letter-spacing: -0.04em; }
 
-        .content-wrapper { flex: 1; display: flex; flex-direction: column; justify-content: center; }
-        .content { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 4rem; align-items: center; }
+        .content-wrapper { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 3rem; }
 
-        .info-pane { display: flex; flex-direction: column; gap: 1.5rem; }
-        .intro-text { font-size: 1.3rem; line-height: 1.6; color: #ccc; }
-        .intro-text strong { color: #fff; }
-
-        .paradox-box {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin: 1rem 0;
+        .problem-definition { 
+            max-width: 900px; margin: 0 auto; text-align: center;
         }
-        .approach {
-            padding: 1.2rem; background: rgba(255,255,255,0.03); border-radius: 8px;
-            border-top: 3px solid #444; display: flex; flex-direction: column; gap: 0.5rem;
-        }
-        .approach-title { font-size: 1rem; font-weight: 700; color: #888; text-transform: uppercase; letter-spacing: 0.05em; }
-        .approach-result { font-size: 1.4rem; color: #fff; font-weight: 700; }
-        .approach.active { border-top-color: var(--accent); background: rgba(250, 204, 21, 0.05); }
+        .problem-definition p { font-size: 1.45rem; line-height: 1.6; color: #ccc; margin: 0; }
+        .problem-definition strong { color: #fff; }
 
-        .solution-pith {
-            border-left: 4px solid var(--accent); padding-left: 1.5rem; margin-top: 1rem;
-        }
-        .solution-pith p { font-size: 1.2rem; line-height: 1.6; color: #eee; font-style: italic; margin: 0; }
+        .visual-comparison { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
 
-        .visual-pane {
-            background: #000; border-radius: 12px; height: 100%; max-height: 420px;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            border: 1px solid #2a2a2a; position: relative; overflow: hidden;
+        .comparison-card {
+            background: #000; border: 1px solid #2a2a2a; border-radius: 12px;
+            padding: 2rem; display: flex; flex-direction: column; align-items: center; gap: 1.5rem;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
         }
+        
+        .card-header { text-align: center; border-bottom: 1px solid #222; width: 100%; padding-bottom: 1rem; }
+        .card-header .title { font-size: 1.1rem; color: #888; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; margin-bottom: 0.5rem; }
+        .card-header .result { font-size: 1.8rem; color: #fff; font-weight: 800; }
 
-        .map-svg { width: 100%; height: 65%; }
-        .factory-belt { fill: #333; }
-        .square-plate { fill: #8B5A2B; stroke: #5d3a1e; stroke-width: 2; }
+        .svg-box { height: 160px; width: 100%; display: flex; align-items: center; justify-content: center; }
+
+        .pith-message { 
+            max-width: 1000px; margin: 0 auto; padding: 1.5rem 2rem; background: rgba(250, 204, 21, 0.04);
+            border-left: 4px solid var(--accent); border-radius: 4px; text-align: center;
+        }
+        .pith-message p { font-size: 1.3rem; line-height: 1.5; color: #eee; font-style: italic; margin: 0; }
     </style>
 </head>
 <body>
 
     <div class="slide">
         <header>
-            <h1>Aksiyomatik Olasılığın Getirdiği Çözüm</h1>
+            <h1>Aksiyomların Gerekliliği</h1>
         </header>
 
         <div class="content-wrapper">
-            <div class="content">
-                <div class="info-pane">
-                    <p class="intro-text">
-                        "NE?" bölümünde gördüğümüz katı tanımlar birer mühendislik çözümüdür. Eğer <strong>Örneklem Uzayını ($\Omega$)</strong> ve <strong>Olasılık Fonksiyonunu ($P$)</strong> aksiyomatik olarak en başta sabitlemezseniz; "rastgelelik" bakış açınıza göre değişen bir belirsizliğe dönüşür.
-                    </p>
+            <div class="problem-definition">
+                <p>
+                    Bir fabrika 1m ile 3m arasında kareler üretiyorsa, "bir sonraki karenin 1m-2m arasında olma olasılığı" sorusuna <strong>iki farklı doğru cevap</strong> verilebilir:
+                </p>
+            </div>
 
-                    <div class="paradox-box">
-                        <div class="approach">
-                            <div class="approach-title">Uzunluk Bazlı Ölçüm</div>
-                            <div class="approach-result">Sonuç: %50</div>
-                        </div>
-                        <div class="approach">
-                            <div class="approach-title">Alan Bazlı Ölçüm</div>
-                            <div class="approach-result">Sonuç: %37.5</div>
-                        </div>
+            <div class="visual-comparison">
+                <!-- Kenar Odaklı Bakış -->
+                <div class="comparison-card">
+                    <div class="card-header">
+                        <div class="title">Kenar Merceği</div>
+                        <div class="result">%50 Olasılık</div>
                     </div>
-
-                    <div class="solution-pith">
-                        <p>
-                            Aksiyomatik sistem der ki: "Hesap yapmadan önce hangi ölçüm modelini (sensörü) kullandığını anayasaya yazmalısın." Böylece olasılık bir 'yorum' olmaktan çıkar, kesin bir <strong>Mühendislik Ölçümü</strong> haline gelir.
-                        </p>
+                    <div class="svg-box">
+                        <svg viewBox="0 0 200 120" width="100%" height="100%">
+                            <!-- Kenar Çizgisi -->
+                            <line x1="20" y1="60" x2="180" y2="60" stroke="#444" stroke-width="2" />
+                            <rect x="20" y="55" width="80" height="10" fill="var(--blue)" />
+                            <text x="60" y="45" fill="var(--blue)" font-size="10" font-weight="700" text-anchor="middle">1m - 2m</text>
+                            <text x="140" y="45" fill="#555" font-size="10" text-anchor="middle">2m - 3m</text>
+                            <!-- Cetvel Çizgileri -->
+                            <path d="M20 75 L20 85 M60 75 L60 81 M100 75 L100 85 M140 75 L140 81 M180 75 L180 85" stroke="#444" stroke-width="1" />
+                        </svg>
                     </div>
+                    <p style="color: #666; font-size: 0.95rem; text-align: center;">Olasılığı "uzunluk" üzerinden<br>tanımlayan bakış açısı.</p>
                 </div>
 
-                <div class="visual-pane">
-                    <svg class="map-svg" viewBox="0 0 300 180">
-                        <!-- Fabrika Bandı -->
-                        <rect x="20" y="150" width="260" height="8" rx="4" class="factory-belt" />
-                        <!-- Kare Plaka -->
-                        <rect x="120" y="60" width="60" height="60" class="square-plate" rx="2" />
-                        
-                        <!-- Sensör 1: Uzunluk -->
-                        <g transform="translate(60, 40)">
-                            <path d="M-15 0 L15 0" stroke="#4a90e2" stroke-width="2" stroke-dasharray="2 2" />
-                            <circle r="4" fill="#4a90e2" />
-                            <text y="20" fill="#4a90e2" font-size="9" font-weight="bold" text-anchor="middle">Uzunluk Sensörü</text>
-                            <text y="-8" fill="#4a90e2" font-size="8" text-anchor="middle">P(L)</text>
-                        </g>
-
-                        <!-- Sensör 2: Alan -->
-                        <g transform="translate(240, 40)">
-                            <rect x="-10" y="-10" width="20" height="20" fill="none" stroke="#facc15" stroke-width="2" stroke-dasharray="2 2" />
-                            <circle r="4" fill="#facc15" />
-                            <text y="25" fill="#facc15" font-size="9" font-weight="bold" text-anchor="middle">Alan Sensörü</text>
-                            <text y="-12" fill="#facc15" font-size="8" text-anchor="middle">P(A)</text>
-                        </g>
-
-                        <!-- Çatışma Noktası / Çözüm Filtresi -->
-                        <g opacity="0.1">
-                           <line x1="60" y1="40" x2="120" y2="90" stroke="#4a90e2" stroke-width="1" />
-                           <line x1="240" y1="40" x2="180" y2="90" stroke="#facc15" stroke-width="1" />
-                        </g>
-                    </svg>
-                    <div style="padding: 0.5rem 1.5rem; text-align: center; color: #888; font-size: 0.95rem;">
-                        <strong>Analoji:</strong> Şizofrenik Kare Fabrikası<br>
-                        Aksiyomlar, hangi sensörün geçeri olduğunu baştan belirleyerek çelişkiyi çözer.
+                <!-- Alan Odaklı Bakış -->
+                <div class="comparison-card">
+                    <div class="card-header">
+                        <div class="title">Alan Merceği</div>
+                        <div class="result">%37.5 Olasılık</div>
                     </div>
+                    <div class="svg-box">
+                        <svg viewBox="0 0 200 120" width="100%" height="100%">
+                            <!-- Alan Yüzeyi -->
+                            <rect x="20" y="30" width="160" height="60" fill="#111" stroke="#222" />
+                            <rect x="20" y="30" width="60" height="60" fill="var(--accent)" fill-opacity="0.3" stroke="var(--accent)" />
+                            <!-- Tarama Çizgileri -->
+                            <line x1="20" y1="30" x2="80" y2="90" stroke="var(--accent)" stroke-width="0.5" stroke-opacity="0.5" />
+                            <line x1="40" y1="30" x2="80" y2="70" stroke="var(--accent)" stroke-width="0.5" stroke-opacity="0.5" />
+                            <line x1="20" y1="50" x2="60" y2="90" stroke="var(--accent)" stroke-width="0.5" stroke-opacity="0.5" />
+                            
+                            <text x="50" y="110" fill="var(--accent)" font-size="10" font-weight="700" text-anchor="middle">1m² - 4m²</text>
+                            <text x="130" y="110" fill="#555" font-size="10" text-anchor="middle">4m² - 9m²</text>
+                        </svg>
+                    </div>
+                    <p style="color: #666; font-size: 0.95rem; text-align: center;">Olasılığı "yüzey alanı" üzerinden<br>tanımlayan bakış açısı.</p>
                 </div>
+            </div>
+
+            <div class="pith-message">
+                <p>
+                    Aksiyomlar; olasılığın bu tip kişisel yorumlara göre değişmesini engeller. Hesaplamaya başlamadan önce hangi ölçüm kuralının geçerli olduğunu anayasaya sabitler.
+                </p>
             </div>
         </div>
     </div>
