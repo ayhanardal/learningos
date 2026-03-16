@@ -36,22 +36,22 @@
         header { flex-shrink: 0; border-bottom: 3px solid var(--accent); padding-bottom: 1rem; margin-bottom: 2rem; }
         h1 { margin: 0; font-size: 2.4rem; color: var(--accent); font-weight: 800; letter-spacing: -0.04em; }
 
-        .layout { flex: 1; display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 4rem; align-items: stretch; }
+        .layout { flex: 1; display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 4rem; align-items: stretch; }
 
         /* Sol Kolon: İçerik Kutuları */
-        .content-boxes { display: flex; flex-direction: column; gap: 1.5rem; justify-content: center; }
+        .content-boxes { display: flex; flex-direction: column; gap: 1.8rem; justify-content: center; }
         
-        .box { padding: 1.8rem; border-radius: 12px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); position: relative; }
-        .box-analogy { border-left: 5px solid #fff; background: rgba(255, 255, 255, 0.03); }
+        .box { padding: 1.8rem; border-radius: 12px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); }
+        .box-main { border-left: 5px solid var(--accent); background: rgba(250, 204, 21, 0.03); }
         .box-model-1 { border-left: 5px solid var(--blue); }
-        .box-model-2 { border-left: 5px solid var(--accent); }
+        .box-model-2 { border-left: 5px solid #a855f7; }
 
-        .box h3 { margin: 0 0 0.8rem 0; font-size: 1.1rem; font-weight: 700; color: #fff; text-transform: uppercase; letter-spacing: 0.05em; opacity: 0.8; }
+        .box h3 { margin: 0 0 0.8rem 0; font-size: 1.05rem; font-weight: 700; color: #fff; text-transform: uppercase; letter-spacing: 0.08em; opacity: 0.9; }
         .box p { margin: 0; font-size: 1.2rem; line-height: 1.6; color: #bbb; }
         .box strong { color: #fff; }
 
         /* Sağ Kolon: Görseller */
-        .visual-column { display: flex; flex-direction: column; gap: 2rem; justify-content: center; }
+        .visual-column { display: flex; flex-direction: column; gap: 2.2rem; justify-content: center; }
         
         .visual-pane {
             flex: 1; max-height: 200px; background: #000; border-radius: 10px; border: 1px solid #2a2a2a;
@@ -63,7 +63,7 @@
 
         .svg-box { width: 100%; height: 130px; }
 
-        .conclusion { margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid #333; text-align: center; font-style: italic; color: #888; font-size: 1.1rem; }
+        .footer-note { margin-top: 2rem; border-top: 1px solid #333; padding-top: 1.5rem; text-align: center; color: #666; font-size: 1.05rem; font-style: italic; }
     </style>
 </head>
 <body>
@@ -74,68 +74,64 @@
         </header>
 
         <div class="layout">
-            <!-- Sol: Analoji ve Problem Akışı -->
+            <!-- Sol: Akıllıca Birleştirilmiş İçerik -->
             <div class="content-boxes">
-                <div class="box box-analogy">
-                    <h3>Giriş: Şizofrenik Kare Fabrikası</h3>
-                    <p>Kenar uzunlukları <strong>1m ile 3m arasında</strong> kareler üreten bir fabrika düşünelim. Rastgele üretilen bir karenin kenarının <strong>1m-2m arasında</strong> olma olasılığını nasıl hesaplarız?</p>
+                <div class="box box-main">
+                    <h3>Bağlam & Problem: "Hangi Cetvel?"</h3>
+                    <p>Kenarı 1m-3m arası kareler üreten bir fabrikada, "1m-2m arası" bir sonuç arıyoruz. Ancak <strong>tanım eksikliği</strong> nedeniyle, ölçüm merceğinize göre değişen çelişkili cevaplar doğar. Aksiyomlar, bu kaosu bitirip olasılığı standart bir ölçüme dönüştürmek için şarttır.</p>
                 </div>
 
                 <div class="box box-model-1">
-                    <h3>1. Yaklaşım: Kenar Perspektifi</h3>
-                    <p>Eğer olasılığı "uzunluk" bazlı ölçersek; 1-3m arası bir yolda 1-2m arası tam olarak <strong>yolun yarısıdır</strong>. Bu durumda ihtimal matematiksel olarak %50 çıkar.</p>
+                    <h3>Yaklaşım 1: Kenar Merceği</h3>
+                    <p>Fiziksel uzayı sadece "uzunluk" bazlı modellenirse; 1-3m arası üretim bandının tam yarısı 2m'ye kadar olanları içerir. Matematiksel tutarlılıkla sonuç <strong>%50</strong> olur.</p>
                 </div>
 
                 <div class="box box-model-2">
-                    <h3>2. Yaklaşım: Alan Perspektifi</h3>
-                    <p>Aynı fabrikayı "yüzey alanı" üzerinden ölçersek; alan 1m²-9m² arasındadır. 1m-2m kenar (yani 1-4m² alan) bu aralığın sadece 8'de 3'üdür. <strong>Sonuç: %37.5.</strong></p>
+                    <h3>Yaklaşım 2: Alan Merceği</h3>
+                    <p>Aynı fabrikayı "yüzey büyümesi" üzerinden modellendiğinde; alan kareli arttığı için 1-4m² aralığı tüm olasılık kütlesinin <strong>%37.5</strong>'ine karşılık gelir.</p>
                 </div>
             </div>
 
-            <!-- Sağ: Görsel Betimlemeler -->
+            <!-- Sağ: Sadeleşmiş Görseller -->
             <div class="visual-column">
                 <!-- Kenar Görseli -->
                 <div class="visual-pane">
-                    <div class="visual-label">KENAR MERCEĞİ</div>
+                    <div class="visual-label">KENAR TABANLI</div>
                     <div class="svg-box">
                         <svg viewBox="0 0 200 100" width="100%" height="100%">
-                            <!-- Cetvel/Zaman Çizgisi -->
                             <line x1="30" y1="50" x2="170" y2="50" stroke="#444" stroke-width="2" />
                             <rect x="30" y="46" width="70" height="8" fill="var(--blue)" />
                             <circle cx="30" cy="50" r="3" fill="#fff" />
                             <circle cx="100" cy="50" r="3" fill="#fff" />
                             <circle cx="170" cy="50" r="3" fill="#fff" />
-                            <text x="30" y="72" fill="#666" font-size="8" text-anchor="middle">1m</text>
-                            <text x="100" y="72" fill="var(--blue)" font-size="9" font-weight="800" text-anchor="middle">2m</text>
-                            <text x="170" y="72" fill="#666" font-size="8" text-anchor="middle">3m</text>
-                            <path d="M30 35 L100 35" stroke="var(--blue)" stroke-width="1" stroke-dasharray="2 2" />
-                            <text x="65" y="30" fill="var(--blue)" font-size="7" font-weight="bold" text-anchor="middle">HEDEF ARALIK</text>
+                            <text x="30" y="70" fill="#666" font-size="8" text-anchor="middle">1m</text>
+                            <text x="100" y="70" fill="var(--blue)" font-size="9" font-weight="800" text-anchor="middle">2m</text>
+                            <text x="170" y="70" fill="#666" font-size="8" text-anchor="middle">3m</text>
                         </svg>
                     </div>
-                    <div class="result-badge">%50.0</div>
+                    <div class="result-badge" style="border-color: var(--blue);">%50.0</div>
                 </div>
 
                 <!-- Alan Görseli -->
                 <div class="visual-pane">
-                    <div class="visual-label">ALAN MERCEĞİ</div>
+                    <div class="visual-label">ALAN TABANLI</div>
                     <div class="svg-box">
                         <svg viewBox="0 0 200 100" width="100%" height="100%">
-                            <!-- Yüzey Alanı Karesi -->
                             <rect x="40" y="20" width="120" height="60" fill="#111" stroke="#222" />
-                            <rect x="40" y="20" width="45" height="60" fill="var(--accent)" fill-opacity="0.3" stroke="var(--accent)" stroke-width="1.5" />
-                            <path d="M40 20 L85 80 M55 20 L85 50 M40 50 L70 80" stroke="var(--accent)" stroke-width="0.5" stroke-opacity="0.4" />
+                            <rect x="40" y="20" width="45" height="60" fill="#a855f7" fill-opacity="0.3" stroke="#a855f7" stroke-width="1.5" />
+                            <path d="M40 20 L85 80 M55 20 L85 50 M40 50 L70 80" stroke="#a855f7" stroke-width="0.5" stroke-opacity="0.4" />
                             <text x="40" y="94" fill="#666" font-size="8" text-anchor="middle">1m²</text>
-                            <text x="85" y="94" fill="var(--accent)" font-size="9" font-weight="800" text-anchor="middle">4m²</text>
+                            <text x="85" y="94" fill="#a855f7" font-size="9" font-weight="800" text-anchor="middle">4m²</text>
                             <text x="160" y="94" fill="#666" font-size="8" text-anchor="middle">9m²</text>
                         </svg>
                     </div>
-                    <div class="result-badge" style="color: var(--accent);">%37.5</div>
+                    <div class="result-badge" style="border-color: #a855f7; color: #a855f7;">%37.5</div>
                 </div>
             </div>
         </div>
 
-        <div class="conclusion">
-            Aynı gerçeklik, iki farklı doğru cevap... Aksiyomlar, bu "bakış açısı" çelişkisini çözmek için şarttır.
+        <div class="footer-note">
+            Aynı fiziksel gerçeklikten iki farklı "doğru" çıkması, aksiyomların neden vazgeçilmez bir anayasa olduğunu kanıtlar.
         </div>
     </div>
 
