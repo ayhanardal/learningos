@@ -47,11 +47,23 @@ Kullanıcı onaylamadan bir sonraki parçaya geçilmez.
 ---
 
 ### Öğrenim Hedefleri HTML Çıktısı:
-Onay gelirse, Öğrenim Hedefleri de bir HTML dosyası olarak üretilebilir. Tasarım şu ek kurallara uymalıdır:
-- **Aspect Ratio (1:4):** Notion içinde genellikle tek bir blok genişliğinde yer alacağı için dikey yüksekliği az, yatay genişliği fazla (1 dikey : 4 yatay birim) bir kart tasarımı kullanılmalıdır.
-- **Renk Paleti:** Mevcut dark tema (`#191919`) korunmalı, ancak başlık kısmında veya kartın genelinde konuyu ayırt edici soft bir ton (Örn: İstatistik için çok koyu yeşil/safir) kullanılabilir.
-- **Hiyerarşi:** Başlık ("Öğrenim Hedefleri") sol üstte veya ortada, maddeler ise okunaklı bir liste halinde sunulmalıdır.
-- **Dosya Adı:** `hedefler.html` olarak kaydedilmelidir.
+Onay gelirse, Öğrenim Hedefleri `hedefler.html` olarak üretilir. Tasarım şu **katı** kurallara uymalıdır:
+- **Aspect Ratio (1:4):** 1 dikey : 4 yatay birim oranında, dikeyde dar yatayda geniş bir yapı.
+- **Tam Genişlik (Full-Width):** Yanlarda (sağ/sol) boşluk bırakılmadan ekranın tamamına yayılmalı (`width: 100%`, `max-width: none`).
+- **Renk ve Kontrast:** Ana zemin derse uygun koyu yeşil (`#1e2b24`), metinler tam beyaz (`#ffffff`), vurgular ve başlıklar ise açık yeşil (`#a5d6a7`) tonunda olmalıdır.
+- **İkili Hiyerarşi Tasarımı:**
+    - **Grid Yapısı:** Genellikle 2 ana karttan oluşan (Teorik Temeller ve Analitik Çözüm/Problemler) yan yana bir dizilim.
+    - **Ters Yüz Kart (Reversed Card):** İçerik (açıklama metni) üstte geniş bir alanda; başlık (title) ise kartın en altında, daha dar ve koyu bir şerit halinde olmalıdır.
+    - **Punchline Box:** En alt kısımda, dashed (kesikli) border'lı, merkezi ve vurucu bir ana fikir cümlesi içeren kutu.
+- **Tipografi ve Okunabilirlik:**
+    - Tüm metinler dikey ve yatayda **tam merkezlenmelidir.**
+    - İçerik metni: `1.15rem`, `500 weight`, beyaz.
+    - Kart Başlığı: `0.9rem`, `800 weight`, büyük harf, akademik terminoloji.
+    - Ana Fikir (Punchline): `1.3rem`, `600 weight`, vurgulu renk ve hafif text-shadow.
+- **İçerik Dili:**
+    - "Hedef 1", "Hedef 2" gibi etiketler **kullanılmaz.**
+    - Teknik semboller (KaTeX/LaTeX) bu bölümde sadeleştirme adına tercih edilmez; kavramsal ve felsefi bir dil kullanılır.
+    - Başlıklar dramatik değil, akademik ciddiyette olmalıdır.
 
 Derse başlamadan önce kullanıcı onaylarsa önce bu HTML üretilir, ardından NE bölümüne geçilir.
 
