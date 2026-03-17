@@ -47,8 +47,8 @@
 
         .grid-row {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1rem;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
         }
 
         .hedef-card {
@@ -71,29 +71,29 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 1rem 1.5rem;
+            padding: 1.5rem 2.5rem;
             text-align: center;
-            font-size: 0.95rem;
+            font-size: 1rem;
             line-height: 1.6;
             color: var(--text-main);
         }
 
         .card-title {
             background: rgba(165, 214, 167, 0.1);
-            padding: 0.5rem;
+            padding: 0.6rem;
             text-align: center;
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             font-weight: 800;
             color: var(--accent-color);
             text-transform: uppercase;
-            letter-spacing: 0.1rem;
+            letter-spacing: 0.12rem;
             border-top: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .punchline-box {
             background: rgba(0, 0, 0, 0.15);
             border-radius: 6px;
-            padding: 0.8rem;
+            padding: 1rem;
             border: 1px dashed rgba(165, 214, 167, 0.2);
             display: flex;
             align-items: center;
@@ -101,7 +101,7 @@
         }
 
         .punchline-text {
-            font-size: 1.05rem;
+            font-size: 1.1rem;
             color: var(--accent-color);
             text-align: center;
             font-weight: 500;
@@ -109,8 +109,8 @@
         }
 
         @media (max-width: 1000px) {
-            .card-content { font-size: 0.8rem; }
-            .punchline-text { font-size: 0.9rem; }
+            .card-content { font-size: 0.85rem; padding: 1.2rem; }
+            .punchline-text { font-size: 1rem; }
         }
     </style>
 </head>
@@ -119,21 +119,15 @@
         <div class="grid-row">
             <div class="hedef-card">
                 <div class="card-content">
-                    Olasılık oyunundaki 4 ana oyuncuyu her yönüyle tanıyalım.
+                    Olasılık teorisinin matematiksel inşasında kullanılan temel tanımlamalar, olay uzayı hiyerarşisi ve Kolmogorov aksiyomlarının kurduğu mantıksal çerçeve.
                 </div>
-                <div class="card-title">Temel Tanımlamalar</div>
+                <div class="card-title">Teorik Temeller ve Aksiyomlar</div>
             </div>
             <div class="hedef-card">
                 <div class="card-content">
-                    Kolmogorov Aksiyomları ile rastgeleliğin üzerine sağlam bir matematiksel temel inşa edelim.
+                    Sezgisel olasılık yaklaşımlarının yetersiz kaldığı paradoksal durumların (Örn: Bertrand Paradoksu) ölçüm teorisi prensipleri ile analitik olarak çözümlenmesi.
                 </div>
-                <div class="card-title">Olasılık Aksiyomları</div>
-            </div>
-            <div class="hedef-card">
-                <div class="card-content">
-                    Bertrand Paradoksu'nun yarattığı karmaşayı Ölçüm Teorisi ile çözüme kavuşturalım.
-                </div>
-                <div class="card-title">Ölçüm Teorisi ve Paradoks</div>
+                <div class="card-title">Çözümlediği Problemler</div>
             </div>
         </div>
         <div class="punchline-box">
