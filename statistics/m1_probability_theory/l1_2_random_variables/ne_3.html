@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1.2 - Mekanizma - Nitel (Kesikli)</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
+        onload="renderMathInElement(document.body, {
+          delimiters: [
+            {left: '$$', right: '$$', display: true},
+            {left: '$', right: '$', display: false}
+          ]
+        });"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0a0a0a; --text: #d1d5db; --slide-bg: #111111; --border: #262626;
+            --accent: #f59e0b; --lead: #ffffff; --green: #10b981; --red: #ef4444;
+        }
+        html { font-size: 13px; overflow: hidden; }
+        body {
+            margin: 0; padding: 0;
+            width: 100vw; height: 100vh;
+            background-color: var(--bg); color: var(--text); font-family: 'Inter', sans-serif;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .container {
+            width: 92vw; height: 90vh; max-width: 1200px;
+            background: var(--slide-bg); border: 1px solid var(--border); border-radius: 1.5rem;
+            padding: 2rem 3rem; box-sizing: border-box; display: flex; flex-direction: column;
+            box-shadow: 0 40px 100px -20px rgba(0,0,0,0.8);
+        }
+
+        header { flex-shrink: 0; border-bottom: 1px solid var(--border); padding-bottom: 1rem; margin-bottom: 1.5rem; }
+        h1 { margin: 0; font-size: 2rem; color: var(--lead); font-weight: 800; letter-spacing: -0.05em; }
+
+        .content-flow { 
+            flex: 1; 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            grid-template-rows: 1fr 1fr;
+            gap: 1.5rem; 
+            min-height: 0; 
+        }
+
+        .step-block {
+            background: rgba(255,255,255,0.015); border: 1px solid rgba(255,255,255,0.04);
+            border-radius: 1.2rem; padding: 1.5rem; display: flex; flex-direction: column; 
+            justify-content: center; gap: 1rem; position: relative; min-height: 0;
+        }
+        .step-block.highlight { border-color: rgba(16, 185, 129, 0.2); background: rgba(16, 185, 129, 0.01); }
+
+        .step-tag { 
+            font-size: 0.75rem; 
+            font-weight: 800; 
+            color: var(--accent); 
+            text-transform: uppercase; 
+            letter-spacing: 0.15rem; 
+            border-bottom: 1px solid rgba(245, 158, 11, 0.1);
+            padding-bottom: 0.4rem;
+            margin-bottom: 0.2rem;
+        }
+        .step-desc { font-size: 1rem; line-height: 1.4; color: #9ca3af; }
+        .step-desc b { color: #fff; }
+        
+        .visual-box {
+            background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05);
+            padding: 0.8rem; border-radius: 10px; text-align: center; min-height: 50px; display: flex; align-items: center; justify-content: center;
+        }
+        .scale-numbers { font-size: 1.1rem; color: var(--accent); white-space: nowrap; font-family: 'serif'; }
+
+        .mapping-path {
+            padding: 0.8rem; border-radius: 10px; background: rgba(0,0,0,0.2);
+            display: flex; align-items: center; justify-content: space-between; border: 1px solid rgba(255,255,255,0.03);
+        }
+        .path-label { font-size: 0.7rem; font-weight: 800; color: #555; text-transform: uppercase; }
+        .path-val { font-size: 1rem; font-weight: 700; color: var(--green); }
+
+        .result-hex {
+            background: var(--green); color: #fff; width: 60px; height: 60px;
+            display: flex; align-items: center; justify-content: center;
+            border-radius: 15px; font-size: 1.8rem; font-weight: 900;
+            box-shadow: 0 0 40px rgba(16, 185, 129, 0.2);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Nitel (Kesikli) Rassal Değişken</h1>
+        </header>
+
+        <div class="content-flow">
+            <!-- STEP 0: ANALOJİ GİRİŞ -->
+            <div class="step-block">
+                <span class="step-tag">0. Başlangıç</span>
+                <p class="step-desc">
+                    Rassal değişkenleri bir ürün bandındaki <b>kalite kontrol</b> üzerinden ele alalım. Ürünün sağlam olması saf bir fiziksel gözlemdir.
+                </p>
+                <div class="visual-box">
+                    <span style="font-size: 2.5rem; opacity: 0.6;">📦 ✅</span>
+                </div>
+                <div class="mapping-path">
+                    <span class="path-label">FİZİKSEL OLAY (ω)</span>
+                    <span class="path-val" style="color: #888;">"Sağlam Ürün"</span>
+                </div>
+            </div>
+
+            <!-- STEP 1: DEFINE S -->
+            <div class="step-block">
+                <span class="step-tag">1. Örneklem Uzayı (S)</span>
+                <p class="step-desc">
+                    Problem bağlamında dünyadaki tüm olasılıkları tek bir <b>çıktı kümesine</b> hapsederiz (Sayısal olmayan uzay).
+                </p>
+                <div class="visual-box" style="border-color: rgba(245,158,11,0.2);">
+                    <div class="scale-numbers">
+                        $S (\text{Kalite}) = \{ \text{Sağlam}, \text{Defolu} \}$
+                    </div>
+                </div>
+                <div class="mapping-path">
+                    <span class="path-label">DURUM</span>
+                    <span class="path-val">$\omega = \text{Sağlam} \in S$</span>
+                </div>
+            </div>
+
+            <!-- STEP 2: MEASURE (Z) -->
+            <div class="step-block highlight">
+                <span class="step-tag">2. Rassal Değişken (Z)</span>
+                <p class="step-desc">
+                    $Z$ değişkeni (etiketleyici), "Defolu" kelimesini söküp yerine üzerinde işlem yapabileceğimiz bir mühür basar.
+                </p>
+                <div class="visual-box" style="background: rgba(16, 185, 129, 0.05);">
+                    <span style="font-size: 1.8rem; color: var(--green); font-weight: 800;">$Z(\omega_{\text{Sağlam}}) = 1$</span>
+                </div>
+                <div class="mapping-path">
+                    <span class="path-label">EYLEM</span>
+                    <span class="path-val">"Sağlam" &rarr; 1</span>
+                </div>
+            </div>
+
+            <!-- STEP 3: RESULT (R) -->
+            <div class="step-block">
+                <span class="step-tag">3. Sayısal Çıktı (R)</span>
+                <p class="step-desc">
+                    Kelimelerden kurtulduk. Artık bilgisayarın toplayıp çıkarabileceği (Hata Oranı hesabı gibi) <b>0 ve 1'ler</b> dünyasındayız.
+                </p>
+                <div style="margin-top: 0.5rem; display: flex; justify-content: center;">
+                    <div class="result-hex" style="background: var(--green); box-shadow: 0 0 40px rgba(16, 185, 129, 0.2);">1</div>
+                </div>
+                <div class="mapping-path">
+                    <span class="path-label">HESAPLANABİLİR</span>
+                    <span class="path-val" style="color: var(--lead); font-size: 1.2rem;">$1 \in \mathbb{R}$</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
