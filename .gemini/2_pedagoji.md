@@ -26,9 +26,15 @@ Her bölüm (NE, NEDEN, NASIL) kendi içinde parçalara ayrılır.
 Kullanıcı onaylamadan bir sonraki parçaya geçilmez.
 
 ### NE bölümü parçaları (sırasıyla):
-1. **İmgesel görsel + sezgi:** Kavramı tek başına taşıyan bir SVG. Kullanıcı görsele bakınca kavramın özünü %60 anlamış olmalı; metin geri kalanı tamamlar. Görsel bir diyagram değil, bir *temsil* olmalı — sembolik, minimal, imgesel.
-2. Formal tanım ve notasyon
-3. Temel kavramlar (birden fazlaysa her biri ayrı parça)
+1. **Zihinsel Çerçeve (Mental Frame):** Kavramı henüz teknik terimlere boğmadan, zihinde bir yer açan ilk slayt. İmgesel görsel + sezgi odaklıdır. Görsel, kavramın özünü taşıyan bir temsil (SVG) içermelidir.
+2. **Bileşenler ve Analoji (Components & Analogy):** Yapının parçalarını sezgisel bir modelle tanıtan katman. Analojiler burada devreye girer.
+3. **Kurallar ve Formülasyon (Rules & Formulation):** Sezginin matematiğe, formüle veya teknik kesinliğe döküldüğü katman.
+
+### Başlık ve Kart Tasarımı Kuralları:
+- **Akademik Başlık:** İçerik analoji odaklı olsa bile slayt ana başlıkları daima akademik düzeyde, sade ve net olmalıdır (Örn: "Olasılık Sahnesi" değil, "Olay Uzayı ve Ölçüm Prensipleri").
+- **Tekil Yapı:** Bir alt bölüm (section) veya kart tasarımı yapıldığında yalnızca **tek bir başlık** ve ona ait içerik/liste bulunmalıdır. Kart içinde ardı ardına ekstra alt başlıklar (nested sub-headers) kullanılarak hiyerarşi karmaşıklaştırılmamalıdır.
+- **Görsel Odak:** Görseller salt dekorasyon değil, infografik gibi işlemelidir. Ancak içerik ihtiyacı, estetik denge ve yerleşim ajanın insiyatifindedir (Sabit oranlara takılınmaz).
+- **Temizlik:** Slayt üzerindeki filigranlar, navigasyon etiketleri ("NE?", "1/3" vb.) ve dikkat dağıtıcı tüm göstergeler kaldırılmalıdır. Tasarım odaklanmış ve temiz olmalıdır.
 
 ### NEDEN bölümü parçaları:
 1. Tarihsel veya epistemik ihtiyaç — bu kavram hangi problemi çözdü?

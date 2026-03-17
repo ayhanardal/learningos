@@ -2,16 +2,11 @@
 
 Bu dosya, LearningOS projesindeki pedagojik ve teknik gelişimler için kullanıcı geri bildirimlerini takip eder. Bir madde uygulandığında checkbox `[x]` olarak işaretlenir.
 
-- [x] [2026-03-15] [2_pedagoji.md] → Notion embed limitasyonları (ve scroll zorunluluğu) nedeniyle, oluşturulan HTML çıktıları çok uzun olmamalı. İçerik (Örn. NE, NEDEN, NASIL) uzunsa, 16:9 çerçeveye scroll gerektirmeden sığacak şekilde 2, 3 veya daha fazla alt HTML dosyasına (Örn: 1_1_ne_1.html, 1_1_ne_2.html) bölünmelidir.
-- [x] [2026-03-15] [2_pedagoji.md] → Sığdırmak için sayfalara bölerken "bütünlüğü" bozma; birbirine kopmaz bağlarla bağlı kavramları (örn: 5 temel faktör) ayrı sayfalara ayırma, gerekirse daha kompakt kart tasarımları kullanarak aynı ekranda tut.
-- [x] [2026-03-15] [2_pedagoji.md] → Öğeleri SVG ile çizerken aşırı soyut (sadece daire ve nokta) çizme. Eğer metinde bir analoji (örn: dart tahtası) kullanılıyorsa, SVG doğrudan o analojiyi infografik gibi göstersin ve terimleri parçaların üzerine belirgin olarak etiketle (Örn: Tahtanın tamamına Ω, kırmızı bölgeye E, ok'a ω).
-- [ ] [2026-03-15] [1.1 Ders İçeriği Tasarımı] -> Kartlar arası boşluklar azaltılıp padding ve okunabilirlik arttırıldı. Görsel atıflarında '1. Deney' yerine 'Deney [1]' köşeli parantez mantığı kullanılarak daha akademik referans sağlandı. Bertrand paradoksunun odak noktası P ölçüsünün gerekliliğine vurgu yapılarak pedagojik bağlantı kuruldu.
-- [ ] [2026-03-15] [1.1 Ders İçeriği Tasarımı] -> Kartlardaki asimetrik boşluklar margin/padding/gap artırılarak giderildi. Dart tahtası (SVG viewBox) gerçek merkezine kaydırılarak hizalandı ve görsel içindeki fontlar sistem fontu olan Inter ile değiştirilerek görüntü kalitesi yükseltildi.
-- [ ] [2026-03-16] [2_pedagoji.md] → NE bölümü doğrudan terminolojiye dalmamalı; kavramsal bir giriş sayfası (zihinsel çerçeve) ile başlamalı. Ders adının (ör: Aksiyomatik Olasılık ve Olay Uzayları) ne anlama geldiğini sezgisel düzeyde açıklayan bir giriş slaytı eklenmelidir.
-- [ ] [2026-03-16] [2_pedagoji.md] → NE bölümünde başlıklar (ör: "4 Temel Aktör") konu bağlamından kopuk ve neyin öğrenileceğini ifade etmiyor. Başlıklar dersin adını ve içeriğini yansıtmalı (ör: "Olasılık Sahnesinin Anatomisi").
-- [ ] [2026-03-16] [2_pedagoji.md] → NE bölümü yapısı: Giriş (zihinsel çerçeve) → Unsurlar (terimler ve analoji) → Kurallar (aksiyomlar) şeklinde 3 katmanlı akışla ilerlemelidir.
-- [ ] [2026-03-16] [2_pedagoji.md] → Slayt üzerindeki dikkat dağıtıcı filigranlar (Örn: "İstatistik / 1.1 / NE?"), "1/3" gibi sayfa göstergeleri ve navigasyon etiketleri tamamen kaldırılmalıdır. Tasarım sade ve odaklı olmalıdır.
-- [ ] [2026-03-16] [2_pedagoji.md] → Slayt başlıkları akademik ve teknik olmalıdır. "Havalı" veya sunum odaklı başlıklar yerine dersin içeriğini net tanımlayan terminoloji tercih edilmelidir. Başlıklar tüm slaytlarda görsel ve üslup bakımından tam bir tutarlılık sergilemelidir.
-- [ ] [2026-03-16] [2_pedagoji.md] → Slayt içi kartlarda (Örn: Bileşen listeleri) görsel tutarlılık esastır. Tüm kart başlıkları aynı renkte (varsayılan metin rengi/beyaz) olmalı, spesifik vurgular için farklı renkler (Örn: "Deney" için sarı) kullanılmamalıdır.
-- [ ] [2026-03-16] [2_pedagoji.md] → Kart başlarındaki simgeler/badge'ler standart olmalıdır. Eğer bir kavramın matematiksel sembolü varsa o kullanılmalı, yoksa boş bırakılmalı veya standart bir format izlenmelidir (Sayısal sıralama ve sembol karışık kullanılmamalıdır).
-- [ ] [2026-03-17] [2_pedagoji.md] -> İmgesel görsellerde %60 görsel %40 metin dengesi tercih ediliyor. Görseller 3D yerine 2D, flat-design, sade ve net olmalı (Örn: Kereste plakası analojisi). Soyut kavramlar somut nesnelerle (fabrika, filtre vb.) betimlenmeli ve etiketler (1m-3m, w vb.) doğrudan görsel üzerinde net okunur olmalı.
+- [x] [2026-03-15] [2_pedagoji.md] → Notion embed limitasyonları ve sayfa bölme kuralları.
+- [x] [2026-03-15] [2_pedagoji.md] → Bilgi bütünlüğünü koruma ve bütünleşik kart tasarımları.
+- [x] [2026-03-15] [2_pedagoji.md] → SVG Infographic standartları ve etiketleme.
+- [x] [2026-03-17] [2_pedagoji.md] → NE bölümünün 3 katmanlı (Zihinsel Çerçeve, Bileşenler, Kurallar) genel hiyerarşisi.
+- [x] [2026-03-17] [2_pedagoji.md] → Slayt ana başlıklarının akademik, sade ve net olması (Ders spesifik örneklerden bağımsız kural).
+- [x] [2026-03-17] [2_pedagoji.md] → Kart ve section tasarımlarında tek başlık / tek içerik kuralı (Nested/ardışık alt başlık yasağı).
+- [x] [2026-03-17] [2_pedagoji.md] → Gereksiz görsel göstergelerin (filigran, "1/3", "NE?" etiketi vb.) kaldırılması.
+- [ ] [2026-03-15] [1.1 Ders İçeriği Tasarımı] -> Kartlar arası boşluklar azaltılıp padding ve okunabilirlik arttırıldı. Görsel atıflarında '1. Deney' yerine 'Deney [1]' köşeli parantez mantığı kullanılarak daha akademik referans sağlandı.
