@@ -49,7 +49,7 @@ Kullanıcı onaylamadan bir sonraki parçaya geçilmez.
 ### Öğrenim Hedefleri HTML Çıktısı:
 Onay gelirse, Öğrenim Hedefleri `hedefler.html` olarak üretilir. Tasarım şu **katı** kurallara uymalıdır:
 - **Aspect Ratio (1:4):** 1 dikey : 4 yatay birim oranında, dikeyde dar yatayda geniş bir yapı.
-- **Tam Genişlik (Full-Width):** Yanlarda (sağ/sol) boşluk bırakılmadan ekranın tamamına yayılmalı (`width: 100%`, `max-width: none`).
+- **Dengeli Yerleşim (Padding & Margin):** Notion embed uyumu için yanlarda (sağ/sol) hafif boşluk bırakılmalı, tasarım 1200px ile sınırlandırılmalı ve kavisli köşeler (`border-radius: 12px`) korunmalıdır (`width: 95vw`, `max-width: 1200px`).
 - **Renk ve Kontrast:** Ana zemin derse uygun koyu yeşil (`#1e2b24`), metinler tam beyaz (`#ffffff`), vurgular ve başlıklar ise açık yeşil (`#a5d6a7`) tonunda olmalıdır.
 - **İkili Hiyerarşi Tasarımı:**
     - **Grid Yapısı:** Genellikle 2 ana karttan oluşan (Teorik Temeller ve Analitik Çözüm/Problemler) yan yana bir dizilim.
