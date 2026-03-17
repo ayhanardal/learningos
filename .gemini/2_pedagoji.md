@@ -46,16 +46,14 @@ Kullanıcı onaylamadan bir sonraki parçaya geçilmez.
 
 ---
 
-## ÖĞRENİM HEDEFLERİ PROTOKOLÜ
+### Öğrenim Hedefleri HTML Çıktısı:
+Onay gelirse, Öğrenim Hedefleri de bir HTML dosyası olarak üretilebilir. Tasarım şu ek kurallara uymalıdır:
+- **Aspect Ratio (1:4):** Notion içinde genellikle tek bir blok genişliğinde yer alacağı için dikey yüksekliği az, yatay genişliği fazla (1 dikey : 4 yatay birim) bir kart tasarımı kullanılmalıdır.
+- **Renk Paleti:** Mevcut dark tema (`#191919`) korunmalı, ancak başlık kısmında veya kartın genelinde konuyu ayırt edici soft bir ton (Örn: İstatistik için çok koyu yeşil/safir) kullanılabilir.
+- **Hiyerarşi:** Başlık ("Öğrenim Hedefleri") sol üstte veya ortada, maddeler ise okunaklı bir liste halinde sunulmalıdır.
+- **Dosya Adı:** `hedefler.html` olarak kaydedilmelidir.
 
-Derse başlamadan önce hedefleri **soru formatında** sun:
-
-> "Bu dersin sonunda şu soruları cevaplayabileceksin:"
-> - [soru 1]
-> - [soru 2]
-> - [soru 3]
-
-Kullanıcı onaylarsa derse başla.
+Derse başlamadan önce kullanıcı onaylarsa önce bu HTML üretilir, ardından NE bölümüne geçilir.
 
 ---
 
