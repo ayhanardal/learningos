@@ -4,32 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Öğrenim Hedefleri - Aksiyomatik Olasılık</title>
-    <!-- KaTeX for math -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            // KaTeX ve auto-render defer ile yüklendiği için her ikisinin de hazır olduğundan emin olmalıyız.
-            // Bu basitleştirilmiş bir yaklaşım:
-            const renderMath = () => {
-                if (typeof renderMathInElement === 'function') {
-                    renderMathInElement(document.body, {
-                        delimiters: [
-                            {left: '$$', right: '$$', display: true},
-                            {left: '$', right: '$', display: false},
-                            {left: '\\(', right: '\\)', display: false},
-                            {left: '\\[', right: '\\]', display: true}
-                        ],
-                        throwOnError : false
-                    });
-                } else {
-                    setTimeout(renderMath, 50);
-                }
-            };
-            renderMath();
-        });
-    </script>
     <style>
         :root {
             --bg-color: #191919;
@@ -78,7 +52,7 @@
         }
 
         .hedef-card {
-            background: rgba(0, 0, 0, 0.2); /* Darker inlay for cards */
+            background: rgba(0, 0, 0, 0.2); 
             border: 1px solid rgba(255, 255, 255, 0.05);
             border-radius: 8px;
             display: flex;
@@ -134,9 +108,6 @@
             opacity: 0.9;
         }
 
-        /* Fix for potential LaTeX overflow/alignment */
-        .katex { font-size: 1.1em; }
-
         @media (max-width: 1000px) {
             .card-content { font-size: 0.8rem; }
             .punchline-text { font-size: 0.9rem; }
@@ -148,7 +119,7 @@
         <div class="grid-row">
             <div class="hedef-card">
                 <div class="card-content">
-                    Olasılık oyunundaki 4 ana oyuncuyu \( (\text{Deney, } \Omega, \omega, E) \) her yönüyle tanıyalım.
+                    Olasılık oyunundaki 4 ana oyuncuyu her yönüyle tanıyalım.
                 </div>
                 <div class="card-title">Temel Aktörler</div>
             </div>
@@ -169,8 +140,5 @@
             <p class="punchline-text">Sınırların tanımlanmadığı bir evrende hiçbir şeyin olasılığı keşfedilemez.</p>
         </div>
     </div>
-
-
-
 </body>
 </html>
