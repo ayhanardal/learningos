@@ -15,3 +15,4 @@
 
 [2026-03-16] [2_pedagoji.md] → Slayt içi kartlarda (Örn: Bileşen listeleri) görsel tutarlılık esastır. Tüm kart başlıkları aynı renkte (varsayılan metin rengi/beyaz) olmalı, spesifik vurgular için farklı renkler (Örn: "Deney" için sarı) kullanılmamalıdır.
 [2026-03-16] [2_pedagoji.md] → Kart başlarındaki simgeler/badge'ler standart olmalıdır. Eğer bir kavramın matematiksel sembolü varsa o kullanılmalı, yoksa boş bırakılmalı veya standart bir format izlenmelidir (Sayısal sıralama ve sembol karışık kullanılmamalıdır).
+[2026-03-17] [2_pedagoji.md] -> İmgesel görsellerde %60 görsel %40 metin dengesi tercih ediliyor. Görseller 3D yerine 2D, flat-design, sade ve net olmalı (Örn: Kereste plakası analojisi). Soyut kavramlar somut nesnelerle (fabrika, filtre vb.) betimlenmeli ve etiketler (1m-3m, w vb.) doğrudan görsel üzerinde net okunur olmalı.
