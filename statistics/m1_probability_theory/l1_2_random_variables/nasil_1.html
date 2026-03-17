@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1.2 - Uygulama - Vaka 1: Lojistik Planlama</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
+        onload="renderMathInElement(document.body, { delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}] });"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0a0a0a; --text: #d1d5db; --slide-bg: #111111; --border: #262626;
+            --accent: #f59e0b; --lead: #ffffff; --blue: #3b82f6; --red: #ef4444;
+        }
+        html { font-size: 13px; overflow: hidden; }
+        body {
+            margin: 0; padding: 0; width: 100vw; height: 100vh;
+            background-color: var(--bg); color: var(--text); font-family: 'Inter', sans-serif;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .container {
+            width: 94vw; height: 92vh; max-width: 1200px;
+            background: var(--slide-bg); border: 1px solid var(--border); border-radius: 1.5rem;
+            padding: 2.5rem; box-sizing: border-box; display: flex; flex-direction: column; gap: 2rem;
+            box-shadow: 0 40px 100px -20px rgba(0,0,0,0.8);
+        }
+        header { border-bottom: 1px solid var(--border); padding-bottom: 1rem; }
+        .vaka-tag { color: var(--accent); font-weight: 800; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.2rem; }
+        h1 { margin: 0.5rem 0 0; font-size: 2.2rem; color: var(--lead); font-weight: 800; letter-spacing: -0.04em; }
+        
+        .main-content { display: grid; grid-template-columns: 1fr 1.3fr; gap: 3rem; flex: 1; min-height: 0; }
+        
+        .flow-panel { display: flex; flex-direction: column; justify-content: space-between; flex: 1; }
+        
+        .step-item { display: flex; flex-direction: column; gap: 0.4rem; position: relative; padding-left: 2rem; padding-bottom: 1.5rem; flex: 1; }
+        .step-item:not(:last-child) { border-left: 1px solid var(--border); }
+        .step-item::after { content: ''; position: absolute; left: -4px; top: 0.45rem; width: 8px; height: 8px; background: var(--accent); border-radius: 50%; box-shadow: 0 0 10px rgba(245, 158, 11, 0.3); }
+        
+        .step-title { font-size: 1.1rem; font-weight: 800; color: var(--accent); text-transform: uppercase; letter-spacing: 0.05rem; margin: 0; display: flex; align-items: center; }
+        .step-desc { font-size: 1.05rem; line-height: 1.5; color: #9ca3af; margin: 0; }
+        .step-desc b { color: #fff; }
+
+        .chart-panel { background: rgba(0,0,0,0.1); border: 1px solid var(--border); border-radius: 1.5rem; padding: 2rem; display: flex; flex-direction: column; gap: 1.5rem; }
+        .chart-header { display: flex; justify-content: space-between; align-items: center; }
+        .chart-title { font-size: 1.1rem; font-weight: 700; color: var(--lead); }
+        .prob-badge { border: 1px solid var(--red); color: var(--red); padding: 0.5rem 1rem; border-radius: 0.5rem; font-weight: 800; font-size: 1rem; }
+        
+        .chart-wrapper { position: relative; flex: 1; min-height: 0; }
+        #poissonChart { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+
+        .footer-note { font-size: 0.9rem; color: #555; font-style: italic; border-top: 1px solid var(--border); padding-top: 1.5rem; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <span class="vaka-tag">Uygulama: Vaka 1</span>
+            <h1>Ham Loglardan Geleceği Tahmin Etmek</h1>
+        </header>
+
+        <div class="main-content">
+            <div class="flow-panel">
+                <!-- ADIM 1: PROBLEM TANIMI -->
+                <div class="step-item">
+                    <h3 class="step-title">Kurye Operasyonu ve Loglar</h3>
+                    <p class="step-desc">
+                        Bir teslimat şirketi kurye sayısını optimize etmek istiyor. Fakat elinde sadece web sunucusundan akan binlerce satırlık, sayısal olmayan <b>karmaşık log yığınları</b> var.
+                    </p>
+                </div>
+
+                <!-- ADIM 2: RASSAL DEĞİŞKEN -->
+                <div class="step-item">
+                    <h3 class="step-title">Sipariş Sayıcı (X)</h3>
+                    <p class="step-desc">
+                        Ham veriyi matematiğe bağlamak için loglardan "Ödeme Başarılı" satırlarını saatlik bloklar halinde <b>sayan</b> bir fonksiyon ($X$) tanımlıyoruz.
+                    </p>
+                </div>
+
+                <!-- ADIM 3: KARAR HEDEFİ -->
+                <div class="step-item">
+                    <h3 class="step-title">Kapasite Riski</h3>
+                    <p class="step-desc">
+                        Geçmişe göre ortalamamız 4. Ancak kurye kapasitemiz 5 birim. Eğer önümüzdeki saat <b>tam 6 sipariş</b> gelirse operasyon aksayacak. Bu risk nedir?
+                    </p>
+                </div>
+
+                <!-- ADIM 4: ANALİTİK SONUÇ -->
+                <div class="step-item">
+                    <h3 class="step-title">Poisson Modeli</h3>
+                    <p class="step-desc">
+                        Kesikli verilerdeki ($0, 1, 2, \dots$) bu spesifik riski hesaplamak için <b>Poisson Modelini</b> kullanarak belirsizliği somut bir olasılığa döküyoruz.
+                    </p>
+                </div>
+            </div>
+
+            <div class="chart-panel">
+                <div class="chart-header">
+                    <span class="chart-title">Olasılık Dağılımı (X = k)</span>
+                    <div class="prob-badge">P(X = 6) = 10.42%</div>
+                </div>
+                <div class="chart-wrapper">
+                    <canvas id="poissonChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <p class="footer-note">
+            * Rassal değişken olmasaydı, elimizdeki log verileriyle "olasılık" hesabı yapmak imkansız olurdu.
+        </p>
+    </div>
+
+    <script>
+        function poisson(k, lambda) {
+            const factorial = (n) => n <= 1 ? 1 : n * factorial(n - 1);
+            return (Math.pow(lambda, k) * Math.exp(-lambda)) / factorial(k);
+        }
+
+        const labels = Array.from({length: 13}, (_, i) => i);
+        const lambda = 4;
+        const data = labels.map(k => (poisson(k, lambda) * 100).toFixed(2));
+
+        const ctx = document.getElementById('poissonChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Olasılık (%)',
+                    data: data,
+                    backgroundColor: labels.map(l => l === 6 ? '#ef4444' : 'rgba(59, 130, 246, 0.15)'),
+                    borderColor: labels.map(l => l === 6 ? '#ef4444' : 'rgba(59, 130, 246, 0.5)'),
+                    borderWidth: 1.5,
+                    borderRadius: 4
+                }]
+            },
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: { color: 'rgba(255,255,255,0.03)' },
+                        ticks: { color: '#444' }
+                    },
+                    x: {
+                        grid: { display: false },
+                        ticks: { color: '#666' },
+                        title: { display: true, text: 'Sipariş Sayısı (k)', color: '#444' }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

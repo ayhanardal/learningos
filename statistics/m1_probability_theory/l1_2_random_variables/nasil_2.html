@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1.2 - Uygulama - Vaka 2: Pazarlama Hedeflemesi</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
+        onload="renderMathInElement(document.body, { delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}] });"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0a0a0a; --text: #d1d5db; --slide-bg: #111111; --border: #262626;
+            --accent: #f59e0b; --lead: #ffffff; --orange: #f97316;
+        }
+        html { font-size: 13px; overflow: hidden; }
+        body {
+            margin: 0; padding: 0; width: 100vw; height: 100vh;
+            background-color: var(--bg); color: var(--text); font-family: 'Inter', sans-serif;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .container {
+            width: 94vw; height: 92vh; max-width: 1200px;
+            background: var(--slide-bg); border: 1px solid var(--border); border-radius: 1.5rem;
+            padding: 2.5rem; box-sizing: border-box; display: flex; flex-direction: column; gap: 2rem;
+            box-shadow: 0 40px 100px -20px rgba(0,0,0,0.8);
+        }
+        header { border-bottom: 1px solid var(--border); padding-bottom: 1rem; }
+        .vaka-tag { color: var(--accent); font-weight: 800; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.2rem; }
+        h1 { margin: 0.5rem 0 0; font-size: 2.2rem; color: var(--lead); font-weight: 800; letter-spacing: -0.04em; }
+        
+        .main-content { display: grid; grid-template-columns: 1fr 1.3fr; gap: 3rem; flex: 1; min-height: 0; }
+        
+        .flow-panel { display: flex; flex-direction: column; justify-content: space-between; flex: 1; }
+        
+        .step-item { display: flex; flex-direction: column; gap: 0.4rem; position: relative; padding-left: 2rem; padding-bottom: 1.5rem; flex: 1; }
+        .step-item:not(:last-child) { border-left: 1px solid var(--border); }
+        .step-item::after { content: ''; position: absolute; left: -4px; top: 0.45rem; width: 8px; height: 8px; background: var(--accent); border-radius: 50%; box-shadow: 0 0 10px rgba(245, 158, 11, 0.3); }
+        
+        .step-title { font-size: 1.1rem; font-weight: 800; color: var(--accent); text-transform: uppercase; letter-spacing: 0.05rem; margin: 0; display: flex; align-items: center; }
+        .step-desc { font-size: 1.05rem; line-height: 1.5; color: #9ca3af; margin: 0; }
+        .step-desc b { color: #fff; }
+
+        .chart-panel { background: rgba(0,0,0,0.1); border: 1px solid var(--border); border-radius: 1.5rem; padding: 2rem; display: flex; flex-direction: column; gap: 1.5rem; }
+        .chart-header { display: flex; justify-content: space-between; align-items: center; }
+        .chart-title { font-size: 1.1rem; font-weight: 700; color: var(--lead); }
+        .prob-badge { border: 1px solid var(--orange); color: var(--orange); padding: 0.5rem 1rem; border-radius: 0.5rem; font-weight: 800; font-size: 1rem; }
+        
+        .chart-wrapper { position: relative; flex: 1; min-height: 0; }
+        #exponentialChart { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+
+        .footer-note { font-size: 0.9rem; color: #555; font-style: italic; border-top: 1px solid var(--border); padding-top: 1.5rem; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <span class="vaka-tag">Uygulama: Vaka 2</span>
+            <h1>Süreklilikten Değer Yaratmak</h1>
+        </header>
+
+        <div class="main-content">
+            <div class="flow-panel">
+                <!-- ADIM 1: PROBLEM TANIMI -->
+                <div class="step-item">
+                    <h3 class="step-title">Reklam Verimliliği ve Loglar</h3>
+                    <p class="step-desc">
+                        Pazarlama ekibi, reklam bütçesini en yüksek etkileşim alacak kitleye harcamak istiyor. Fakat elinde sadece kullanıcıların giriş-çıkış anlarını içeren <b>ham zaman damgaları</b> var.
+                    </p>
+                </div>
+
+                <!-- ADIM 2: RASSAL DEĞİŞKEN -->
+                <div class="step-item">
+                    <h3 class="step-title">Süre Ölçer (Y)</h3>
+                    <p class="step-desc">
+                        Ham veriden anlam üretmek için çıkış ve giriş farkını <b>ölçen</b> bir fonksiyon ($Y$) tanımlıyoruz. Bu işlem, her kullanıcıyı 3.42 dk gibi kesintisiz bir reel sayıya haritalar.
+                    </p>
+                </div>
+
+                <!-- ADIM 3: KARAR HEDEFİ -->
+                <div class="step-item">
+                    <h3 class="step-title">Odaklanmış Kitle</h3>
+                    <p class="step-desc">
+                        Ekip, sitede <b>3 ile 5 dakika</b> arası vakit geçiren "odaklanmış" kitleyi hedefliyor. Bu sürenin altındakiler ilgisiz, üstündekiler ise zaten içeriği tüketmiş kabul ediliyor.
+                    </p>
+                </div>
+
+                <!-- ADIM 4: ANALİTİK SONUÇ -->
+                <div class="step-item">
+                    <h3 class="step-title">Üstel Model ve Alan</h3>
+                    <p class="step-desc">
+                        Sürekli veride nokta olasılığı sıfır olduğu için, bu spesifik aralığa düşen kitle oranını bulmak adına <b>Üstel Dağılım</b> eğrisinin altında kalan <b>alanı</b> ($\int$) hesaplıyoruz.
+                    </p>
+                </div>
+            </div>
+
+            <div class="chart-panel">
+                <div class="chart-header">
+                    <span class="chart-title">Yoğunluk Fonksiyonu (3 ≤ Y ≤ 5)</span>
+                    <div class="prob-badge">P(3 ≤ Y ≤ 5) = 16.59%</div>
+                </div>
+                <div class="chart-wrapper">
+                    <canvas id="exponentialChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <p class="footer-note">
+            * Sayılar arasında boşluk olmadığı için toplama ($\Sigma$) yapamazsınız; integralle "tarama" yapmanız gerekir.
+        </p>
+    </div>
+
+    <script>
+        const lambda = 1 / 2.5;
+        const labels = Array.from({length: 101}, (_, i) => i * 0.1);
+        const data = labels.map(x => lambda * Math.exp(-lambda * x));
+        const areaData = labels.map(x => (x >= 3 && x <= 5) ? lambda * Math.exp(-lambda * x) : null);
+
+        const ctx = document.getElementById('exponentialChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [
+                    {
+                        label: 'PDF',
+                        data: data,
+                        borderColor: '#f97316',
+                        borderWidth: 2,
+                        pointRadius: 0,
+                        fill: false
+                    },
+                    {
+                        label: 'Seçili Alan',
+                        data: areaData,
+                        backgroundColor: 'rgba(249, 115, 22, 0.1)',
+                        borderColor: 'transparent',
+                        pointRadius: 0,
+                        fill: true,
+                        tension: 0.1
+                    }
+                ]
+            },
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: { color: 'rgba(255,255,255,0.03)' },
+                        ticks: { color: '#444' }
+                    },
+                    x: {
+                        type: 'linear',
+                        grid: { display: false },
+                        ticks: { color: '#666', stepSize: 1 },
+                        title: { display: true, text: 'Süre (Dakika)', color: '#444' }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
