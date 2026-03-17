@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>1.1 - Teknik Simülasyon Analizi</title>
+    <title>1.1 - Nasıl? - Analiz ve Bulgular</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
@@ -14,195 +14,256 @@
           ]
         });"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         :root {
-            --bg: #121212; --text: #e0e0e0; --slide-bg: #1e1e1e; --border: #333;
-            --accent: #facc15; --blue: #3b82f6; --purple: #a855f7; --green: #22c55e;
+            --bg: #121212; --text: #e0e0e0; --slide-bg: #191919; --border: #333;
+            --accent: #facc15; --lead: #ffffff;
+            --blue: #3b82f6; --yellow: #eab308; --green: #22c55e;
         }
-        html { font-size: 14px; }
+        html { font-size: 13px; overflow: hidden; }
         body {
-            margin: 0; padding: 4vh 6vw;
-            width: 100vw; height: 100vh; box-sizing: border-box;
+            margin: 0; padding: 0;
+            width: 100vw; height: 100vh;
             background-color: var(--bg); color: var(--text); font-family: 'Inter', sans-serif;
-            overflow: hidden; display: flex; align-items: center; justify-content: center;
+            display: flex; align-items: center; justify-content: center;
         }
-        .slide {
-            width: 100%; height: 100%; max-width: 1400px; margin: 0 auto;
+        .container {
+            width: 95vw; height: 92vh; max-width: 1400px;
             background: var(--slide-bg); border: 1px solid var(--border); border-radius: 1rem;
-            padding: 3rem 4rem; box-sizing: border-box; display: flex; flex-direction: column;
-            overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            padding: 1.5rem 2rem; box-sizing: border-box; display: flex; flex-direction: column;
+            box-shadow: 0 10px 50px rgba(0,0,0,0.7);
         }
 
-        header { flex-shrink: 0; border-bottom: 3px solid var(--accent); padding-bottom: 1rem; margin-bottom: 2rem; }
-        h1 { margin: 0; font-size: 2.5rem; color: var(--accent); font-weight: 800; letter-spacing: -0.04em; }
+        header { flex-shrink: 0; border-bottom: 1px solid #333; padding-bottom: 0.6rem; margin-bottom: 1.2rem; }
+        h1 { margin: 0; font-size: 1.8rem; color: var(--lead); font-weight: 800; letter-spacing: -0.04em; }
 
-        .grid-container { 
-            flex: 1; 
-            display: grid; 
-            grid-template-columns: 1fr 1fr; 
-            grid-template-rows: 1fr 1fr; 
-            gap: 2rem; 
-            align-items: stretch;
-        }
-
-        .section-card { 
-            background: #000; 
-            border: 1px solid #2a2a2a; 
-            border-radius: 12px; 
-            padding: 1.5rem; 
-            display: flex; 
+        .model-stack {
+            flex: 1;
+            display: flex;
             flex-direction: column;
-            gap: 1rem;
+            gap: 1.2rem;
+            min-height: 0;
         }
 
-        .card-header { border-bottom: 1px solid #222; padding-bottom: 0.8rem; }
-        .card-header h2 { margin: 0; font-size: 1.3rem; color: #fff; font-weight: 700; letter-spacing: -0.02em; }
-        .card-header .subtitle { font-size: 0.8rem; color: #666; text-transform: uppercase; font-weight: 800; margin-top: 0.2rem; }
+        /* Model Row: 60% Left (Analysis), 40% Right (Visual) */
+        .model-row {
+            flex: 1;
+            display: grid;
+            grid-template-columns: 6fr 4fr;
+            gap: 3rem;
+            min-height: 0;
+            background: rgba(255,255,255,0.01);
+            border: 1px solid rgba(255,255,255,0.03);
+            border-radius: 14px;
+            padding: 2.5rem;
+        }
 
-        .chart-area { flex: 1; min-height: 120px; position: relative; }
-        .text-area { font-size: 1.15rem; line-height: 1.5; color: #bbb; }
-        .text-area b { color: #fff; }
+        /* Left Side: Analysis */
+        .analysis-box {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            justify-content: center;
+            min-height: 0;
+        }
 
-        .highlight-box { border-left: 5px solid var(--accent); background: rgba(250, 204, 21, 0.03); }
-        .result-stat { font-family: 'Inter'; font-weight: 900; font-size: 1.6rem; color: var(--accent); margin-top: 0.5rem; display: block; }
+        .model-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .model-title { font-size: 1.1rem; font-weight: 700; letter-spacing: 0.02em; text-transform: uppercase; opacity: 0.8; }
+        .success-rate { font-size: 1.5rem; font-weight: 800; color: var(--accent); }
+
+        .bullets {
+            list-style: none;
+            padding: 0; margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 1.4rem;
+        }
+
+        .bullets li {
+            font-size: 1.25rem;
+            line-height: 1.5;
+            color: #ddd;
+            position: relative;
+            padding-left: 0.5rem;
+        }
+
+        .bullets b { color: #fff; font-weight: 700; }
+
+        /* Right Side: Visual */
+        .visual-box {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            min-height: 0;
+            justify-content: center;
+        }
+
+        .chart-card {
+            flex: 1;
+            background: rgba(0,0,0,0.2);
+            border-radius: 8px;
+            padding: 0.8rem;
+            display: flex;
+            flex-direction: column;
+            min-height: 0;
+        }
+
+        .chart-label {
+            font-size: 0.7rem;
+            color: #666;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 0.4rem;
+        }
+
+        .svg-wrap { flex: 1; min-height: 0; position: relative; }
+        svg { width: 100%; height: 100%; display: block; }
+
+        /* SVG Styles */
+        .axis { stroke: #444; stroke-width: 1; }
+        .grid { stroke: #222; stroke-dasharray: 2 2; }
+        .threshold { stroke: #ef4444; stroke-width: 1.5; stroke-dasharray: 4 2; }
+        .axis-text { fill: #888; font-size: 9px; }
+
+        /* Themes */
+        .blue-theme { border-left: 5px solid var(--blue); }
+        .blue-theme .model-title { color: var(--blue); }
+        .bar-blue { fill: var(--blue); fill-opacity: 0.3; stroke: var(--blue); stroke-width: 0.5; }
+
+        .yellow-theme { border-left: 5px solid var(--yellow); }
+        .yellow-theme .model-title { color: var(--yellow); }
+        .bar-yellow { fill: var(--yellow); fill-opacity: 0.3; stroke: var(--yellow); stroke-width: 0.5; }
+        .bar-green { fill: var(--green); fill-opacity: 0.3; stroke: var(--green); stroke-width: 0.5; }
+
+        .footer {
+            flex-shrink: 0;
+            margin-top: 0.8rem;
+            text-align: center;
+            font-size: 0.8rem;
+            font-style: italic;
+            color: #555;
+            border-top: 1px solid #333;
+            padding-top: 0.5rem;
+        }
     </style>
 </head>
 <body>
 
-    <div class="slide">
+    <div class="container">
         <header>
-            <h1>Nasıl? – Teknik Simülasyon Analizi</h1>
+            <h1>Fabrika Deneyi</h1>
         </header>
 
-        <div class="grid-container">
-            <!-- Makine 1: Lineer Dağılım -->
-            <div class="section-card">
-                <div class="card-header">
-                    <h2>Lineer Ölçüm Modeli (Kenar)</h2>
-                    <div class="subtitle">Makine 1 - Uniform Üretim</div>
+        <div class="model-stack">
+            <!-- ÜST BÖLÜM: KENAR MODELİ -->
+            <div class="model-row blue-theme">
+                <div class="analysis-box">
+                    <div class="model-header" style="border-bottom-color: var(--blue);">
+                        <span class="model-title">KENAR UZUNLUĞU MODELİ ($L$)</span>
+                        <span class="success-rate" style="color: var(--blue);">%50.0</span>
+                    </div>
+                    <ul class="bullets">
+                        <li><b>Kayıtsızlık İlkesi:</b> Olasılığın $[1, 3]$ m aralığındaki her bir <b>kenar uzunluğuna</b> eşit dağıldığını varsayıyoruz.</li>
+                        <li><b>Olay Hacmi:</b> Başarı kriterimiz ($1-2$m), toplam $2$ birimlik örneklem uzayında tam $1$ birimlik bir "hacim" kaplar.</li>
+                        <li><b>İstatistiki Sonuç:</b> Uzunlukların birbirine oranı doğrudan olasılığı verir: $1 / 2 = \mathbf{\%50.0}$</li>
+                    </ul>
                 </div>
-                <div class="chart-area">
-                    <canvas id="chart1"></canvas>
-                </div>
-                <div class="text-area">
-                    Tahtalar doğrudan 1m ile 3m arasında <b>eşit şansla</b> kesilmiştir. 2m sınırı evrenin tam orta noktası olduğu için sonuç kesinlikle <b>%50</b> çıkar.
+                <div class="visual-box">
+                    <div class="chart-card">
+                        <div class="chart-label">Kenar Sıklık Dağılımı (L)</div>
+                        <div class="svg-wrap">
+                            <svg viewBox="0 0 300 130" preserveAspectRatio="none">
+                                <!-- Grid & Labels -->
+                                <text x="5" y="25" class="axis-text">10k</text>
+                                <line x1="30" y1="20" x2="280" y2="20" class="grid" />
+                                
+                                <!-- Bars -->
+                                <rect x="30" y="20" width="125" height="80" class="bar-blue" />
+                                <rect x="155" y="20" width="125" height="80" class="bar-blue" style="fill-opacity: 0.05;" />
+                                
+                                <!-- Threshold & Vurgu -->
+                                <line x1="155" y1="10" x2="155" y2="100" class="threshold" />
+                                <text x="155" y="8" class="axis-text" text-anchor="middle" style="fill: #ef4444; font-weight: 700;">2m Kenar Uzunluğu</text>
+
+                                <!-- Axes & X-Range -->
+                                <line x1="30" y1="100" x2="280" y2="100" class="axis" />
+                                <text x="30" y="115" class="axis-text" text-anchor="middle">1.0m</text>
+                                <text x="155" y="115" class="axis-text" text-anchor="middle">2.0m</text>
+                                <text x="280" y="115" class="axis-text" text-anchor="middle">3.0m</text>
+                            </svg>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <!-- Makine 2: Yüzey Alanı Dağılımı -->
-            <div class="section-card">
-                <div class="card-header">
-                    <h2>Yüzey Alanı Ölçüm Modeli</h2>
-                    <div class="subtitle">Makine 2 - Alan Odaklı Üretim</div>
+            <!-- ALT BÖLÜM: ALAN MODELİ -->
+            <div class="model-row yellow-theme">
+                <div class="analysis-box">
+                    <div class="model-header">
+                        <span class="model-title">YÜZEY ALANI MODELİ ($L^2$)</span>
+                        <span class="success-rate">%37.5</span>
+                    </div>
+                    <ul class="bullets">
+                        <li><b>Kayıtsızlık İlkesi:</b> Olasılığın $[1, 9]$ m² aralığındaki her bir <b>metrekareye</b> eşit dağıldığını varsayıyoruz.</li>
+                        <li><b>Olay Hacmi:</b> $2$m kenar hedefi ($4$ m²), toplam $8$ birimlik alan evreninde sadece $3$ birimlik ($4-1$) yer kaplar.</li>
+                        <li><b>İstatistiki Sonuç:</b> Alan hacimlerinin oranı olasılığı sezginin dışına çeker: $3 / 8 = \mathbf{\%37.5}$</li>
+                    </ul>
                 </div>
-                <div class="chart-area">
-                    <canvas id="chart2"></canvas>
-                </div>
-                <div class="text-area">
-                    Üretim 1m² ile 9m² arasını baz alır. 2m kenarın karşılığı olan <b>4m²</b>, bu evrenin medyanı değildir. 1-9 aralığında 4 sayısı ilk %37.5'lik dilimdedir.
-                </div>
-            </div>
+                <div class="visual-box" style="flex-direction: row; gap: 0.8rem;">
+                    <div class="chart-card">
+                        <div class="chart-label">Alan Dağılımı (A)</div>
+                        <div class="svg-wrap">
+                            <svg viewBox="0 0 160 130" preserveAspectRatio="none">
+                                <line x1="25" y1="20" x2="145" y2="20" class="grid" />
+                                <!-- Success areas mapped to A -->
+                                <rect x="25" y="20" width="35" height="80" class="bar-yellow" />
+                                <rect x="60" y="20" width="85" height="80" class="bar-yellow" style="fill-opacity: 0.05;" />
+                                <!-- Red Line Interpretation -->
+                                <line x1="60" y1="10" x2="60" y2="100" class="threshold" />
+                                <text x="60" y="8" class="axis-text" text-anchor="middle" style="fill: #ef4444; font-weight: 700;">4m² Karşılığı (2m Kenar)</text>
 
-            <!-- Teknik Dönüşüm Analizi -->
-            <div class="section-card">
-                <div class="card-header">
-                    <h2>Değişken Dönüşüm Analizi</h2>
-                    <div class="subtitle">Non-Lineer Yığılma İspatı</div>
-                </div>
-                <div class="chart-area">
-                    <canvas id="chart3"></canvas>
-                </div>
-                <div class="text-area">
-                    Üniform alan dağılımının (Model 2) kenar üzerindeki iz düşümüdür. Karekök etkisiyle verilerin <b>büyük karelere doğru yığıldığı</b> matematiksel olarak görülmektedir.
-                </div>
-            </div>
+                                <line x1="25" y1="100" x2="145" y2="100" class="axis" />
+                                <text x="25" y="115" class="axis-text" text-anchor="middle">1</text>
+                                <text x="60" y="115" class="axis-text" text-anchor="middle">4</text>
+                                <text x="145" y="115" class="axis-text" text-anchor="middle">9 m²</text>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="chart-card">
+                        <div class="chart-label">Kenar Sıklığı (L)</div>
+                        <div class="svg-wrap">
+                            <svg viewBox="0 0 160 130" preserveAspectRatio="none">
+                                <line x1="25" y1="20" x2="145" y2="20" class="grid" />
+                                <!-- Skewed path -->
+                                <path d="M25,95 Q55,85 75,55 L75,100 L25,100 Z" class="bar-green" />
+                                <path d="M75,55 Q105,30 145,5 L145,100 L75,100 Z" class="bar-green" style="fill-opacity: 0.1;" />
+                                <!-- Red Line -->
+                                <line x1="75" y1="10" x2="75" y2="100" class="threshold" />
+                                <text x="75" y="8" class="axis-text" text-anchor="middle" style="fill: #ef4444; font-weight: 700;">2.0m Kenar Uzunluğu</text>
 
-            <!-- Sonuç Analizi (Problem) -->
-            <div class="section-card highlight-box">
-                <div class="card-header">
-                    <h2>Teknik Bulgular ve Sonuç Analizi</h2>
-                    <div class="subtitle">Olasılığın Tanım Krizi</div>
-                </div>
-                <div class="text-area" style="display: flex; flex-direction: column; justify-content: center; height: 100%;">
-                    <p>
-                        Aynı fiziksel gerçeklik ($\Omega$), sadece ölçüm mekanizmasının ($P$) değişmesiyle <b>çelişkili sonuçlar</b> üretmiştir. 
-                    </p>
-                    <p>
-                        Bu simülasyon ispatlar ki; <b>Olasılık Aksiyomları</b> hesaplama öncesinde hangi ölçümün geçerli olduğunu sabitlemezse, matematiksel tutarlılık sağlanamaz.
-                    </p>
-                    <span class="result-stat">Sapma Oranı: %12.5</span>
+                                <line x1="25" y1="100" x2="145" y2="100" class="axis" />
+                                <text x="25" y="115" class="axis-text" text-anchor="middle">1.0</text>
+                                <text x="75" y="115" class="axis-text" text-anchor="middle">2.0</text>
+                                <text x="145" y="115" class="axis-text" text-anchor="middle">3.0m</text>
+                            </svg>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+
+        <div class="footer">
+            Aynı fiziksel bantta farklı istatistikler çıkması, rastgeleliğin atandığı aksiyom belirsizliğinden dolayıdır.
+        </div>
     </div>
 
-    <script>
-        function createChart(id, data, color, threshold) {
-            const ctx = document.getElementById(id).getContext('2d');
-            const bins = 40;
-            const min = Math.min(...data);
-            const max = Math.max(...data);
-            const step = (max - min) / bins;
-            const counts = new Array(bins).fill(0);
-            
-            data.forEach(v => {
-                let bin = Math.floor((v - min) / step);
-                if (bin >= bins) bin = bins - 1;
-                counts[bin]++;
-            });
-
-            const labels = counts.map((_, i) => (min + i * step).toFixed(2));
-
-            new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        data: counts,
-                        backgroundColor: labels.map(l => parseFloat(l) < threshold ? color + 'DD' : '#333333'),
-                        borderWidth: 0,
-                        barPercentage: 1,
-                        categoryPercentage: 1
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: { legend: { display: false }, tooltip: { enabled: false } },
-                    scales: {
-                        x: { display: false },
-                        y: { display: false }
-                    }
-                },
-                plugins: [{
-                    id: 'limitLine',
-                    afterDraw: chart => {
-                        const {ctx, chartArea: {top, bottom}, scales: {x}} = chart;
-                        const xPos = x.getPixelForValue(labels.findIndex(l => parseFloat(l) >= threshold));
-                        ctx.save();
-                        ctx.strokeStyle = '#ef4444';
-                        ctx.setLineDash([4, 4]);
-                        ctx.beginPath();
-                        ctx.moveTo(xPos, top);
-                        ctx.lineTo(xPos, bottom);
-                        ctx.stroke();
-                        ctx.restore();
-                    }
-                }]
-            });
-        }
-
-        const samples = 4000;
-        const blueData = Array.from({length: samples}, () => 1 + Math.random() * 2); 
-        const yellowData = Array.from({length: samples}, () => 1 + Math.random() * 8); 
-        const greenData = Array.from({length: samples}, () => Math.sqrt(1 + Math.random() * 8));
-
-        window.onload = () => {
-            createChart('chart1', blueData, '#3b82f6', 2.0);
-            createChart('chart2', yellowData, '#eab308', 4.0);
-            createChart('chart3', greenData, '#22c55e', 2.0);
-        };
-    </script>
 </body>
 </html>
