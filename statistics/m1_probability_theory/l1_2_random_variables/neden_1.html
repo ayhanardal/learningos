@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1.2 - Neden? - Çözülen Somut Problemler</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
+        onload="renderMathInElement(document.body, {
+          delimiters: [
+            {left: '$$', right: '$$', display: true},
+            {left: '$', right: '$', display: false}
+          ]
+        });"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0a0a0a; --text: #d1d5db; --slide-bg: #111111; --border: #262626;
+            --accent: #f59e0b; --lead: #ffffff;
+        }
+        html { font-size: 14px; overflow: hidden; }
+        body {
+            margin: 0; padding: 0;
+            width: 100vw; height: 100vh;
+            background-color: var(--bg); color: var(--text); font-family: 'Inter', sans-serif;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .container {
+            width: 94vw; height: 90vh; max-width: 1200px;
+            background: var(--slide-bg); border: 1px solid var(--border); border-radius: 1.5rem;
+            padding: 2rem 3rem; box-sizing: border-box; display: flex; flex-direction: column;
+            box-shadow: 0 40px 100px -20px rgba(0,0,0,0.8);
+        }
+
+        header { flex-shrink: 0; border-bottom: 1px solid var(--border); padding-bottom: 0.8rem; margin-bottom: 1.5rem; }
+        h1 { margin: 0; font-size: 2rem; color: var(--lead); font-weight: 800; letter-spacing: -0.05em; }
+
+        .content-grid { 
+            flex: 1; 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            grid-template-rows: 1fr 1fr;
+            gap: 1.5rem; 
+            min-height: 0; 
+        }
+
+        .problem-card {
+            background: rgba(255,255,255,0.015); border: 1px solid var(--border);
+            border-radius: 1.2rem; padding: 1.8rem; display: flex; flex-direction: column; 
+            justify-content: space-between; gap: 1rem; min-height: 0; overflow: hidden;
+        }
+
+        .card-tag { 
+            font-size: 0.75rem; font-weight: 800; color: var(--accent); 
+            text-transform: uppercase; letter-spacing: 0.15rem; 
+            border-bottom: 1px solid rgba(245, 158, 11, 0.1); padding-bottom: 0.4rem;
+        }
+        
+        .card-title { font-size: 1.3rem; font-weight: 800; color: var(--lead); margin: 0; letter-spacing: -0.02em; }
+        .card-desc { font-size: 1.1rem; line-height: 1.5; color: #9ca3af; }
+        .card-desc b { color: #fff; }
+
+        .visual-area {
+            background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.05);
+            padding: 0.8rem; border-radius: 10px; text-align: center;
+            display: flex; align-items: center; justify-content: center; min-height: 50px;
+        }
+
+        .math-symbol { font-size: 1.1rem; color: #fff; font-weight: 600; max-width: 100%; }
+        .math-symbol .katex-display { margin: 0.2rem 0; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Neden Rassal Değişken?</h1>
+        </header>
+
+        <div class="content-grid">
+            <!-- 1. ANALİTİK ARAÇLAR -->
+            <div class="problem-card">
+                <h3 class="card-title">Analitik Güç</h3>
+                <p class="card-desc">
+                    Olasılıkları sayıya dönüştürdüğümüzde artık <b>türev, integral ve limit</b> kullanabiliriz.
+                </p>
+                <div class="visual-area">
+                    <span class="math-symbol">$$E[X] = \int x f(x) \, dx$$</span>
+                </div>
+            </div>
+
+            <!-- 2. ORTAK DİL -->
+            <div class="problem-card">
+                <h3 class="card-title">Ortak Dil</h3>
+                <p class="card-desc">
+                    Zar, para veya yaşam süresi; hepsi farklı $\Omega$ uzaylarına sahiptir ama <b>aynı çerçevede</b> birleşir.
+                </p>
+                <div class="visual-area">
+                    <span class="math-symbol">$\{ \text{Zar, Para} \} \xrightarrow{X} \mathbb{R}$</span>
+                </div>
+            </div>
+
+            <!-- 3. İLİŞKİLER -->
+            <div class="problem-card">
+                <h3 class="card-title">İlişkiler</h3>
+                <p class="card-desc">
+                    İki belirsiz nicelik arasındaki formel ilişki ancak bu çerçevede tanımlanabilir.
+                </p>
+                <div class="visual-area">
+                    <span class="math-symbol">$\rho(X, Y) \in [-1, 1]$</span>
+                </div>
+            </div>
+
+            <!-- 4. LİMİT TEOREMLERİ -->
+            <div class="problem-card">
+                <h3 class="card-title">İspatlar</h3>
+                <p class="card-desc">
+                    Büyük Sayılar Yasası ve Merkezi Limit Teoremi ancak bu dille <b>ispata</b> kavuştu.
+                </p>
+                <div class="visual-area">
+                    <span class="math-symbol">$n \to \infty \implies \text{Normal Dağılım}$</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
