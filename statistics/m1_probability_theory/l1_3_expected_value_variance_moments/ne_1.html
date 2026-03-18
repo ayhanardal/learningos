@@ -3,28 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>1.3 - Ne? - Beklenen Değer (Expected Value)</title>
+    <title>1.3 - Ne? - Beklenen Değer E[X]</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
         onload="renderMathInElement(document.body, {
           delimiters: [
             {left: '$$', right: '$$', display: true},
-            {left: '$', right: '$', display: false}
-          ]
+            {left: '$', right: '$', display: false},
+            {left: '\\(', right: '\\)', display: false},
+            {left: '\\[', right: '\\]', display: true}
+          ],
+          throwOnError : false
         });"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg: #0a0a0a; 
             --text: #d1d5db; 
-            --slide-bg: #1a1a1a; /* Matched to image background for seamless look */
+            --slide-bg: #1a1a1a;
             --border: #262626;
             --accent: #f59e0b; 
             --lead: #ffffff;
         }
         
-        html { font-size: 14px; overflow: hidden; } /* Slightly smaller for laptop screens */
+        html { font-size: 14px; overflow: hidden; }
         
         body {
             margin: 0; padding: 0;
@@ -37,25 +40,25 @@
             width: 95vw; height: 85vh; max-width: 1200px;
             background: var(--slide-bg); 
             border-radius: 1.5rem;
-            padding: 3rem; box-sizing: border-box; 
+            padding: 4rem; box-sizing: border-box; 
             display: flex; flex-direction: column;
             box-shadow: 0 40px 80px -20px rgba(0,0,0,0.8);
             border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        header { flex-shrink: 0; border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding-bottom: 1.2rem; margin-bottom: 2rem; }
-        h1 { margin: 0; font-size: 2.2rem; color: var(--lead); font-weight: 800; letter-spacing: -0.05em; }
+        header { flex-shrink: 0; border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding-bottom: 1.2rem; margin-bottom: 3rem; }
+        h1 { margin: 0; font-size: 2.5rem; color: var(--lead); font-weight: 800; letter-spacing: -0.05em; }
 
-        .content { flex: 1; display: flex; align-items: stretch; gap: 3rem; min-height: 0; }
+        .content { flex: 1; display: flex; align-items: stretch; gap: 4rem; min-height: 0; }
 
         /* Left Column: Text Focus */
-        .text-col { flex: 1; display: flex; flex-direction: column; gap: 1.5rem; justify-content: center; }
+        .text-col { flex: 1.1; display: flex; flex-direction: column; gap: 2.5rem; justify-content: center; }
         .question-box { border-left: 4px solid var(--accent); padding-left: 2rem; }
-        .question-text { font-size: 1.7rem; line-height: 1.3; font-weight: 700; color: var(--lead); }
-        .explanation-text { font-size: 1.25rem; line-height: 1.6; color: #aaa; font-weight: 400; }
+        .question-text { font-size: 1.8rem; line-height: 1.3; font-weight: 700; color: var(--lead); }
+        .explanation-text { font-size: 1.35rem; line-height: 1.6; color: #aaaaaa; font-weight: 400; }
         .explanation-text b { color: var(--lead); }
 
-        /* Right Column: Visualization (Seamless) */
+        /* Right Column: Visualization */
         .viz-col {
             flex: 1.4;
             display: flex;
@@ -63,25 +66,22 @@
             justify-content: center;
             position: relative;
             overflow: hidden;
-            background: transparent; /* Seamless with container */
+            background: transparent;
         }
 
         .viz-image {
             max-width: 100%;
-            max-height: 110%; /* Allow slight bleed if necessary */
+            max-height: 110%;
             object-fit: contain;
-            /* Filter to handle slight color mismatches if image isn't perfectly #1a1a1a */
             mix-blend-mode: lighten; 
         }
-
-        /* Removed redundant overlay text as it's likely baked in or cut off */
     </style>
 </head>
 <body>
 
     <div class="container">
         <header>
-            <h1>Beklenen Değer (Expected Value)</h1>
+            <h1>Beklenen Değer $E[X]$</h1>
         </header>
 
         <div class="content">
@@ -91,7 +91,7 @@
                     <div class="question-text">"Bu değişkeni tek sayıyla temsil etsem ne olur?"</div>
                 </div>
                 <div class="explanation-text">
-                    <b>Beklenen değer ($E[X]$)</b>, dağılımın ağırlık merkezidir — her değeri kendi olasılığıyla tartar, ortaya tek bir temsil noktası çıkar.
+                    Dağılımın **ağırlık merkezidir** — her değeri kendi olasılığıyla tartar, ortaya tek bir temsil noktası çıkar.
                 </div>
             </div>
 
