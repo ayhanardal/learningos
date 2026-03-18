@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1.3 - Nasıl? - Operasyonel Vaka Analizi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0a0a0a; 
+            --text: #d1d5db; 
+            --slide-bg: #1a1a1a;
+            --border: #262626;
+            --accent: #f59e0b; 
+            --lead: #ffffff;
+        }
+        
+        html { font-size: 14px; overflow: hidden; }
+        
+        body {
+            margin: 0; padding: 0;
+            width: 100vw; height: 100vh;
+            background-color: var(--bg); color: var(--text); font-family: 'Inter', sans-serif;
+            display: flex; align-items: center; justify-content: center;
+        }
+        
+        .container {
+            width: 95vw; height: 85vh; max-width: 1200px;
+            background: var(--slide-bg); 
+            border-radius: 1.5rem;
+            padding: 4rem; box-sizing: border-box; 
+            display: flex; flex-direction: column;
+            box-shadow: 0 40px 80px -20px rgba(0,0,0,0.8);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        header { flex-shrink: 0; border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding-bottom: 0.8rem; margin-bottom: 2.5rem; }
+        h1 { margin: 0; font-size: 1.8rem; color: var(--lead); font-weight: 800; letter-spacing: -0.05em; }
+
+        .content { flex: 1; display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 4rem; align-items: center; min-height: 0; }
+
+        /* Left Column: Story & Question */
+        .text-panel { display: flex; flex-direction: column; gap: 2.5rem; }
+        
+        .narrative { font-size: 1.45rem; line-height: 1.6; color: #aaaaaa; }
+        .narrative b { color: var(--lead); }
+
+        .main-question { font-size: 2.2rem; line-height: 1.2; font-weight: 800; color: var(--lead); letter-spacing: -0.03em; }
+
+        .stats-summary { border-top: 1px solid var(--border); padding-top: 2rem; display: flex; gap: 2rem; }
+        .stat-item { font-size: 1.1rem; color: #666; }
+        .stat-item b { color: var(--lead); font-weight: 700; margin-right: 0.4rem; }
+
+        /* Right Column: Visual Component */
+        .visual-panel {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: rgba(0,0,0,0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid var(--border);
+            height: 100%;
+        }
+        .visual-image { 
+            max-width: 90%; 
+            max-height: 90%; 
+            object-fit: contain; 
+            mix-blend-mode: lighten; 
+            opacity: 0.9;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Global Express: Karar Çıkmazı</h1>
+        </header>
+
+        <div class="content">
+            <!-- Story & Question -->
+            <div class="text-panel">
+                <div class="narrative">
+                    Global Express firması, kritik tıbbi sevkiyatlar için yeni bir kurye ortağı arayışında. İki aday (A ve B) ile yapılan pilot sevkiyatların <b>beklenen değeri (ortalama süresi)</b> tamamen aynıdır.
+                </div>
+
+                <div class="main-question">
+                    Peki, ortalamaların eşit olduğu bu senaryoda seçim kriteri ne olmalıdır?
+                </div>
+
+                <div class="narrative" style="font-size: 1.25rem;">
+                    Lojistik operasyonlarında sadece hızı (beklenen değer) değil, sistemin <b>öngörülebilirliğini</b> de ölçmek gerekir.
+                </div>
+
+                <div class="stats-summary">
+                    <div class="stat-item"><b>N:</b> 30 Sevkiyat</div>
+                    <div class="stat-item"><b>E[X]:</b> 30 Dakika</div>
+                    <div class="stat-item"><b>SLA:</b> < 45 Dakika</div>
+                </div>
+            </div>
+
+            <!-- Conceptual Visual -->
+            <div class="visual-panel">
+                <img src="./assets/logistic_case_icons.png" alt="Lojistik Vaka İkonları" class="visual-image">
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
