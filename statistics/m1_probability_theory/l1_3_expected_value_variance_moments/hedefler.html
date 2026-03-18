@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Öğrenim Hedefleri - Beklenen Değer, Varyans ve Momentler</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #191919;
+            --card-bg: #1e2b24; /* Base Green */
+            --accent-color: #a5d6a7;
+            --text-main: #ffffff;
+            --text-muted: #d1d1d1;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* All-encompassing Green Container */
+        .main-container {
+            width: 95vw;
+            max-width: 1200px;
+            aspect-ratio: 4 / 1;
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 2rem; 
+            display: grid;
+            grid-template-rows: 1fr auto;
+            gap: 1.5rem;
+            border: 1px solid rgba(165, 214, 167, 0.2);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .grid-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .hedef-card {
+            background: rgba(0, 0, 0, 0.3); 
+            border: 1px solid rgba(165, 214, 167, 0.1);
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .hedef-card:hover {
+            border-color: var(--accent-color);
+            transform: translateY(-4px);
+            background: rgba(0, 0, 0, 0.4);
+        }
+
+        .card-content {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            text-align: center;
+            font-size: 1.1rem; /* Slightly smaller for 3 cards */
+            font-weight: 500;
+            line-height: 1.6;
+            color: var(--text-main);
+        }
+
+        .card-title {
+            background: rgba(165, 214, 167, 0.15);
+            padding: 0.8rem;
+            text-align: center;
+            font-size: 0.85rem;
+            font-weight: 800;
+            color: var(--accent-color);
+            text-transform: uppercase;
+            letter-spacing: 0.12rem;
+            border-top: 1px solid rgba(165, 214, 167, 0.1);
+        }
+
+        .punchline-box {
+            background: rgba(165, 214, 167, 0.05);
+            border-radius: 8px;
+            padding: 1.2rem;
+            border: 1px dashed rgba(165, 214, 167, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .punchline-text {
+            font-size: 1.3rem;
+            color: var(--accent-color);
+            text-align: center;
+            font-weight: 600;
+            letter-spacing: 0.02rem;
+            text-shadow: 0 2px 10px rgba(165, 214, 167, 0.2);
+        }
+
+        @media (max-width: 1000px) {
+            .card-content { font-size: 0.95rem; padding: 1.2rem; }
+            .punchline-text { font-size: 1.1rem; }
+            .main-container { aspect-ratio: auto; min-height: 350px; }
+            .card-title { font-size: 0.75rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <div class="grid-row">
+            <div class="hedef-card">
+                <div class="card-content">
+                    Dağılımı tek bir temsil noktasına indirgemek: ağırlıklı ortalama fikri ve formal tanımı.
+                </div>
+                <div class="card-title">Tek Nokta Temsili ve Beklenen Değer</div>
+            </div>
+            <div class="hedef-card">
+                <div class="card-content">
+                    O temsil noktasının ne kadar yanıltıcı olduğunu ölçmek: yayılım ve sapma.
+                </div>
+                <div class="card-title">Yayılım Ölçütleri ve Sapma Analizi</div>
+            </div>
+            <div class="hedef-card">
+                <div class="card-content">
+                    Dağılımın şeklini sistematik olarak okumak: çarpıklık, basıklık ve MGF sezgisi.
+                </div>
+                <div class="card-title">Momentler ve Dağılım Morfolojisi</div>
+            </div>
+        </div>
+        <div class="punchline-box">
+            <p class="punchline-text">Dağılımı tanımak için her değere bakmak zorunda değilsin — birkaç sayı yeterli.</p>
+        </div>
+    </div>
+</body>
+</html>
