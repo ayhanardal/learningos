@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nöral Organizasyon</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent-cyan: #22d3ee;
+            --accent-orange: #fb923c;
+            --accent-blue: #3b82f6;
+            --border: rgba(255, 255, 255, 0.08);
+            --glass: rgba(30, 41, 59, 0.7);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .slide {
+            width: 100%;
+            max-width: 1200px;
+            height: 100%;
+            max-height: 800px;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        header h1 {
+            font-size: 1.6rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            color: var(--text-primary);
+            margin-bottom: 0.2rem;
+        }
+
+        header p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .main-layout {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 1.5rem;
+            flex-grow: 1;
+        }
+
+        /* Hierarchy Ladder */
+        .hierarchy {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+            position: relative;
+        }
+
+        .hierarchy::before {
+            content: '';
+            position: absolute;
+            left: 20px;
+            top: 20px;
+            bottom: 20px;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--accent-cyan), var(--accent-orange));
+            opacity: 0.3;
+        }
+
+        .step-card {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 0.8rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            backdrop-filter: blur(8px);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .step-card:hover {
+            transform: translateX(8px);
+            background: rgba(45, 61, 89, 0.8);
+            border-color: rgba(34, 211, 238, 0.4);
+        }
+
+        .step-num {
+            width: 40px;
+            height: 40px;
+            background: var(--card-bg);
+            border: 2px solid var(--accent-cyan);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 600;
+            color: var(--accent-cyan);
+            flex-shrink: 0;
+            z-index: 1;
+        }
+
+        .step-info h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.1rem;
+        }
+
+        .step-info p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        /* Visual Panel */
+        .visual-panel {
+            background: #000;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .visual-panel img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.9;
+        }
+
+        /* Analysis Box */
+        .footer-analysis {
+            background: linear-gradient(135deg, rgba(251, 146, 60, 0.1), rgba(59, 130, 246, 0.1));
+            border: 1px solid rgba(251, 146, 60, 0.3);
+            border-radius: 16px;
+            padding: 1.2rem;
+            display: flex;
+            gap: 1.2rem;
+            align-items: center;
+        }
+
+        .analysis-tag {
+            background: var(--accent-orange);
+            color: var(--bg-color);
+            padding: 0.4rem 0.8rem;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            white-space: nowrap;
+        }
+
+        .analysis-text {
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: var(--text-primary);
+        }
+
+        .analysis-text b { color: var(--accent-orange); }
+
+        /* Animation */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .step-card { animation: fadeInUp 0.4s ease forwards; opacity: 0; }
+        .step-card:nth-child(1) { animation-delay: 0.1s; }
+        .step-card:nth-child(2) { animation-delay: 0.2s; }
+        .step-card:nth-child(3) { animation-delay: 0.3s; }
+        .step-card:nth-child(4) { animation-delay: 0.4s; }
+        .step-card:nth-child(5) { animation-delay: 0.5s; }
+        .step-card:nth-child(6) { animation-delay: 0.6s; }
+    </style>
+</head>
+<body>
+
+<div class="slide">
+    <header>
+        <h1>▪ 5. NÖRAL ORGANİZASYON: Devreden Sisteme</h1>
+        <p>Sinir sistemi aşamalı bir organizasyon mantığına sahiptir:</p>
+    </header>
+
+    <main class="main-layout">
+        <!-- Hierarchy Section -->
+        <div class="hierarchy">
+            <div class="step-card">
+                <div class="step-num">1</div>
+                <div class="step-info">
+                    <h3>Hücre (Nöron/Glia)</h3>
+                    <p>Temel yapısal ve fonksiyonel birim.</p>
+                </div>
+            </div>
+
+            <div class="step-card">
+                <div class="step-num">2</div>
+                <div class="step-info">
+                    <h3>Sinaps</h3>
+                    <p>Enformasyonun bir hücreden diğerine geçtiği bağlantı noktası.</p>
+                </div>
+            </div>
+
+            <div class="step-card">
+                <div class="step-num">3</div>
+                <div class="step-info">
+                    <h3>Nöral Devre</h3>
+                    <p>Spesifik bir işlev için organize olmuş grup etkileşimleri.</p>
+                </div>
+            </div>
+
+            <div class="step-card">
+                <div class="step-num">4</div>
+                <div class="step-info">
+                    <h3>Bölgesel Ağ</h3>
+                    <p>Korteks, bazal ganglia gibi anatomik yapılar içindeki geniş ağlar.</p>
+                </div>
+            </div>
+
+            <div class="step-card">
+                <div class="step-num">5</div>
+                <div class="step-info">
+                    <h3>Sistem</h3>
+                    <p>Görsel, motor veya limbik sistem gibi global işleme birimleri.</p>
+                </div>
+            </div>
+
+            <div class="step-card">
+                <div class="step-num">6</div>
+                <div class="step-info">
+                    <h3>Davranış / Biliş</h3>
+                    <p>Tüm hiyerarşik entegrasyonun nihai çıktı seviyesi.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Visual Section -->
+        <div class="visual-panel">
+            <img src="neural_organization_hierarchy_1773952342387.png" alt="Nöral Organizasyon Hiyerarşisi">
+        </div>
+    </main>
+
+    <!-- Analysis Section -->
+    <div class="footer-analysis">
+        <div class="analysis-tag">Morfolojik Belirlenim</div>
+        <div class="analysis-text">
+            Nöronal morfoloji bu organizasyonda kritik rol oynar: nöronun <b>dendrit dallanma biçimi</b>, <b>akson uzunluğu</b> ve <b>bağlantı şeması</b>, hangi devreye entegre olacağını belirleyen temel algoritmadır.
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
