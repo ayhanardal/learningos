@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NE_2 — MSS Mimarisi</title>
+    <title>NE_2 — MSS Mimarisi (Zengin İçerik)</title>
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
@@ -44,13 +44,13 @@
 
         header { flex-shrink: 0; margin-bottom: 0.8rem; }
         .tag { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.4em; color: var(--accent); font-weight: 700; display: block; margin-bottom: 4px; }
-        h1 { font-size: 1.65rem; font-weight: 800; margin: 0; background: linear-gradient(135deg, #fff 30%, #64748b 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        h1 { font-size: 1.6rem; font-weight: 800; margin: 0; background: linear-gradient(135deg, #fff 30%, #64748b 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
         .main-grid {
             flex: 1;
             display: grid;
-            grid-template-columns: 0.9fr 1.1fr;
-            grid-template-rows: 1.15fr 0.85fr;
+            grid-template-columns: 0.85fr 1.15fr;
+            grid-template-rows: 1.25fr 0.75fr;
             gap: 1.2rem;
             overflow: hidden;
         }
@@ -72,7 +72,7 @@
         .text-card { justify-content: center; }
 
         h2 { 
-            font-size: 1rem; font-weight: 700; color: var(--accent); 
+            font-size: 0.9rem; font-weight: 700; color: var(--accent); 
             margin: 0 0 0.8rem 0; text-transform: uppercase; letter-spacing: 0.1em;
             display: flex; align-items: center; gap: 8px;
         }
@@ -82,14 +82,14 @@
         .stat-chip b { color: var(--accent); font-size: 0.9rem; margin-right: 4px; }
 
         .desc-item { border-left: 2px solid var(--divider); padding-left: 1rem; margin-bottom: 0.6rem; }
-        .desc-item b { color: var(--text-primary); font-size: 0.92rem; display: block; margin-bottom: 2px; }
-        .desc-item p { color: var(--text-secondary); font-size: 0.82rem; line-height: 1.45; margin: 0; }
+        .desc-item b { color: var(--text-primary); font-size: 0.88rem; display: block; margin-bottom: 2px; }
+        .desc-item p { color: var(--text-secondary); font-size: 0.8rem; line-height: 1.5; margin: 0; }
 
-        .lobes-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; }
+        .lobes-list { display: flex; flex-direction: column; gap: 0.8rem; }
 
         .label {
             position: absolute;
-            background: rgba(13, 15, 20, 0.8);
+            background: rgba(13, 15, 20, 0.85);
             border: 1px solid var(--accent);
             padding: 2px 8px;
             border-radius: 4px;
@@ -108,23 +108,23 @@
 
     <div class="slide">
         <header>
-            <span class="tag">Ders 1.1 — Bölüm 2: Merkezi Sinir Sistemi</span>
-            <h1>2.1 Büyük Beyin (Serebrum) & 2.2 Omurilik</h1>
+            <span class="tag">NE_2 (v3.0) — Büyük Beyin & Serebral Korteks</span>
+            <h1>2.1 Büyük Beyin (Serebrum) Mimarisi </h1>
         </header>
 
         <div class="main-grid">
             <!-- Beyin Lobları Görseli -->
             <div class="card img-card">
-                <img src="./assets/cortex_lobes_quad_v1.png" alt="Brain Lobes Quad">
+                <img src="./assets/cortex_lobes_quad_v1.png" alt="Cortex Lobes Visualization">
                 <div class="label" style="top: 10%; left: 10%;">Frontal Lob</div>
                 <div class="label" style="top: 10%; right: 10%;">Parietal Lob</div>
                 <div class="label" style="bottom: 10%; left: 10%;">Temporal Lob</div>
                 <div class="label" style="bottom: 10%; right: 10%;">Oksipital Lob</div>
             </div>
 
-            <!-- 2.1 Beyin Detayı (Kitap Verileriyle Senkronize) -->
+            <!-- 2.1 Beyin Detayı (Zenginleştirilmiş) -->
             <div class="card text-card" style="animation-delay: 0.1s;">
-                <h2>2.1 Büyük Beyin (Serebrum)</h2>
+                <h2>Büyük Beyin & Korteks Fonksiyonları</h2>
                 <div class="stat-wrap">
                     <div class="stat-chip"><b>1200-1500 g</b> Ağırlık</div>
                     <div class="stat-chip"><b>~1 Trilyon</b> Hücre</div>
@@ -132,39 +132,40 @@
                 </div>
                 <div class="desc-item">
                     <b>Serebral Korteks</b>
-                    <p>Milyarlarca nöron içeren gri madde (dış tabaka). En yüksek bilişsel işlevlerin merkezi.</p>
+                    <p>Bilinçli düşünme, istemli hareket ve duyusal algılamanın yanı sıra planlama ve karar verme gibi en yüksek bilişsel süreçlerin ana merkezidir.</p>
                 </div>
-                <div class="lobes-grid">
-                    <div class="desc-item">
-                        <b>Frontal:</b> <p>Yönetici/Motor işlevler.</p>
+                <div class="lobes-list">
+                    <div class="desc-item" style="border-left-color: #00f2ff;">
+                        <b>Frontal:</b> <p>Kişiliğin şekillendiği, karmaşık problem çözme ve istemli motor hareketlerin yönetildiği "yönetici" merkezdir.</p>
                     </div>
                     <div class="desc-item">
-                        <b>Parietal:</b> <p>Duyusal entegrasyon.</p>
+                        <b>Parietal:</b> <p>Vücuttan gelen dokunma, basınç ve ağrı gibi duyusal verileri entegre ederek mekansal farkındalık ve nesne algısı sağlar.</p>
                     </div>
                     <div class="desc-item">
-                        <b>Temporal:</b> <p>Duyma ve Hafıza.</p>
+                        <b>Temporal:</b> <p>İşitsel bilgilerin ana işleme alanı olmasının yanında, uzun süreli hafıza ve dilin anlamlandırılmasında kritik rol oynar.</p>
                     </div>
                     <div class="desc-item">
-                        <b>Oksipital:</b> <p>Görsel işleme merkezi.</p>
+                        <b>Oksipital:</b> <p>Gözlerden gelen görsel verilerin şekil, renk ve hareket bazında analiz edilerek görsel dünyanın inşa edildiği ana merkezdir.</p>
                     </div>
                 </div>
             </div>
 
             <!-- Omurilik Görseli -->
             <div class="card img-card" style="animation-delay: 0.2s;">
-                <img src="./assets/spinal_final_v1.png" alt="Spinal Architecture">
+                <img src="./assets/spinal_final_v1.png" alt="Spinal Cord Architecture">
+                <div class="label" style="position: absolute; bottom: 8%; right: 8%;">40-50 cm</div>
             </div>
 
             <!-- 2.2 Omurilik Detayı -->
             <div class="card text-card" style="animation-delay: 0.3s;">
-                <h2>2.2 Omurilik (Spinal Cord)</h2>
+                <h2>2.2 Omurilik (Giriş & Çıkış Terminali)</h2>
                 <div class="desc-item">
-                    <b>Genel Fizyoloji</b>
-                    <p>40-50 cm uzunluğundadır. Merkezi sinir sistemi ile çevre arasında köprüdür.</p>
+                    <b>Merkezi Köprü Fonksiyonu</b>
+                    <p>Merkezi sinir sistemi ile çevre arasında bir otoyol görevi görerek motor komutları (beyinden) ve duyusal verileri (beyne) çift yönlü iletir.</p>
                 </div>
                 <div class="desc-item">
-                    <b>Çift Yönlü İletişim</b>
-                    <p><strong>Motor:</strong> Beyinden perifere giden komutlar. <br> <strong>Duyusal:</strong> Periferden beyne giden veriler.</p>
+                    <b>Spinal Kök Mimarisi</b>
+                    <p><strong>Dorsal Kök (Arka):</strong> Duyusal Afferent girişi için uzmanlaşmış kapı. <br> <strong>Ventral Kök (Ön):</strong> Motor Efferent çıkışı sağlayan ana terminal.</p>
                 </div>
             </div>
         </div>
