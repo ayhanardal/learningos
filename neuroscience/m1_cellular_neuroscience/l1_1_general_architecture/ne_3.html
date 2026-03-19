@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NE_2 — Merkezi Sinir Sistemi (MSS) Mimarisi</title>
+    <title>NE_3 — Periferik Sinir Sistemi (PSS) Mimarisi</title>
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
@@ -52,20 +52,20 @@
         .visual-panel { background: rgba(255, 255, 255, 0.01); border: 1px solid var(--divider); border-radius: 20px; padding: 15px; line-height: 0; }
         .visual-panel img { width: 100%; height: auto; border-radius: 12px; }
 
-        .content-panel { display: flex; flex-direction: column; gap: 2.5rem; }
+        .content-panel { display: flex; flex-direction: column; gap: 2rem; }
         .content-section { border-bottom: 1px solid var(--divider); padding-bottom: 1.5rem; }
         .content-section:last-child { border-bottom: none; }
 
         h2 { font-size: 1.2rem; font-weight: 600; color: var(--accent); text-transform: uppercase; letter-spacing: 0.1em; margin: 0 0 0.8rem 0; display: flex; align-items: center; gap: 10px; }
         h2::before { content: ''; width: 8px; height: 8px; background: var(--accent); border-radius: 2px; box-shadow: 0 0 10px var(--accent); }
 
-        .text-block { font-size: 1.1rem; line-height: 1.6; color: var(--text-secondary); font-weight: 300; }
+        .text-block { font-size: 1.05rem; line-height: 1.6; color: var(--text-secondary); font-weight: 300; }
         .text-block strong { color: var(--text-primary); font-weight: 600; }
 
-        .grid-info { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem; }
-        .info-card { background: rgba(255,255,255,0.03); padding: 1rem; border-radius: 10px; border: 1px solid var(--divider); }
-        .info-card b { display: block; color: var(--accent); font-size: 0.85rem; margin-bottom: 4px; }
-        .info-card span { font-size: 0.95rem; color: #cbd5e1; }
+        .sys-grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: 1rem; margin-top: 1rem; }
+        .sys-card { background: rgba(255,255,255,0.03); padding: 1rem; border-radius: 10px; border: 1px solid var(--divider); }
+        .sys-card h3 { font-size: 0.9rem; color: #fff; margin-bottom: 6px; }
+        .sys-card p { font-size: 0.9rem; color: #94a3b8; margin: 0; }
 
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         .content-section { animation: fadeIn 0.8s ease backwards; }
@@ -75,33 +75,37 @@
 
     <div class="slide">
         <header>
-            <span class="tag">NE_2 — Merkezi Katman Detayı</span>
-            <h1>Merkezi Sinir Sistemi (MSS) Araçları</h1>
+            <span class="tag">NE_3 — İletişim Katmanı Detayı</span>
+            <h1>Periferik Sinir Sistemi (PSS) Mimarisi</h1>
         </header>
 
         <main>
             <div class="visual-panel">
-                <img src="./assets/mss_detail_v1.png" alt="MSS Architecture">
+                <img src="./assets/pss_detail_v1.png" alt="PSS Architecture">
             </div>
 
             <div class="content-panel">
                 <article class="content-section">
-                    <h2>Entegre Kontrol Merkezi (Beyin)</h2>
+                    <h2>Somatik Bölüm (İstemli Kontrol)</h2>
                     <div class="text-block">
-                        MSS'nin en üst düzey <strong>analiz ve karar katmanıdır.</strong> Gelen verileri geçmiş deneyimlerle birleştirerek eylem planları üretir.
-                    </div>
-                    <div class="grid-info">
-                        <div class="info-card"><b>Beyin (Cerebrum)</b><span>Bilinç, hafıza ve istemli hareketlerin ana merkezi.</span></div>
-                        <div class="info-card"><b>Beyincik (Cerebellum)</b><span>Denge, postür ve motor hareketlerin hassas ayarı.</span></div>
-                        <div class="info-card"><b>Beyin Sapı</b><span>Solunum, kalp atışı ve uyku döngüsünü kontrol eder.</span></div>
-                        <div class="info-card"><b>Limbik Sistem</b><span>Duygular ve motivasyonel süreçlerin merkezi.</span></div>
+                        Çizgili kasları ve bilinçli duyusal algıyı yöneten <strong>istemsiz dışı veri yoludur.</strong> Somatosensori ve motor kontrolü birleştirir.
                     </div>
                 </article>
 
                 <article class="content-section" style="animation-delay: 0.3s;">
-                    <h2>Veri Yolu ve Refleks Hattı (Omurilik)</h2>
+                    <h2>Otonom Bölüm (İstemsiz Kontrol)</h2>
                     <div class="text-block">
-                        Beyin ile çevre arasındaki <strong>ana iletim otoyoludur.</strong> Aynı zamanda basit kararların (refleks) beyne gitmeden verildiği yerel istasyondur.
+                        İç organların, bezlerin ve damar sisteminin <strong>otomatik yönetiminden sorumludur.</strong> İki zıt modda çalışır:
+                    </div>
+                    <div class="sys-grid">
+                        <div class="sys-card">
+                            <h3>Sempatik Mod</h3>
+                            <p>Savaş veya Kaç (Fight or Flight). Enerji harcaması, hızlı metabolizma.</p>
+                        </div>
+                        <div class="sys-card" style="border-left: 3px solid #64748b;">
+                            <h3>Parasempatik Mod</h3>
+                            <p>Dinlen ve Sindir (Rest and Digest). Enerji depolama, metabolik denge.</p>
+                        </div>
                     </div>
                 </article>
             </div>
