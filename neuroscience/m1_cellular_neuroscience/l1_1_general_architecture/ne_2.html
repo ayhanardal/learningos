@@ -55,7 +55,6 @@
             overflow: hidden;
         }
 
-        /* Kart Stilleri */
         .card {
             background: rgba(255, 255, 255, 0.02);
             border: 1px solid var(--divider);
@@ -78,12 +77,15 @@
             display: flex; align-items: center; gap: 8px;
         }
 
-        .desc-list { display: flex; flex-direction: column; gap: 0.8rem; }
+        .desc-list { display: flex; flex-direction: column; gap: 1rem; }
+        
+        /* Alt Grid Düzeni (Zengin içerik için) */
+        .sub-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; }
+
         .desc-item { border-left: 2px solid var(--divider); padding-left: 1rem; }
         .desc-item b { color: var(--text-primary); font-size: 0.95rem; display: block; }
-        .desc-item span { color: var(--text-secondary); font-size: 0.85rem; line-height: 1.4; display: block; margin-top: 2px; }
+        .desc-item span { color: var(--text-secondary); font-size: 0.8rem; line-height: 1.4; display: block; margin-top: 2px; }
 
-        /* Etiketler */
         .label {
             position: absolute;
             background: rgba(0, 242, 255, 0.15);
@@ -111,8 +113,8 @@
 
     <div class="slide">
         <header>
-            <span class="tag">NE_2 — Merkezi Katman Haritası</span>
-            <h1>MSS Fizyolojik Mimarisi (Görsel Dağılım)</h1>
+            <span class="tag">NE_2 — Merkezi Katman Derinliği</span>
+            <h1>MSS Fizyolojik Mimarisi</h1>
         </header>
 
         <div class="main-grid">
@@ -122,24 +124,32 @@
                 <div class="label" id="lbl-1">Beyin</div>
                 <div class="label" id="lbl-2">Beyincik</div>
                 <div class="label" id="lbl-3">Beyin Sapı</div>
-                <div class="label" id="lbl-4">Profil</div>
+                <div class="label" id="lbl-4">Sağ Profil</div>
             </div>
 
-            <!-- Beyin İçerikleri -->
+            <!-- Beyin İçerikleri (Zenginleştirilmiş) -->
             <div class="card text-card" style="animation-delay: 0.1s;">
-                <h2>Beyin Katmanları (Hiyerarşi)</h2>
+                <h2>Entegre Kontrol Hiyerarşisi</h2>
                 <div class="desc-list">
-                    <div class="desc-item">
-                        <b>Cerebrum (Beyin)</b>
-                        <span>Bilinç, hafıza, istemli kontrol ve duyusal entegrasyon merkezi.</span>
+                    <div class="sub-grid">
+                        <div class="desc-item">
+                            <b>Kortikal Loblar</b>
+                            <span>Frontal (Motor), Paryetal (Duyu), temporal (İşitsel) ve Oksipital (Görsel) lobların entegrasyonu.</span>
+                        </div>
+                        <div class="desc-item">
+                            <b>Diensefalon</b>
+                            <span>Talamus (Duyusal Röle) ve Hipotalamus (Homeostaz) ile derin çekirdek katmanları.</span>
+                        </div>
                     </div>
-                    <div class="desc-item">
-                        <b>Cerebellum (Beyincik)</b>
-                        <span>Hareket hassasiyeti, denge ve postürün dinamik ayarı.</span>
-                    </div>
-                    <div class="desc-item">
-                        <b>Brainstem (Beyin Sapı)</b>
-                        <span>Hayati otonom fonksiyonların (solunum, nabız) köprü noktası.</span>
+                    <div class="sub-grid">
+                        <div class="desc-item">
+                            <b>Cerebellum</b>
+                            <span>Motor öğrenme, postür senkronizasyonu ve hareketlerin zamanlaması.</span>
+                        </div>
+                        <div class="desc-item">
+                            <b>Trunkus Ensefali</b>
+                            <span>Mezensifalon, Pons ve Bulbus'un hayati otonom refleks düğümleri.</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -147,19 +157,26 @@
             <!-- Omurilik Görseli -->
             <div class="card img-card" style="animation-delay: 0.2s;">
                 <img src="./assets/spinal_v1.png" alt="Spinal Cord">
-                <div class="label" style="bottom: 10%; left: 10%;">Omurilik</div>
+                <div class="label" style="bottom: 15%; right: 10%;">Medulla Spinalis</div>
             </div>
 
-            <!-- Omurilik İçerikleri -->
+            <!-- Omurilik İçerikleri (Zenginleştirilmiş) -->
             <div class="card text-card" style="animation-delay: 0.3s;">
-                <h2>Refleks ve İletim Hattı</h2>
+                <h2>Segmental Veri ve Refleks Hattı</h2>
                 <div class="desc-list">
-                    <div class="desc-item">
-                        <b>Medulla Spinalis (Omurilik)</b>
-                        <span>Beyin ve vücut arasındaki ana otoban. Kararların (refleks) yerel olarak verildiği veri istasyonudur.</span>
+                    <div class="sub-grid">
+                        <div class="desc-item">
+                            <b>Segmental Organizasyon</b>
+                            <span>31 çift spinal sinirin (Servikal, Torakal, Lumbar, Sakral) bilateral simetrik dağılımı.</span>
+                        </div>
+                        <div class="desc-item">
+                            <b>Nöral Kanallar</b>
+                            <span>İnen motor (efferant) ve çıkan duyusal (afferant) akson demetlerinin otoyolu.</span>
+                        </div>
                     </div>
                     <div class="desc-item">
-                        <b>Nöral Kanallar</b><span>Beyinden gelen motor sinyaller ve çevreye giden duyusal verilerin geçiş yolu.</span>
+                        <b>Gri ve Beyaz Cevher</b>
+                        <span>Hücre gövdelerinin bulunduğu "H" formundaki gri cevher ve etrafındaki miyelinli beyaz cevher dengesi.</span>
                     </div>
                 </div>
             </div>
