@@ -19,7 +19,7 @@ Her Lesson, Module içindeki tekil bir ders birimidir.
 | 📊 İstatistik | In progress |
 | 📐 Matematik | Not started |
 | 🧬 Biyoloji | Not started |
-| 🧠 Nörobilim | Not started |
+| 🧠 Nörobilim | In progress |
 | AI | Not started |
 | Quantum | Not started |
 
@@ -37,7 +37,7 @@ Her Lesson, Module içindeki tekil bir ders birimidir.
 
 ---
 
-## MODÜL 1 — DERSLER
+## İSTATİSTİK MODÜL 1 — DERSLER
 
 | Ders | Durum |
 |---|---|
@@ -47,6 +47,29 @@ Her Lesson, Module içindeki tekil bir ders birimidir.
 | [1.4] Çok Değişkenli (Multivariate) Dağılımlar | Devam ediyor |
 | [1.5] Rassal Değişkenlerin Dönüşümleri | Not started |
 | [1.6] Eşitsizlikler ve Limit Teoremleri | Not started |
+
+---
+
+## NÖROBİLİM TRACK — MODÜLLER
+
+| Modül | Durum |
+|---|---|
+| [1] Hücresel Nörobilim ve Organizasyon | In progress |
+| [2] Nöral Sinyalizasyon ve Transmisyon | Not started |
+| [3] Duyusal ve Motor Sistemler | Not started |
+| [4] Bilişsel Nörobilim ve Plastisite | Not started |
+| [5] Nörolojik Bozukluklar ve Farmakoloji | Not started |
+
+---
+
+## NÖROBİLİM MODÜL 1 — DERSLER
+
+| Ders | Durum |
+|---|---|
+| [1.1] Genel Mimari | Devam ediyor |
+| [1.2] Membran Potansiyeli ve İyon Kanalları | Not started |
+| [1.3] Aksiyon Potansiyeli | Not started |
+| [1.4] Sinaptik İletim | Not started |
 
 ---
 

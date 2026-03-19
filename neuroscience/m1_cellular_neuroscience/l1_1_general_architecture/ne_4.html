@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NE_4 — Hücresel Evren (v3.0 - Ölçekli & Görsel)</title>
+    <title>NE_4 — Hücresel Mimari: Nöronlar ve Glia</title>
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
@@ -11,13 +11,13 @@
             --bg-color: #0d0f14;
             --slide-bg: rgba(255, 255, 255, 0.02);
             --accent: #00f2ff;
+            --accent-soft: rgba(0, 242, 255, 0.15);
             --text-primary: #f1f5f9;
             --text-secondary: #94a3b8;
             --divider: rgba(255, 255, 255, 0.08);
-            --warning: #ffcc00;
         }
 
-        html { font-size: 17px; } /* Laptop okunabilirliği için ana ölçek */
+        html { font-size: 14.5px; } 
 
         body {
             margin: 0; padding: 0;
@@ -31,201 +31,164 @@
         }
 
         .slide {
-            width: 96%; height: 95%; 
-            max-width: 1400px;
+            width: 96%; height: 96%; 
+            max-width: 1600px;
             background: var(--slide-bg);
             border: 1px solid var(--divider);
             border-radius: 2rem;
-            padding: 2.2rem 3.5rem; 
+            padding: 1.5rem 3rem; 
             box-sizing: border-box;
             backdrop-filter: blur(25px);
-            display: flex; flex-direction: column; overflow: hidden;
+            display: flex; flex-direction: column; gap: 0.5rem;
         }
 
-        header { flex-shrink: 0; margin-bottom: 1.5rem; display: flex; align-items: center; justify-content: space-between; }
-        h1 { font-size: 2rem; font-weight: 800; margin: 0; background: linear-gradient(135deg, #fff 30%, #64748b 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        header { flex-shrink: 0; display: flex; align-items: flex-end; justify-content: space-between; border-bottom: 2px solid var(--divider); padding-bottom: 0.8rem; }
+        h1 { font-size: 1.6rem; font-weight: 800; margin: 0; background: linear-gradient(135deg, #fff 30%, #64748b 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        
+        .stats-bar { display: flex; gap: 10px; }
+        .stat-chip { background: var(--accent-soft); padding: 4px 12px; border-radius: 8px; font-size: 0.7rem; border: 1px solid rgba(0, 242, 255, 0.2); }
+        .stat-chip b { color: var(--accent); }
 
-        .taxo-wrap { display: flex; gap: 12px; }
-        .chip { background: rgba(0, 242, 255, 0.1); border: 1px solid rgba(0, 242, 255, 0.25); padding: 7px 16px; border-radius: 12px; font-size: 0.95rem; }
-        .chip b { color: var(--accent); }
-
-        .main-grid {
+        .main-layout {
             flex: 1;
             display: grid;
-            grid-template-columns: 0.32fr 0.68fr;
-            grid-template-rows: 1.15fr 0.85fr;
-            gap: 2rem;
-            overflow: hidden;
+            grid-template-rows: auto 1fr;
+            gap: 0.8rem;
+            min-height: 0;
         }
+
+        /* Top Row: Panoramic Neuron Visual + Classification */
+        .row { display: grid; grid-template-columns: 1.5fr 1fr; gap: 1.5rem; min-height: 0; }
 
         .card {
-            background: rgba(255, 255, 255, 0.035);
+            background: rgba(255, 255, 255, 0.03);
             border: 1px solid var(--divider);
-            border-radius: 1.8rem;
-            padding: 1.6rem 2.2rem;
+            border-radius: 1.2rem;
+            padding: 1rem;
             display: flex;
             flex-direction: column;
+            min-height: 0;
+        }
+
+        h2 { font-size: 0.9rem; font-weight: 800; color: var(--accent); margin: 0 0 1rem 0; text-transform: uppercase; letter-spacing: 0.1em; display: flex; align-items: center; gap: 8px; }
+
+        /* Strict Panoramic Crop */
+        .anatomy-visual {
+            width: 100%;
+            aspect-ratio: 3.1 / 1; 
+            background: #000;
+            border-radius: 10px;
+            border: 1px solid var(--divider);
             overflow: hidden;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .anatomy-visual img { 
+            width: 100%; height: 100%;
+            object-fit: cover; 
+            object-position: center; 
+            filter: contrast(1.1); 
         }
 
-        h2 { 
-            font-size: 1.1rem; font-weight: 700; color: var(--accent); 
-            margin: 0 0 1.2rem 0; text-transform: uppercase; letter-spacing: 0.12em;
-        }
+        .morph-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 0.8rem; }
+        .morph-item { background: rgba(255,255,255,0.02); border: 1px solid var(--divider); padding: 8px; border-radius: 10px; text-align: center; }
+        .morph-item svg { height: 32px; width: 100%; margin-bottom: 4px; }
+        .morph-item span { font-size: 0.7rem; font-weight: 800; display: block; }
 
-        /* Morfoloji Grid Fix */
-        .morph-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.2rem; margin-bottom: 0.5rem; }
-        .morph-box { 
-            background: rgba(255,255,255,0.03); 
-            border: 1px solid var(--divider); 
-            padding: 1.2rem 0.8rem; 
-            border-radius: 1.2rem; 
-            text-align: center;
-            display: flex; flex-direction: column; align-items: center;
-        }
-        .polar-svg { height: 75px; width: 100%; margin-bottom: 12px; }
-        .morph-box b { font-size: 1rem; color: #fff; display: block; margin-bottom: 6px; }
-        .morph-box p { font-size: 0.82rem; color: var(--text-secondary); line-height: 1.45; margin: 0; }
+        .functional-table { width: 100%; border-collapse: collapse; font-size: 0.88rem; flex: 1; }
+        .functional-table th { color: var(--accent); font-size: 0.65rem; padding: 4px; border-bottom: 1px solid var(--divider); text-align: left; }
+        .functional-table td { padding: 10px 4px; border-bottom: 1px solid rgba(255,255,255,0.03); }
 
-        /* Glia Panel Fix */
-        .glia-container { display: grid; grid-template-columns: 1fr 1fr; gap: 1.8rem; }
-        .glia-list b { color: var(--accent); font-size: 1rem; display: block; margin-bottom: 8px; }
-        .glia-list p { font-size: 0.95rem; color: var(--text-primary); margin: 0 0 10px 1.2rem; line-height: 1.5; position: relative; }
-        .glia-list p::before { content: '•'; position: absolute; left: -1.2rem; color: var(--accent); }
+        /* Glia Section - 3-Column Balanced Grid */
+        .glia-content { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2.5rem; flex: 1; min-height: 0; align-items: flex-start; }
+        
+        .glia-logic { padding-right: 1.5rem; }
+        .glia-logic h2 { font-size: 1.25rem; margin: 0 0 1rem 0; color: var(--accent); text-transform: uppercase; letter-spacing: 0.05em; font-weight: 800; border-bottom: 2px solid rgba(0,242,255,0.1); padding-bottom: 10px; }
+        .glia-logic p { font-size: 1rem; line-height: 1.6; color: var(--text-secondary); margin: 0 0 1.2rem 0; }
+        .glia-logic b { color: #fff; font-weight: 700; }
 
-        .warning-box { 
-            border: 1px solid rgba(255, 204, 0, 0.3); 
-            background: rgba(255, 204, 0, 0.08); 
-            padding: 12px 20px; 
-            border-radius: 15px; 
-            margin-top: auto; 
-        }
-        .warning-box span { font-size: 0.98rem; color: var(--warning); display: block; font-weight: 600; line-height: 1.5; }
+        .table-wrap { display: flex; flex-direction: column; gap: 8px; flex: 1; }
+        .table-label { font-size: 0.95rem; font-weight: 800; color: var(--accent); border-bottom: 2px solid var(--accent); padding-bottom: 8px; margin-bottom: 5px; width: 100%; }
 
-        /* Jump Animation */
-        @keyframes jump { 
-            0% { transform: scale(1); stroke-width: 2; opacity: 0.3; } 
-            50% { transform: scale(1.5); stroke-width: 4; opacity: 1; } 
-            100% { transform: scale(1); stroke-width: 2; opacity: 0.3; } 
-        }
-        .node-pulse { fill: var(--accent); animation: jump 2s infinite; }
+        table { width: 100%; border-collapse: collapse; }
+        td { padding: 6px 4px; vertical-align: top; border-bottom: 1px solid rgba(255,255,255,0.02); }
+        .name { font-size: 1.1rem; font-weight: 800; color: #fff; display: block; margin-bottom: 4px; }
+        .desc { font-size: 0.95rem; color: var(--text-secondary); line-height: 1.4; display: block; }
+        
+        .fark-highlight { font-size: 0.9rem; color: var(--accent); font-weight: 800; margin-top: 10px; border-left: 2px solid var(--accent); padding-left: 10px; }
     </style>
 </head>
 <body>
 
     <div class="slide">
         <header>
-            <h1>4. Hücresel Mimari: Nöronlar & Glia</h1>
-            <div class="taxo-wrap">
-                <div class="chip">Taksonomi: <b>Nöron</b> vs <b>Glia</b></div>
-                <div class="chip">Rasyo: <b>1:1</b> (~80 Milyar)</div>
+            <h1>4. Hücresel Mimari: Nöronlar ve Glia</h1>
+            <div class="stats-bar">
+                <div class="stat-chip">Nöron: <b>İşlem Merkezi</b></div>
+                <div class="stat-chip">Glia: <b>Lojistik Destek</b></div>
             </div>
         </header>
 
-        <div class="main-grid">
-            <!-- Sol Üst: Nöron Anatomisi (SVG Büyütülmüş) -->
-            <div class="card" style="background: rgba(0,0,0,0.3);">
-                <h2>4.1 Nöron Anatomisi</h2>
-                <svg viewBox="0 0 200 300" style="flex: 1; max-height: 80%;">
-                    <!-- Soma & Dendritler -->
-                    <circle cx="100" cy="80" r="28" fill="#1e293b" stroke="var(--accent)" stroke-width="3"/>
-                    <circle cx="100" cy="80" r="8" fill="var(--accent)" opacity="0.4"/>
-                    <path d="M100 80 L80 30 M100 80 L120 30 M60 80 L140 80 M90 50 L110 50" stroke="var(--accent)" stroke-width="2.5" opacity="0.6"/>
-                    <!-- Akson & Miyelin -->
-                    <line x1="100" y1="108" x2="100" y2="260" stroke="#64748b" stroke-width="4"/>
-                    <rect x="90" y="125" width="20" height="30" rx="5" fill="#ffd700" opacity="0.3"/>
-                    <rect x="90" y="170" width="20" height="30" rx="5" fill="#ffd700" opacity="0.3"/>
-                    <circle class="node-pulse" cx="100" cy="165" r="4"/>
-                    <text x="135" y="85" fill="#fff" font-size="10" font-weight="800">SOMA</text>
-                    <text x="115" y="188" fill="#ffd700" font-size="9">MİYELİN</text>
-                </svg>
-                <p style="font-size: 1rem; color: var(--text-secondary); margin-top: 1rem; line-height: 1.5;">
-                    <b>İşlev:</b> Elektrokimyasal sinyalleri yakalamak (Dendrit), işlemek (Soma) ve iletmek (Akson) üzere evrilmiş ana birimdir.
-                </p>
-            </div>
-
-            <!-- Sağ Üst: Morfoloji 4'lü Set (Polarizasyon Diagrams Done) -->
-            <div class="card">
-                <h2>Morfolojiye Göre Nöron Sınıflandırması</h2>
-                <div class="morph-grid">
-                    <!-- Multipolar -->
-                    <div class="morph-box">
-                        <svg class="polar-svg" viewBox="0 0 100 80">
-                            <circle cx="50" cy="40" r="12" fill="var(--accent)" opacity="0.1"/>
-                            <path d="M50 40 L50 80 M50 40 L30 10 M50 40 L70 10 M50 40 L15 35 M50 40 L85 35" stroke="var(--accent)" stroke-width="2.5"/>
-                        </svg>
-                        <b>Multipolar</b>
-                        <p>1 akson + çok sayıda dendrit. <b>Yüzde 99</b> yaygınlık.</p>
-                    </div>
-                    <!-- Bipolar -->
-                    <div class="morph-box">
-                        <svg class="polar-svg" viewBox="0 0 100 80">
-                            <circle cx="50" cy="40" r="10" fill="var(--accent)" opacity="0.3"/>
-                            <path d="M50 0 L50 30 M50 50 L50 80" stroke="var(--accent)" stroke-width="2.5"/>
-                        </svg>
-                        <b>Bipolar</b>
-                        <p>1 akson + 1 dendrit. <b>Retina</b> gibi özel duyular.</p>
-                    </div>
-                    <!-- Psödounipolar -->
-                    <div class="morph-box">
-                        <svg class="polar-svg" viewBox="0 0 100 80">
-                            <circle cx="50" cy="40" r="10" fill="var(--accent)" opacity="0.5"/>
-                            <path d="M50 40 L50 60 M50 60 L20 60 M50 60 L80 60" stroke="var(--accent)" stroke-width="2.5"/>
-                        </svg>
-                        <b>Psödounipolar</b>
-                        <p>T-biçimli tek uzantı. <b>PSS duyusal</b> ganglionlar.</p>
-                    </div>
-                    <!-- Unipolar -->
-                    <div class="morph-box">
-                        <svg class="polar-svg" viewBox="0 0 100 80">
-                            <circle cx="20" cy="40" r="10" fill="var(--accent)" opacity="0.7"/>
-                            <path d="M30 40 L90 40" stroke="var(--accent)" stroke-width="2.5"/>
-                        </svg>
-                        <b>Unipolar</b>
-                        <p>Tek uzantı. <b>Omurgasızlarda</b> yaygın yapı.</p>
+        <div class="main-layout">
+            <!-- Row 1: Panoramic Neuron Map -->
+            <div class="row">
+                <div class="card">
+                    <h2>▪ 4.1 Nöron: Panoramik Yapı</h2>
+                    <div class="anatomy-visual">
+                        <img src="./assets/neuron_panoramic.png" alt="Yatay Nöron Haritası">
                     </div>
                 </div>
-                <div class="warning-box">
-                    <span>⚠ <b>Önemli:</b> İnsanlarda gerçek unipolar nöron yoktur; dorsal kök gangliyonundakiler <b>psödounipolar</b> yapıdadır.</span>
+
+                <div class="card">
+                    <h2>Sınıflandırma</h2>
+                    <div class="morph-grid">
+                        <div class="morph-item"><svg viewBox="0 0 100 80"><path d="M50 40 L50 80 M50 40 L30 10 M50 40 L70 10" stroke="var(--accent)" stroke-width="2.5" fill="none"/></svg><span>Multipolar</span></div>
+                        <div class="morph-item"><svg viewBox="0 0 100 80"><circle cx="50" cy="40" r="6" fill="var(--accent)"/><path d="M50 0 L50 80" stroke="var(--accent)" stroke-width="2.5"/></svg><span>Bipolar</span></div>
+                        <div class="morph-item"><svg viewBox="0 0 100 80"><circle cx="50" cy="40" r="6" fill="var(--accent)"/><path d="M50 40 L50 65 L15 65" stroke="var(--accent)" stroke-width="2.5" fill="none"/></svg><span>Psödo-uni</span></div>
+                        <div class="morph-item"><svg viewBox="0 0 100 80"><circle cx="50" cy="40" r="6" fill="var(--accent)"/><path d="M50 40 L95 40" stroke="var(--accent)" stroke-width="2.5"/></svg><span>Unipolar</span></div>
+                    </div>
+                    <table class="functional-table">
+                        <tr><th>İşlev</th><th>Yön</th><th>Tanım</th></tr>
+                        <tr><td><b>Duyusal (Afferent)</b></td><td>Dış → İç</td><td>Çevresel sinyalleri merkeze taşır.</td></tr>
+                        <tr><td><b>Motor (Efferent)</b></td><td>İç → Dış</td><td>Komutları yürütücülere iletir.</td></tr>
+                        <tr><td><b>Aranöron</b></td><td>Merkez İçi</td><td>Ağ trafiğini yöneten merkezdir.</td></tr>
+                    </table>
                 </div>
             </div>
 
-            <!-- Sol Alt: İletim Dinamiği (Speed SVG) -->
-            <div class="card" style="justify-content: center; align-items: center; text-align: center;">
-                <h2>İletim Dinamiği</h2>
-                <svg viewBox="0 0 150 40" width="100%" height="40">
-                    <line x1="10" y1="20" x2="140" y2="20" stroke="var(--divider)" stroke-width="2" stroke-dasharray="4"/>
-                    <circle class="node-pulse" cx="30" cy="20" r="5"/>
-                    <circle class="node-pulse" cx="75" cy="20" r="5" style="animation-delay: 0.5s"/>
-                    <circle class="node-pulse" cx="120" cy="20" r="5" style="animation-delay: 1s"/>
-                </svg>
-                <p style="font-size: 1.05rem; line-height: 1.6; margin-top: 10px;">
-                    <b>Saltatory Conduction:</b> Sinyal, miyelin segmentleri arasındaki <b>Ranvier boğumlarında</b> sıçrayarak hızlanır.
-                </p>
-            </div>
+            <!-- Row 2: Glia Hierarchy -->
+            <div class="card" style="border-top: 2px solid var(--accent-soft);">
+                <div class="glia-content">
+                    <div class="glia-logic">
+                        <h2>▪ 4.2 GLİAL HÜCRELER: Lojistik Mantık</h2>
+                        <p><b>Nöronlar</b> elektrokimyasal sinyal için optimize edilmiş <b>aktif mimarlardır.</b> Sinyal iletmekten bölünme yetilerini kaybetmişlerdir.</p>
+                        <p><b>Glialar</b> ise sistemin <b>yaşam destek ünitesidir;</b> izolasyon, enerji ve temizlik sağlayarak sistemi yeniler ve korurlar.</p>
+                    </div>
 
-            <!-- Sağ Alt: Glial Ağ -->
-            <div class="card">
-                <h2>4.2 Glial Hücreler (Nöroglia)</h2>
-                <div class="glia-container">
-                    <div class="glia-list">
-                        <b>MSS (Merkezi)</b>
-                        <p><b>Astrositler:</b> Kan-Beyin Bariyeri.</p>
-                        <p><b>Oligodendrositler:</b> 1 hücre ➔ Çok miyelin.</p>
-                        <p><b>Mikroglia:</b> MSS Savunma sistemi.</p>
+                    <!-- MSS Column -->
+                    <div class="table-wrap">
+                        <div class="table-label">MSS GLİA HÜCRELERİ</div>
+                        <table>
+                            <tr><td><span class="name">Astrosit</span><span class="desc">Kan-beyin bariyeri kurar, nöron korur.</span></td></tr>
+                            <tr><td><span class="name">Oligodendrosit</span><span class="desc">MSS çoklu miyelin izolasyonu sağlar.</span></td></tr>
+                            <tr><td><span class="name">Mikroglia</span><span class="desc">Bağışıklık ve temizlik bekçisidir.</span></td></tr>
+                            <tr><td><span class="name">Ependimal</span><span class="desc">BOS üretimi ve akış yönetimi sağlar.</span></td></tr>
+                        </table>
                     </div>
-                    <div class="glia-list">
-                        <b>PSS (Periferik)</b>
-                        <p><b>Schwann Hücreleri:</b> 1 hücre ➔ 1 akson.</p>
-                        <p><b>Satellit Hücreler:</b> Gangliyon desteği.</p>
+
+                    <!-- PSS Column -->
+                    <div class="table-wrap">
+                        <div class="table-label">PSS GLİA HÜCRELERİ</div>
+                        <table>
+                            <tr><td><span class="name">Schwann Hücresi</span><span class="desc">PSS tekil miyelin ve onarım sağlar (1:1).</span></td></tr>
+                            <tr><td><span class="name">Satellit Hücre</span><span class="desc">Gangliyon kimyasal dengesini kurar.</span></td></tr>
+                        </table>
+                        <div class="fark-highlight">
+                            | İzolasyon Farkı: PSS (1:1), MSS (1:Çok)
+                        </div>
                     </div>
-                </div>
-                <div class="warning-box" style="border-color: var(--divider); background: rgba(255,255,255,0.02); margin-top: 15px;">
-                    <span style="color: var(--text-secondary); font-size: 0.92rem;"><b>Kritik Fark:</b> MSS'de bir hücre çok aksonu sarar, PSS'de ise Schwann sadece <b>tek bir aksonu</b> miyelinler.</span>
                 </div>
             </div>
         </div>
     </div>
-
 </body>
 </html>
