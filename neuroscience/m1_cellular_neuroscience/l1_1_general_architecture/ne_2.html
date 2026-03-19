@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NE_2 — MSS Mimarisi (Hi-Readability)</title>
+    <title>NE_2 — MSS Mimarisi (Fonksiyonel Derinlik)</title>
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
@@ -17,7 +17,7 @@
             --warning: #ffcc00;
         }
 
-        html { font-size: 16px; } /* Laptop için ideal taban font */
+        html { font-size: 16px; }
 
         body {
             margin: 0; padding: 0;
@@ -36,22 +36,21 @@
             background: var(--slide-bg);
             border: 1px solid var(--divider);
             border-radius: 2rem;
-            padding: 2.5rem 3.5rem; 
+            padding: 3rem 4rem; 
             box-sizing: border-box;
             backdrop-filter: blur(20px);
             display: flex; flex-direction: column; overflow: hidden;
         }
 
-        header { flex-shrink: 0; margin-bottom: 1.5rem; }
-        .tag { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.4em; color: var(--accent); font-weight: 700; display: block; margin-bottom: 6px; }
-        h1 { font-size: 1.8rem; font-weight: 800; margin: 0; background: linear-gradient(135deg, #fff 30%, #64748b 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        header { flex-shrink: 0; margin-bottom: 2rem; }
+        h1 { font-size: 2rem; font-weight: 800; margin: 0; background: linear-gradient(135deg, #fff 30%, #64748b 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
         .main-grid {
             flex: 1;
             display: grid;
-            grid-template-columns: 0.32fr 0.68fr; /* Talep edilen %30 görsel, %70 içerik rasyosu */
-            grid-template-rows: 1.3fr 0.7fr;
-            gap: 2rem;
+            grid-template-columns: 0.32fr 0.68fr;
+            grid-template-rows: 1.35fr 0.65fr;
+            gap: 2.22rem;
             overflow: hidden;
         }
 
@@ -59,7 +58,7 @@
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid var(--divider);
             border-radius: 1.5rem;
-            padding: 1.2rem 1.8rem;
+            padding: 1.4rem 2rem;
             display: flex;
             flex-direction: column;
             overflow: hidden;
@@ -67,14 +66,13 @@
         }
 
         .img-card { padding: 0.5rem; justify-content: center; align-items: center; background: rgba(0, 0, 0, 0.4); }
-        .img-card img { max-width: 95%; max-height: 90%; border-radius: 12px; opacity: 0.85; filter: drop-shadow(0 0 15px rgba(0, 242, 255, 0.1)); }
+        .img-card img { max-width: 95%; max-height: 90%; border-radius: 12px; opacity: 0.85; }
 
         .text-card { justify-content: center; }
 
         h2 { 
             font-size: 1.1rem; font-weight: 700; color: var(--accent); 
             margin: 0 0 1.2rem 0; text-transform: uppercase; letter-spacing: 0.15em;
-            display: flex; align-items: center; gap: 10px;
         }
 
         .stat-wrap { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 1.5rem; }
@@ -87,7 +85,6 @@
         }
         .stat-chip b { color: var(--accent); }
 
-        /* 2x2 Lob Matrisi - Ferahlatılmış */
         .lobes-grid { 
             display: grid; 
             grid-template-columns: 1fr 1fr; 
@@ -101,36 +98,22 @@
             border-bottom: 4px solid transparent;
             transition: all 0.3s ease;
         }
-        .lobe-card:hover { border-bottom-color: var(--accent); transform: translateY(-2px); background: rgba(0,242,255,0.05); }
-        
-        .lobe-title { 
-            font-size: 1.1rem; 
-            font-weight: 800; 
-            color: var(--accent); 
-            display: block; 
-            margin-bottom: 8px; 
-            text-transform: uppercase; 
-        }
-        .lobe-content { 
-            font-size: 1rem; 
-            color: var(--text-primary); 
-            line-height: 1.6; 
-            display: block; 
-        }
-        .lobe-card strong { color: #fff; font-weight: 700; border-bottom: 1px solid var(--accent); }
+        .lobe-title { font-size: 1.1rem; font-weight: 800; color: var(--accent); display: block; margin-bottom: 8px; text-transform: uppercase; }
+        .lobe-content { font-size: 1rem; color: var(--text-primary); line-height: 1.55; display: block; }
+        .lobe-card strong { color: #fff; font-weight: 700; }
 
-        .desc-item { border-left: 3px solid var(--divider); padding-left: 1.5rem; margin-bottom: 1rem; }
+        .desc-item { border-left: 3px solid var(--divider); padding-left: 1.5rem; margin-bottom: 0.8rem; }
         .desc-item b { color: var(--text-primary); font-size: 1.15rem; display: block; margin-bottom: 6px; }
-        .desc-item p { color: var(--text-secondary); font-size: 1.05rem; line-height: 1.6; margin: 0; }
+        .desc-item p { color: var(--text-secondary); font-size: 1rem; line-height: 1.6; margin: 0; }
 
         .warning-box { 
             border: 1px solid rgba(255, 204, 0, 0.3); 
             background: rgba(255, 204, 0, 0.08); 
-            padding: 12px 18px; 
-            border-radius: 10px; 
+            padding: 15px 20px; 
+            border-radius: 12px; 
             margin-top: 10px; 
         }
-        .warning-box span { font-size: 1.05rem; color: var(--warning); display: block; font-weight: 600; }
+        .warning-box span { font-size: 1.05rem; color: var(--warning); display: block; font-weight: 600; line-height: 1.5; }
 
         .label {
             position: absolute;
@@ -142,7 +125,6 @@
             font-size: 0.75rem;
             font-weight: 800;
             text-transform: uppercase;
-            backdrop-filter: blur(6px);
         }
 
         @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
@@ -153,65 +135,64 @@
 
     <div class="slide">
         <header>
-            <span class="tag">Ders 1.1 — Bölüm 2: Merkezi Sinir Sistemi</span>
             <h1>MSS Mimarisi: Beyin & Omurilik İşlevleri</h1>
         </header>
 
         <div class="main-grid">
-            <!-- Beyin Lobları Görseli (Küçültülmüş) -->
+            <!-- Beyin Lobları -->
             <div class="card img-card">
-                <img src="./assets/cortex_lobes_quad_v1.png" alt="Brain Functional Areas">
+                <img src="./assets/cortex_lobes_quad_v1.png" alt="Brain Architecture">
                 <div class="label" style="top: 8%; left: 8%;">Frontal</div>
                 <div class="label" style="top: 8%; right: 8%;">Parietal</div>
                 <div class="label" style="bottom: 8%; left: 8%;">Temporal</div>
                 <div class="label" style="bottom: 8%; right: 8%;">Oksipital</div>
             </div>
 
-            <!-- Sağ Geniş Panel (Büyük Metinler) -->
+            <!-- Sağ Geniş Panel -->
             <div class="card text-card" style="animation-delay: 0.1s;">
                 <h2>Büyük Beyin & Serebral Korteks İşlevleri</h2>
                 <div class="stat-wrap">
                     <div class="stat-chip"><b>1200-1500g</b> / <b>%20 Enerji</b></div>
                     <div class="stat-chip"><b>~1 Trilyon Hücre</b></div>
-                    <div class="stat-chip">Dokuma: <b>Gri Madde</b></div>
+                    <div class="stat-chip">Dokuma: <b>Gri Madde</b> (Dış Katman)</div>
                 </div>
                 
                 <div class="lobes-grid">
                     <div class="lobe-card">
                         <span class="lobe-title">Frontal Lob</span>
-                        <span class="lobe-content">Serebrum'un en büyük bölümüdür; <strong>planlama ve karar verme</strong> gibi yürütücü işlevleri, kişilik ve bilinçli hareketleri yönetir.</span>
+                        <span class="lobe-content">En büyük bölümdür; <strong>planlama, strateji ve karar verme</strong> gibi yürütücü işlevleri ve kişilik gelişimini yönetir.</span>
                     </div>
                     <div class="lobe-card">
                         <span class="lobe-title">Parietal Lob</span>
-                        <span class="lobe-content"><strong>Dokunma ve ağrı</strong> verilerini işler; nesneleri ve vücudun uzaydaki yerini anlamayı sağlayan "bedensel haritayı" tutar.</span>
+                        <span class="lobe-content">Dokunma, sıcaklık ve ağrı verilerini işleyerek vücudun uzaydaki konumunu bildiren <strong>bedensel haritayı</strong> yönetir.</span>
                     </div>
                     <div class="lobe-card">
                         <span class="lobe-title">Temporal Lob</span>
-                        <span class="lobe-content">Seslerin işlenmesi ve konuşmayı anlamaktan sorumludur. Hafıza oluşumunda kritik olan <strong>hipokampüs</strong> bu lobun altındadır.</span>
+                        <span class="lobe-content">İşitsel verilerin işlenmesinden ve dili anlamlandırmaktan sorumludur. <strong>Hipokampüs</strong> ile hafıza oluşumunu sağlar.</span>
                     </div>
                     <div class="lobe-card">
                         <span class="lobe-title">Oksipital Lob</span>
-                        <span class="lobe-content">Tamamen görsel odaklıdır; ham sinyalleri <strong>renk ve hareket</strong> bilgisine dönüştürerek anlamlandırır.</span>
+                        <span class="lobe-content">Tamamen görsel odaklıdır; göm sinyallerini <strong>renk ve hareket</strong> bilgisine dönüştürerek anlamlı görüntüler inşa eder.</span>
                     </div>
                 </div>
             </div>
 
-            <!-- Omurilik Görseli (Küçültülmüş) -->
+            <!-- Omurilik Görseli -->
             <div class="card img-card" style="animation-delay: 0.2s;">
-                <img src="./assets/spinal_final_v1.png" alt="Spinal Connectivity Hub">
+                <img src="./assets/spinal_final_v1.png" alt="Spinal Connectivity">
                 <div class="label" style="bottom: 10%; right: 10%;">40-50 cm</div>
             </div>
 
-            <!-- Omurilik Detayı (Geniş Panel) -->
+            <!-- Omurilik Detayı -->
             <div class="card text-card" style="animation-delay: 0.3s;">
                 <h2>2.2 Omurilik (Veri Aktarım Otoyolu)</h2>
                 <div class="desc-item">
-                    <b>Merkezi Köprü Fonksiyonu</b>
-                    <p>• Beyinden (Merkezi İşlem Birimi) perifere (Uç birimler/organlar) <strong>motor komutları</strong> iletir.</p>
-                    <p>• Periferik (Vücut çeperindeki) reseptörlerden (Uyarılara duyarlı almaçlar) beyne <strong>duyusal bilgileri</strong> aktarır.</p>
+                    <b>Cevher Ayrımı & Fonksiyon:</b>
+                    <p>• <strong>Gri Madde (İçte):</strong> Hücre gövdelerini barındıran, verinin <strong>işlendiği ve entegre edildiği</strong> merkezdir.</p>
+                    <p>• <strong>Beyaz Madde (Dışta):</strong> Miyelinli aksonlardan oluşan, merkezler arası <strong>hızlı iletişimi ve otoyol tipi veri iletimini</strong> sağlayan katmandır.</p>
                 </div>
                 <div class="warning-box">
-                    <span>⚠ <strong>Kritik Fark:</strong> Omurilikte gri madde <strong>içte</strong> (H şekli), beyaz madde ise <strong>dışta</strong> yer alır (Beynin tam tersi).</span>
+                    <span>⚠ Beyinden (Merkezi İşlem Birimi) perifere (Uç birimler) <strong>motor komut</strong> iletir; periferik reseptörlerden (Almaçlar) beyne <strong>duyusal veri</strong> aktarır. <strong>Gri madde içtedir (Beynin tam tersi).</strong></span>
                 </div>
             </div>
         </div>
