@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NE_2 — MSS Mimarisi (Zengin İçerik)</title>
+    <title>NE_2 — MSS Mimarisi (Gelişmiş)</title>
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
@@ -17,7 +17,7 @@
             --shadow: rgba(0, 0, 0, 0.7);
         }
 
-        html { font-size: 15px; }
+        html { font-size: 14.5px; }
 
         body {
             margin: 0; padding: 0;
@@ -31,26 +31,26 @@
         }
 
         .slide {
-            width: 96%; height: 92%; 
+            width: 96%; height: 94%; 
             max-width: 1400px;
             background: var(--slide-bg);
             border: 1px solid var(--divider);
             border-radius: 2rem;
-            padding: 2.2rem 3rem; 
+            padding: 2.22rem 3rem; 
             box-sizing: border-box;
             backdrop-filter: blur(20px);
             display: flex; flex-direction: column; overflow: hidden;
         }
 
         header { flex-shrink: 0; margin-bottom: 0.8rem; }
-        .tag { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.4em; color: var(--accent); font-weight: 700; display: block; margin-bottom: 4px; }
-        h1 { font-size: 1.6rem; font-weight: 800; margin: 0; background: linear-gradient(135deg, #fff 30%, #64748b 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .tag { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.4em; color: var(--accent); font-weight: 700; display: block; margin-bottom: 4px; }
+        h1 { font-size: 1.5rem; font-weight: 800; margin: 0; background: linear-gradient(135deg, #fff 30%, #64748b 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
         .main-grid {
             flex: 1;
             display: grid;
             grid-template-columns: 0.85fr 1.15fr;
-            grid-template-rows: 1.25fr 0.75fr;
+            grid-template-rows: 1.35fr 0.65fr;
             gap: 1.2rem;
             overflow: hidden;
         }
@@ -67,25 +67,43 @@
         }
 
         .img-card { padding: 0.4rem; justify-content: center; align-items: center; background: rgba(0, 0, 0, 0.3); }
-        .img-card img { max-width: 95%; max-height: 95%; border-radius: 12px; opacity: 0.9; }
+        .img-card img { max-width: 95%; max-height: 95%; border-radius: 12px; opacity: 0.85; }
 
         .text-card { justify-content: center; }
 
         h2 { 
-            font-size: 0.9rem; font-weight: 700; color: var(--accent); 
+            font-size: 0.85rem; font-weight: 700; color: var(--accent); 
             margin: 0 0 0.8rem 0; text-transform: uppercase; letter-spacing: 0.1em;
             display: flex; align-items: center; gap: 8px;
         }
 
-        .stat-wrap { display: flex; gap: 10px; margin-bottom: 1rem; }
-        .stat-chip { background: rgba(0, 242, 255, 0.06); border: 1px solid rgba(0, 242, 255, 0.2); padding: 5px 12px; border-radius: 8px; font-size: 0.8rem; }
-        .stat-chip b { color: var(--accent); font-size: 0.9rem; margin-right: 4px; }
+        .stat-wrap { display: flex; gap: 8px; margin-bottom: 0.8rem; }
+        .stat-chip { background: rgba(0, 242, 255, 0.06); border: 1px solid rgba(0, 242, 255, 0.2); padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; }
+        .stat-chip b { color: var(--accent); }
 
-        .desc-item { border-left: 2px solid var(--divider); padding-left: 1rem; margin-bottom: 0.6rem; }
+        .desc-item { border-left: 2px solid var(--divider); padding-left: 0.8rem; margin-bottom: 0.5rem; }
         .desc-item b { color: var(--text-primary); font-size: 0.88rem; display: block; margin-bottom: 2px; }
-        .desc-item p { color: var(--text-secondary); font-size: 0.8rem; line-height: 1.5; margin: 0; }
+        .desc-item p { color: var(--text-secondary); font-size: 0.78rem; line-height: 1.4; margin: 0; }
 
-        .lobes-list { display: flex; flex-direction: column; gap: 0.8rem; }
+        /* 2x2 Lob Matrisi */
+        .lobes-grid { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 0.8rem; 
+            margin-top: 0.5rem;
+        }
+        .lobe-card {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--divider);
+            padding: 0.8rem;
+            border-radius: 0.8rem;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+        .lobe-card:hover { border-bottom-color: var(--accent); background: rgba(0,242,255,0.03); }
+        .lobe-card title { font-size: 0.75rem; font-weight: 800; color: var(--text-primary); display: block; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.03em; }
+        .lobe-card content { font-size: 0.7rem; color: var(--text-secondary); line-height: 1.4; display: block; }
+        .lobe-card strong { color: var(--accent); font-weight: 600; }
 
         .label {
             position: absolute;
@@ -94,78 +112,81 @@
             padding: 2px 8px;
             border-radius: 4px;
             color: var(--accent);
-            font-size: 0.65rem;
+            font-size: 0.6rem;
             font-weight: 700;
             text-transform: uppercase;
             backdrop-filter: blur(4px);
         }
 
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        .card { animation: fadeIn 0.5s ease backwards; }
+        .card { animation: fadeIn 0.4s ease backwards; }
     </style>
 </head>
 <body>
 
     <div class="slide">
         <header>
-            <span class="tag">NE_2 (v3.0) — Büyük Beyin & Serebral Korteks</span>
-            <h1>2.1 Büyük Beyin (Serebrum) Mimarisi </h1>
+            <span class="tag">Ders 1.1 — Bölüm 2: Merkezi Sinir Sistemi</span>
+            <h1>2.1 Büyük Beyin (Serebrum) & 2.2 Omurilik</h1>
         </header>
 
         <div class="main-grid">
             <!-- Beyin Lobları Görseli -->
             <div class="card img-card">
-                <img src="./assets/cortex_lobes_quad_v1.png" alt="Cortex Lobes Visualization">
-                <div class="label" style="top: 10%; left: 10%;">Frontal Lob</div>
-                <div class="label" style="top: 10%; right: 10%;">Parietal Lob</div>
-                <div class="label" style="bottom: 10%; left: 10%;">Temporal Lob</div>
-                <div class="label" style="bottom: 10%; right: 10%;">Oksipital Lob</div>
+                <img src="./assets/cortex_lobes_quad_v1.png" alt="Brain Lobes Quad-View">
+                <div class="label" style="top: 10%; left: 10%;">Frontal</div>
+                <div class="label" style="top: 10%; right: 10%;">Parietal</div>
+                <div class="label" style="bottom: 10%; left: 10%;">Temporal</div>
+                <div class="label" style="bottom: 10%; right: 10%;">Oksipital</div>
             </div>
 
-            <!-- 2.1 Beyin Detayı (Zenginleştirilmiş) -->
+            <!-- 2.1 Beyin Detayı (2x2 Grid) -->
             <div class="card text-card" style="animation-delay: 0.1s;">
-                <h2>Büyük Beyin & Korteks Fonksiyonları</h2>
+                <h2>Büyük Beyin & Serebral Korteks İşlevleri</h2>
                 <div class="stat-wrap">
-                    <div class="stat-chip"><b>1200-1500 g</b> Ağırlık</div>
-                    <div class="stat-chip"><b>~1 Trilyon</b> Hücre</div>
-                    <div class="stat-chip"><b>%20</b> E./O2 Tüketimi</div>
+                    <div class="stat-chip"><b>1200-1500g</b> / <b>%20 Enerji</b></div>
+                    <div class="stat-chip">Serebral Korteks: <b>Gri Madde</b> (Genel Karargah)</div>
                 </div>
-                <div class="desc-item">
-                    <b>Serebral Korteks</b>
-                    <p>Bilinçli düşünme, istemli hareket ve duyusal algılamanın yanı sıra planlama ve karar verme gibi en yüksek bilişsel süreçlerin ana merkezidir.</p>
-                </div>
-                <div class="lobes-list">
-                    <div class="desc-item" style="border-left-color: #00f2ff;">
-                        <b>Frontal:</b> <p>Kişiliğin şekillendiği, karmaşık problem çözme ve istemli motor hareketlerin yönetildiği "yönetici" merkezdir.</p>
+                
+                <div class="lobes-grid">
+                    <!-- Frontal -->
+                    <div class="lobe-card">
+                        <title>Frontal Lob</title>
+                        <content>Serebrum'un en büyük bölümüdür; <strong>planlama, problem çözme, karar verme</strong> gibi yürütücü işlevleri, kişilik ve bilinçli hareketleri yönetir.</content>
                     </div>
-                    <div class="desc-item">
-                        <b>Parietal:</b> <p>Vücuttan gelen dokunma, basınç ve ağrı gibi duyusal verileri entegre ederek mekansal farkındalık ve nesne algısı sağlar.</p>
+                    <!-- Parietal -->
+                    <div class="lobe-card">
+                        <title>Parietal Lob</title>
+                        <content><strong>Dokunma, ağrı, sıcaklık</strong> gibi duyusal verileri işler; nesnelerin uzaydaki konumunu anlatan "bedensel haritayı" tutar.</content>
                     </div>
-                    <div class="desc-item">
-                        <b>Temporal:</b> <p>İşitsel bilgilerin ana işleme alanı olmasının yanında, uzun süreli hafıza ve dilin anlamlandırılmasında kritik rol oynar.</p>
+                    <!-- Temporal -->
+                    <div class="lobe-card">
+                        <title>Temporal Lob</title>
+                        <content>Seslerin işlenmesi ve konuşmayı anlamaktan sorumludur. Hafıza oluşumunda kritik olan <strong>hipokampüs</strong> bu lobun altındadır.</content>
                     </div>
-                    <div class="desc-item">
-                        <b>Oksipital:</b> <p>Gözlerden gelen görsel verilerin şekil, renk ve hareket bazında analiz edilerek görsel dünyanın inşa edildiği ana merkezdir.</p>
+                    <!-- Oksipital -->
+                    <div class="lobe-card">
+                        <title>Oksipital Lob</title>
+                        <content>Tamamen görsel işlemeye odaklıdır; ham sinyalleri <strong>renk, şekil ve hareket</strong> bilgisine dönüştürerek anlamlandırır.</content>
                     </div>
                 </div>
             </div>
 
             <!-- Omurilik Görseli -->
             <div class="card img-card" style="animation-delay: 0.2s;">
-                <img src="./assets/spinal_final_v1.png" alt="Spinal Cord Architecture">
-                <div class="label" style="position: absolute; bottom: 8%; right: 8%;">40-50 cm</div>
+                <img src="./assets/spinal_final_v1.png" alt="Spinal Connectivity Architecture">
+                <div class="label" style="bottom: 15%; right: 10%;">40-50 cm</div>
             </div>
 
             <!-- 2.2 Omurilik Detayı -->
             <div class="card text-card" style="animation-delay: 0.3s;">
-                <h2>2.2 Omurilik (Giriş & Çıkış Terminali)</h2>
+                <h2>2.2 Omurilik (Giriş / Çıkış Arayüzü)</h2>
                 <div class="desc-item">
-                    <b>Merkezi Köprü Fonksiyonu</b>
+                    <b>İletim Terminali</b>
                     <p>Merkezi sinir sistemi ile çevre arasında bir otoyol görevi görerek motor komutları (beyinden) ve duyusal verileri (beyne) çift yönlü iletir.</p>
                 </div>
-                <div class="desc-item">
-                    <b>Spinal Kök Mimarisi</b>
-                    <p><strong>Dorsal Kök (Arka):</strong> Duyusal Afferent girişi için uzmanlaşmış kapı. <br> <strong>Ventral Kök (Ön):</strong> Motor Efferent çıkışı sağlayan ana terminal.</p>
+                <div class="desc-item" style="margin-top: 4px;">
+                    <b>Kök Yapısı:</b> <p><strong>Dorsal:</strong> Duyusal Afferent girişi. / <strong>Ventral:</strong> Motor Efferent çıkışı.</p>
                 </div>
             </div>
         </div>
