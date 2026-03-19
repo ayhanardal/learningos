@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NE_3 — PSS Mimarisi (Dashboard)</title>
+    <title>NE_3 — PSS Mimarisi (Gelişmiş Dashboard)</title>
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
@@ -42,16 +42,15 @@
             display: flex; flex-direction: column; overflow: hidden;
         }
 
-        header { flex-shrink: 0; margin-bottom: 1.5rem; }
-        .tag { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.4em; color: var(--accent); font-weight: 700; display: block; margin-bottom: 6px; }
-        h1 { font-size: 1.8rem; font-weight: 800; margin: 0; background: linear-gradient(135deg, #fff 30%, #64748b 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        header { flex-shrink: 0; margin-bottom: 2rem; }
+        h1 { font-size: 1.9rem; font-weight: 800; margin: 0; background: linear-gradient(135deg, #fff 30%, #64748b 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
         .main-grid {
             flex: 1;
             display: grid;
             grid-template-columns: 0.32fr 0.68fr;
             grid-template-rows: 1.15fr 0.85fr;
-            gap: 2rem;
+            gap: 1.8rem;
             overflow: hidden;
         }
 
@@ -67,7 +66,7 @@
         }
 
         .img-card { padding: 0.5rem; justify-content: center; align-items: center; background: rgba(0, 0, 0, 0.4); }
-        .img-card img { max-width: 95%; max-height: 90%; border-radius: 12px; opacity: 0.85; filter: drop-shadow(0 0 15px rgba(0, 242, 255, 0.2)); }
+        .img-card img { max-width: 95%; max-height: 90%; border-radius: 12px; opacity: 0.85; filter: drop-shadow(0 0 15px rgba(0, 242, 255, 0.1)); }
 
         .text-card { justify-content: center; }
 
@@ -76,48 +75,61 @@
             margin: 0 0 1rem 0; text-transform: uppercase; letter-spacing: 0.12em;
         }
 
-        .stat-wrap { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 1rem; }
+        .comparison-grid { 
+            display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; 
+        }
+        .comp-card {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid var(--divider);
+            padding: 1.25rem;
+            border-radius: 1.2rem;
+            border-left: 3px solid var(--accent);
+        }
+        .comp-title { font-size: 1rem; font-weight: 800; color: #fff; display: block; margin-bottom: 5px; text-transform: uppercase; }
+        .comp-dir { font-size: 0.8rem; color: var(--accent); font-weight: 600; margin-bottom: 10px; font-style: italic; }
+        .comp-content { font-size: 0.95rem; color: var(--text-primary); line-height: 1.55; display: block; }
+        .comp-content strong { color: var(--accent); font-weight: 700; }
+
+        .oss-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; margin-top: 5px; }
+        .oss-box { background: rgba(255,255,255,0.03); border: 1px solid var(--divider); padding: 1.2rem; border-radius: 1.1rem; }
+        .oss-box b { font-size: 0.9rem; color: var(--accent); display: block; margin-bottom: 6px; text-transform: uppercase; }
+        .oss-box p { font-size: 0.85rem; color: var(--text-secondary); margin: 0; line-height: 1.5; }
+
+        .desc-item { border-left: 3px solid var(--divider); padding-left: 1.5rem; margin-bottom: 0.8rem; }
+        .desc-item b { color: var(--text-primary); font-size: 1.1rem; display: block; margin-bottom: 4px; }
+        .desc-item p { color: var(--text-secondary); font-size: 1rem; line-height: 1.5; margin: 0; }
+
+        .label {
+            position: absolute;
+            background: rgba(13, 15, 20, 0.9);
+            border: 1px solid var(--accent);
+            padding: 3px 10px;
+            border-radius: 6px;
+            color: var(--accent);
+            font-size: 0.65rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            backdrop-filter: blur(6px);
+        }
+
+        .stat-wrap { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 1.2rem; }
         .stat-chip { 
-            background: rgba(0, 242, 255, 0.08); 
-            border: 1px solid rgba(0, 242, 255, 0.2); 
+            background: rgba(0, 242, 255, 0.1); 
+            border: 1px solid rgba(0, 242, 255, 0.3); 
             padding: 5px 12px; 
-            border-radius: 8px; 
-            font-size: 0.85rem; 
+            border-radius: 10px; 
+            font-size: 0.9rem; 
         }
         .stat-chip b { color: var(--accent); }
 
-        .comparison-grid { 
-            display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; 
-        }
-        .comp-card {
-            background: rgba(255,255,255,0.03);
-            border: 1px solid var(--divider);
-            padding: 1.2rem;
-            border-radius: 1rem;
-            border-left: 3px solid var(--accent);
-        }
-        .comp-title { font-size: 0.95rem; font-weight: 800; color: #fff; display: block; margin-bottom: 5px; text-transform: uppercase; }
-        .comp-dir { font-size: 0.75rem; color: var(--accent); font-weight: 600; margin-bottom: 8px; font-style: italic; }
-        .comp-content { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.5; display: block; }
-        .comp-content strong { color: var(--text-primary); }
-
-        .desc-item { border-left: 3px solid var(--divider); padding-left: 1.25rem; margin-bottom: 0.6rem; }
-        .desc-item b { color: var(--text-primary); font-size: 1rem; display: block; margin-bottom: 4px; }
-        .desc-item p { color: var(--text-secondary); font-size: 0.9rem; line-height: 1.5; margin: 0; }
-
-        .oss-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.8rem; margin-top: 5px; }
-        .oss-box { background: rgba(0,242,255,0.02); border: 1px solid var(--divider); padding: 0.8rem; border-radius: 0.8rem; }
-        .oss-box b { font-size: 0.8rem; color: var(--accent); display: block; margin-bottom: 4px; text-transform: uppercase; }
-        .oss-box p { font-size: 0.75rem; color: var(--text-secondary); margin: 0; line-height: 1.4; }
-
         .warning-box { 
-            border: 1px solid rgba(255, 204, 0, 0.25); 
-            background: rgba(255, 204, 0, 0.05); 
-            padding: 10px 15px; 
-            border-radius: 10px; 
-            margin-top: 8px; 
+            border: 1px solid rgba(255, 204, 0, 0.3); 
+            background: rgba(255, 204, 0, 0.08); 
+            padding: 12px 18px; 
+            border-radius: 12px; 
+            margin-top: 10px; 
         }
-        .warning-box span { font-size: 0.95rem; color: var(--warning); display: block; font-weight: 600; line-height: 1.5; }
+        .warning-box span { font-size: 1rem; color: var(--warning); display: block; font-weight: 600; line-height: 1.5; }
 
         @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
         .card { animation: fadeIn 0.5s ease backwards; }
@@ -127,45 +139,50 @@
 
     <div class="slide">
         <header>
-            <span class="tag">Bölüm 3 — Periferik Sinir Sistemi (PSS/PNS)</span>
-            <h1>3.1 Afferent-Efferent & 3.2 OSS Mimarisi</h1>
+            <h1>Periferik Sinir Sistemi: İletişim & Kontrol Otoyolu</h1>
         </header>
 
         <div class="main-grid">
-            <!-- PSS Görseli -->
+            <!-- Sol Üst: 3+2 Matrisi -->
             <div class="card img-card">
-                <img src="./assets/pns_final_v1.png" alt="PNS Architecture Mapping">
+                <img src="./assets/pns_3plus2_v1.png" alt="PNS 3+2 Structure">
+                <!-- Üst Sıra -->
+                <div class="label" style="top: 8%; left: 8%;">Spinal Sinirler</div>
+                <div class="label" style="top: 8%; left: 40%;">Kranial Sinirler</div>
+                <div class="label" style="top: 8%; right: 8%;">Gangliyonlar</div>
+                <!-- Alt Sıra -->
+                <div class="label" style="bottom: 15%; left: 15%;">Afferent (Giriş)</div>
+                <div class="label" style="bottom: 15%; right: 15%;">Efferent (Çıkış)</div>
             </div>
 
             <!-- Sağ Üst: Bölüm 3.1 -->
             <div class="card text-card" style="animation-delay: 0.1s;">
-                <h2>3.1 Afferent ve Efferent Bölümler</h2>
+                <h2>3.1 Afferent-Efferent & Geniş Mimari</h2>
                 <div class="stat-wrap">
                     <div class="stat-chip"><b>31 Çift</b> Spinal Sinir</div>
                     <div class="stat-chip"><b>12 Çift</b> Kranial Sinir</div>
-                    <div class="stat-chip">Odağı: <b>Gangliyonlar</b> (Aktarma Noktaları)</div>
+                    <div class="stat-chip">Korunma: <b>Kafatasız/Omurgasız</b></div>
                 </div>
                 
                 <div class="comparison-grid">
                     <div class="comp-card">
                         <span class="comp-title">Afferent (Duyusal)</span>
-                        <div class="comp-dir">Perifer ➔ MSS (Giriş)</div>
-                        <span class="comp-content">Deri, kas, eklem ve iç organlardan gelen <strong>uyarıları ve duyusal verileri</strong> merkezi işlemciye taşır.</span>
+                        <div class="comp-dir">Perifer ➔ MSS (Duyusal Giriş)</div>
+                        <span class="comp-content">Deri, kas ve iç organlardan gelen <strong>uyarıları</strong> merkeze taşıyarak duyusal farkındalık sağlar.</span>
                     </div>
                     <div class="comp-card">
                         <span class="comp-title">Efferent (Motor)</span>
-                        <div class="comp-dir">MSS ➔ Perifer (Çıkış)</div>
-                        <span class="comp-content">Merkezi komutları uç birimlere ileterek <strong>kas hareketlerini ve iç organ kontrolünü</strong> sağlar.</span>
+                        <div class="comp-dir">MSS ➔ Perifer (Motor Çıkış)</div>
+                        <span class="comp-content">Merkezi komutları ileterek <strong>kas hareketlerini</strong> ve hayati organların işleyişini kontrol eder.</span>
                     </div>
                 </div>
             </div>
 
-            <!-- Sol Alt: Savunmasızlık Notu -->
-            <div class="card text-card" style="animation-delay: 0.2s; justify-content: flex-start;">
-                <h2>PSS Korunması</h2>
-                <div class="warning-box">
-                    <span>⚠ MSS'nin aksine PSS, kafatası ve omurga ile korunmadığından <strong>toksinlere ve yaralanmalara</strong> çok daha açıktır.</span>
-                </div>
+            <!-- Sol Alt: Somatik vs Otonom Kontrastı -->
+            <div class="card img-card" style="animation-delay: 0.2s;">
+                <img src="./assets/oss_vs_somatik_v1.png" alt="Somatic vs Autonomic Comparison">
+                <div class="label" style="bottom: 10%; left: 10%;">Somatik (Gönüllü)</div>
+                <div class="label" style="bottom: 10%; right: 10%;">Otonom (İstemsiz)</div>
             </div>
 
             <!-- Sağ Alt: Bölüm 3.2 -->
@@ -174,7 +191,7 @@
                 <div class="oss-grid">
                     <div class="oss-box">
                         <b>Somatik</b>
-                        <p>İskelet kasları üstünde <strong>gönüllü kontrol</strong> sağlar. Duyusal veri aktarır.</p>
+                        <p>Zihinsel denetimle <strong>gönüllü</strong> bir şekilde iskelet kaslarını kontrol eder.</p>
                     </div>
                     <div class="oss-box">
                         <b>Otonom (OSS)</b>
@@ -182,12 +199,11 @@
                     </div>
                     <div class="oss-box">
                         <b>Denge (S/P)</b>
-                        <p><strong>Sempatik:</strong> "Savaş/Kaç" <br> <strong>Parasempatik:</strong> "Dinle/Sindir"</p>
+                        <p><strong>Sempatik:</strong> Savaş <br> <strong>Parasempatik:</strong> Dinlen</p>
                     </div>
                 </div>
-                <div class="desc-item" style="margin-top: 10px; border-left-color: var(--accent);">
-                    <b>Enterik Sinir Sistemi (İkinci Beyin)</b>
-                    <p>Omurilikten daha fazla nöron içerir ve gastrointestinal fonksiyonları MSS'den bağımsız olarak yönetme yeteneğine sahiptir.</p>
+                <div class="warning-box">
+                    <span>⚠ <strong>Enterik Sistem (İkinci Beyin):</strong> Omurilikten daha fazla nöron içerir ve sindirim sistemini MSS'den bağımsız olarak yönetir.</span>
                 </div>
             </div>
         </div>
