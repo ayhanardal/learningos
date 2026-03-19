@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NE_2 — MSS Mimarisi (Omurilik Detay)</title>
+    <title>NE_2 — MSS Mimarisi (Hi-Readability)</title>
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
@@ -17,7 +17,7 @@
             --warning: #ffcc00;
         }
 
-        html { font-size: 15px; }
+        html { font-size: 16px; } /* Laptop için ideal taban font */
 
         body {
             margin: 0; padding: 0;
@@ -31,84 +31,121 @@
         }
 
         .slide {
-            width: 96%; height: 92%; 
+            width: 96%; height: 94%; 
             max-width: 1400px;
             background: var(--slide-bg);
             border: 1px solid var(--divider);
             border-radius: 2rem;
-            padding: 2.2rem 3rem; 
+            padding: 2.5rem 3.5rem; 
             box-sizing: border-box;
             backdrop-filter: blur(20px);
             display: flex; flex-direction: column; overflow: hidden;
         }
 
-        header { flex-shrink: 0; margin-bottom: 0.8rem; }
-        .tag { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.4em; color: var(--accent); font-weight: 700; display: block; margin-bottom: 4px; }
-        h1 { font-size: 1.6rem; font-weight: 800; margin: 0; background: linear-gradient(135deg, #fff 30%, #64748b 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        header { flex-shrink: 0; margin-bottom: 1.5rem; }
+        .tag { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.4em; color: var(--accent); font-weight: 700; display: block; margin-bottom: 6px; }
+        h1 { font-size: 1.8rem; font-weight: 800; margin: 0; background: linear-gradient(135deg, #fff 30%, #64748b 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
         .main-grid {
             flex: 1;
             display: grid;
-            grid-template-columns: 0.85fr 1.15fr;
-            grid-template-rows: 1.25fr 0.75fr;
-            gap: 1.2rem;
+            grid-template-columns: 0.32fr 0.68fr; /* Talep edilen %30 görsel, %70 içerik rasyosu */
+            grid-template-rows: 1.3fr 0.7fr;
+            gap: 2rem;
             overflow: hidden;
         }
 
         .card {
-            background: rgba(255, 255, 255, 0.02);
+            background: rgba(255, 255, 255, 0.03);
             border: 1px solid var(--divider);
-            border-radius: 1.2rem;
-            padding: 1rem 1.4rem;
+            border-radius: 1.5rem;
+            padding: 1.2rem 1.8rem;
             display: flex;
             flex-direction: column;
             overflow: hidden;
             position: relative;
         }
 
-        .img-card { padding: 0.4rem; justify-content: center; align-items: center; background: rgba(0, 0, 0, 0.3); }
-        .img-card img { max-width: 95%; max-height: 95%; border-radius: 12px; opacity: 0.9; }
+        .img-card { padding: 0.5rem; justify-content: center; align-items: center; background: rgba(0, 0, 0, 0.4); }
+        .img-card img { max-width: 95%; max-height: 90%; border-radius: 12px; opacity: 0.85; filter: drop-shadow(0 0 15px rgba(0, 242, 255, 0.1)); }
 
         .text-card { justify-content: center; }
 
         h2 { 
-            font-size: 0.9rem; font-weight: 700; color: var(--accent); 
-            margin: 0 0 0.8rem 0; text-transform: uppercase; letter-spacing: 0.1em;
-            display: flex; align-items: center; gap: 8px;
+            font-size: 1.1rem; font-weight: 700; color: var(--accent); 
+            margin: 0 0 1.2rem 0; text-transform: uppercase; letter-spacing: 0.15em;
+            display: flex; align-items: center; gap: 10px;
         }
 
-        .stat-wrap { display: flex; gap: 10px; margin-bottom: 1rem; }
-        .stat-chip { background: rgba(0, 242, 255, 0.06); border: 1px solid rgba(0, 242, 255, 0.2); padding: 5px 12px; border-radius: 8px; font-size: 0.75rem; }
+        .stat-wrap { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 1.5rem; }
+        .stat-chip { 
+            background: rgba(0, 242, 255, 0.1); 
+            border: 1px solid rgba(0, 242, 255, 0.3); 
+            padding: 6px 15px; 
+            border-radius: 10px; 
+            font-size: 0.95rem; 
+        }
         .stat-chip b { color: var(--accent); }
 
-        .desc-item { border-left: 2px solid var(--divider); padding-left: 1rem; margin-bottom: 0.6rem; }
-        .desc-item b { color: var(--text-primary); font-size: 0.92rem; display: block; margin-bottom: 2px; }
-        .desc-item p { color: var(--text-secondary); font-size: 0.85rem; line-height: 1.5; margin: 0; }
+        /* 2x2 Lob Matrisi - Ferahlatılmış */
+        .lobes-grid { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 1.2rem; 
+        }
+        .lobe-card {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid var(--divider);
+            padding: 1.4rem;
+            border-radius: 1.2rem;
+            border-bottom: 4px solid transparent;
+            transition: all 0.3s ease;
+        }
+        .lobe-card:hover { border-bottom-color: var(--accent); transform: translateY(-2px); background: rgba(0,242,255,0.05); }
+        
+        .lobe-title { 
+            font-size: 1.1rem; 
+            font-weight: 800; 
+            color: var(--accent); 
+            display: block; 
+            margin-bottom: 8px; 
+            text-transform: uppercase; 
+        }
+        .lobe-content { 
+            font-size: 1rem; 
+            color: var(--text-primary); 
+            line-height: 1.6; 
+            display: block; 
+        }
+        .lobe-card strong { color: #fff; font-weight: 700; border-bottom: 1px solid var(--accent); }
 
-        .lobes-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; }
-        .lobe-card { background: rgba(255,255,255,0.02); border: 1px solid var(--divider); padding: 0.7rem; border-radius: 0.6rem; border-bottom: 2px solid transparent; transition: 0.3s; }
-        .lobe-card:hover { border-bottom-color: var(--accent); }
-        .lobe-title { font-size: 0.8rem; font-weight: 800; display: block; color: var(--text-primary); margin-bottom: 2px; text-transform: uppercase; }
-        .lobe-content { font-size: 0.72rem; color: var(--text-secondary); line-height: 1.4; display: block; }
-        .lobe-card strong { color: var(--accent); }
+        .desc-item { border-left: 3px solid var(--divider); padding-left: 1.5rem; margin-bottom: 1rem; }
+        .desc-item b { color: var(--text-primary); font-size: 1.15rem; display: block; margin-bottom: 6px; }
+        .desc-item p { color: var(--text-secondary); font-size: 1.05rem; line-height: 1.6; margin: 0; }
 
-        .note-box { border: 1px solid rgba(255, 204, 0, 0.2); background: rgba(255, 204, 0, 0.05); padding: 8px 12px; border-radius: 8px; margin-top: 5px; }
-        .note-box span { font-size: 0.85rem; color: var(--warning); display: block; }
+        .warning-box { 
+            border: 1px solid rgba(255, 204, 0, 0.3); 
+            background: rgba(255, 204, 0, 0.08); 
+            padding: 12px 18px; 
+            border-radius: 10px; 
+            margin-top: 10px; 
+        }
+        .warning-box span { font-size: 1.05rem; color: var(--warning); display: block; font-weight: 600; }
 
         .label {
             position: absolute;
-            background: rgba(13, 15, 20, 0.85);
+            background: rgba(13, 15, 20, 0.9);
             border: 1px solid var(--accent);
-            padding: 2px 8px;
-            border-radius: 4px;
+            padding: 4px 12px;
+            border-radius: 6px;
             color: var(--accent);
-            font-size: 0.7rem;
-            font-weight: 700;
+            font-size: 0.75rem;
+            font-weight: 800;
             text-transform: uppercase;
-            backdrop-filter: blur(4px);
+            backdrop-filter: blur(6px);
         }
 
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
         .card { animation: fadeIn 0.5s ease backwards; }
     </style>
 </head>
@@ -116,53 +153,64 @@
 
     <div class="slide">
         <header>
-            <span class="tag">NE_2 — MSS Fizyolojik Katmanları</span>
-            <h1>2.1 Büyük Beyin (Serebrum) & 2.2 Omurilik</h1>
+            <span class="tag">Ders 1.1 — Bölüm 2: Merkezi Sinir Sistemi</span>
+            <h1>MSS Mimarisi: Beyin & Omurilik İşlevleri</h1>
         </header>
 
         <div class="main-grid">
-            <!-- Beyin Lobları -->
+            <!-- Beyin Lobları Görseli (Küçültülmüş) -->
             <div class="card img-card">
-                <img src="./assets/cortex_lobes_quad_v1.png" alt="Brain Mapping">
-                <div class="label" style="top: 10%; left: 10%;">Frontal</div>
-                <div class="label" style="top: 10%; right: 10%;">Parietal</div>
-                <div class="label" style="bottom: 10%; left: 10%;">Temporal</div>
-                <div class="label" style="bottom: 10%; right: 10%;">Oksipital</div>
+                <img src="./assets/cortex_lobes_quad_v1.png" alt="Brain Functional Areas">
+                <div class="label" style="top: 8%; left: 8%;">Frontal</div>
+                <div class="label" style="top: 8%; right: 8%;">Parietal</div>
+                <div class="label" style="bottom: 8%; left: 8%;">Temporal</div>
+                <div class="label" style="bottom: 8%; right: 8%;">Oksipital</div>
             </div>
 
-            <!-- 2.1 Beyin Detayı -->
+            <!-- Sağ Geniş Panel (Büyük Metinler) -->
             <div class="card text-card" style="animation-delay: 0.1s;">
-                <h2>Büyük Beyin & Korteks İşlevleri</h2>
+                <h2>Büyük Beyin & Serebral Korteks İşlevleri</h2>
                 <div class="stat-wrap">
                     <div class="stat-chip"><b>1200-1500g</b> / <b>%20 Enerji</b></div>
                     <div class="stat-chip"><b>~1 Trilyon Hücre</b></div>
+                    <div class="stat-chip">Dokuma: <b>Gri Madde</b></div>
                 </div>
+                
                 <div class="lobes-grid">
-                    <div class="lobe-card"><span class="lobe-title">Frontal</span><span class="lobe-content">En büyük bölümdür; <strong>planlama ve karar verme</strong> gibi yürütme işlerini yönetir.</span></div>
-                    <div class="lobe-card"><span class="lobe-title">Parietal</span><span class="lobe-content">Dokunma ve ağrı verilerini işleyerek <strong>bedensel haritayı</strong> oluşturur.</span></div>
-                    <div class="lobe-card"><span class="lobe-title">Temporal</span><span class="lobe-content">Sesleri işler; hafızada kritik <strong>hipokampüs</strong> bu lobun altındadır.</span></div>
-                    <div class="lobe-card"><span class="lobe-title">Oksipital</span><span class="lobe-content">Tamamen görsel odaklıdır; sinyalleri <strong>renk ve hareket</strong> bilgisine dönüştürür.</span></div>
+                    <div class="lobe-card">
+                        <span class="lobe-title">Frontal Lob</span>
+                        <span class="lobe-content">Serebrum'un en büyük bölümüdür; <strong>planlama ve karar verme</strong> gibi yürütücü işlevleri, kişilik ve bilinçli hareketleri yönetir.</span>
+                    </div>
+                    <div class="lobe-card">
+                        <span class="lobe-title">Parietal Lob</span>
+                        <span class="lobe-content"><strong>Dokunma ve ağrı</strong> verilerini işler; nesneleri ve vücudun uzaydaki yerini anlamayı sağlayan "bedensel haritayı" tutar.</span>
+                    </div>
+                    <div class="lobe-card">
+                        <span class="lobe-title">Temporal Lob</span>
+                        <span class="lobe-content">Seslerin işlenmesi ve konuşmayı anlamaktan sorumludur. Hafıza oluşumunda kritik olan <strong>hipokampüs</strong> bu lobun altındadır.</span>
+                    </div>
+                    <div class="lobe-card">
+                        <span class="lobe-title">Oksipital Lob</span>
+                        <span class="lobe-content">Tamamen görsel odaklıdır; ham sinyalleri <strong>renk ve hareket</strong> bilgisine dönüştürerek anlamlandırır.</span>
+                    </div>
                 </div>
             </div>
 
-            <!-- Omurilik Görseli -->
+            <!-- Omurilik Görseli (Küçültülmüş) -->
             <div class="card img-card" style="animation-delay: 0.2s;">
-                <img src="./assets/spinal_final_v1.png" alt="Spinal Connectivity">
+                <img src="./assets/spinal_final_v1.png" alt="Spinal Connectivity Hub">
+                <div class="label" style="bottom: 10%; right: 10%;">40-50 cm</div>
             </div>
 
-            <!-- 2.2 Omurilik Detayı (Yeni İçerik) -->
+            <!-- Omurilik Detayı (Geniş Panel) -->
             <div class="card text-card" style="animation-delay: 0.3s;">
                 <h2>2.2 Omurilik (Veri Aktarım Otoyolu)</h2>
                 <div class="desc-item">
-                    <b>Temel İşlevler</b>
-                    <p>• Beyinden (Merkezi İşlem Birimi) perifere (Uç birimler/organlar) <strong>motor komutları</strong> iletmek.</p>
-                    <p>• Periferik (Vücut çeperindeki) reseptörlerden (Uyarılara duyarlı almaçlar) beyne <strong>duyusal bilgileri</strong> aktarmak.</p>
+                    <b>Merkezi Köprü Fonksiyonu</b>
+                    <p>• Beyinden (Merkezi İşlem Birimi) perifere (Uç birimler/organlar) <strong>motor komutları</strong> iletir.</p>
+                    <p>• Periferik (Vücut çeperindeki) reseptörlerden (Uyarılara duyarlı almaçlar) beyne <strong>duyusal bilgileri</strong> aktarır.</p>
                 </div>
-                <div class="desc-item" style="margin-top: 5px;">
-                    <b>Cevher Ayrımı:</b> 
-                    <p><strong>Gri Madde:</strong> Nöron hücre gövdelerini barındıran iç tabaka. / <strong>Beyaz Madde:</strong> Miyelinli aksonlar.</p>
-                </div>
-                <div class="note-box">
+                <div class="warning-box">
                     <span>⚠ <strong>Kritik Fark:</strong> Omurilikte gri madde <strong>içte</strong> (H şekli), beyaz madde ise <strong>dışta</strong> yer alır (Beynin tam tersi).</span>
                 </div>
             </div>
