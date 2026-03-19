@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NE_2 — MSS Mimarisi (Akademik Detay)</title>
+    <title>NE_2 — MSS Akademik Mimari</title>
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
@@ -17,7 +17,7 @@
             --shadow: rgba(0, 0, 0, 0.7);
         }
 
-        html { font-size: 14.5px; } /* Veri yoğunluğu için hafif küçültüldü */
+        html { font-size: 14px; }
 
         body {
             margin: 0; padding: 0;
@@ -31,25 +31,25 @@
         }
 
         .slide {
-            width: 95%; height: 92%; 
+            width: 96%; height: 92%; 
             max-width: 1400px;
             background: var(--slide-bg);
             border: 1px solid var(--divider);
             border-radius: 2rem;
-            padding: 2.2rem 3rem; 
+            padding: 2.5rem 3.5rem; 
             box-sizing: border-box;
             backdrop-filter: blur(20px);
             display: flex; flex-direction: column; overflow: hidden;
         }
 
-        header { flex-shrink: 0; margin-bottom: 1.2rem; }
+        header { flex-shrink: 0; margin-bottom: 1rem; }
         .tag { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.4em; color: var(--accent); font-weight: 700; display: block; margin-bottom: 4px; }
         h1 { font-size: 1.7rem; font-weight: 800; margin: 0; background: linear-gradient(135deg, #fff 30%, #64748b 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
         .main-grid {
             flex: 1;
             display: grid;
-            grid-template-columns: 0.8fr 1.2fr;
+            grid-template-columns: 0.85fr 1.15fr;
             grid-template-rows: 1.1fr 0.9fr;
             gap: 1.2rem;
             overflow: hidden;
@@ -58,43 +58,43 @@
         .card {
             background: rgba(255, 255, 255, 0.02);
             border: 1px solid var(--divider);
-            border-radius: 1rem;
-            padding: 1rem 1.2rem;
+            border-radius: 1.2rem;
+            padding: 1rem 1.4rem;
             display: flex;
             flex-direction: column;
             overflow: hidden;
             position: relative;
         }
 
-        .img-card { padding: 0.5rem; justify-content: center; align-items: center; }
-        .img-card img { max-width: 95%; max-height: 95%; border-radius: 10px; opacity: 0.85; }
+        .img-card { padding: 0.6rem; justify-content: center; align-items: center; background: rgba(0, 0, 0, 0.3); }
+        .img-card img { max-width: 95%; max-height: 95%; border-radius: 10px; opacity: 0.9; }
 
-        .text-card { justify-content: flex-start; }
+        .text-card { justify-content: center; }
 
         h2 { 
             font-size: 1rem; font-weight: 700; color: var(--accent); 
-            margin: 0 0 0.6rem 0; text-transform: uppercase; letter-spacing: 0.1em;
+            margin: 0 0 0.8rem 0; text-transform: uppercase; letter-spacing: 0.1em;
             display: flex; align-items: center; gap: 8px;
         }
 
-        .stat-row { display: flex; gap: 1rem; margin-bottom: 0.8rem; }
-        .stat-box { background: rgba(0, 242, 255, 0.05); border: 1px solid rgba(0, 242, 255, 0.2); padding: 5px 10px; border-radius: 6px; }
-        .stat-box b { color: var(--accent); font-size: 0.85rem; }
-        .stat-box span { font-size: 0.75rem; color: var(--text-secondary); display: block; }
+        h2::before {
+            content: ''; width: 6px; height: 6px; background: var(--accent); border-radius: 1px;
+        }
 
-        .desc-list { display: flex; flex-direction: column; gap: 0.6rem; }
-        .sub-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; }
+        .stat-banner { display: flex; gap: 10px; margin-bottom: 12px; }
+        .stat-chip { background: rgba(0, 242, 255, 0.08); border: 1px solid rgba(0, 242, 255, 0.2); padding: 4px 10px; border-radius: 6px; font-size: 0.8rem; }
+        .stat-chip b { color: var(--accent); margin-right: 4px; }
 
-        .desc-item { border-left: 2px solid var(--divider); padding-left: 0.8rem; }
-        .desc-item b { color: var(--text-primary); font-size: 0.9rem; display: block; }
-        .desc-item p { color: var(--text-secondary); font-size: 0.8rem; line-height: 1.4; margin: 2px 0 0 0; }
+        .desc-list { display: flex; flex-direction: column; gap: 5px; }
+        .sub-grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: 1rem; }
 
-        .embryo-tags { display: flex; gap: 8px; margin-top: 5px; flex-wrap: wrap; }
-        .e-tag { font-size: 0.65rem; background: rgba(255,255,255,0.05); padding: 2px 6px; border-radius: 4px; border: 1px solid var(--divider); }
+        .desc-item { border-left: 2px solid var(--divider); padding-left: 0.8rem; margin-bottom: 5px; }
+        .desc-item b { color: var(--text-primary); font-size: 0.92rem; display: block; }
+        .desc-item p { color: var(--text-secondary); font-size: 0.82rem; line-height: 1.4; margin: 2px 0 0 0; }
 
         .label {
             position: absolute;
-            background: rgba(0, 242, 255, 0.2);
+            background: rgba(13, 15, 20, 0.8);
             border: 1px solid var(--accent);
             padding: 2px 8px;
             border-radius: 4px;
@@ -105,6 +105,10 @@
             backdrop-filter: blur(4px);
         }
 
+        /* 4'lü Brain Labels */
+        #bl-1 { top: 10%; left: 10%; } #bl-2 { top: 10%; right: 10%; }
+        #bl-3 { bottom: 10%; left: 10%; } #bl-4 { bottom: 10%; right: 10%; }
+
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         .card { animation: fadeIn 0.5s ease backwards; }
     </style>
@@ -113,64 +117,66 @@
 
     <div class="slide">
         <header>
-            <span class="tag">Ders 1.1 — Bölüm 2: Merkezi Sinir Sistemi</span>
-            <h1>2.1 Beyin & 2.2 Omurilik Mimarisi</h1>
+            <span class="tag">NE_2 — Merkezi Katman Haritası (2.1 & 2.2 Detay)</span>
+            <h1>MSS Fizyolojik Mimarisi</h1>
         </header>
 
         <div class="main-grid">
-            <!-- Beyin Görseli -->
+            <!-- Beyin Görseli (Hatalı parça dağılımı düzeltildi) -->
             <div class="card img-card">
-                <img src="./assets/brain_quad_v1.png" alt="Brain Architecture">
-                <div class="label" style="top: 10%; left: 10%;">Beyin (Cerebrum)</div>
+                <img src="./assets/brain_quad_v2.png" alt="Brain Technical Divisions">
+                <div class="label" id="bl-1">Serebrum</div>
+                <div class="label" id="bl-2">Prosensefalon</div>
+                <div class="label" id="bl-3">Mezensetalon</div>
+                <div class="label" id="bl-4">Rombensefalon</div>
             </div>
 
-            <!-- 2.1 Beyin İçeriği -->
+            <!-- 2.1 Beyin İçeriği (Tam Senkronize) -->
             <div class="card text-card" style="animation-delay: 0.1s;">
-                <h2>2.1 Beyin (Entegre Kontrol)</h2>
-                <div class="stat-row">
-                    <div class="stat-box"><b>1200-1500 g</b><span>Yetişkin Ağırlığı</span></div>
-                    <div class="stat-box"><b>~1 Trilyon</b><span>Hücre Sayısı</span></div>
-                    <div class="stat-box"><b>%20 Tüketim</b><span>O2 ve Kalori</span></div>
+                <h2>2.1 Beyin (Kontrol ve Bilgi İşleme)</h2>
+                <div class="stat-banner">
+                    <div class="stat-chip"><b>1200-1500g</b> Ağırlık</div>
+                    <div class="stat-chip"><b>~1 Trilyon</b> Hücre</div>
+                    <div class="stat-chip"><b>%20</b> E./O2 Tüketimi</div>
                 </div>
-                <div class="desc-list">
+                <div class="sub-grid">
                     <div class="desc-item">
-                        <b>Serebrum (Büyük Beyin)</b>
-                        <p>İki hemisfer (Sol: Dil | Sağ: Görsel-Uzamsal). Gri madde (dış/hücre gövdesi) ve Beyaz madde (iç/akson) tabakalaşması.</p>
+                        <b>Büyük Beyin (Serebrum)</b>
+                        <p>Sol (Dil) ve Sağ (Uzamsal/Dikkat) hemisfer uzmanlaşması. Bilinç ve yüksek biliş merkezi.</p>
                     </div>
                     <div class="desc-item">
-                        <b>Embriyolojik Köken (Nöral Tüp)</b>
-                        <div class="embryo-tags">
-                            <span class="e-tag">1. Prosensetalon</span>
-                            <span class="e-tag">2. Mezensetalon</span>
-                            <span class="e-tag">3. Rombensetalon</span>
-                        </div>
+                        <b>Serebral Korteks</b>
+                        <p>Gri madde (hücre gövdeleri) ve alt tabakadaki Beyaz madde (miyelinli aksonlar) tabakalaşması.</p>
                     </div>
+                </div>
+                <div class="desc-item" style="margin-top: 8px;">
+                    <b>Embriyolojik Gelişim Bölümleri</b>
+                    <p>Ön Beyin (Pro-), Orta Beyin (Mez-), Arka Beyin (Rom-). Nöral tüpten gelişen temel hiyerarşi.</p>
                 </div>
             </div>
 
-            <!-- Omurilik Görseli -->
+            <!-- Omurilik Görseli (Dorsal-Ventral Kesit) -->
             <div class="card img-card" style="animation-delay: 0.2s;">
-                <img src="./assets/spinal_v1.png" alt="Spinal Cord">
-                <div class="label" style="bottom: 10%; right: 10%;">40-50 cm</div>
+                <img src="./assets/spinal_roots_v1.png" alt="Spinal Roots Cross-section">
+                <div class="label" style="top: 10%; left: 5%;">Gri Madde (H)</div>
+                <div class="label" style="bottom: 10%; right: 5%;">Ak Madde</div>
             </div>
 
-            <!-- 2.2 Omurilik İçeriği -->
+            <!-- 2.2 Omurilik İçeriği (Tam Senkronize) -->
             <div class="card text-card" style="animation-delay: 0.3s;">
-                <h2>2.2 Omurilik (İletim ve Arayüz)</h2>
-                <div class="desc-list">
+                <h2>2.2 Omurilik (İletim ve Refleks)</h2>
+                <div class="desc-item">
+                    <b>Genel Özellikler</b>
+                    <p>40-50 cm uzunluk. Motor komutları (beyinden) ve duyusal verileri (beyne) ileten ana otoyol.</p>
+                </div>
+                <div class="sub-grid" style="margin-top: 5px;">
                     <div class="desc-item">
-                        <b>Temel İşlevler</b>
-                        <p>Motor komut iletimi (periferiye) ve duyusal bilgi aktarımı (beyne).</p>
+                        <b>Dorsal Kökler</b>
+                        <p>Duyusal <strong>Afferent</strong> liflerin sinir sistemine giriş noktası.</p>
                     </div>
-                    <div class="sub-grid">
-                        <div class="desc-item">
-                            <b>Dorsal Kökler</b>
-                            <p>Duyusal afferent liflerin giriş noktası.</p>
-                        </div>
-                        <div class="desc-item">
-                            <b>Ventral Kökler</b>
-                            <p>Motor nöronların (Ön boynuz) çıkış noktası.</p>
-                        </div>
+                    <div class="desc-item">
+                        <b>Ventral Kökler</b>
+                        <p>Motor <strong>Efferent</strong> nöronların periferiye ana çıkış kapısı.</p>
                     </div>
                 </div>
             </div>
