@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NE_3 — PSS Mimarisi (Gelişmiş Dashboard)</title>
+    <title>NE_3 — PSS Mimarisi (Teknik & Minimalist)</title>
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #0d0f14;
-            --slide-bg: rgba(255, 255, 255, 0.02);
+            --bg-color: #0b0d11;
+            --slide-bg: rgba(255, 255, 255, 0.01);
             --accent: #00f2ff;
             --text-primary: #f1f5f9;
-            --text-secondary: #94a3b8;
-            --divider: rgba(255, 255, 255, 0.08);
+            --text-secondary: #64748b;
+            --border: rgba(255, 255, 255, 0.08);
             --warning: #ffcc00;
         }
 
@@ -23,7 +23,7 @@
             margin: 0; padding: 0;
             width: 100vw; height: 100vh;
             background-color: var(--bg-color);
-            background-image: radial-gradient(circle at 50% 50%, #1e293b 0%, #0d0f14 100%);
+            background-image: radial-gradient(circle at 50% 50%, #111827 0%, #0b0d11 100%);
             font-family: 'Outfit', sans-serif;
             color: var(--text-primary);
             overflow: hidden;
@@ -31,179 +31,173 @@
         }
 
         .slide {
-            width: 96%; height: 94%; 
+            width: 95%; height: 92%; 
             max-width: 1400px;
             background: var(--slide-bg);
-            border: 1px solid var(--divider);
-            border-radius: 2rem;
-            padding: 2.5rem 3.5rem; 
+            border: 1px solid var(--border);
+            border-radius: 1.5rem;
+            padding: 2.2rem 3rem; 
             box-sizing: border-box;
-            backdrop-filter: blur(20px);
             display: flex; flex-direction: column; overflow: hidden;
         }
 
-        header { flex-shrink: 0; margin-bottom: 2rem; }
-        h1 { font-size: 1.9rem; font-weight: 800; margin: 0; background: linear-gradient(135deg, #fff 30%, #64748b 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        header { flex-shrink: 0; margin-bottom: 1.8rem; border-bottom: 2px solid var(--border); padding-bottom: 1.2rem; }
+        h1 { font-size: 1.8rem; font-weight: 800; margin: 0; color: #fff; letter-spacing: -0.02em; }
 
         .main-grid {
             flex: 1;
             display: grid;
-            grid-template-columns: 0.32fr 0.68fr;
-            grid-template-rows: 1.15fr 0.85fr;
-            gap: 1.8rem;
+            grid-template-columns: 0.35fr 0.65fr; /* 35/65 oranında dengeleme */
+            grid-template-rows: 1.1fr 0.9fr;
+            gap: 1.5rem;
             overflow: hidden;
         }
 
         .card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid var(--divider);
-            border-radius: 1.5rem;
-            padding: 1.2rem 1.8rem;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border);
+            border-radius: 1.2rem;
+            padding: 1.2rem;
             display: flex;
             flex-direction: column;
             overflow: hidden;
-            position: relative;
         }
 
-        .img-card { padding: 0.5rem; justify-content: center; align-items: center; background: rgba(0, 0, 0, 0.4); }
-        .img-card img { max-width: 95%; max-height: 90%; border-radius: 12px; opacity: 0.85; filter: drop-shadow(0 0 15px rgba(0, 242, 255, 0.1)); }
+        /* 3+2 Matrisi CSS Grid */
+        .diagram-grid {
+            flex: 1;
+            display: grid;
+            grid-template-rows: 1fr 1fr;
+            gap: 0.8rem;
+        }
+        .row-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.8rem; }
+        .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; width: 80%; margin: 0 auto; }
 
-        .text-card { justify-content: center; }
+        .icon-box {
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 1rem;
+            padding: 10px; text-align: center;
+        }
+        svg { width: 32px; height: 32px; stroke: var(--accent); fill: none; stroke-width: 1.5; margin-bottom: 8px; }
+        .icon-box span { font-size: 0.7rem; font-weight: 700; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.1em; }
 
-        h2 { 
-            font-size: 1.05rem; font-weight: 700; color: var(--accent); 
-            margin: 0 0 1rem 0; text-transform: uppercase; letter-spacing: 0.12em;
+        .text-card h2 { 
+            font-size: 1rem; font-weight: 700; color: var(--accent); 
+            margin: 0 0 1rem 0; text-transform: uppercase; letter-spacing: 0.1em;
         }
 
-        .comparison-grid { 
-            display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; 
-        }
-        .comp-card {
-            background: rgba(255,255,255,0.04);
-            border: 1px solid var(--divider);
-            padding: 1.25rem;
-            border-radius: 1.2rem;
-            border-left: 3px solid var(--accent);
-        }
-        .comp-title { font-size: 1rem; font-weight: 800; color: #fff; display: block; margin-bottom: 5px; text-transform: uppercase; }
-        .comp-dir { font-size: 0.8rem; color: var(--accent); font-weight: 600; margin-bottom: 10px; font-style: italic; }
-        .comp-content { font-size: 0.95rem; color: var(--text-primary); line-height: 1.55; display: block; }
-        .comp-content strong { color: var(--accent); font-weight: 700; }
+        .stat-wrap { display: flex; gap: 10px; margin-bottom: 1.25rem; }
+        .stat-chip { background: rgba(255,255,255,0.05); padding: 5px 12px; border-radius: 8px; font-size: 0.85rem; color: var(--text-secondary); }
+        .stat-chip b { color: #fff; }
 
-        .oss-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; margin-top: 5px; }
-        .oss-box { background: rgba(255,255,255,0.03); border: 1px solid var(--divider); padding: 1.2rem; border-radius: 1.1rem; }
-        .oss-box b { font-size: 0.9rem; color: var(--accent); display: block; margin-bottom: 6px; text-transform: uppercase; }
-        .oss-box p { font-size: 0.85rem; color: var(--text-secondary); margin: 0; line-height: 1.5; }
+        .comp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+        .comp-card { background: rgba(0,242,255,0.02); border: 1px solid var(--border); padding: 1.2rem; border-radius: 1rem; border-top: 3px solid var(--accent); }
+        .comp-title { font-size: 0.95rem; font-weight: 800; color: #fff; margin-bottom: 4px; display: block; }
+        .comp-dir { font-size: 0.8rem; color: var(--accent); font-weight: 600; margin-bottom: 8px; display: block; }
+        .comp-content { font-size: 0.95rem; color: var(--text-primary); line-height: 1.5; opacity: 0.9; }
 
-        .desc-item { border-left: 3px solid var(--divider); padding-left: 1.5rem; margin-bottom: 0.8rem; }
-        .desc-item b { color: var(--text-primary); font-size: 1.1rem; display: block; margin-bottom: 4px; }
-        .desc-item p { color: var(--text-secondary); font-size: 1rem; line-height: 1.5; margin: 0; }
+        .oss-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.8rem; }
+        .oss-box { background: rgba(255,255,255,0.03); border: 1px solid var(--border); padding: 1rem; border-radius: 1rem; }
+        .oss-box b { font-size: 0.85rem; color: var(--accent); display: block; margin-bottom: 5px; }
+        .oss-box p { font-size: 0.82rem; color: var(--text-secondary); margin: 0; line-height: 1.4; }
 
-        .label {
-            position: absolute;
-            background: rgba(13, 15, 20, 0.9);
-            border: 1px solid var(--accent);
-            padding: 3px 10px;
-            border-radius: 6px;
-            color: var(--accent);
-            font-size: 0.65rem;
-            font-weight: 800;
-            text-transform: uppercase;
-            backdrop-filter: blur(6px);
-        }
+        .warning-box { border-left: 4px solid var(--warning); background: rgba(255, 204, 0, 0.05); padding: 12px 18px; border-radius: 0.5rem; margin-top: 1rem; }
+        .warning-box p { font-size: 0.95rem; color: #fff; margin: 0; line-height: 1.5; font-weight: 500; }
+        .warning-box b { color: var(--warning); }
 
-        .stat-wrap { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 1.2rem; }
-        .stat-chip { 
-            background: rgba(0, 242, 255, 0.1); 
-            border: 1px solid rgba(0, 242, 255, 0.3); 
-            padding: 5px 12px; 
-            border-radius: 10px; 
-            font-size: 0.9rem; 
-        }
-        .stat-chip b { color: var(--accent); }
-
-        .warning-box { 
-            border: 1px solid rgba(255, 204, 0, 0.3); 
-            background: rgba(255, 204, 0, 0.08); 
-            padding: 12px 18px; 
-            border-radius: 12px; 
-            margin-top: 10px; 
-        }
-        .warning-box span { font-size: 1rem; color: var(--warning); display: block; font-weight: 600; line-height: 1.5; }
-
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
-        .card { animation: fadeIn 0.5s ease backwards; }
     </style>
 </head>
 <body>
 
     <div class="slide">
         <header>
-            <h1>Periferik Sinir Sistemi: İletişim & Kontrol Otoyolu</h1>
+            <h1>Periferik Sinir Sistemi (PSS) Mimarisi</h1>
         </header>
 
         <div class="main-grid">
-            <!-- Sol Üst: 3+2 Matrisi -->
-            <div class="card img-card">
-                <img src="./assets/pns_3plus2_v1.png" alt="PNS 3+2 Structure">
-                <!-- Üst Sıra -->
-                <div class="label" style="top: 8%; left: 8%;">Spinal Sinirler</div>
-                <div class="label" style="top: 8%; left: 40%;">Kranial Sinirler</div>
-                <div class="label" style="top: 8%; right: 8%;">Gangliyonlar</div>
-                <!-- Alt Sıra -->
-                <div class="label" style="bottom: 15%; left: 15%;">Afferent (Giriş)</div>
-                <div class="label" style="bottom: 15%; right: 15%;">Efferent (Çıkış)</div>
+            <!-- Sol Üst: 3+2 Matrisi (SVG Teknik İkonlar) -->
+            <div class="card diagram-grid">
+                <div class="row-3">
+                    <div class="icon-box">
+                        <svg viewBox="0 0 24 24"><path d="M12 2v20M8 5l8 0M8 9l8 0M8 13l8 0M8 17l8 0"/></svg>
+                        <span>Spinal</span>
+                    </div>
+                    <div class="icon-box">
+                        <svg viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+                        <span>Kranial</span>
+                    </div>
+                    <div class="icon-box">
+                        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><circle cx="6" cy="6" r="1.5"/><circle cx="18" cy="18" r="1.5"/><path d="M9 9l6 6M6 6l1.5 1.5"/></svg>
+                        <span>Gangliyon</span>
+                    </div>
+                </div>
+                <div class="row-2">
+                    <div class="icon-box">
+                        <svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+                        <span>Afferent</span>
+                    </div>
+                    <div class="icon-box">
+                        <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        <span>Efferent</span>
+                    </div>
+                </div>
             </div>
 
-            <!-- Sağ Üst: Bölüm 3.1 -->
-            <div class="card text-card" style="animation-delay: 0.1s;">
-                <h2>3.1 Afferent-Efferent & Geniş Mimari</h2>
+            <!-- Sağ Üst: Content 3.1 -->
+            <div class="card text-card">
+                <h2>3.1 Afferent ve Efferent Bölümler</h2>
                 <div class="stat-wrap">
-                    <div class="stat-chip"><b>31 Çift</b> Spinal Sinir</div>
-                    <div class="stat-chip"><b>12 Çift</b> Kranial Sinir</div>
-                    <div class="stat-chip">Korunma: <b>Kafatasız/Omurgasız</b></div>
+                    <div class="stat-chip"><b>31 Çift</b> Spinal</div>
+                    <div class="stat-chip"><b>12 Çift</b> Kranial</div>
+                    <div class="stat-chip">Yapı: <b>Korumasız Ağ</b></div>
                 </div>
-                
-                <div class="comparison-grid">
+                <div class="comp-grid">
                     <div class="comp-card">
                         <span class="comp-title">Afferent (Duyusal)</span>
-                        <div class="comp-dir">Perifer ➔ MSS (Duyusal Giriş)</div>
-                        <span class="comp-content">Deri, kas ve iç organlardan gelen <strong>uyarıları</strong> merkeze taşıyarak duyusal farkındalık sağlar.</span>
+                        <span class="comp-dir">Perifer ➔ MSS (Giriş)</span>
+                        <span class="comp-content">Duyusal uyarılara odaklanır; deri ve iç organlardan veri toplar.</span>
                     </div>
                     <div class="comp-card">
                         <span class="comp-title">Efferent (Motor)</span>
-                        <div class="comp-dir">MSS ➔ Perifer (Motor Çıkış)</div>
-                        <span class="comp-content">Merkezi komutları ileterek <strong>kas hareketlerini</strong> ve hayati organların işleyişini kontrol eder.</span>
+                        <span class="comp-dir">MSS ➔ Perifer (Çıkış)</span>
+                        <span class="comp-content">Merkezi emirleri iletir; kas ve organ kontrolünü sağlar.</span>
                     </div>
                 </div>
             </div>
 
-            <!-- Sol Alt: Somatik vs Otonom Kontrastı -->
-            <div class="card img-card" style="animation-delay: 0.2s;">
-                <img src="./assets/oss_vs_somatik_v1.png" alt="Somatic vs Autonomic Comparison">
-                <div class="label" style="bottom: 10%; left: 10%;">Somatik (Gönüllü)</div>
-                <div class="label" style="bottom: 10%; right: 10%;">Otonom (İstemsiz)</div>
+            <!-- Sol Alt: Somatik vs Otonom Kontrast -->
+            <div class="card diagram-grid" style="grid-template-rows: 1fr;">
+                <div class="row-2" style="width: 100%; height: 100%; align-items: center;">
+                    <div class="icon-box" style="height: 80%;">
+                        <svg viewBox="0 0 24 24"><path d="M6 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                        <span>Somatik</span>
+                    </div>
+                    <div class="icon-box" style="height: 80%;">
+                        <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                        <span>Otonom</span>
+                    </div>
+                </div>
             </div>
 
-            <!-- Sağ Alt: Bölüm 3.2 -->
-            <div class="card text-card" style="animation-delay: 0.3s;">
+            <!-- Sağ Alt: Content 3.2 -->
+            <div class="card text-card">
                 <h2>3.2 Somatik & Otonom Sinir Sistemi</h2>
                 <div class="oss-grid">
                     <div class="oss-box">
                         <b>Somatik</b>
-                        <p>Zihinsel denetimle <strong>gönüllü</strong> bir şekilde iskelet kaslarını kontrol eder.</p>
+                        <p>İskelet kasları üstünde <strong>gönüllü kontrol</strong> sağlar.</p>
                     </div>
                     <div class="oss-box">
                         <b>Otonom (OSS)</b>
-                        <p>Kalp, solunum ve sindirim gibi <strong>istemsiz (bilinç dışı)</strong> süreçleri yönetir.</p>
+                        <p>Kalp, solunum ve bilinç dışı süreçleri yönetir.</p>
                     </div>
                     <div class="oss-box">
-                        <b>Denge (S/P)</b>
-                        <p><strong>Sempatik:</strong> Savaş <br> <strong>Parasempatik:</strong> Dinlen</p>
+                        <b>Denge</b>
+                        <p><strong>Sempatik:</strong> Aktif <br> <strong>Parase.:</strong> Dinlenme</p>
                     </div>
                 </div>
                 <div class="warning-box">
-                    <span>⚠ <strong>Enterik Sistem (İkinci Beyin):</strong> Omurilikten daha fazla nöron içerir ve sindirim sistemini MSS'den bağımsız olarak yönetir.</span>
+                    <p>⚠ <b>Enterik Sistem:</b> Bağımsız sindirim ağıdır. Omurilikten daha fazla nöron içerir ve MSS'den bağımsız çalışır.</p>
                 </div>
             </div>
         </div>
