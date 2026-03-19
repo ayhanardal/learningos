@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NE_4 — Hücresel Bileşenler (Nöron Evreni)</title>
+    <title>NE_4 — Hücresel Evren (Full Versiyon)</title>
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
@@ -14,8 +14,7 @@
             --text-primary: #f1f5f9;
             --text-secondary: #94a3b8;
             --divider: rgba(255, 255, 255, 0.08);
-            --neuron-body: #1e293b;
-            --myelin: #ffd700;
+            --warning: #ffcc00;
         }
 
         html { font-size: 16px; }
@@ -37,19 +36,19 @@
             background: var(--slide-bg);
             border: 1px solid var(--divider);
             border-radius: 2rem;
-            padding: 2.5rem 3.5rem; 
+            padding: 2.2rem 3rem; 
             box-sizing: border-box;
             backdrop-filter: blur(20px);
             display: flex; flex-direction: column; overflow: hidden;
         }
 
-        header { flex-shrink: 0; margin-bottom: 2rem; }
-        h1 { font-size: 1.95rem; font-weight: 800; margin: 0; background: linear-gradient(135deg, #fff 30%, #64748b 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        header { flex-shrink: 0; margin-bottom: 1.2rem; }
+        h1 { font-size: 1.8rem; font-weight: 800; margin: 0; background: linear-gradient(135deg, #fff 30%, #64748b 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
         .main-grid {
             flex: 1;
             display: grid;
-            grid-template-columns: 0.35fr 0.65fr;
+            grid-template-columns: 0.32fr 0.68fr;
             grid-template-rows: 1.1fr 0.9fr;
             gap: 1.8rem;
             overflow: hidden;
@@ -59,176 +58,129 @@
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid var(--divider);
             border-radius: 1.5rem;
-            padding: 1.5rem 2rem;
+            padding: 1.2rem 1.6rem;
             display: flex;
             flex-direction: column;
             overflow: hidden;
-            position: relative;
         }
 
-        /* SVG Simetrisi */
-        .svg-container {
-            width: 100%; height: 100%;
-            display: flex; justify-content: center; align-items: center;
-        }
+        .img-card { padding: 0.5rem; justify-content: center; align-items: center; background: rgba(0, 0, 0, 0.25); }
 
         h2 { 
-            font-size: 1rem; font-weight: 700; color: var(--accent); 
+            font-size: 0.95rem; font-weight: 700; color: var(--accent); 
             margin: 0 0 1rem 0; text-transform: uppercase; letter-spacing: 0.12em;
         }
 
-        /* Nöron Morfolojisi Grid */
-        .morph-grid {
-            display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem;
-        }
-        .morph-item {
-            background: rgba(255,255,255,0.03);
-            border: 1px solid var(--divider);
-            padding: 1.2rem;
-            border-radius: 1.2rem;
-            text-align: center;
-        }
-        .morph-svg { height: 80px; margin-bottom: 10px; }
-        .morph-name { font-size: 0.9rem; font-weight: 800; color: #fff; display: block; margin-bottom: 4px; }
-        .morph-desc { font-size: 0.75rem; color: var(--text-secondary); line-height: 1.4; }
+        .taxo-chips { display: flex; gap: 8px; margin-bottom: 1.2rem; }
+        .chip { background: rgba(0, 242, 255, 0.08); border: 1px solid rgba(0, 242, 255, 0.2); padding: 4px 12px; border-radius: 8px; font-size: 0.82rem; }
+        .chip b { color: var(--accent); }
 
-        /* Fonksiyonel Kartlar */
-        .func-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; margin-top: 10px; }
-        .func-box { border-left: 3px solid var(--accent); background: rgba(0,242,255,0.03); padding: 1rem; border-radius: 0.8rem; }
-        .func-box b { font-size: 0.9rem; color: var(--accent); display: block; margin-bottom: 4px; }
-        .func-box p { font-size: 0.82rem; color: var(--text-primary); margin: 0; line-height: 1.4; }
+        /* Morfoloji 4'lü Grid */
+        .morph-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.8rem; }
+        .morph-box { background: rgba(255,255,255,0.03); border: 1px solid var(--divider); padding: 0.8rem; border-radius: 0.8rem; text-align: center; }
+        .morph-box span { font-size: 0.85rem; font-weight: 800; color: #fff; display: block; margin-bottom: 4px; }
+        .morph-box p { font-size: 0.75rem; color: var(--text-secondary); line-height: 1.4; margin: 0; }
 
-        .stat-wrap { display: flex; gap: 10px; margin-bottom: 1.2rem; }
-        .stat-chip { 
-            background: rgba(0, 242, 255, 0.08); 
-            border: 1px solid rgba(0, 242, 255, 0.2); 
-            padding: 6px 14px; 
-            border-radius: 10px; 
-            font-size: 0.9rem; 
-        }
-        .stat-chip b { color: var(--accent); }
+        /* Glia & İletim */
+        .glia-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+        .glia-box { background: rgba(0,242,255,0.02); border: 1px solid var(--divider); padding: 1rem; border-radius: 1rem; }
+        .glia-box b { font-size: 0.9rem; color: var(--accent); display: block; margin-bottom: 6px; }
+        .glia-box p { font-size: 0.8rem; color: var(--text-primary); margin: 0 0 6px 0; line-height: 1.4; }
 
-        .highlight-box { 
-            border: 1px solid rgba(255, 255, 255, 0.1); 
-            background: rgba(255, 255, 255, 0.03); 
-            padding: 12px 18px; 
-            border-radius: 12px; 
-            margin-top: 12px;
-        }
-        .highlight-box p { font-size: 0.95rem; color: var(--text-secondary); margin: 0; line-height: 1.5; }
-        .highlight-box b { color: var(--accent); }
+        .warning-box { border: 1px solid rgba(255, 204, 0, 0.2); background: rgba(255, 204, 0, 0.05); padding: 10px 15px; border-radius: 10px; margin-top: 8px; }
+        .warning-box span { font-size: 0.88rem; color: var(--warning); display: block; font-weight: 600; line-height: 1.4; }
 
-        @keyframes pulse { 0% { opacity: 0.4; } 50% { opacity: 1; } 100% { opacity: 0.4; } }
-        .node { fill: var(--accent); animation: pulse 2s infinite; }
-
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
-        .card { animation: fadeIn 0.5s ease backwards; }
+        svg { filter: drop-shadow(0 0 10px rgba(0, 242, 255, 0.2)); }
     </style>
 </head>
 <body>
 
     <div class="slide">
         <header>
-            <h1>Hücresel Mimari: Nöronlar (Sinyal İşleyiciler)</h1>
+            <h1>4. Sinir Sisteminin Hücresel Bileşenleri</h1>
+            <div class="taxo-chips">
+                <div class="chip">Taksonomi: <b>Nöron</b> (Elektriksel) vs <b>Glia</b> (Destek)</div>
+                <div class="chip">Rasyo: <b>1:1</b> (~80 Milyar Nöron)</div>
+            </div>
         </header>
 
         <div class="main-grid">
-            <!-- Sol Panel: Nöron Anatomisi (Inline SVG) -->
-            <div class="card" style="padding: 1rem; background: rgba(0,0,0,0.25);">
-                <h2>4.1 Nöron Anatomisi</h2>
-                <div class="svg-container">
-                    <svg viewBox="0 0 200 400" width="100%" height="100%">
-                        <!-- Dendritler -->
-                        <path d="M100 80 L80 40 M100 80 L120 40 M100 80 L70 90 M100 80 L130 90" stroke="var(--accent)" stroke-width="2" fill="none" opacity="0.6"/>
-                        <!-- Soma (Gövde) -->
-                        <circle cx="100" cy="100" r="25" fill="var(--neuron-body)" stroke="var(--accent)" stroke-width="2"/>
-                        <circle cx="100" cy="100" r="8" fill="var(--accent)" opacity="0.3"/> <!-- Nukleus -->
-                        <!-- Akson -->
-                        <line x1="100" y1="125" x2="100" y2="320" stroke="var(--text-secondary)" stroke-width="4"/>
-                        <!-- Miyelin Segmentleri -->
-                        <rect x="90" y="140" width="20" height="35" rx="4" fill="var(--myelin)" opacity="0.2"/>
-                        <rect x="90" y="185" width="20" height="35" rx="4" fill="var(--myelin)" opacity="0.2"/>
-                        <rect x="90" y="230" width="20" height="35" rx="4" fill="var(--myelin)" opacity="0.2"/>
-                        <rect x="90" y="275" width="20" height="35" rx="4" fill="var(--myelin)" opacity="0.2"/>
-                        <!-- Ranvier Boğumları (Işıltılı Noktalar) -->
-                        <circle class="node" cx="100" cy="180" r="3"/>
-                        <circle class="node" cx="100" cy="225" r="3"/>
-                        <circle class="node" cx="100" cy="270" r="3"/>
-                        <!-- Akson Terminalleri (Sinaps Hattı) -->
-                        <path d="M100 320 L80 360 M100 320 L120 360 M100 320 L100 370" stroke="var(--accent)" stroke-width="2" fill="none"/>
-                        
-                        <!-- Yazı Etiketleri (SVG İçi) -->
-                        <text x="135" y="105" fill="#fff" font-size="8" font-weight="800">SOMA (Gövde)</text>
-                        <text x="35" y="60" fill="var(--text-secondary)" font-size="7">DENDRİTLER</text>
-                        <text x="115" y="220" fill="var(--myelin)" font-size="7">MİYELİN</text>
-                        <text x="40" y="350" fill="var(--accent)" font-size="7">SİNAPS HATTI</text>
-                    </svg>
+            <!-- Sol Panel: Nöron Anatomisi & SVG -->
+            <div class="card img-card">
+                <h2 style="align-self: flex-start;">4.1 Nöron Anatomisi</h2>
+                <svg viewBox="0 0 200 300" width="100%" height="80%">
+                    <!-- Soma & Dendrites -->
+                    <circle cx="100" cy="80" r="22" fill="#1e293b" stroke="var(--accent)" stroke-width="2"/>
+                    <circle cx="100" cy="80" r="6" fill="var(--accent)" opacity="0.3"/>
+                    <path d="M100 80 L80 40 M100 80 L120 40 M70 85 L130 85" stroke="var(--accent)" stroke-width="2" opacity="0.6"/>
+                    <!-- Axon & Myelin -->
+                    <line x1="100" y1="102" x2="100" y2="250" stroke="#64748b" stroke-width="3"/>
+                    <rect x="92" y="115" width="16" height="25" rx="4" fill="#ffd700" opacity="0.2"/>
+                    <rect x="92" y="150" width="16" height="25" rx="4" fill="#ffd700" opacity="0.2"/>
+                    <rect x="92" y="185" width="16" height="25" rx="4" fill="#ffd700" opacity="0.2"/>
+                    <!-- Labels -->
+                    <text x="130" y="85" fill="#fff" font-size="8">SOMA</text>
+                    <text x="115" y="165" fill="#ffd700" font-size="7">MİYELİN</text>
+                </svg>
+                <div class="warning-box" style="width: 100%; border: none; padding: 0;">
+                    <span style="font-size: 0.8rem; color: var(--text-secondary);"><b>İşlev:</b> Elektrokimyasal uyarıları almak ve iletmek üzere uzmanlaşmıştır.</span>
                 </div>
             </div>
 
-            <!-- Sağ Üst: Morfolojik Sınıflandırma (SVG İkonlu) -->
-            <div class="card" style="animation-delay: 0.1s;">
-                <h2>Morfolojiye Göre Nöron Tipleri</h2>
+            <!-- Sağ Üst: Morfolojik 4-Hiyerarşi -->
+            <div class="card">
+                <h2>Morfolojiye Göre Nöron Sınıflandırması</h2>
                 <div class="morph-grid">
-                    <div class="morph-item">
-                        <svg class="morph-svg" viewBox="0 0 100 100">
-                             <circle cx="50" cy="50" r="10" fill="var(--accent)" opacity="0.2"/>
-                             <path d="M50 50 L50 90 M50 50 L20 20 M50 50 L80 20 M50 50 L30 50 L70 50" stroke="var(--accent)" stroke-width="2"/>
-                        </svg>
-                        <span class="morph-name">Multipolar</span>
-                        <span class="morph-desc">1 akson + çok sayıda dendrit. <b>%99 yaygınlık.</b></span>
+                    <div class="morph-box">
+                        <span>Multipolar</span>
+                        <p>1 akson + çok dendrit. <b>%99 yaygınlık.</b> Piramidal hücreler.</p>
                     </div>
-                    <div class="morph-item">
-                        <svg class="morph-svg" viewBox="0 0 100 100">
-                             <circle cx="50" cy="50" r="10" fill="var(--accent)" opacity="0.4"/>
-                             <path d="M50 0 L50 40 M50 60 L50 100" stroke="var(--accent)" stroke-width="2"/>
-                        </svg>
-                        <span class="morph-name">Bipolar</span>
-                        <span class="morph-desc">1 akson + 1 dendrit. <b>Retina gibi özel duyular.</b></span>
+                    <div class="morph-box">
+                        <span>Bipolar</span>
+                        <p>1 akson + 1 dendrit. <b>Özel duyular.</b> Retina, Koklear.</p>
                     </div>
-                    <div class="morph-item">
-                        <svg class="morph-svg" viewBox="0 0 100 100">
-                             <circle cx="50" cy="50" r="10" fill="var(--accent)" opacity="0.6"/>
-                             <path d="M50 50 L50 70 M50 70 L20 70 M50 70 L80 70" stroke="var(--accent)" stroke-width="2"/>
-                        </svg>
-                        <span class="morph-name">Psödounipolar</span>
-                        <span class="morph-desc">T-biçimli çatal. <b>PSS duyusal ganglionlar.</b></span>
+                    <div class="morph-box">
+                        <span>Psödounipolar</span>
+                        <p>T-biçimli bir çatal. <b>PSS duyusal</b> ganglion nöronları.</p>
                     </div>
+                    <div class="morph-box">
+                        <span>Unipolar</span>
+                        <p>Tek uzantı. <b>Omurgasızlarda</b> yaygın, insanlarda nadir.</p>
+                    </div>
+                </div>
+                <div class="warning-box" style="margin-top: 15px;">
+                    <span>⚠ <b>Önemli:</b> İnsanlarda gerçek unipolar nöron bulunmaz; dorsal kök gangliyonundakiler <b>psödounipolar</b> yapıdadır.</span>
                 </div>
             </div>
 
-            <!-- Sol Alt: Genel İstatistik Panel -->
-            <div class="card" style="animation-delay: 0.2s; justify-content: flex-start;">
-                <h2>Hücresel Dashboard</h2>
-                <div class="stat-wrap">
-                    <div class="stat-chip"><b>~80 Milyar</b> Nöron</div>
-                    <div class="stat-chip"><b>1:1</b> Nöron/Glia Rasyosu</div>
-                </div>
-                <div class="highlight-box">
-                    <p><b>Saltatory Conduction:</b> Miyelin kılıfı sayesinde sinyal akımı Ranvier boğumlarında <b>"sıçrayarak"</b> ilerler. Bu, iletim hızını dramatik ölçüde artırır.</p>
+            <!-- Sol Alt: İletim Dinamiği -->
+            <div class="card" style="justify-content: center;">
+                <h2>İletim Dinamiği (Speed)</h2>
+                <div class="desc-item" style="border-left: 3px solid var(--accent); padding-left: 1rem;">
+                    <b style="font-size: 0.95rem; display: block; margin-bottom: 4px;">Saltatory Conduction</b>
+                    <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.4; margin: 0;">Sinyal iletimi, miyelin segmentleri arasındaki <b>Ranvier boğumlarında</b> sıçrayarak hızlanır.</p>
                 </div>
             </div>
 
-            <!-- Sağ Alt: İşlevsel Sınıflandırma -->
-            <div class="card" style="animation-delay: 0.3s;">
-                <h2>İşlevsel Sınıflandırma (Nöral Devreler)</h2>
-                <div class="func-row">
-                    <div class="func-box">
-                        <b>Duyusal (Afferent)</b>
-                        <p>Genellikle psödounipolar. Çevreden MSS'ye veri taşır.</p>
+            <!-- Sağ Alt: Glial Destek Ağı (MSS vs PSS) -->
+            <div class="card">
+                <h2>4.2 Glial Hücreler (Nöroglia)</h2>
+                <div class="glia-cols">
+                    <div class="glia-box">
+                        <b>MSS (Merkezi) Sorumluları</b>
+                        <p>• <b>Astrositler:</b> Homeostaz, Kan-Beyin Bariyeri.</p>
+                        <p>• <b>Oligodendrositler:</b> MSS'de miyelin üretimi (1 ➔ Çok akson).</p>
+                        <p>• <b>Mikroglia:</b> MSS Bağışıklık (Fagositoz).</p>
                     </div>
-                    <div class="func-box">
-                        <b>Motor (Efferent)</b>
-                        <p>Multipolar yapıdadır. MSS'den perifere komut taşır.</p>
-                    </div>
-                    <div class="func-box">
-                        <b>Internöron</b>
-                        <p>MSS içi bağlantı kuran devasa ağ katmanıdır.</p>
+                    <div class="glia-box">
+                        <b>PSS (Periferik) Sorumluları</b>
+                        <p>• <b>Schwann Hücreleri:</b> PSS'de miyelin üretimi (1 ➔ 1 akson).</p>
+                        <p>• <b>Satellit Hücreler:</b> Gangliyonlarda nöronları çevreler; destek sağlar.</p>
                     </div>
                 </div>
-                <p style="font-size: 0.88rem; color: var(--text-secondary); margin-top: 1rem; line-height: 1.5;">
-                    İnsan beynindeki nöronların <b>%99'u multipolardır.</b> Dorsal kök gangliyonlarındaki duyusal nöronlar ise <b>psödounipolar</b> yapıdakilere örnektir.
-                </p>
+                <div class="warning-box" style="border-color: var(--divider); background: rgba(255,255,255,0.02);">
+                    <span style="color: var(--text-secondary);"><b>Kritik Fark:</b> Oligodendrositler çok sayıda aksonu miyelinleyebilirken, Schwann hücresi <b>yalnızca tek bir aksonu</b> sarar.</span>
+                </div>
             </div>
         </div>
     </div>
