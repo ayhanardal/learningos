@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sodyum-Potasyum Pompası - Sessiz İşçiler</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0a0c10;
+            --card-bg: rgba(17, 20, 24, 0.8);
+            --accent: #00f2ff;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a6b1;
+            --border: rgba(255, 255, 255, 0.08);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg);
+            color: var(--text-primary);
+            height: 100vh;
+            display: flex; align-items: center; justify-content: center;
+            overflow: hidden;
+            background-image: 
+                radial-gradient(circle at 20% 20%, rgba(0, 242, 255, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 80% 80%, rgba(0, 242, 255, 0.02) 0%, transparent 40%);
+        }
+
+        .slide-container {
+            width: 95vw; height: 90vh;
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border);
+            border-radius: 32px;
+            display: grid; grid-template-columns: 1fr 1fr;
+            gap: 40px; padding: 40px;
+            position: relative;
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Sol Panel */
+        .left-panel { display: flex; flex-direction: column; justify-content: space-between; }
+        .header { margin-bottom: 1rem; }
+        .header h1 {
+            font-size: 2.2rem; font-weight: 800; letter-spacing: -0.03em;
+            background: linear-gradient(135deg, #fff 0%, #00f2ff 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+
+        .content-panel { display: flex; flex-direction: column; gap: 0.8rem; }
+        
+        .section-box {
+            background: rgba(255, 255, 255, 0.02);
+            padding: 1rem 1.4rem;
+            border-radius: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .section-box h3 {
+            font-size: 1.1rem; font-weight: 700; margin-bottom: 8px;
+            color: var(--accent);
+            border-bottom: 1px solid rgba(0, 242, 255, 0.1);
+            padding-bottom: 5px;
+            letter-spacing: -0.01em;
+        }
+
+        .section-box p { font-size: 1rem; line-height: 1.5; color: #d1d5db; }
+        .section-box strong { color: var(--text-primary); }
+
+        /* Sağ Panel */
+        .right-panel {
+            position: relative;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 24px;
+            overflow: hidden;
+            display: flex; align-items: center; justify-content: center;
+            border: 1px solid var(--border);
+        }
+
+        .visual-container { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
+        .visual-container img {
+            width: 100%; height: 100%;
+            object-fit: contain; transform: scale(1.15);
+            filter: drop-shadow(0 0 30px rgba(0, 242, 255, 0.1));
+        }
+
+        /* Footer */
+        .footer-frame {
+            margin-top: 1.5rem;
+            background: linear-gradient(90deg, rgba(0, 242, 255, 0.05), transparent);
+            border: 1px dashed var(--accent);
+            padding: 1.1rem; border-radius: 16px;
+        }
+
+        .footer-frame strong {
+            display: block; color: var(--accent); font-size: 0.85rem;
+            text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 6px;
+        }
+
+        .footer-frame p { font-size: 1rem; line-height: 1.5; color: var(--text-primary); }
+    </style>
+</head>
+<body>
+
+    <div class="slide-container">
+        <!-- Sol Panel -->
+        <div class="left-panel">
+            <div class="header">
+                <h1>4. Na⁺/K⁺-ATPaz Pompası</h1>
+            </div>
+
+            <div class="content-panel">
+                <div class="section-box">
+                    <h3>Sızıntıları Telafi Etmek</h3>
+                    <p>Sızıntı kanalları hiç durmadan çalşır; K⁺ dışarı kaçar, az miktarda Na⁺ içeri sızar. Bu küçük "kaçaklar" birikseydi -70 mV dengesi çökerdi. Pompanın görevi bu kaçakları sürekli telafi etmektir.</p>
+                </div>
+
+                <div class="section-box">
+                    <h3>3 Dışarı, 2 İçeri</h3>
+                    <p>Pompa her döngüde <strong>3 Na⁺'u dışarı atar, 2 K⁺'u içeri alır</strong> ve 1 ATP harcar. Net 1 pozitif yükün dışarı çıkması, <strong>elektrojenik etki</strong> yaratarak potansiyele -3 mV civarında küçük bir katkı sağlar.</p>
+                </div>
+
+                <div class="section-box">
+                    <h3>Sürdürür, Yaratmaz</h3>
+                    <p>Pompa -70 mV'u başlı başına yaratmaz; o dengeyi sızıntı kanalları kurar. Pompanın rolü **gradyanlar bozuldukça onları yeniden kurmaktır**; sistemin çökmemesini bir bekçi gibi sağlar.</p>
+                </div>
+
+                <div class="section-box">
+                    <h3>Bedeli Ağır</h3>
+                    <p>Beyin enerjisinin yaklaşık <strong>%20-40'ı</strong> sadece bu pompayı çalıştırmak için harcanır. Nöron ateşlenmese bile pompa durmaz; dinlenme halinde de sessizce ve sürekli aktiftir.</p>
+                </div>
+            </div>
+
+            <div class="footer-frame">
+                <strong>Zihinsel Çerçeve</strong>
+                <p>Pompa, delik bir tekneyi sürekli boşaltan kepçe gibidir. Tekneyi su almaktan kurtarmıyor — sadece batmasını engelliyor.</p>
+            </div>
+        </div>
+
+        <!-- Sağ Panel -->
+        <div class="right-panel">
+            <div class="visual-container">
+                <img src="assets/nak_pump.png" alt="Na+/K+-ATPase Pompası">
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
