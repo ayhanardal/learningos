@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NE_1 — Dinlenme Potansiyeli (Final)</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0d0f14;
+            --slide-bg: rgba(255, 255, 255, 0.02);
+            --accent: #00f2ff;
+            --accent-soft: rgba(0, 242, 255, 0.15);
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --divider: rgba(255, 255, 255, 0.08);
+        }
+
+        html { font-size: 14.5px; } 
+
+        body {
+            margin: 0; padding: 0;
+            width: 100vw; height: 100vh;
+            background-color: var(--bg-color);
+            background-image: radial-gradient(circle at 50% 50%, #1e293b 0%, #0d0f14 100%);
+            font-family: 'Outfit', sans-serif;
+            color: var(--text-primary);
+            overflow: hidden;
+            display: flex; align-items: center; justify-content: center;
+        }
+
+        .slide {
+            width: 96%; height: 96%; 
+            max-width: 1600px;
+            background: var(--slide-bg);
+            border: 1px solid var(--divider);
+            border-radius: 2rem;
+            padding: 2.5rem 3.5rem; 
+            box-sizing: border-box;
+            backdrop-filter: blur(25px);
+            display: flex; flex-direction: column; gap: 1rem;
+        }
+
+        header { flex-shrink: 0; display: flex; align-items: flex-end; justify-content: space-between; border-bottom: 2px solid var(--divider); padding-bottom: 0.8rem; margin-bottom: 0.5rem; }
+        h1 { font-size: 1.8rem; font-weight: 800; margin: 0; background: linear-gradient(135deg, #fff 30%, #64748b 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        
+        .stats-bar { display: flex; gap: 10px; }
+        .stat-chip { background: var(--accent-soft); padding: 5px 14px; border-radius: 8px; font-size: 0.75rem; border: 1px solid rgba(0, 242, 255, 0.2); }
+        .stat-chip b { color: var(--accent); }
+
+        .main-layout {
+            flex: 1;
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 4rem;
+            min-height: 0;
+            align-items: center;
+        }
+
+        .content-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 1.4rem;
+        }
+
+        .section-box {
+            background: rgba(255, 255, 255, 0.02);
+            border-left: 3px solid var(--accent);
+            padding: 1.4rem 1.8rem;
+            border-radius: 0 14px 14px 0;
+            transition: all 0.3s ease;
+        }
+
+        .section-box:hover {
+            background: rgba(255, 255, 255, 0.04);
+            transform: translateX(10px);
+        }
+
+        .section-box h3 {
+            font-size: 1.25rem;
+            font-weight: 800;
+            margin: 0 0 6px 0;
+            color: var(--accent);
+            letter-spacing: -0.015em;
+        }
+
+        .section-box p {
+            font-size: 1.05rem;
+            line-height: 1.5;
+            color: var(--text-secondary);
+            margin: 0;
+        }
+
+        .section-box b { color: #fff; font-weight: 700; }
+
+        .visual-panel {
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--divider);
+            border-radius: 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            box-shadow: 20px 20px 60px rgba(0, 0, 0, 0.6);
+        }
+
+        .visual-panel img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            padding: 0.5rem;
+            filter: contrast(1.05) brightness(1.05);
+        }
+
+        /* Footer Frame */
+        .footer-frame {
+            background: rgba(0, 242, 255, 0.04);
+            border: 1px dashed var(--accent);
+            border-radius: 1rem;
+            padding: 1rem 2rem;
+            text-align: center;
+        }
+
+        .footer-frame p { font-size: 1.05rem; color: var(--text-primary); margin: 0; font-weight: 500; }
+        .footer-frame b { color: var(--accent); }
+    </style>
+</head>
+<body>
+
+    <div class="slide">
+        <header>
+            <h1>1. Dinlenme Membran Potansiyeli</h1>
+            <div class="stats-bar">
+                <div class="stat-chip">Hücre: <b>Dengede</b></div>
+                <div class="stat-chip">Voltaj: <b>-70 mV</b></div>
+            </div>
+        </header>
+
+        <div class="main-layout">
+            <div class="content-panel">
+                <div class="section-box">
+                    <h3>Dinlenme Membran Potansiyeli</h3>
+                    <p>
+                        Bir nöron uyarılmadığında bile zarının iki tarafı arasında bir elektrik gerilimi mevcuttur. 
+                        Bu gerilime <b>dinlenme membran potansiyeli (Vr)</b> denir ve tipik değeri <b>−65 ile −70 mV</b> arasındadır. 
+                        Negatif işaret, hücre içinin dışına göre daha elektrik-negatif olduğunu gösterir.
+                    </p>
+                </div>
+
+                <div class="section-box">
+                    <h3>Neden İçerisi Negatif?</h3>
+                    <p>
+                        Bu negatifliğin kaynağı <b>K⁺ iyonlarının hareketidir</b>. K⁺ içeride dışarıya kıyasla daha yoğundur ve sızıntı kanallarından dışarı çıkmak ister. 
+                        Her çıkan K⁺ bir pozitif yük götürür; büyük negatif proteinler (<b style="color: #fb923c;">A⁻</b>) ise zardan geçemediği için içeride mahsur kalır.
+                    </p>
+                </div>
+
+                <div class="section-box">
+                    <h3>−70 mV: Denge Noktası</h3>
+                    <p>
+                        İçerideki negatiflik arttıkça K⁺'yı geri çekmeye başlar. Bir noktada <b>"dışarı çık" kuvveti ile "geri gel" kuvveti dengelenir</b>. 
+                        −70 mV bu denge noktasının ölçümüdür; içerideki net yükün dışarıya göre ne kadar negatife kaydığını gösterir.
+                    </p>
+                </div>
+
+                <div class="section-box">
+                    <h3>Denge Bozulursa: Aksiyon Potansiyeli</h3>
+                    <p>
+                        Bu denge uyarı olmadan bozulmaz. Ancak <b>aksiyon potansiyeli</b> sırasında Na⁺ kanalları açılır ve Na⁺ içeri hücum eder — 
+                        içerisi hızla pozitife döner ve +30/+40 mV'a çıkar. Dinlenme halinde ise o eşik henüz aşılmamıştır.
+                    </p>
+                </div>
+            </div>
+
+            <div class="visual-panel">
+                <img src="./assets/resting_membrane_final_tr.png" alt="Zar Potansiyeli Final İnfografik">
+            </div>
+        </div>
+
+        <div class="footer-frame">
+            <p>Zihinsel Çerçeve: <b>−70 mV</b>, iyonların "kaos" içinde bulduğu sessiz ve durağan bir <b>ateşkes noktasıdır</b>.</p>
+        </div>
+    </div>
+
+</body>
+</html>
