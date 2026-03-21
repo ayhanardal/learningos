@@ -33,13 +33,13 @@
         }
 
         .slide-container {
-            width: 95vw; height: 90vh;
+            width: 96vw; height: 92vh;
             background: var(--card-bg);
             backdrop-filter: blur(20px);
             border: 1px solid var(--border);
-            border-radius: 32px;
-            display: grid; grid-template-columns: 1fr 1fr;
-            gap: 30px; padding: 30px;
+            border-radius: 24px;
+            display: grid; grid-template-columns: 7fr 3fr;
+            gap: 20px; padding: 25px;
             position: relative;
             box-shadow: 0 40px 100px rgba(0, 0, 0, 0.5);
         }
@@ -50,68 +50,66 @@
             min-height: 0;
         }
 
-        .header { margin-bottom: 0.5rem; }
-
+        .header { margin-bottom: 0.4rem; }
         .header h1 {
-            font-size: 1.8rem; font-weight: 800; letter-spacing: -0.03em;
+            font-size: 1.7rem; font-weight: 800; letter-spacing: -0.02em;
             background: linear-gradient(135deg, #fff 0%, #00f2ff 100%);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            line-height: 1.2;
         }
 
         .content-panel {
-            display: flex; flex-direction: column; gap: 0.8rem;
-            min-height: 0; overflow-y: auto; padding-right: 12px;
+            display: flex; flex-direction: column; gap: 0.5rem;
+            min-height: 0; overflow-y: hidden; /* Scroll istemiyoruz */
         }
         
         .section-box {
             background: rgba(255, 255, 255, 0.02);
-            padding: 1rem 1.2rem;
-            border-radius: 16px;
-            transition: all 0.3s ease;
+            padding: 0.8rem 1rem;
+            border-radius: 12px;
             flex-shrink: 0;
         }
 
         .section-box h3 {
-            font-size: 1rem; font-weight: 700; margin-bottom: 6px;
+            font-size: 0.9rem; font-weight: 700; margin-bottom: 4px;
             color: var(--accent);
             border-bottom: 1px solid rgba(0, 242, 255, 0.1);
-            padding-bottom: 4px;
-            letter-spacing: -0.01em;
+            padding-bottom: 2px;
+            letter-spacing: 0.02em;
             text-transform: uppercase;
         }
 
-        .section-box p { font-size: 0.95rem; line-height: 1.5; color: #d1d5db; }
+        .section-box p { font-size: 0.9rem; line-height: 1.4; color: #d1d5db; }
         .section-box strong { color: var(--text-primary); }
 
-        /* Formula Table */
+        /* Formula Container */
         .formula-container {
             display: flex; justify-content: center; align-items: center;
-            margin: 1rem 0; font-family: 'Times New Roman', serif;
-            font-size: 1.4rem; color: #fff;
+            margin: 0.4rem 0; font-family: 'Times New Roman', serif;
+            font-size: 1.2rem; color: #fff;
         }
 
         .fraction {
             display: inline-flex; flex-direction: column; align-items: center;
-            vertical-align: middle; margin: 0 8px;
+            vertical-align: middle; margin: 0 6px;
         }
 
-        .top { border-bottom: 1px solid #fff; padding: 0 4px; }
-        .bottom { padding: 0 4px; }
+        .top { border-bottom: 1px solid #fff; padding: 0 4px; font-size: 1.1rem; }
+        .bottom { padding: 0 4px; font-size: 1.1rem; }
 
         /* Data Table */
         .ion-table {
-            width: 100%; border-collapse: collapse; margin-top: 10px;
-            font-size: 0.85rem; border-radius: 12px; overflow: hidden;
+            width: 100%; border-collapse: collapse; margin-top: 6px;
+            font-size: 0.8rem; border-radius: 8px; overflow: hidden;
+            table-layout: fixed;
         }
 
         .ion-table th {
             background: var(--table-header); color: var(--accent);
-            text-align: left; padding: 8px 12px; font-weight: 600;
+            text-align: left; padding: 6px 10px; font-weight: 600;
         }
 
         .ion-table td {
-            padding: 8px 12px; border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 5px 10px; border-bottom: 1px solid rgba(255, 255, 255, 0.05);
             color: #d1d5db;
         }
 
@@ -121,34 +119,34 @@
         .right-panel {
             position: relative;
             background: rgba(0, 0, 0, 0.2);
-            border-radius: 24px;
+            border-radius: 16px;
             overflow: hidden;
             display: flex; align-items: center; justify-content: center;
             border: 1px solid var(--border);
         }
 
-        .visual-container { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; padding: 20px; }
+        .visual-container { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; padding: 10px; }
         .visual-container img {
             max-width: 100%; max-height: 100%;
             object-fit: contain;
-            filter: drop-shadow(0 0 30px rgba(0, 242, 255, 0.15));
+            filter: drop-shadow(0 0 20px rgba(0, 242, 255, 0.1));
         }
 
         /* Footer */
         .footer-frame {
-            margin-top: 0.8rem;
+            margin-top: 0.5rem;
             background: linear-gradient(90deg, rgba(0, 242, 255, 0.05), transparent);
             border: 1px dashed var(--accent);
-            padding: 0.8rem; border-radius: 16px;
+            padding: 0.6rem 0.8rem; border-radius: 12px;
             flex-shrink: 0;
         }
 
         .footer-frame strong {
-            display: block; color: var(--accent); font-size: 0.85rem;
-            text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 4px;
+            display: block; color: var(--accent); font-size: 0.75rem;
+            text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 2px;
         }
 
-        .footer-frame p { font-size: 0.95rem; line-height: 1.5; color: var(--text-primary); }
+        .footer-frame p { font-size: 0.85rem; line-height: 1.4; color: var(--text-primary); }
     </style>
 </head>
 <body>
@@ -162,12 +160,12 @@
 
             <div class="content-panel">
                 <div class="section-box">
-                    <p>Her iyon zardan geçmek için iki zıt kuvvetle karşı karşıya: <strong>konsantrasyon farkı</strong> onu bir yöne iter, <strong>elektriksel yük</strong> onu diğer yöne çeker. Denge potansiyeli bu iki kuvvetin birbirini sıfırladığı voltajdır.</p>
+                    <p>Her iyon zardan geçmek için iki zıt kuvvetle karşı karşıya: <strong>konsantrasyon farkı</strong> onu bir yöne iter, <strong>elektriksel yük</strong> onu diğer yöne çeker. Denge potansiyeli bu iki kuvvetin tam olarak birbirini sıfırladığı voltajdır.</p>
                 </div>
 
                 <div class="section-box">
                     <h3>Sezgiyle Başlayalım: K⁺ Örneği</h3>
-                    <p>K⁺ içeride çok yoğun (140 mM), dışarıda az (5 mM). Konsantrasyon kuvveti onu dışarı iter. K⁺ dışarı çıktıkça içerisi negatifleşir ve bu negatiflik K⁺'yı geri çekmeye başlar. Bu iki kuvvet <strong>−88 mV</strong>'ta dengelenir. Gerçek dinlenme −70 mV olduğu için K⁺ hâlâ hafifçe dışarı sızmaya devam eder.</p>
+                    <p>K⁺ içeride çok yoğun (140 mM), dışarıda az (5 mM). Konsantrasyon farkı onu dışarı iter. K⁺ dışarı çıktıkça içerisi negatifleşir ve iyonu geri çekmeye başlar. Bu iki kuvvet <strong>−88 mV</strong>'ta dengelenir.</p>
                 </div>
 
                 <div class="section-box">
@@ -184,7 +182,6 @@
                             <span class="bottom">[X]<sub>iç</sub></span>
                         </span>
                     </div>
-                    <p style="font-size: 0.85rem; color: #a0a6b1; text-align: center;">z: iyon yükü (+1/-1), [X]: konsantrasyon. K⁺ için: 61.5 &times; log(5/140) = −88 mV.</p>
                 </div>
 
                 <div class="section-box">
@@ -192,10 +189,11 @@
                     <table class="ion-table">
                         <thead>
                             <tr>
-                                <th>İyon</th>
-                                <th>İç (mM)</th>
-                                <th>Dış (mM)</th>
-                                <th>Denge Pot.</th>
+                                <th style="width: 18%;">İyon</th>
+                                <th style="width: 15%;">İç</th>
+                                <th style="width: 15%;">Dış</th>
+                                <th style="width: 32%;">Hesap</th>
+                                <th style="width: 20%;">Denge</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -203,34 +201,37 @@
                                 <td>K⁺ (z=+1)</td>
                                 <td>140</td>
                                 <td>5</td>
+                                <td>61.5 &times; log(5/140)</td>
                                 <td><strong>−88 mV</strong></td>
                             </tr>
                             <tr>
                                 <td>Na⁺ (z=+1)</td>
                                 <td>15</td>
                                 <td>145</td>
+                                <td>61.5 &times; log(145/15)</td>
                                 <td><strong>+62 mV</strong></td>
                             </tr>
                             <tr>
                                 <td>Cl⁻ (z=-1)</td>
                                 <td>10</td>
                                 <td>110</td>
+                                <td>−61.5 &times; log(10/110)</td>
                                 <td><strong>−65 mV</strong></td>
                             </tr>
                         </tbody>
                     </table>
-                    <p style="margin-top: 8px; font-size: 0.85rem;">K⁺ zarını −88'e, Na⁺ ise +62'ye çekmek ister. Cl⁻ dinlenme potansiyeline yakındır.</p>
+                    <p style="margin-top: 6px; font-size: 0.85rem;">K⁺ zarını −88'e, Na⁺ ise +62'ye çekmek ister. Cl⁻ ise −65 mV beklemektedir.</p>
                 </div>
 
                 <div class="section-box">
-                    <h3>−88 mV Değil, −70 mV: Neden?</h3>
-                    <p>Eğer zar yalnızca K⁺'a geçirgen olsaydı iğne −88'de otururdu. Ama Na⁺ ve Cl⁻'a da geçirgenlik var. Na⁺'un +62 mV'luk çekimi iğneyi pozitif yöne kaydırır. Sonuç: Ağırlıklı bir uzlaşma noktası olan <strong>−70 mV</strong>. Bu hesabı Nernst tek başına yapamaz, GHK devreye girer.</p>
+                    <h3>-88 mV Değil, -70 mV: Neden?</h3>
+                    <p>Zar yalnızca K⁺'a geçirgen olsaydı iğne −88'de otururdu. Ancak az miktarda Na⁺ geçirgenliği (+62 mV) iğneyi pozitif yöne kaydırarak <strong>−70 mV</strong> uzlaşma noktasına çeker.</p>
                 </div>
             </div>
 
             <div class="footer-frame">
                 <strong>Zihinsel Çerçeve</strong>
-                <p>Nernst her iyonun "istediği" voltajı hesaplar. Gerçek membran potansiyeli ise bu isteklerin geçirgenliğe göre ağırlıklı ortalamasıdır — o hesabı GHK yapacak.</p>
+                <p>Nernst her iyonun "istediği" voltajı hesaplar. Gerçek potansiyel ise bu isteklerin geçirgenliğe göre ağırlıklı ortalamasıdır — o hesabı GHK yapacak.</p>
             </div>
         </div>
 
