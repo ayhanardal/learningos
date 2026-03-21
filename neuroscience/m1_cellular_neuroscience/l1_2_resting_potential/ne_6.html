@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerçekçi Membran: GHK Denklemi</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0a0c10;
+            --card-bg: rgba(17, 20, 24, 0.8);
+            --accent: #00f2ff;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a6b1;
+            --border: rgba(255, 255, 255, 0.08);
+            --table-header: rgba(0, 242, 255, 0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg);
+            color: var(--text-primary);
+            height: 100vh;
+            display: flex; align-items: center; justify-content: center;
+            overflow: hidden;
+            background-image: 
+                radial-gradient(circle at 20% 20%, rgba(0, 242, 255, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 80% 80%, rgba(0, 242, 255, 0.02) 0%, transparent 40%);
+        }
+
+        .slide-container {
+            width: 96vw; height: 92vh;
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            display: grid; grid-template-columns: 60fr 40fr;
+            gap: 20px; padding: 25px 30px;
+            position: relative;
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Sol Panel */
+        .left-panel {
+            display: flex; flex-direction: column; justify-content: space-between;
+            min-height: 0;
+        }
+
+        .header { margin-bottom: 0.4rem; }
+        .header h1 {
+            font-size: 1.7rem; font-weight: 800; letter-spacing: -0.02em;
+            background: linear-gradient(135deg, #fff 0%, #00f2ff 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+
+        .content-panel {
+            display: flex; flex-direction: column; gap: 0.4rem;
+            min-height: 0; flex-grow: 1; justify-content: center;
+        }
+        
+        .section-box {
+            background: rgba(255, 255, 255, 0.02);
+            padding: 0.75rem 1.1rem;
+            border-radius: 12px;
+            flex-shrink: 0;
+        }
+
+        .section-box h3 {
+            font-size: 0.95rem; font-weight: 700; margin-bottom: 4px;
+            color: var(--accent);
+            border-bottom: 1px solid rgba(0, 242, 255, 0.1);
+            padding-bottom: 3px;
+            letter-spacing: 0.02em;
+            text-transform: uppercase;
+        }
+
+        .section-box p { font-size: 0.96rem; line-height: 1.45; color: #d1d5db; }
+        .section-box strong { color: var(--text-primary); }
+
+        /* Data Table */
+        .ion-table {
+            width: 100%; border-collapse: collapse; margin-top: 6px;
+            font-size: 0.88rem; border-radius: 10px; overflow: hidden;
+            table-layout: fixed;
+        }
+
+        .ion-table th {
+            background: var(--table-header); color: var(--accent);
+            text-align: left; padding: 6px 10px; font-weight: 600;
+        }
+
+        .ion-table td {
+            padding: 5px 10px; border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            color: #d1d5db;
+        }
+
+        .ion-table tr:last-child td { border-bottom: none; }
+
+        /* Sağ Panel */
+        .right-panel {
+            position: relative;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 20px;
+            overflow: hidden;
+            display: flex; align-items: center; justify-content: center;
+            border: 1px solid var(--border);
+        }
+
+        .visual-container { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; padding: 10px; }
+        .visual-container img {
+            max-width: 100%; max-height: 100%;
+            object-fit: contain;
+            filter: drop-shadow(0 0 25px rgba(0, 242, 255, 0.12));
+            transform: scale(1.03);
+        }
+
+        /* Footer */
+        .footer-frame {
+            margin-top: 0.5rem;
+            background: linear-gradient(90deg, rgba(0, 242, 255, 0.05), transparent);
+            border: 1px dashed var(--accent);
+            padding: 0.6rem 1rem; border-radius: 14px;
+            flex-shrink: 0;
+        }
+
+        .footer-frame strong {
+            display: block; color: var(--accent); font-size: 0.8rem;
+            text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 2px;
+        }
+
+        .footer-frame p { font-size: 0.92rem; line-height: 1.45; color: var(--text-primary); }
+    </style>
+</head>
+<body>
+
+    <div class="slide-container">
+        <!-- Sol Panel -->
+        <div class="left-panel">
+            <div class="header">
+                <h1>6. Goldman-Hodgkin-Katz (GHK) Denklemi</h1>
+            </div>
+
+            <div class="content-panel">
+                <div class="section-box">
+                    <p>Nernst her iyonun "istediği" voltajı hesapladı. Ama gerçek zar aynı anda birden fazla iyona geçirgen — ve her iyonun etkisi eşit değil. GHK denklemi her iyona bir oy hakkı verir, ancak <strong>oyların ağırlığı geçirgenliğe (P) göre</strong> belirlenir.</p>
+                </div>
+
+                <div class="section-box">
+                    <h3>Geçirgenlik Neden Belirleyici?</h3>
+                    <p>Dinlenme halinde K⁺ geçirgenliği Na⁺'dan <strong>20 kat fazladır</strong>. Zar Na⁺'un sesini neredeyse duymaz, K⁺'ın sesini çok net duyar. Na⁺ +62 mV istese de zar ona sadece %5 açıktır. Sonuç <strong>−70 mV</strong> olur — K⁺'ın istediğine yakındır.</p>
+                </div>
+
+                <div class="section-box">
+                    <h3>Tipik Dinlenme Geçirgenlikleri</h3>
+                    <table class="ion-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 15%;">İyon</th>
+                                <th style="width: 25%;">Geçirgenlik</th>
+                                <th style="width: 25%;">Denge Pot.</th>
+                                <th style="width: 35%;">Etkisi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>K⁺</td>
+                                <td>1.00 (baskın)</td>
+                                <td>−88 mV</td>
+                                <td>Vm'yi aşağı çeker</td>
+                            </tr>
+                            <tr>
+                                <td>Na⁺</td>
+                                <td>0.05 (zayıf)</td>
+                                <td>+62 mV</td>
+                                <td>Hafifçe yukarı iter</td>
+                            </tr>
+                            <tr>
+                                <td>Cl⁻</td>
+                                <td>0.45 (orta)</td>
+                                <td>−65 mV</td>
+                                <td>Neredeyse sessiz</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="section-box">
+                    <h3>Klinik Pencere: Hiperkalemi</h3>
+                    <p>Kanda K⁺ fazlalaşırsa dışarıdaki K⁺ konsantrasyonu artar, bu da K⁺ denge potansiyelini daha az negatife kaydırır. Vm yükselir, hücre depolarize olur. Kalp ve sinir hücrelerinde bu durum tehlikeli elektriksel bozukluklara ve EKG değişikliklerine yol açar.</p>
+                </div>
+
+                <div class="section-box">
+                    <h3>Nernst vs GHK</h3>
+                    <p>Nernst bir iyonun <strong>"istediği"</strong> voltajı verir. GHK ise tüm iyonların geçirgenliğe göre <strong>"ağırlıklı uzlaşma"</strong> voltajını ortaya koyar.</p>
+                </div>
+            </div>
+
+            <div class="footer-frame">
+                <strong>Zihinsel Çerçeve</strong>
+                <p>GHK bir meclis oylaması gibidir. Her iyon oy kullanır ama K⁺'ın 20 oyu, Na⁺'un ise sadece 1 oyu vardır. Sonuç kaçınılmaz olarak K⁺'ın istediğine yakın çıkar.</p>
+            </div>
+        </div>
+
+        <!-- Sağ Panel -->
+        <div class="right-panel">
+            <div class="visual-container">
+                <img src="assets/ghk_channels.png" alt="GHK Geçirgenlik ve İyon Kanalları">
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
