@@ -33,13 +33,13 @@
         }
 
         .slide-container {
-            width: 96vw; height: 94vh;
+            width: 96vw; height: 92vh;
             background: var(--card-bg);
             backdrop-filter: blur(20px);
             border: 1px solid var(--border);
-            border-radius: 28px;
+            border-radius: 24px;
             display: grid; grid-template-columns: 6fr 4fr;
-            gap: 25px; padding: 35px;
+            gap: 20px; padding: 25px 30px;
             position: relative;
             box-shadow: 0 40px 100px rgba(0, 0, 0, 0.5);
         }
@@ -50,66 +50,66 @@
             min-height: 0;
         }
 
-        .header { margin-bottom: 0.8rem; }
+        .header { margin-bottom: 0.4rem; }
         .header h1 {
-            font-size: 2.1rem; font-weight: 800; letter-spacing: -0.02em;
+            font-size: 1.85rem; font-weight: 800; letter-spacing: -0.02em;
             background: linear-gradient(135deg, #fff 0%, #00f2ff 100%);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
 
         .content-panel {
-            display: flex; flex-direction: column; gap: 0.8rem;
+            display: flex; flex-direction: column; gap: 0.4rem;
             min-height: 0; flex-grow: 1; justify-content: center;
         }
         
         .section-box {
             background: rgba(255, 255, 255, 0.02);
-            padding: 1.1rem 1.3rem;
-            border-radius: 16px;
+            padding: 0.8rem 1.1rem;
+            border-radius: 12px;
             flex-shrink: 0;
         }
 
         .section-box h3 {
-            font-size: 1.05rem; font-weight: 700; margin-bottom: 6px;
+            font-size: 0.95rem; font-weight: 700; margin-bottom: 4px;
             color: var(--accent);
             border-bottom: 1px solid rgba(0, 242, 255, 0.1);
-            padding-bottom: 4px;
+            padding-bottom: 3px;
             letter-spacing: 0.02em;
             text-transform: uppercase;
         }
 
-        .section-box p { font-size: 1.05rem; line-height: 1.5; color: #d1d5db; }
+        .section-box p { font-size: 0.98rem; line-height: 1.45; color: #d1d5db; }
         .section-box strong { color: var(--text-primary); }
 
         /* Formula Container */
         .formula-container {
             display: flex; justify-content: center; align-items: center;
-            margin: 0.6rem 0; font-family: 'Times New Roman', serif;
-            font-size: 1.5rem; color: #fff;
+            margin: 0.3rem 0; font-family: 'Times New Roman', serif;
+            font-size: 1.3rem; color: #fff;
         }
 
         .fraction {
             display: inline-flex; flex-direction: column; align-items: center;
-            vertical-align: middle; margin: 0 8px;
+            vertical-align: middle; margin: 0 6px;
         }
 
-        .top { border-bottom: 1.5px solid #fff; padding: 0 5px; font-size: 1.4rem; }
-        .bottom { padding: 0 5px; font-size: 1.4rem; }
+        .top { border-bottom: 1.2px solid #fff; padding: 0 4px; font-size: 1.2rem; }
+        .bottom { padding: 0 4px; font-size: 1.2rem; }
 
         /* Data Table */
         .ion-table {
-            width: 100%; border-collapse: collapse; margin-top: 10px;
-            font-size: 0.95rem; border-radius: 12px; overflow: hidden;
+            width: 100%; border-collapse: collapse; margin-top: 6px;
+            font-size: 0.88rem; border-radius: 10px; overflow: hidden;
             table-layout: fixed;
         }
 
         .ion-table th {
             background: var(--table-header); color: var(--accent);
-            text-align: left; padding: 10px 14px; font-weight: 600;
+            text-align: left; padding: 7px 12px; font-weight: 600;
         }
 
         .ion-table td {
-            padding: 8px 14px; border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 6px 12px; border-bottom: 1px solid rgba(255, 255, 255, 0.05);
             color: #d1d5db;
         }
 
@@ -125,29 +125,29 @@
             border: 1px solid var(--border);
         }
 
-        .visual-container { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; padding: 15px; }
+        .visual-container { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; padding: 10px; }
         .visual-container img {
             max-width: 100%; max-height: 100%;
             object-fit: contain;
             filter: drop-shadow(0 0 25px rgba(0, 242, 255, 0.12));
-            transform: scale(1.05);
+            transform: scale(1.03);
         }
 
         /* Footer */
         .footer-frame {
-            margin-top: 1rem;
+            margin-top: 0.5rem;
             background: linear-gradient(90deg, rgba(0, 242, 255, 0.05), transparent);
             border: 1px dashed var(--accent);
-            padding: 0.8rem 1.2rem; border-radius: 16px;
+            padding: 0.6rem 1rem; border-radius: 14px;
             flex-shrink: 0;
         }
 
         .footer-frame strong {
-            display: block; color: var(--accent); font-size: 0.85rem;
-            text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 4px;
+            display: block; color: var(--accent); font-size: 0.8rem;
+            text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 3px;
         }
 
-        .footer-frame p { font-size: 1rem; line-height: 1.5; color: var(--text-primary); }
+        .footer-frame p { font-size: 0.92rem; line-height: 1.45; color: var(--text-primary); }
     </style>
 </head>
 <body>
@@ -231,7 +231,7 @@
 
             <div class="footer-frame">
                 <strong>Zihinsel Çerçeve</strong>
-                <p>Nernst her iyonun "istediği" voltajı hesaplar. Gerçek potansiyel ise bu isteklerin geçirgenliğe göre ağırlıklı ortalamasıdır — o hesabı GHK yapacak.</p>
+                <p>Nernst her iyonun "istediği" voltajı hesaplar. Gerçek membran potansiyeli ise isteklerin geçirgenliğe göre ağırlıklı ortalamasıdır — o hesabı GHK yapacak.</p>
             </div>
         </div>
 
