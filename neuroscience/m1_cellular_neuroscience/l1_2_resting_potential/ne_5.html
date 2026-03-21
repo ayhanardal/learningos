@@ -15,8 +15,7 @@
             --text-primary: #ffffff;
             --text-secondary: #a0a6b1;
             --border: rgba(255, 255, 255, 0.08);
-            --na-color: #00f2ff;
-            --k-color: #ffb800;
+            --table-header: rgba(0, 242, 255, 0.1);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -39,7 +38,7 @@
             backdrop-filter: blur(20px);
             border: 1px solid var(--border);
             border-radius: 32px;
-            display: grid; grid-template-columns: 1fr 1.2fr;
+            display: grid; grid-template-columns: 1fr 1fr;
             gap: 30px; padding: 30px;
             position: relative;
             box-shadow: 0 40px 100px rgba(0, 0, 0, 0.5);
@@ -51,38 +50,72 @@
             min-height: 0;
         }
 
-        .header { margin-bottom: 0.6rem; }
+        .header { margin-bottom: 0.5rem; }
 
         .header h1 {
-            font-size: 1.95rem; font-weight: 800; letter-spacing: -0.03em;
+            font-size: 1.8rem; font-weight: 800; letter-spacing: -0.03em;
             background: linear-gradient(135deg, #fff 0%, #00f2ff 100%);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             line-height: 1.2;
         }
 
         .content-panel {
-            display: flex; flex-direction: column; gap: 0.6rem;
-            min-height: 0; overflow-y: auto; padding-right: 8px;
+            display: flex; flex-direction: column; gap: 0.8rem;
+            min-height: 0; overflow-y: auto; padding-right: 12px;
         }
         
         .section-box {
             background: rgba(255, 255, 255, 0.02);
-            padding: 0.8rem 1.2rem;
+            padding: 1rem 1.2rem;
             border-radius: 16px;
             transition: all 0.3s ease;
             flex-shrink: 0;
         }
 
         .section-box h3 {
-            font-size: 1.1rem; font-weight: 700; margin-bottom: 4px;
+            font-size: 1rem; font-weight: 700; margin-bottom: 6px;
             color: var(--accent);
             border-bottom: 1px solid rgba(0, 242, 255, 0.1);
             padding-bottom: 4px;
             letter-spacing: -0.01em;
+            text-transform: uppercase;
         }
 
         .section-box p { font-size: 0.95rem; line-height: 1.5; color: #d1d5db; }
         .section-box strong { color: var(--text-primary); }
+
+        /* Formula Table */
+        .formula-container {
+            display: flex; justify-content: center; align-items: center;
+            margin: 1rem 0; font-family: 'Times New Roman', serif;
+            font-size: 1.4rem; color: #fff;
+        }
+
+        .fraction {
+            display: inline-flex; flex-direction: column; align-items: center;
+            vertical-align: middle; margin: 0 8px;
+        }
+
+        .top { border-bottom: 1px solid #fff; padding: 0 4px; }
+        .bottom { padding: 0 4px; }
+
+        /* Data Table */
+        .ion-table {
+            width: 100%; border-collapse: collapse; margin-top: 10px;
+            font-size: 0.85rem; border-radius: 12px; overflow: hidden;
+        }
+
+        .ion-table th {
+            background: var(--table-header); color: var(--accent);
+            text-align: left; padding: 8px 12px; font-weight: 600;
+        }
+
+        .ion-table td {
+            padding: 8px 12px; border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            color: #d1d5db;
+        }
+
+        .ion-table tr:last-child td { border-bottom: none; }
 
         /* Sağ Panel */
         .right-panel {
@@ -129,29 +162,75 @@
 
             <div class="content-panel">
                 <div class="section-box">
-                    <h3>Nernst Denklemi Nedir?</h3>
-                    <p>Bir iyon konsantrasyon farkı nedeniyle zardan geçmek ister — ama geçtikçe elektriksel bir karşı kuvvet birikir. Nernst denklemi bu iki kuvvetin tam olarak dengelendiği voltajı hesaplar: <strong>tek bir iyon için teorik denge noktası</strong>.</p>
+                    <p>Her iyon zardan geçmek için iki zıt kuvvetle karşı karşıya: <strong>konsantrasyon farkı</strong> onu bir yöne iter, <strong>elektriksel yük</strong> onu diğer yöne çeker. Denge potansiyeli bu iki kuvvetin birbirini sıfırladığı voltajdır.</p>
                 </div>
 
                 <div class="section-box">
-                    <h3>Denklem Ne Diyor?</h3>
-                    <p><strong>RT/zF</strong> terimi sıcaklık ve yükü, <strong>ln</strong> terimi konsantrasyon oranını temsil eder. 37°C'de bu pratik forma dönüşür: 61.5 mV'u iyonun yüküne böl, konsantrasyon oranının logaritmasıyla çarp. Sonuç o iyonun "istediği" voltajdır.</p>
+                    <h3>Sezgiyle Başlayalım: K⁺ Örneği</h3>
+                    <p>K⁺ içeride çok yoğun (140 mM), dışarıda az (5 mM). Konsantrasyon kuvveti onu dışarı iter. K⁺ dışarı çıktıkça içerisi negatifleşir ve bu negatiflik K⁺'yı geri çekmeye başlar. Bu iki kuvvet <strong>−88 mV</strong>'ta dengelenir. Gerçek dinlenme −70 mV olduğu için K⁺ hâlâ hafifçe dışarı sızmaya devam eder.</p>
                 </div>
 
                 <div class="section-box">
-                    <h3>Üç İyon, Üç Farklı Denge</h3>
-                    <p><strong>K⁺</strong> için hesap <strong>−88 mV</strong> verir. <strong>Na⁺</strong> için <strong>+62 mV</strong> çıkar — tam tersi yönde, içeri girmek için bekler. <strong>Cl⁻</strong> ise <strong>−65 mV</strong> ile dinlenme potansiyeline yakın, nispeten sessizdir.</p>
+                    <h3>Nernst Denklemi</h3>
+                    <div class="formula-container">
+                        E<sub>X</sub> = 
+                        <span class="fraction">
+                            <span class="top">61.5 mV</span>
+                            <span class="bottom">z</span>
+                        </span>
+                        log
+                        <span class="fraction">
+                            <span class="top">[X]<sub>dış</sub></span>
+                            <span class="bottom">[X]<sub>iç</sub></span>
+                        </span>
+                    </div>
+                    <p style="font-size: 0.85rem; color: #a0a6b1; text-align: center;">z: iyon yükü (+1/-1), [X]: konsantrasyon. K⁺ için: 61.5 &times; log(5/140) = −88 mV.</p>
+                </div>
+
+                <div class="section-box">
+                    <h3>Üç İyon, Üç Farklı İstek</h3>
+                    <table class="ion-table">
+                        <thead>
+                            <tr>
+                                <th>İyon</th>
+                                <th>İç (mM)</th>
+                                <th>Dış (mM)</th>
+                                <th>Denge Pot.</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>K⁺ (z=+1)</td>
+                                <td>140</td>
+                                <td>5</td>
+                                <td><strong>−88 mV</strong></td>
+                            </tr>
+                            <tr>
+                                <td>Na⁺ (z=+1)</td>
+                                <td>15</td>
+                                <td>145</td>
+                                <td><strong>+62 mV</strong></td>
+                            </tr>
+                            <tr>
+                                <td>Cl⁻ (z=-1)</td>
+                                <td>10</td>
+                                <td>110</td>
+                                <td><strong>−65 mV</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p style="margin-top: 8px; font-size: 0.85rem;">K⁺ zarını −88'e, Na⁺ ise +62'ye çekmek ister. Cl⁻ dinlenme potansiyeline yakındır.</p>
                 </div>
 
                 <div class="section-box">
                     <h3>−88 mV Değil, −70 mV: Neden?</h3>
-                    <p>Zar yalnızca K⁺'a geçirgen olsaydı dinlenme potansiyeli −88 mV olurdu. Ancak zar küçük miktarda Na⁺ ve Cl⁻'a da geçirgen. Na⁺'un denge noktası (+62 mV) pozitif yönde çeker ve iğneyi −70'e doğru kaydırır. Nernst tek başına yeterli değildir; bir sonraki bölümde <strong>GHK denklemi</strong> devreye girer.</p>
+                    <p>Eğer zar yalnızca K⁺'a geçirgen olsaydı iğne −88'de otururdu. Ama Na⁺ ve Cl⁻'a da geçirgenlik var. Na⁺'un +62 mV'luk çekimi iğneyi pozitif yöne kaydırır. Sonuç: Ağırlıklı bir uzlaşma noktası olan <strong>−70 mV</strong>. Bu hesabı Nernst tek başına yapamaz, GHK devreye girer.</p>
                 </div>
             </div>
 
             <div class="footer-frame">
                 <strong>Zihinsel Çerçeve</strong>
-                <p>Nernst her iyonun "oy"unu hesaplar. Gerçek membran potansiyeli ise bu oyların geçirgenliğe göre ağırlıklı ortalamasıdır — o hesabı GHK yapacak.</p>
+                <p>Nernst her iyonun "istediği" voltajı hesaplar. Gerçek membran potansiyeli ise bu isteklerin geçirgenliğe göre ağırlıklı ortalamasıdır — o hesabı GHK yapacak.</p>
             </div>
         </div>
 
