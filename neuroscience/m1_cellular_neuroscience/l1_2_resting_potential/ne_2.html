@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>İyon Gradyanları - Nöronun Hammaddesi</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0a0c10;
+            --card-bg: rgba(17, 20, 24, 0.8);
+            --accent: #00f2ff;
+            --accent-macro: #ff9d00;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a6b1;
+            --glass: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.08);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg);
+            color: var(--text-primary);
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background-image: 
+                radial-gradient(circle at 20% 20%, rgba(0, 242, 255, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 80% 80%, rgba(255, 157, 0, 0.03) 0%, transparent 40%);
+        }
+
+        .slide-container {
+            width: 95vw;
+            height: 90vh;
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border);
+            border-radius: 32px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            padding: 40px;
+            position: relative;
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Sol Panel */
+        .left-panel {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .header {
+            margin-bottom: 2rem;
+        }
+
+        .header h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            background: linear-gradient(135deg, #fff 0%, #00f2ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .content-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+
+        .section-box {
+            background: rgba(255, 255, 255, 0.02);
+            border-left: 3px solid var(--accent);
+            padding: 1.2rem 1.6rem;
+            border-radius: 0 14px 14px 0;
+            transition: all 0.3s ease;
+        }
+
+        .section-box.orange { border-left-color: var(--accent-macro); }
+
+        .section-box h3 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: var(--accent);
+        }
+
+        .section-box.orange h3 { color: var(--accent-macro); }
+
+        .section-box p {
+            font-size: 1rem;
+            line-height: 1.5;
+            color: var(--text-secondary);
+        }
+
+        /* Tablo Stilleri */
+        .ion-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .ion-table th {
+            text-align: left;
+            padding: 10px 15px;
+            background: rgba(0, 242, 255, 0.1);
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .ion-table td {
+            padding: 10px 15px;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-secondary);
+        }
+
+        /* Sağ Panel */
+        .right-panel {
+            position: relative;
+            background: var(--glass);
+            border-radius: 24px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--border);
+        }
+
+        .visual-container img {
+            max-width: 90%;
+            height: auto;
+            border-radius: 16px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Footer / Framework Box */
+        .footer-frame {
+            margin-top: 2rem;
+            background: linear-gradient(90deg, rgba(0, 242, 255, 0.05), transparent);
+            border: 1px dashed var(--accent);
+            padding: 1.5rem;
+            border-radius: 16px;
+        }
+
+        .footer-frame strong {
+            display: block;
+            color: var(--accent);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 8px;
+        }
+
+        .footer-frame p {
+            font-size: 1.05rem;
+            line-height: 1.6;
+            color: var(--text-primary);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="slide-container">
+        <!-- Sol Panel -->
+        <div class="left-panel">
+            <div class="header">
+                <h1>2. İyon Konsantrasyonları</h1>
+            </div>
+
+            <div class="content-panel">
+                <div class="section-box">
+                    <h3>Hücre İçi vs. Dışı Asimetri</h3>
+                    <p>Dinlenme potansiyelini yaratan yük dengesizliği rastgele değil — hücrenin içi ve dışındaki iyon miktarları arasında çok belirgin bir asimetri var.</p>
+                </div>
+
+                <div class="section-box orange">
+                    <h3>K⁺ ve Na⁺: Aynadaki Görüntü</h3>
+                    <p>K⁺ içeride 140 mM, dışarıda yalnızca 5 mM (28 kat fark). Na⁺ ise tam tersi; dışarıda 145 mM, içeride 15 mM. Bu kimyasal "sıkışma" hissi, sinyallerin potansiyel enerjisidir.</p>
+                </div>
+
+                <div class="section-box">
+                    <h3>Dağılım Kendiliğinden Korunmaz</h3>
+                    <p>Bu gradyanlar bırakılsa zamanla bozulur. Na⁺/K⁺ pompası ATP harcayarak bu dengesizliği sürekli yeniden kurar. Beyin enerjisinin %20-40'ı sadece bu işe harcanır.</p>
+                </div>
+
+                <!-- Tablo Bölümü -->
+                <table class="ion-table">
+                    <thead>
+                        <tr>
+                            <th>İyon</th>
+                            <th>İç (mM)</th>
+                            <th>Dış (mM)</th>
+                            <th>Konum</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="color: var(--accent-macro); font-weight: bold;">K⁺</td>
+                            <td>140</td>
+                            <td>5</td>
+                            <td>İçeride yoğun</td>
+                        </tr>
+                        <tr>
+                            <td style="color: var(--accent); font-weight: bold;">Na⁺</td>
+                            <td>15</td>
+                            <td>145</td>
+                            <td>Dışarıda yoğun</td>
+                        </tr>
+                        <tr>
+                            <td>Cl⁻</td>
+                            <td>10</td>
+                            <td>110</td>
+                            <td>Dışarıda yoğun</td>
+                        </tr>
+                        <tr>
+                            <td>Ca²⁺</td>
+                            <td>0.0001</td>
+                            <td>1.5</td>
+                            <td>Dışarıda yoğun</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="footer-frame">
+                <strong>Zihinsel Çerçeve</strong>
+                <p>K⁺ ve Na⁺ birbirinin aynası gibi — biri içeride fazla, diğeri dışarıda. Bu asimetri tüm elektriksel sinyalleşmenin hammaddesidir.</p>
+            </div>
+        </div>
+
+        <!-- Sağ Panel -->
+        <div class="right-panel">
+            <div class="visual-container">
+                <img src="assets/ion_gradients.png" alt="İyon KonsantrasyonGradyanları">
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
