@@ -68,48 +68,42 @@
             box-shadow: 0 40px 100px rgba(0, 0, 0, 0.5);
             animation: fadeIn 0.8s ease;
         }
-
         /* Sol Panel */
         .left-panel {
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             min-height: 0;
+            padding-right: 5px;
         }
 
         .header h1 {
-            font-size: 2.2rem;
+            font-size: 2.1rem;
             font-weight: 800;
             letter-spacing: -0.03em;
-            background: linear-gradient(135deg, #fff 0%, var(--accent) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: var(--text-primary);
         }
 
         .header p {
             color: var(--text-secondary);
-            font-size: 1rem;
-            margin-top: 5px;
+            font-size: 0.95rem;
+            margin-top: 4px;
             font-weight: 300;
         }
 
         .content-panel {
             display: flex;
             flex-direction: column;
-            gap: 1rem;
+            gap: 0.7rem;
             min-height: 0;
-            overflow-y: auto;
-            padding-right: 12px;
-            margin-top: 20px;
+            overflow-y: hidden; /* Prevent scrolling by default, will auto-scale if possible */
+            margin-top: 15px;
         }
-
-        .content-panel::-webkit-scrollbar { width: 4px; }
-        .content-panel::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
 
         .section-box {
             background: rgba(255, 255, 255, 0.02);
-            padding: 1.2rem;
-            border-radius: 20px;
+            padding: 0.8rem 1.1rem;
+            border-radius: 16px;
             border-left: 2px solid rgba(0, 242, 255, 0.2);
             transition: all 0.3s ease;
         }
@@ -120,21 +114,18 @@
         }
 
         .section-box h3 {
-            font-size: 1.2rem;
+            font-size: 1.05rem;
             font-weight: 700;
-            margin-bottom: 6px;
+            margin-bottom: 3px;
             display: flex;
             align-items: center;
             gap: 10px;
+            color: var(--accent);
         }
 
-        .section-box.mutlak h3 { color: var(--error); }
-        .section-box.relatif h3 { color: var(--warning); }
-        .section-box.importance h3 { color: var(--accent); }
-
         .section-box p {
-            font-size: 0.98rem;
-            line-height: 1.6;
+            font-size: 0.94rem;
+            line-height: 1.5;
             color: #d1d5db;
         }
 
@@ -162,29 +153,30 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            filter: drop-shadow(0 0 30px rgba(0, 242, 255, 0.1));
         }
 
         /* Footer / Mental Frame Box */
         .footer-frame {
-            margin-top: 1.5rem;
-            background: linear-gradient(90deg, rgba(0, 242, 255, 0.1), transparent);
+            margin-top: 0.8rem;
+            background: linear-gradient(90deg, rgba(0, 242, 255, 0.08), transparent);
             border: 1px dashed rgba(0, 242, 255, 0.4);
-            padding: 1.2rem;
-            border-radius: 20px;
+            padding: 0.8rem 1.1rem;
+            border-radius: 16px;
         }
 
         .footer-frame strong {
             display: block;
             color: var(--accent);
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             text-transform: uppercase;
             letter-spacing: 0.15em;
-            margin-bottom: 4px;
+            margin-bottom: 3px;
         }
 
         .footer-frame p {
-            font-size: 1.05rem;
-            line-height: 1.5;
+            font-size: 0.98rem;
+            line-height: 1.4;
             color: var(--text-primary);
             font-weight: 500;
         }
@@ -202,21 +194,20 @@
         <div class="left-panel">
             <div class="header">
                 <h1>Refraktör Periyot: Neden Arka Arkaya Ateşlenemez?</h1>
-                <p>Bir sinyalin hemen ardından ikincisini tetiklemek neden imkansızdır?</p>
             </div>
 
             <div class="content-panel">
-                <div class="section-box mutlak">
+                <div class="section-box">
                     <h3>Mutlak Refraktör Periyot (~1-2 ms)</h3>
                     <p>\(\text{Na}^+\) kanallarının inaktivasyon kapıları hâlâ tıkalıdır. Bu sürede kanal fiziksel olarak açılamaz; uyarının şiddeti ne olursa olsun yeni bir aksiyon potansiyeli tetiklemek <strong>imkansızdır</strong>.</p>
                 </div>
 
-                <div class="section-box relatif">
+                <div class="section-box">
                     <h3>Relatif Refraktör Periyot (~3-4 ms)</h3>
-                    <p>\(\text{Na}^+\) kanalları sıfırlanmaya başlar ancak \(\text{K}^+\) kanalları hâlâ açık olduğu için zar \(-80\) mV (hiperpolarize) seviyesindedir. Eşiğe ulaşmak için <strong>normalden çok daha güçlü</strong> bir uyarı gerekir.</p>
+                    <p>\(\text{Na}^+\) kanalları sıfırlanmaya başlar ancak \(\text{K}^+\) kanalları hâlâ açık olduğu için zar \(-80\) mV seviyesindedir. Eşiğe ulaşmak için <strong>normalden çok daha güçlü</strong> bir uyarı gerekir.</p>
                 </div>
 
-                <div class="section-box importance">
+                <div class="section-box">
                     <h3>Neden Önemli?</h3>
                     <p>Sinyalin geriye sönmesini engelleyerek <strong>tek yönlü</strong> iletimi sağlar. Ayrıca nöronun maksimum frekansını (~200-500 Hz) belirler. Bilgi büyüklükle değil, ateşleme <strong>frekansıyla</strong> kodlanır.</p>
                 </div>
