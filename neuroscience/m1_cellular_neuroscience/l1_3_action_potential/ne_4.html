@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Refraktör Periyot: Neden Arka Arkaya Ateşlenemez?</title>
+    
+    <!-- KaTeX Support -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+                delimiters: [
+                    {left: '\\[', right: '\\]', display: true},
+                    {left: '\\(', right: '\\)', display: false}
+                ],
+                throwOnError: false
+            });
+        });
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0a0c10;
+            --card-bg: rgba(17, 20, 24, 0.85);
+            --accent: #00f2ff;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a6b1;
+            --glass: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.1);
+            --error: #ff4d4d;
+            --warning: #ffcc00;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg);
+            color: var(--text-primary);
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background-image: 
+                radial-gradient(circle at 50% 10%, rgba(0, 242, 255, 0.05) 0%, transparent 40%);
+        }
+
+        .slide-container {
+            width: 95vw;
+            height: 90vh;
+            max-width: 1400px;
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border);
+            border-radius: 32px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            padding: 40px;
+            position: relative;
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.8s ease;
+        }
+
+        /* Sol Panel */
+        .left-panel {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 0;
+        }
+
+        .header h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            background: linear-gradient(135deg, #fff 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .header p {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            margin-top: 5px;
+            font-weight: 300;
+        }
+
+        .content-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            min-height: 0;
+            overflow-y: auto;
+            padding-right: 12px;
+            margin-top: 20px;
+        }
+
+        .content-panel::-webkit-scrollbar { width: 4px; }
+        .content-panel::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
+
+        .section-box {
+            background: rgba(255, 255, 255, 0.02);
+            padding: 1.2rem;
+            border-radius: 20px;
+            border-left: 2px solid rgba(0, 242, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .section-box:hover {
+            background: rgba(255, 255, 255, 0.04);
+            border-left-color: var(--accent);
+        }
+
+        .section-box h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-box.mutlak h3 { color: var(--error); }
+        .section-box.relatif h3 { color: var(--warning); }
+        .section-box.importance h3 { color: var(--accent); }
+
+        .section-box p {
+            font-size: 0.98rem;
+            line-height: 1.6;
+            color: #d1d5db;
+        }
+
+        /* Sağ Panel */
+        .right-panel {
+            position: relative;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 24px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--border);
+        }
+
+        .visual-container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .visual-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Footer / Mental Frame Box */
+        .footer-frame {
+            margin-top: 1.5rem;
+            background: linear-gradient(90deg, rgba(0, 242, 255, 0.1), transparent);
+            border: 1px dashed rgba(0, 242, 255, 0.4);
+            padding: 1.2rem;
+            border-radius: 20px;
+        }
+
+        .footer-frame strong {
+            display: block;
+            color: var(--accent);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 4px;
+        }
+
+        .footer-frame p {
+            font-size: 1.05rem;
+            line-height: 1.5;
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="slide-container">
+        <!-- Sol Panel -->
+        <div class="left-panel">
+            <div class="header">
+                <h1>Refraktör Periyot: Neden Arka Arkaya Ateşlenemez?</h1>
+                <p>Bir sinyalin hemen ardından ikincisini tetiklemek neden imkansızdır?</p>
+            </div>
+
+            <div class="content-panel">
+                <div class="section-box mutlak">
+                    <h3>Mutlak Refraktör Periyot (~1-2 ms)</h3>
+                    <p>\(\text{Na}^+\) kanallarının inaktivasyon kapıları hâlâ tıkalıdır. Bu sürede kanal fiziksel olarak açılamaz; uyarının şiddeti ne olursa olsun yeni bir aksiyon potansiyeli tetiklemek <strong>imkansızdır</strong>.</p>
+                </div>
+
+                <div class="section-box relatif">
+                    <h3>Relatif Refraktör Periyot (~3-4 ms)</h3>
+                    <p>\(\text{Na}^+\) kanalları sıfırlanmaya başlar ancak \(\text{K}^+\) kanalları hâlâ açık olduğu için zar \(-80\) mV (hiperpolarize) seviyesindedir. Eşiğe ulaşmak için <strong>normalden çok daha güçlü</strong> bir uyarı gerekir.</p>
+                </div>
+
+                <div class="section-box importance">
+                    <h3>Neden Önemli?</h3>
+                    <p>Sinyalin geriye sönmesini engelleyerek <strong>tek yönlü</strong> iletimi sağlar. Ayrıca nöronun maksimum frekansını (~200-500 Hz) belirler. Bilgi büyüklükle değil, ateşleme <strong>frekansıyla</strong> kodlanır.</p>
+                </div>
+            </div>
+
+            <div class="footer-frame">
+                <strong>Zihinsel Çerçeve</strong>
+                <p>Refraktör periyot bir "limit" değil, bir tasarımdır. Sinyali kontrollü tutar, frekansı anlamlı kılar ve sistemde kaos oluşmasını engeller.</p>
+            </div>
+        </div>
+
+        <!-- Sağ Panel -->
+        <div class="right-panel">
+            <div class="visual-container">
+                <img src="assets/refractory.png" alt="Refraktör Periyot Zaman Çizelgesi">
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
