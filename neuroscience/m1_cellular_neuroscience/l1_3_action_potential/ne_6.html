@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aksiyon Potansiyelinin İletimi</title>
+    <!-- Google Fonts: Outfit -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #0a0c10;
+            --accent: #00f2ff;
+            --text-primary: #ffffff;
+            --text-secondary: #94a3b8;
+            --border: rgba(255, 255, 255, 0.1);
+            --glass: rgba(255, 255, 255, 0.03);
+            --error: #ff4d4d;
+            --warning: #ffcc00;
+            --safe: #10b981;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+            font-family: 'Outfit', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
+        }
+
+        .slide-container {
+            width: 95vw;
+            height: 90vh;
+            max-width: 1400px;
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border);
+            border-radius: 32px;
+            padding: 2.5rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2.5rem;
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.8s ease;
+        }
+
+        /* Sol Panel */
+        .left-panel {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 0;
+            padding-right: 15px;
+        }
+
+        .header h1 {
+            font-size: 2.3rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            color: var(--text-primary);
+            line-height: 1.1;
+        }
+
+        .content-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            min-height: 0;
+            overflow-y: auto;
+            margin-top: 20px;
+            padding-right: 10px;
+        }
+
+        /* Styles for custom scrollbar */
+        .content-panel::-webkit-scrollbar {
+            width: 6px;
+        }
+        .content-panel::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.01);
+        }
+        .content-panel::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+
+        .section-box {
+            background: rgba(255, 255, 255, 0.02);
+            padding: 1.1rem 1.4rem;
+            border-radius: 18px;
+            border-left: 3px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .section-box:hover {
+            background: rgba(255, 255, 255, 0.04);
+            transform: translateX(5px);
+        }
+
+        .section-box h3 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+            color: var(--accent);
+        }
+
+        .section-box p {
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: #d1d5db;
+        }
+
+        .section-box.continuous { border-left-color: #94a3b8; }
+        .section-box.saltatory { border-left-color: var(--accent); }
+        .section-box.clinic { border-left-color: var(--error); }
+
+        /* Sağ Panel */
+        .right-panel {
+            position: relative;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 24px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--border);
+        }
+
+        .visual-container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .visual-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: drop-shadow(0 0 30px rgba(0, 242, 255, 0.1));
+        }
+
+        /* Footer / Mental Frame Box */
+        .footer-frame {
+            margin-top: 1.2rem;
+            background: linear-gradient(90deg, rgba(16, 185, 129, 0.1), transparent);
+            border: 1px dashed rgba(16, 185, 129, 0.4);
+            padding: 1.1rem 1.4rem;
+            border-radius: 20px;
+        }
+
+        .footer-frame strong {
+            display: block;
+            color: var(--safe);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 5px;
+        }
+
+        .footer-frame p {
+            font-size: 1.05rem;
+            line-height: 1.45;
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="slide-container">
+        <!-- Sol Panel -->
+        <div class="left-panel">
+            <div class="header">
+                <h1>Aksiyon Potansiyelinin İletimi</h1>
+            </div>
+
+            <div class="content-panel">
+                <div class="section-box">
+                    <p>Tetiklenen aksiyon potansiyeli nöronun gövdesinde kalmaz — akson boyunca ilerler. Bir noktada depolarizasyon olunca yerel elektrik akımı komşu bölgeyi eşiğe iter, orada da Na⁺ kanalları açılır. Dalga ileriye gider, geriye dönemez — geldiği yön refraktör periyottadır.</p>
+                </div>
+
+                <div class="section-box continuous">
+                    <h3>Sürekli İletim</h3>
+                    <p>Miyelin kılıfsız aksonlarda her noktada aksiyon potansiyeli yeniden üretilir. Na⁺ kanalları açılıp kapanır, K⁺ kanalları devreye girer — her milimetrede aynı döngü. Yavaş (~1 m/s) ve enerji açısından pahalıdır.</p>
+                </div>
+
+                <div class="section-box saltatory">
+                    <h3>Sıçramalı İletim</h3>
+                    <p>Miyelin kılıflı aksonlarda zar yalıtılmış — akım dışarı sızmaz, Ranvier düğümüne kadar güçlü kalır. Düğümde eşik aşılır, aksiyon potansiyeli yeniden üretilir ve bir sonraki düğüme atlar. Çok hızlı (~70-120 m/s) ve enerji verimlidir.</p>
+                </div>
+
+                <div class="section-box clinic">
+                    <h3>Klinik Bağlantı: MS</h3>
+                    <p>Multipl skleroz hastalığında bağışıklık sistemi miyelin kılıfa hasar verir. Akım düğüme ulaşamadan sızıp kaybolur — sinyal zayıflar veya tamamen kesilir. Kas kontrolü ve duyu kaybı bu yüzden ortaya çıkar.</p>
+                </div>
+            </div>
+
+            <div class="footer-frame">
+                <strong>Zihinsel Çerçeve</strong>
+                <p>Miyelin kılıf bir yalıtkan kablo gibi — akımın sızmasını engelliyor, sinyali düğüme kadar güçlü tutuyor. Olmadan her adımda yeniden başlamak zorundasın.</p>
+            </div>
+        </div>
+
+        <!-- Sağ Panel -->
+        <div class="right-panel">
+            <div class="visual-container">
+                <img src="assets/propagation.png" alt="Aksiyon Potansiyeli İletim Mekanizmaları">
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
