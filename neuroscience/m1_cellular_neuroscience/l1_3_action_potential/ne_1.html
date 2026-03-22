@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eşik ve Tetiklenme: Hep ya da Hiç</title>
+    
+    <!-- KaTeX Support -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+                delimiters: [
+                    {left: '\\[', right: '\\]', display: true},
+                    {left: '\\(', right: '\\)', display: false}
+                ],
+                throwOnError: false
+            });
+        });
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0a0c10;
+            --card-bg: rgba(17, 20, 24, 0.8);
+            --accent: #00f2ff;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a6b1;
+            --glass: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.08);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg);
+            color: var(--text-primary);
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background-image: 
+                radial-gradient(circle at 20% 20%, rgba(0, 242, 255, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 80% 80%, rgba(0, 242, 255, 0.02) 0%, transparent 40%);
+        }
+
+        .slide-container {
+            width: 95vw;
+            height: 90vh;
+            max-width: 1400px;
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border);
+            border-radius: 32px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            padding: 40px;
+            position: relative;
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Sol Panel */
+        .left-panel {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 0;
+        }
+
+        .header {
+            margin-bottom: 0.8rem;
+        }
+
+        .header h1 {
+            font-size: 2.22rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            color: var(--text-primary);
+        }
+
+        .content-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            min-height: 0;
+            overflow-y: auto;
+            padding-right: 12px;
+        }
+
+        /* Scrollbar Styling */
+        .content-panel::-webkit-scrollbar { width: 4px; }
+        .content-panel::-webkit-scrollbar-track { background: transparent; }
+        .content-panel::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
+
+        .section-box {
+            background: rgba(255, 255, 255, 0.02);
+            padding: 0.8rem 1.2rem;
+            border-radius: 16px;
+            border-left: 2px solid rgba(0, 242, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .section-box:hover {
+            background: rgba(255, 255, 255, 0.04);
+            border-left-color: var(--accent);
+        }
+
+        .section-box h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+            color: var(--accent);
+            letter-spacing: -0.01em;
+        }
+
+        .section-box p {
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: #d1d5db;
+        }
+
+        /* Sağ Panel */
+        .right-panel {
+            position: relative;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 24px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--border);
+        }
+
+        .visual-container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+
+        .visual-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            filter: drop-shadow(0 0 30px rgba(0, 242, 255, 0.1));
+        }
+
+        /* Footer / Framework Box */
+        .footer-frame {
+            margin-top: 1rem;
+            background: linear-gradient(90deg, rgba(0, 242, 255, 0.08), transparent);
+            border: 1px dashed rgba(0, 242, 255, 0.4);
+            padding: 0.8rem 1.2rem;
+            border-radius: 16px;
+        }
+
+        .footer-frame strong {
+            display: block;
+            color: var(--accent);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 4px;
+        }
+
+        .footer-frame p {
+            font-size: 1rem;
+            line-height: 1.4;
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="slide-container">
+        <!-- Sol Panel -->
+        <div class="left-panel">
+            <div class="header">
+                <h1>Eşik ve Tetiklenme: Hep ya da Hiç</h1>
+            </div>
+
+            <div class="content-panel">
+                <div class="section-box">
+                    <h3>Mevcut Denge</h3>
+                    <p>Dinlenme halinde içerisi \( -70 \) mV. \(\text{Na}^+\) içeri girmek için \( -132 \) mV'luk devasa bir baskıyla bekliyor — ama voltaj kapılı \(\text{Na}^+\) kanalları kapalı.</p>
+                </div>
+
+                <div class="section-box">
+                    <h3>Neden \( -55 \) mV Eşiği?</h3>
+                    <p>\(\text{Na}^+\) kanalının içinde voltaja duyarlı bir protein parçası var. Bu parça tam \( -55 \) mV'da yeterli elektriksel kuvveti hissediyor ve fiziksel olarak şekil değiştirip kanalı açıyor. Her nöron bu şekilde kalibre edilmiş bir eşiğe sahiptir.</p>
+                </div>
+
+                <div class="section-box">
+                    <h3>Ne Olunca \( -55 \) mV Aşılır?</h3>
+                    <p>Komşu bir nörondan gelen sinyal membranı \( -70 \)'ten yukarı iter. \( -55 \) mV'a ulaşılınca kanal açılır ve artık dışarıdan yardıma gerek kalmaz; \(\text{Na}^+\)'un kendi baskısı devralır.</p>
+                </div>
+
+                <div class="section-box">
+                    <h3>Zincirleme Reaksiyon: Hep ya da Hiç</h3>
+                    <p>İlk kanal açılınca komşu kanallar da hızla açılır. Bu döngü \( +40 \) mV'a kadar durdurulamaz. Sonuç her zaman aynıdır; güçlü uyarı daha büyük tepe değil, daha sık ateşleme (frekans) üretir.</p>
+                </div>
+            </div>
+
+            <div class="footer-frame">
+                <strong>Zihinsel Çerçeve</strong>
+                <p>\( -132 \) mV'luk baskı her zaman orada bekliyor. \( -55 \) mV o enerjinin serbest kaldığı tetik noktasıdır.</p>
+            </div>
+        </div>
+
+        <!-- Sağ Panel -->
+        <div class="right-panel">
+            <div class="visual-container">
+                <img src="assets/action_potential_threshold_organic.png" alt="Aksiyon Potansiyeli Eşik Mekanizması: Dinlenme vs. Tetiklenme">
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
