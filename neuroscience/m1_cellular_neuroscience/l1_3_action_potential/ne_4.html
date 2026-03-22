@@ -74,58 +74,61 @@
             flex-direction: column;
             justify-content: space-between;
             min-height: 0;
-            padding-right: 5px;
+            padding-right: 10px;
         }
 
         .header h1 {
-            font-size: 2.1rem;
+            font-size: 2.3rem;
             font-weight: 800;
             letter-spacing: -0.03em;
             color: var(--text-primary);
+            line-height: 1.1;
         }
 
         .header p {
             color: var(--text-secondary);
-            font-size: 0.95rem;
-            margin-top: 4px;
+            font-size: 1rem;
+            margin-top: 8px;
             font-weight: 300;
         }
 
         .content-panel {
             display: flex;
             flex-direction: column;
-            gap: 0.7rem;
+            gap: 1rem;
             min-height: 0;
-            overflow-y: hidden; /* Prevent scrolling by default, will auto-scale if possible */
-            margin-top: 15px;
+            overflow-y: hidden; 
+            margin-top: 25px;
         }
 
         .section-box {
             background: rgba(255, 255, 255, 0.02);
-            padding: 0.8rem 1.1rem;
-            border-radius: 16px;
-            border-left: 2px solid rgba(0, 242, 255, 0.2);
+            padding: 1rem 1.3rem;
+            border-radius: 18px;
+            border-left: 3px solid rgba(0, 242, 255, 0.2);
             transition: all 0.3s ease;
         }
 
         .section-box:hover {
             background: rgba(255, 255, 255, 0.04);
-            border-left-color: var(--accent);
+            transform: translateX(5px);
         }
 
+        /* Renkli Kenarlıklar */
+        .section-box.mutlak { border-left-color: #ff4d4d; }
+        .section-box.relatif { border-left-color: #ffcc00; }
+        .section-box.importance { border-left-color: var(--accent); }
+
         .section-box h3 {
-            font-size: 1.05rem;
+            font-size: 1.15rem;
             font-weight: 700;
-            margin-bottom: 3px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            margin-bottom: 5px;
             color: var(--accent);
         }
 
         .section-box p {
-            font-size: 0.94rem;
-            line-height: 1.5;
+            font-size: 1rem;
+            line-height: 1.6;
             color: #d1d5db;
         }
 
@@ -158,25 +161,25 @@
 
         /* Footer / Mental Frame Box */
         .footer-frame {
-            margin-top: 0.8rem;
-            background: linear-gradient(90deg, rgba(0, 242, 255, 0.08), transparent);
+            margin-top: 1.2rem;
+            background: linear-gradient(90deg, rgba(0, 242, 255, 0.1), transparent);
             border: 1px dashed rgba(0, 242, 255, 0.4);
-            padding: 0.8rem 1.1rem;
-            border-radius: 16px;
+            padding: 1.1rem 1.4rem;
+            border-radius: 20px;
         }
 
         .footer-frame strong {
             display: block;
             color: var(--accent);
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             text-transform: uppercase;
             letter-spacing: 0.15em;
-            margin-bottom: 3px;
+            margin-bottom: 5px;
         }
 
         .footer-frame p {
-            font-size: 0.98rem;
-            line-height: 1.4;
+            font-size: 1.05rem;
+            line-height: 1.5;
             color: var(--text-primary);
             font-weight: 500;
         }
@@ -197,17 +200,17 @@
             </div>
 
             <div class="content-panel">
-                <div class="section-box">
+                <div class="section-box mutlak">
                     <h3>Mutlak Refraktör Periyot (~1-2 ms)</h3>
                     <p>\(\text{Na}^+\) kanallarının inaktivasyon kapıları hâlâ tıkalıdır. Bu sürede kanal fiziksel olarak açılamaz; uyarının şiddeti ne olursa olsun yeni bir aksiyon potansiyeli tetiklemek <strong>imkansızdır</strong>.</p>
                 </div>
 
-                <div class="section-box">
+                <div class="section-box relatif">
                     <h3>Relatif Refraktör Periyot (~3-4 ms)</h3>
                     <p>\(\text{Na}^+\) kanalları sıfırlanmaya başlar ancak \(\text{K}^+\) kanalları hâlâ açık olduğu için zar \(-80\) mV seviyesindedir. Eşiğe ulaşmak için <strong>normalden çok daha güçlü</strong> bir uyarı gerekir.</p>
                 </div>
 
-                <div class="section-box">
+                <div class="section-box importance">
                     <h3>Neden Önemli?</h3>
                     <p>Sinyalin geriye sönmesini engelleyerek <strong>tek yönlü</strong> iletimi sağlar. Ayrıca nöronun maksimum frekansını (~200-500 Hz) belirler. Bilgi büyüklükle değil, ateşleme <strong>frekansıyla</strong> kodlanır.</p>
                 </div>
