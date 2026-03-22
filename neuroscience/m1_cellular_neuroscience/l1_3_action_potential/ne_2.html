@@ -28,45 +28,71 @@
             color: var(--text-primary);
             height: 100vh;
             display: flex;
+            flex-direction: column;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start;
             overflow: hidden;
             background-image: 
-                radial-gradient(circle at 50% 50%, rgba(0, 242, 255, 0.03) 0%, transparent 50%);
+                radial-gradient(circle at 50% 50%, rgba(0, 242, 255, 0.05) 0%, transparent 70%);
+            padding-top: 40px;
+        }
+
+        .main-header {
+            margin-bottom: 30px;
+            text-align: center;
+            animation: fadeInDown 1s ease;
+        }
+
+        .main-header h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, #fff 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .main-header p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            font-weight: 300;
         }
 
         .container {
-            width: 98vw;
-            height: 95vh;
+            width: 95vw;
+            height: 75vh;
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 15px;
-            padding: 20px;
+            gap: 20px;
+            padding: 10px;
+            animation: fadeIn 1.2s ease;
         }
 
         .card {
             background: var(--card-bg);
             border: 1px solid var(--border);
-            border-radius: 24px;
+            border-radius: 32px;
             overflow: hidden;
             display: flex;
             flex-direction: column;
-            transition: transform 0.3s ease, border-color 0.3s ease;
-            backdrop-filter: blur(10px);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), border-color 0.4s ease, box-shadow 0.4s ease;
+            backdrop-filter: blur(15px);
+            position: relative;
         }
 
         .card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-10px);
             border-color: var(--accent);
+            box-shadow: 0 20px 40px rgba(0, 242, 255, 0.1);
         }
 
-        /* Üst Yarı: Görsel */
         .card-visual {
-            height: 45%;
+            height: 48%;
             width: 100%;
             overflow: hidden;
-            background: rgba(0, 0, 0, 0.3);
-            border-bottom: 1px solid var(--border);
+            background: rgba(0, 0, 0, 0.5);
+            border-bottom: 2px solid var(--border);
             position: relative;
         }
 
@@ -74,60 +100,74 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            filter: brightness(0.9);
-            transition: filter 0.3s ease;
+            filter: brightness(0.8);
+            transition: all 0.5s ease;
         }
 
         .card:hover .card-visual img {
-            filter: brightness(1.1);
+            filter: brightness(1.1) scale(1.05);
         }
 
-        /* Alt Yarı: İçerik */
         .card-content {
             flex: 1;
-            padding: 20px;
+            padding: 30px;
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 15px;
             overflow-y: auto;
         }
 
         .card-content h3 {
-            font-size: 1.2rem;
+            font-size: 1.6rem;
             font-weight: 800;
             color: #fff;
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
+            line-height: 1.2;
         }
 
         .v-tag {
-            font-size: 0.95rem;
+            display: block;
+            margin-top: 8px;
+            font-size: 1.2rem;
             color: var(--accent);
             font-weight: 600;
-            letter-spacing: 0.05em;
+            font-family: 'Outfit', sans-serif;
         }
 
         .card-content p {
-            font-size: 0.9rem;
-            line-height: 1.6;
+            font-size: 1.05rem;
+            line-height: 1.7;
             color: var(--text-secondary);
+            font-weight: 400;
         }
 
         /* Scrollbar styling */
         .card-content::-webkit-scrollbar {
-            width: 4px;
+            width: 5px;
         }
         .card-content::-webkit-scrollbar-thumb {
-            background: rgba(0, 242, 255, 0.2);
+            background: rgba(0, 242, 255, 0.3);
             border-radius: 10px;
         }
 
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         /* LaTeX sizing tweak */
-        .katex { font-size: 1em !important; }
+        .katex { font-size: 1.1em !important; }
     </style>
 </head>
 <body>
+
+    <header class="main-header">
+        <h1>Aksiyon Potansiyelinin Aşamaları</h1>
+        <p>Nöronal Uyarılabilirliğin Elektrofizyolojik Döngüsü</p>
+    </header>
 
     <div class="container">
         <!-- Kart 1 -->
@@ -136,8 +176,9 @@
                 <img src="assets/resting.png" alt="Dinlenme">
             </div>
             <div class="card-content">
-                <h3>Aşama 1: Dinlenme <span class="v-tag">\( -70 \text{ mV} \)</span></h3>
-                <p>Voltaj kapılı \( \text{Na}^+ \) kanalları kapalı. \( \text{Na}^+ \), \( -132 \text{ mV} \)'luk devasa bir baskıyla eşik noktasında bekliyor ancak içeri giremez. \( \text{K}^+ \) sızıntı kanalları açık, sistem 1.2'den bildiğimiz dinamik dengede.</p>
+                <h3>Aşama 1: Dinlenme</h3>
+                <span class="v-tag">\( -70 \text{ mV} \)</span>
+                <p>Voltaj kapılı \( \text{Na}^+ \) kanalları kapalı durumdadır. Elektromotor kuvvet, \( \text{Na}^+ \) iyonlarını \( -132 \text{ mV} \)'luk bir baskıyla içeri çekmeye çalışır. Ancak kapılar kapalıdır, sistem dinamik dengede bekler.</p>
             </div>
         </div>
 
@@ -147,8 +188,9 @@
                 <img src="assets/depolarization.png" alt="Depolarizasyon">
             </div>
             <div class="card-content">
-                <h3>Aşama 2: Depolarizasyon <span class="v-tag">\( -70 \rightarrow +40 \text{ mV} \)</span></h3>
-                <p>\( -55 \text{ mV} \) eşiği aşılınca \( \text{Na}^+ \) kanalları hızla açılır. Birikmiş \( -132 \text{ mV} \)'luk baskı serbest kalır ve \( \text{Na}^+ \) hücre içine hücum eder. İçerisi milisaniyeler içinde \( +40 \text{ mV} \)'a fırlar.</p>
+                <h3>Aşama 2: Depolarizasyon</h3>
+                <span class="v-tag">\( -70 \rightarrow +40 \text{ mV} \)</span>
+                <p>\( -55 \text{ mV} \) eşiği aşılınca \( \text{Na}^+ \) kanalları saniyeler içinde açılır. Gecikmiş baskı serbest kalarak \( \text{Na}^+ \) akışına izin verir. Membran potansiyeli hızla pozitif yöne fırlar.</p>
             </div>
         </div>
 
@@ -158,8 +200,9 @@
                 <img src="assets/repolarization.png" alt="Repolarizasyon">
             </div>
             <div class="card-content">
-                <h3>Aşama 3: Repolarizasyon <span class="v-tag">\( +40 \rightarrow -70 \text{ mV} \)</span></h3>
-                <p>\( \text{Na}^+ \) kanalları açıldıktan ~1 ms sonra içeriden otomatik olarak "inaktive" olur (kapanır). Aynı anda yavaş açılan voltaj kapılı \( \text{K}^+ \) kanalları tam kapasite devreye girer. \( \text{K}^+ \) hızla dışarı çıkar, içerisi tekrar negatifleşir.</p>
+                <h3>Aşama 3: Repolarizasyon</h3>
+                <span class="v-tag">\( +40 \rightarrow -70 \text{ mV} \)</span>
+                <p>\( \text{Na}^+ \) kanalları inaktive olurken, yavaş açılan \( \text{K}^+ \) kanalları tam kapasiteye ulaşır. \( \text{K}^+ \)'un dışarı hücum etmesiyle hücre içi yeniden negatifleşmeye başlar.</p>
             </div>
         </div>
 
@@ -169,8 +212,9 @@
                 <img src="assets/hyperpolarization.png" alt="Hiperpolarizasyon">
             </div>
             <div class="card-content">
-                <h3>Aşama 4: Hiperpolarizasyon <span class="v-tag">\( -80 \text{ mV} \)</span></h3>
-                <p>\( \text{K}^+ \) kanalları yavaş kapanır; \( -70 \text{ mV} \)'a ulaşıldığında hâlâ açıktırlar. Fazla \( \text{K}^+ \) çıkışı içeriyi \( -80 \text{ mV} \)'a kadar düşürür. Kanallar kapanınca \( \text{Na}^+/\text{K}^+ \) pompası dengeyi \( -70 \text{ mV} \)'a geri getirir.</p>
+                <h3>Aşama 4: Hiperpolarizasyon</h3>
+                <span class="v-tag">\( -90 \text{ mV} \)</span>
+                <p>\( \text{K}^+ \) kanalları yavaş kapandığı için potansiyel \( -70 \text{ mV} \)'un altına düşer. Bu kısa evrenin sonunda iyonik denge yeniden kurulur ve sistem bir sonraki ateşleme için dinlenmeye döner.</p>
             </div>
         </div>
     </div>
