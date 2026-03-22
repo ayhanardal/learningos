@@ -4,19 +4,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>İyon Kanallarının Zamanlaması: Na⁺ vs K⁺</title>
+    
+    <!-- KaTeX Support -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+                delimiters: [
+                    {left: '\\[', right: '\\]', display: true},
+                    {left: '\\(', right: '\\)', display: false}
+                ],
+                throwOnError: false
+            });
+        });
+    </script>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
     <style>
         :root {
             --bg: #0a0c10;
-            --card-bg: rgba(17, 20, 24, 0.9);
+            --card-bg: rgba(17, 20, 24, 0.85);
             --accent: #00f2ff;
             --text-primary: #ffffff;
             --text-secondary: #a0a6b1;
+            --glass: rgba(255, 255, 255, 0.03);
             --border: rgba(255, 255, 255, 0.1);
         }
 
@@ -28,115 +43,108 @@
             color: var(--text-primary);
             height: 100vh;
             display: flex;
+            align-items: center;
+            justify-content: center;
             overflow: hidden;
             background-image: 
-                radial-gradient(circle at 100% 0%, rgba(0, 242, 255, 0.05) 0%, transparent 50%),
-                radial-gradient(circle at 0% 100%, rgba(0, 242, 255, 0.03) 0%, transparent 50%);
+                radial-gradient(circle at 10% 10%, rgba(0, 242, 255, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 90% 90%, rgba(0, 242, 255, 0.02) 0%, transparent 40%);
         }
 
-        /* Sol Panel: İçerik */
+        .slide-container {
+            width: 95vw;
+            height: 90vh;
+            max-width: 1400px;
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border);
+            border-radius: 32px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            padding: 40px;
+            position: relative;
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.8s ease;
+        }
+
+        /* Sol Panel */
         .left-panel {
-            flex: 1.1;
-            padding: 50px 70px;
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            overflow-y: auto;
-            border-right: 1px solid var(--border);
-            z-index: 2;
-            backdrop-filter: blur(10px);
-            background: linear-gradient(90deg, var(--bg) 0%, transparent 100%);
+            justify-content: space-between;
+            min-height: 0;
         }
 
-        .header-section {
-            margin-bottom: 40px;
-            animation: slideInLeft 0.8s ease backwards;
+        .header {
+            margin-bottom: 0.8rem;
         }
 
-        .header-section h1 {
-            font-size: 2.8rem;
+        .header h1 {
+            font-size: 2.2rem;
             font-weight: 800;
             letter-spacing: -0.03em;
-            line-height: 1;
-            margin-bottom: 20px;
             background: linear-gradient(135deg, #fff 0%, var(--accent) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        .header-section p {
-            font-size: 1.15rem;
-            line-height: 1.6;
+        .header p {
             color: var(--text-secondary);
+            font-size: 1rem;
+            margin-top: 5px;
             font-weight: 300;
         }
 
-        .content-scroll {
+        .content-panel {
             display: flex;
             flex-direction: column;
-            gap: 30px;
-            animation: fadeIn 1s ease 0.3s backwards;
+            gap: 1rem;
+            min-height: 0;
+            overflow-y: auto;
+            padding-right: 12px;
         }
 
-        .info-block {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid var(--border);
-            padding: 25px;
+        .content-panel::-webkit-scrollbar { width: 4px; }
+        .content-panel::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
+
+        .section-box {
+            background: rgba(255, 255, 255, 0.02);
+            padding: 1.2rem;
             border-radius: 20px;
+            border-left: 2px solid rgba(0, 242, 255, 0.2);
             transition: all 0.3s ease;
         }
 
-        .info-block:hover {
-            border-color: var(--accent);
-            background: rgba(0, 242, 255, 0.02);
+        .section-box:hover {
+            background: rgba(255, 255, 255, 0.04);
+            border-left-color: var(--accent);
             transform: translateX(5px);
         }
 
-        .info-block h2 {
-            font-size: 1.4rem;
+        .section-box h3 {
+            font-size: 1.2rem;
             font-weight: 700;
-            margin-bottom: 12px;
+            margin-bottom: 8px;
             color: var(--accent);
-            display: flex;
-            align-items: center;
-            gap: 10px;
         }
 
-        .info-block p {
-            font-size: 1.05rem;
-            line-height: 1.7;
-            color: var(--text-secondary);
+        .section-box p {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #d1d5db;
         }
 
-        .mental-frame {
-            background: linear-gradient(135deg, rgba(0, 242, 255, 0.1) 0%, transparent 100%);
-            border: 1px solid var(--accent);
-            padding: 25px;
-            border-radius: 20px;
-            margin-top: 20px;
-        }
-
-        .mental-frame h2 { color: #fff; }
-        .mental-frame p { color: #fff; font-weight: 500; }
-
-        /* Sağ Panel: Görsel */
+        /* Sağ Panel */
         .right-panel {
-            flex: 0.9;
             position: relative;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 24px;
+            overflow: hidden;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: #000;
-            overflow: hidden;
-            animation: slideInRight 1s cubic-bezier(0.23, 1, 0.32, 1);
-        }
-
-        .right-panel::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            box-shadow: inset 50px 0 100px var(--bg);
-            pointer-events: none;
+            border: 1px solid var(--border);
         }
 
         .visual-container {
@@ -145,84 +153,85 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            padding: 0;
         }
 
         .visual-container img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            filter: brightness(0.9);
+            filter: drop-shadow(0 0 30px rgba(0, 242, 255, 0.1));
         }
 
-        /* Animations */
-        @keyframes slideInLeft {
-            from { opacity: 0; transform: translateX(-50px); }
-            to { opacity: 1; transform: translateX(0); }
-        }
-        @keyframes slideInRight {
-            from { opacity: 0; transform: scale(1.1); }
-            to { opacity: 1; transform: scale(1); }
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+        /* Footer / Mental Frame Box */
+        .footer-frame {
+            margin-top: 1.5rem;
+            background: linear-gradient(90deg, rgba(0, 242, 255, 0.1), transparent);
+            border: 1px dashed rgba(0, 242, 255, 0.4);
+            padding: 1.2rem;
+            border-radius: 20px;
         }
 
-        /* Scrollbar styling */
-        .left-panel::-webkit-scrollbar { width: 6px; }
-        .left-panel::-webkit-scrollbar-thumb {
-            background: rgba(0, 242, 255, 0.2);
-            border-radius: 10px;
-        }
-
-        .tag {
-            background: rgba(0, 242, 255, 0.1);
+        .footer-frame strong {
+            display: block;
             color: var(--accent);
-            padding: 4px 12px;
-            border-radius: 8px;
             font-size: 0.85rem;
-            font-weight: 600;
             text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 6px;
+        }
+
+        .footer-frame p {
+            font-size: 1.05rem;
+            line-height: 1.5;
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
 <body>
 
-    <div class="left-panel">
-        <header class="header-section">
-            <span class="tag">Ders 1.3 | Moleküler Zamanlama</span>
-            <h1>İyon Kanallarının Zamanlaması: Na⁺ vs K⁺</h1>
-            <p>Aksiyon potansiyelinin karakteristik şekli —hızlı yükseliş ve yavaş iniş— bu iki kanalın voltaja verdikleri tepki sürelerindeki kritik farktan doğar.</p>
-        </header>
-
-        <div class="content-scroll">
-            <div class="info-block">
-                <h2>Na⁺ Kanalı: Hızlı Tetikleyici</h2>
-                <p>\( -55 \text{ mV} \) eşiği aşılınca <strong>milisaniyeler içinde</strong> açılır. Ancak eşsiz bir mekanizması vardır: Açıldıktan ~1 ms sonra bir inaktivasyon kapısı kanalı içeriden fiziksel olarak tıkar. Voltaj ne olursa olsun zamanlayıcı işler; bu kanal depolarizasyonun motorudur.</p>
+    <div class="slide-container">
+        <!-- Sol Panel -->
+        <div class="left-panel">
+            <div class="header">
+                <h1>İyon Kanallarının Zamanlaması: Na⁺ vs K⁺</h1>
+                <p>Hızlı yükseliş, yavaş iniş ve o meşhur 'aşma' etkisi...</p>
             </div>
 
-            <div class="info-block">
-                <h2>K⁺ Kanalı: Yavaş Fren</h2>
-                <p>Depolarizasyonla aynı anda uyarılsa da tepkisi <strong>"gecikmelidir"</strong>. Na⁺ kanalları tam kapanırken K⁺ kanalları tam kapasiteye ulaşır. Kapanması da yavaştır; sistem \( -70 \text{ mV} \)'a dönse bile açık kalmaya devam eder, bu da hiperpolarizasyona (aşma) neden olur.</p>
+            <div class="content-panel">
+                <div class="section-box">
+                    <h3>Na⁺ Kanalı: Hızlı Tetikleyici</h3>
+                    <p>\(-55\) mV'da anında açılır. Ancak açıldıktan ~1 ms sonra, voltajdan bağımsız çalışan bir inaktivasyon kapısı kanalı içeriden tıkar. Depolarizasyon bu kanalın işidir.</p>
+                </div>
+
+                <div class="section-box">
+                    <h3>K⁺ Kanalı: Gecikmeli Fren</h3>
+                    <p>Uyarıldığı an açılmaz, tepkisi gecikmelidir. Na⁺ kanalı kapanırken K⁺ tam kapasiteye ulaşır. Kapanması da yavaş olduğu için potansiyeli \(-80\) mV'a kadar sürükler (Repolarizasyon).</p>
+                </div>
+
+                <div class="section-box">
+                    <h3>Neden Tek Yönlü İlerler?</h3>
+                    <p>Sinyal ilerlerken arkasındaki Na⁺ kanalları 'inaktive' (tıkalı) durumdadır. Bu 1-2 ms'lik süre sinyalin geriye dönmesini imkansız kılar, akışı tek yöne zorlar.</p>
+                </div>
             </div>
 
-            <div class="info-block">
-                <h2>Neden Tek Yönlü İlerler?</h2>
-                <p>Aksiyon potansiyeli ilerlerken, geçtiği yerdeki Na⁺ kanalları <strong>inaktivasyon</strong> moduna girer. 1-2 ms boyunca tekrar açılamazlar. Bu inaktivasyon süreci, sinyalin geriye doğru sönmesini engelleyerek sadece ileriye (aksondan terminale) akmasını sağlar.</p>
-            </div>
-
-            <div class="mental-frame">
-                <h2>Zihinsel Çerçeve</h2>
-                <p>Na⁺ kanalı: Hızlı ve kendini kapatan bir patlama. <br>
-                   K⁺ kanalı: Yavaş ve ağır ilerleyen bir direnç. <br>
-                   İkisinin senkronizasyonu, sinir sisteminin temel dijital sinyalini oluşturur.</p>
+            <div class="footer-frame">
+                <strong>Zihinsel Çerçeve</strong>
+                <p>Na⁺ kanalı hızlı ve kendini kapatan bir tetik; K⁺ kanalı yavaş ve sürekli sızan bir fren. İkisinin senkronu aksiyon potansiyelini oluşturur.</p>
             </div>
         </div>
-    </div>
 
-    <div class="right-panel">
-        <div class="visual-container">
-            <img src="assets/ion_timing.png" alt="Ion Channel Timing Visualization">
+        <!-- Sağ Panel -->
+        <div class="right-panel">
+            <div class="visual-container">
+                <img src="assets/ion_timing.png" alt="Ion Channel Timing: Na+ vs K+ Visualization">
+            </div>
         </div>
     </div>
 
