@@ -47,7 +47,7 @@
             border-radius: 32px;
             padding: 2.5rem;
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 7fr 3fr;
             gap: 2.5rem;
             box-shadow: 0 40px 100px rgba(0, 0, 0, 0.5);
             animation: fadeIn 0.8s ease;
@@ -94,7 +94,7 @@
 
         .section-box {
             background: rgba(255, 255, 255, 0.02);
-            padding: 1.1rem 1.4rem;
+            padding: 1rem 1.3rem;
             border-radius: 18px;
             border-left: 3px solid rgba(255, 255, 255, 0.2);
             transition: all 0.3s ease;
@@ -106,14 +106,14 @@
         }
 
         .section-box h3 {
-            font-size: 1.15rem;
+            font-size: 1.1rem;
             font-weight: 700;
-            margin-bottom: 5px;
+            margin-bottom: 3px;
             color: var(--accent);
         }
 
         .section-box p {
-            font-size: 0.95rem;
+            font-size: 0.93rem;
             line-height: 1.5;
             color: #d1d5db;
         }
@@ -140,31 +140,32 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            padding: 10px;
         }
 
         .visual-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
             filter: drop-shadow(0 0 30px rgba(0, 242, 255, 0.1));
         }
 
         /* Footer / Mental Frame Box */
         .footer-frame {
-            margin-top: 1.2rem;
+            margin-top: 1rem;
             background: linear-gradient(90deg, rgba(16, 185, 129, 0.1), transparent);
             border: 1px dashed rgba(16, 185, 129, 0.4);
-            padding: 1.1rem 1.4rem;
+            padding: 1rem 1.3rem;
             border-radius: 20px;
         }
 
         .footer-frame strong {
             display: block;
             color: var(--safe);
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             text-transform: uppercase;
             letter-spacing: 0.15em;
-            margin-bottom: 5px;
+            margin-bottom: 3px;
         }
 
         .footer-frame p {
@@ -191,28 +192,28 @@
 
             <div class="content-panel">
                 <div class="section-box">
-                    <p>Tetiklenen aksiyon potansiyeli nöronun gövdesinde kalmaz — akson boyunca ilerler. Bir noktada depolarizasyon olunca yerel elektrik akımı komşu bölgeyi eşiğe iter, orada da Na⁺ kanalları açılır. Dalga ileriye gider, geriye dönemez — geldiği yön refraktör periyottadır.</p>
+                    <p>Aksiyon potansiyeli somada değil, axon hillock'ta başlar ve akson boyunca ilerler. Mekanizma basit: depolarize olan bölge komşu bölgeyi eşiğe iter, orada Na⁺ kanalları açılır. Dalga ileriye gider, geriye dönemez — geldiği yön refraktör periyottadır.</p>
                 </div>
 
                 <div class="section-box continuous">
                     <h3>Sürekli İletim</h3>
-                    <p>Miyelin kılıfsız aksonlarda her noktada aksiyon potansiyeli yeniden üretilir. Na⁺ kanalları açılıp kapanır, K⁺ kanalları devreye girer — her milimetrede aynı döngü. Yavaş (~1 m/s) ve enerji açısından pahalıdır.</p>
+                    <p>Miyelin kılıfsız aksonlarda akım ilerledikçe dışarı sızar ve zayıflar. Bu yüzden her noktada aksiyon potansiyeli yeniden üretilmek zorunda. Yavaş (~1 m/s) ve enerji pahalı.</p>
                 </div>
 
                 <div class="section-box saltatory">
                     <h3>Sıçramalı İletim</h3>
-                    <p>Miyelin kılıflı aksonlarda zar yalıtılmış — akım dışarı sızmaz, Ranvier düğümüne kadar güçlü kalır. Düğümde eşik aşılır, aksiyon potansiyeli yeniden üretilir ve bir sonraki düğüme atlar. Çok hızlı (~70-120 m/s) ve enerji verimlidir.</p>
+                    <p>Miyelin akımın sızmasını engelliyor — Ranvier düğümüne kadar güçlü kalıyor. Sadece düğümlerde aksiyon potansiyeli üretiliyor, miyelin segmentlerinde atlıyor. Çok hızlı (~70-120 m/s) ve enerji verimli.</p>
                 </div>
 
                 <div class="section-box clinic">
-                    <h3>Klinik Bağlantı: MS</h3>
-                    <p>Multipl skleroz hastalığında bağışıklık sistemi miyelin kılıfa hasar verir. Akım düğüme ulaşamadan sızıp kaybolur — sinyal zayıflar veya tamamen kesilir. Kas kontrolü ve duyu kaybı bu yüzden ortaya çıkar.</p>
+                    <h3>Klinik: MS</h3>
+                    <p>Miyelin hasar görünce akım düğüme ulaşamadan kayboluyor. Sinyal zayıflıyor veya kesiliyor — kas kontrolü ve duyu kaybı bu yüzden oluşuyor.</p>
                 </div>
             </div>
 
             <div class="footer-frame">
                 <strong>Zihinsel Çerçeve</strong>
-                <p>Miyelin kılıf bir yalıtkan kablo gibi — akımın sızmasını engelliyor, sinyali düğüme kadar güçlü tutuyor. Olmadan her adımda yeniden başlamak zorundasın.</p>
+                <p>Miyelin yalıtkan kablo — akım sızmaz, sinyal güçlü kalır. Olmadan her adımda yeniden başlamak zorundasın.</p>
             </div>
         </div>
 
