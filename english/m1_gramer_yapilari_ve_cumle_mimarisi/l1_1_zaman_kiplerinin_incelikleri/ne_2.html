@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bileşenler ve Analoji: İz Testi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #191919;
+            --text-main: #ffffff;
+            --text-header: #e0e0e0;
+            --text-dim: #b0bec5;
+            --accent-blue: #90caf9;
+            --accent-gold: #fbc02d;
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.08);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .main-container {
+            width: 95%;
+            max-width: 1200px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 3.5rem;
+            animation: fadeIn 1s ease-out;
+        }
+
+        .content-column {
+            width: 60%;
+            display: flex;
+            flex-direction: column;
+            gap: 1.8rem;
+        }
+
+        .visual-column {
+            width: 40%;
+            display: flex;
+            justify-content: center;
+        }
+
+        .visual-column img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 16px;
+            border: 2px solid #333;
+            box-shadow: 0 40px 100px -20px rgba(0,0,0,0.6);
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--text-header);
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.5rem;
+        }
+
+        header h2 {
+            font-size: 1rem;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 0.2rem;
+            font-weight: 400;
+        }
+
+        .analogy-box {
+            border-left: 4px solid var(--accent-gold);
+            background: rgba(251, 192, 45, 0.04);
+            padding: 1.5rem 2rem;
+            font-size: 1.15rem;
+            font-weight: 500;
+            font-style: italic;
+            line-height: 1.6;
+            color: #ffffff;
+        }
+
+        .case-studies {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+
+        .case-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 1.2rem 1.5rem;
+            border-radius: 12px;
+        }
+
+        .case-card h3 {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12rem;
+            font-weight: 700;
+            margin-bottom: 0.8rem;
+            color: var(--text-header);
+        }
+
+        .case-item {
+            margin-bottom: 0.8rem;
+            line-height: 1.5;
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        .case-item:last-child { margin-bottom: 0; }
+
+        .en-phrase {
+            color: var(--accent-blue);
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 500;
+        }
+
+        .explanation {
+            color: var(--text-dim);
+            font-size: 1rem;
+            font-weight: 400;
+            margin-left: 0.3rem;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="main-container">
+        <!-- Content Column (60%) -->
+        <article class="content-column">
+            <header>
+                <h1>BİLEŞENLER VE ANALOJİ</h1>
+                <h2>İz Testi (The Trace Test) ve Vakalar</h2>
+            </header>
+
+            <section class="analogy-box">
+                "Zaman kipini seçerken kendine 'İz Testi'ni uygula: Eylem fiziksel (gözyaşı, yorgunluk), durumsal (kapıda kalmak) veya bilgisel (bir şehri tanımak) olarak şu ana bir İZ bıraktı mı?"
+            </section>
+
+            <section class="case-studies">
+                <div class="case-card">
+                    <h3>VAKA 1 - Kayıp Anahtar</h3>
+                    <div class="case-item">
+                        <span class="en-phrase">"I lost my keys."</span>
+                        <span class="explanation">(Simple Past): Geçti, bitti. Belki buldum, belki bulmadım bilmiyoruz. Şu anla bağımız yok.</span>
+                    </div>
+                    <div class="case-item">
+                        <span class="en-phrase">"I've lost my keys."</span>
+                        <span class="explanation">(Present Perfect): Hâlâ kayıp! Şu an kapıda kaldım ve eylemin sonucu olarak yardıma ihtiyacım var.</span>
+                    </div>
+                </div>
+
+                <div class="case-card">
+                    <h3>VAKA 2 - Yaşam Deneyimi</h3>
+                    <div class="case-item">
+                        <span class="en-phrase">"She lived in London."</span>
+                        <span class="explanation">(Simple Past): Yaşadı ve bitti. Artık başka bir yerde. Kapalı bir dönem.</span>
+                    </div>
+                    <div class="case-item">
+                        <span class="en-phrase">"She has lived in London."</span>
+                        <span class="explanation">(Present Perfect): Londra deneyimi var. Bu bilgi şu anki konuşmamız için geçerli ve masada.</span>
+                    </div>
+                </div>
+            </section>
+        </article>
+
+        <!-- Visual Column (40%) -->
+        <figure class="visual-column">
+            <img src="./assets/trace_test_infographic.png" alt="İz Testi Görselleştirmesi">
+        </figure>
+    </div>
+
+</body>
+</html>
