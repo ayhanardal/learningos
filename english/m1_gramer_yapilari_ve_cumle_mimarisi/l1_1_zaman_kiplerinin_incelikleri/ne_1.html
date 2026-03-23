@@ -9,11 +9,12 @@
         :root {
             --bg: #191919;
             --text-main: #ffffff;
+            --text-header: #e0e0e0;
             --text-dim: #b0bec5;
             --accent-blue: #4fc3f7;
             --accent-gold: #fbc02d;
             --card-bg: rgba(255, 255, 255, 0.03);
-            --border: rgba(255, 255, 255, 0.1);
+            --border: rgba(255, 255, 255, 0.08);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -30,54 +31,56 @@
             justify-content: center;
         }
 
-        .container {
-            width: 100%;
+        .main-container {
+            width: 95%;
             max-width: 1200px;
-            height: 100%;
-            padding: 10vh 10vw;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 3rem;
+            animation: fadeIn 1s ease-out;
+        }
+
+        .content-column {
+            width: 60%;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
+            gap: 2rem;
         }
 
-        header {
-            text-align: center;
-        }
-
-        h1 {
-            font-size: 2.4rem;
-            font-weight: 800;
-            letter-spacing: -0.04em;
-            text-transform: uppercase;
-            margin-bottom: 0.2rem;
-        }
-
-        h2 {
-            font-size: 1rem;
-            font-weight: 400;
-            color: var(--text-dim);
-            letter-spacing: 0.3rem;
-            text-transform: uppercase;
-        }
-
-        .visual-container {
-            width: 100%;
-            max-height: 280px;
-            margin: 1.5rem 0;
+        .visual-column {
+            width: 40%;
             display: flex;
             justify-content: center;
-            align-items: center;
-            overflow: hidden;
-            border-radius: 12px;
-            background: #191919;
         }
 
-        .visual-container img {
+        .visual-column img {
             max-width: 100%;
             height: auto;
-            max-height: 280px;
-            object-fit: contain;
-            border-radius: 12px;
+            border-radius: 16px;
+            border: 2px solid #333;
+            box-shadow: 0 40px 100px -20px rgba(0,0,0,0.6);
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--text-header);
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.5rem;
+        }
+
+        header h1 span {
+            color: var(--accent-gold);
+        }
+
+        header h2 {
+            font-size: 1rem;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 0.2rem;
+            font-weight: 400;
         }
 
         .analogy-box {
@@ -89,75 +92,78 @@
             font-style: italic;
             line-height: 1.6;
             color: #ffffff;
-            margin-bottom: 2rem;
         }
 
-        .text-grid {
+        .infographic-cards {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 2rem;
+            gap: 1.5rem;
         }
 
-        .text-block {
+        .card {
             background: var(--card-bg);
-            padding: 1.5rem;
-            border-radius: 8px;
             border: 1px solid var(--border);
+            padding: 1.5rem;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
         }
 
-        .text-block h3 {
+        .card h3 {
             font-size: 0.85rem;
             text-transform: uppercase;
             letter-spacing: 0.12rem;
-            margin-bottom: 1rem;
-            font-weight: 600;
+            font-weight: 700;
+        }
+
+        .card p {
+            font-size: 1rem;
+            line-height: 1.5;
+            color: var(--text-dim);
+            font-weight: 400;
         }
 
         .blue-title { color: var(--accent-blue); }
         .gold-title { color: var(--accent-gold); }
 
-        .text-block p {
-            font-size: 1.15rem;
-            font-weight: 500;
-            line-height: 1.5;
-            color: #ffffff;
-        }
-
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-
-        .container { animation: fadeIn 0.8s ease-in-out; }
 
     </style>
 </head>
 <body>
 
-    <div class="container" id="presentation-container">
-        <header>
-            <h1>Zamanın Bağlantı Mimarisi</h1>
-            <h2>Perfect Aspect ve Durum (State) Analizi</h2>
-        </header>
+    <div class="main-container">
+        <!-- Content Column (60%) -->
+        <article class="content-column">
+            <header>
+                <h1>ZAMANIN <span>BAĞLANTI</span> MİMARİSİ</h1>
+                <h2>Perfect Aspect ve Durum (State) Analizi</h2>
+            </header>
 
-        <div class="visual-container">
-            <img src="./assets/minimalist_infographic.png" alt="Zaman Akış Çizgisi">
-        </div>
+            <section class="analogy-box">
+                "Türkçede zaman kipleri 'Ne zaman oldu?' sorusunu cevaplar. İngilizcede ise Perfect Aspect bir dedektif sorusu sorar: 'Geçmişteki bu olayın, şu anki durum (state) üzerinde bir izi var mı?'"
+            </section>
 
-        <div class="analogy-box">
-            "Türkçede zaman kipleri 'Ne zaman oldu?' sorusunu cevaplar. İngilizcede ise Perfect Aspect bir dedektif sorusu sorar: 'Geçmişteki bu olayın, şu anki durum (state) üzerinde bir izi var mı?'"
-        </div>
+            <section class="infographic-cards">
+                <div class="card">
+                    <h3 class="blue-title">SIMPLE PAST (GEÇMİŞ ZAMAN)</h3>
+                    <p>Kapalı bir sistemdir. Bir fotoğraf karesi gibi geçmişteki o anı dondurur. Olayın günümüzle olan bağlantısı kopuktur.</p>
+                </div>
+                <div class="card">
+                    <h3 class="gold-title">PRESENT PERFECT</h3>
+                    <p>Geçmişten şu ana çekilen bir köprüdür. Eylem geçmişte yaşanmış olsa da, sonucu, etkisi veya önemi şu anki bağlamı doğrudan şekillendirir.</p>
+                </div>
+            </section>
+        </article>
 
-        <div class="text-grid">
-            <div class="text-block">
-                <h3 class="blue-title">Simple Past (Geçmiş Zaman)</h3>
-                <p>Simple Past kapalı bir sistemdir. Bir fotoğraf karesi gibi geçmişteki o anı dondurur. Olayın günümüzle olan bağlantısı kopuktur.</p>
-            </div>
-            <div class="text-block">
-                <h3 class="gold-title">Present Perfect (Yakın Geçmiş Zaman)</h3>
-                <p>Present Perfect ise geçmişten şu ana çekilen bir köprüdür. Eylem geçmişte yaşanmış olsa da, sonucu, etkisi veya önemi şu anki bağlamı doğrudan şekillendirir.</p>
-            </div>
-        </div>
+        <!-- Visual Column (40%) -->
+        <figure class="visual-column">
+            <img src="./assets/symbolic_infographic.png" alt="Zamanın Bağlantı Mimarisi Sembolik Gösterim">
+        </figure>
     </div>
 
 </body>
