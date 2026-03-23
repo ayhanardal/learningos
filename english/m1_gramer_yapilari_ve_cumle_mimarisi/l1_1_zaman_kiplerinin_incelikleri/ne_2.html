@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bileşenler ve Analoji: İz Testi</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+    <title>Bileşenler ve Analoji: İz Testi (Gramer Mekaniği)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg: #191919;
@@ -32,38 +32,16 @@
         }
 
         .main-container {
-            width: 95%;
+            width: 90%;
             max-width: 1200px;
             display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 3.5rem;
-            animation: fadeIn 1s ease-out;
-        }
-
-        .content-column {
-            width: 60%;
-            display: flex;
             flex-direction: column;
-            gap: 1.8rem;
-        }
-
-        .visual-column {
-            width: 40%;
-            display: flex;
-            justify-content: center;
-        }
-
-        .visual-column img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 16px;
-            border: 2px solid #333;
-            box-shadow: 0 40px 100px -20px rgba(0,0,0,0.6);
+            gap: 2.5rem;
+            animation: fadeIn 0.8s ease-out;
         }
 
         header h1 {
-            font-size: 2.2rem;
+            font-size: 2.4rem;
             font-weight: 800;
             color: var(--text-header);
             text-transform: uppercase;
@@ -72,70 +50,90 @@
         }
 
         header h2 {
-            font-size: 1rem;
+            font-size: 1.1rem;
             color: var(--text-dim);
             text-transform: uppercase;
-            letter-spacing: 0.2rem;
+            letter-spacing: 0.3rem;
             font-weight: 400;
         }
 
         .analogy-box {
             border-left: 4px solid var(--accent-gold);
             background: rgba(251, 192, 45, 0.04);
-            padding: 1.5rem 2rem;
-            font-size: 1.15rem;
+            padding: 2rem;
+            font-size: 1.25rem;
             font-weight: 500;
-            font-style: italic;
             line-height: 1.6;
             color: #ffffff;
         }
 
-        .case-studies {
-            display: flex;
-            flex-direction: column;
-            gap: 1.2rem;
+        .highlight-gold {
+            color: var(--accent-gold);
+            font-weight: 700;
+        }
+
+        .case-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2.5rem;
         }
 
         .case-card {
             background: var(--card-bg);
             border: 1px solid var(--border);
-            padding: 1.2rem 1.5rem;
-            border-radius: 12px;
+            padding: 2rem;
+            border-radius: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
         }
 
         .case-card h3 {
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             text-transform: uppercase;
-            letter-spacing: 0.12rem;
+            letter-spacing: 0.15rem;
             font-weight: 700;
-            margin-bottom: 0.8rem;
             color: var(--text-header);
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 0.8rem;
         }
 
-        .case-item {
-            margin-bottom: 0.8rem;
-            line-height: 1.5;
-            font-size: 1.1rem;
-            font-weight: 500;
+        .case-example {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
         }
-
-        .case-item:last-child { margin-bottom: 0; }
 
         .en-phrase {
-            color: var(--accent-blue);
             font-family: 'JetBrains Mono', monospace;
-            font-weight: 500;
+            font-size: 1.2rem;
+            color: var(--accent-blue);
+            font-weight: 600;
         }
 
-        .explanation {
+        .mechanic {
+            font-size: 1.05rem;
+            line-height: 1.6;
             color: var(--text-dim);
-            font-size: 1rem;
-            font-weight: 400;
-            margin-left: 0.3rem;
+        }
+
+        .mechanic strong {
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        .word-by-word {
+            background: rgba(144, 202, 249, 0.05);
+            padding: 0.8rem 1rem;
+            border-radius: 8px;
+            border-left: 2px solid var(--accent-blue);
+            font-style: italic;
+            font-size: 0.95rem;
+            color: var(--text-main);
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
+            from { opacity: 0; transform: translateY(15px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
@@ -144,48 +142,56 @@
 <body>
 
     <div class="main-container">
-        <!-- Content Column (60%) -->
-        <article class="content-column">
-            <header>
-                <h1>BİLEŞENLER VE ANALOJİ</h1>
-                <h2>İz Testi (The Trace Test) ve Vakalar</h2>
-            </header>
+        <!-- Header Section -->
+        <header>
+            <h1>BİLEŞENLER VE ANALOJİ: İZ TESTİ</h1>
+            <h2>Anlamı Yaratan Gramer Mekaniği</h2>
+        </header>
 
-            <section class="analogy-box">
-                "Zaman kipini seçerken kendine 'İz Testi'ni uygula: Eylem fiziksel (gözyaşı, yorgunluk), durumsal (kapıda kalmak) veya bilgisel (bir şehri tanımak) olarak şu ana bir İZ bıraktı mı?"
-            </section>
+        <!-- Main Analogy Theory Box -->
+        <section class="analogy-box">
+            "İz Testi: Eylem fiziksel, durumsal veya bilgisel olarak şu ana bir İZ bıraktı mı? Peki bu izi gramer nasıl yaratır? Present Perfect aslında bir 'Geçmiş Zaman' kipi değil, bir <span class="highlight-gold">'Şimdiki Zaman'</span> kipidir. Eylemin önüne gelen <span class="highlight-gold">'Have/Has'</span> (sahip olmak) fiili, geçmişteki bir eylemi <span class="highlight-gold">şu an</span> 'elimizde tuttuğumuzu' söyler."
+        </section>
 
-            <section class="case-studies">
-                <div class="case-card">
-                    <h3>VAKA 1 - Kayıp Anahtar</h3>
-                    <div class="case-item">
-                        <span class="en-phrase">"I lost my keys."</span>
-                        <span class="explanation">(Simple Past): Geçti, bitti. Belki buldum, belki bulmadım bilmiyoruz. Şu anla bağımız yok.</span>
-                    </div>
-                    <div class="case-item">
-                        <span class="en-phrase">"I've lost my keys."</span>
-                        <span class="explanation">(Present Perfect): Hâlâ kayıp! Şu an kapıda kaldım ve eylemin sonucu olarak yardıma ihtiyacım var.</span>
-                    </div>
+        <!-- Case Studies Grid -->
+        <section class="case-grid">
+            
+            <!-- Case 1: Keys -->
+            <div class="case-card">
+                <h3>VAKA 1 - KAYIP ANAHTAR (Durumsal İz)</h3>
+                
+                <div class="case-example">
+                    <span class="en-phrase">"I lost my keys." (Simple Past)</span>
+                    <p class="mechanic"><strong>Mekanik:</strong> Sadece Fiilin 2. Hali (V2). Eylem geçmişte mühürlendi. Yardım istemiyorum, sadece bir bilgi veriyorum. Belki yeni anahtar yaptırdım, belki buldum. Şu anki durumum meçhul.</p>
                 </div>
 
-                <div class="case-card">
-                    <h3>VAKA 2 - Yaşam Deneyimi</h3>
-                    <div class="case-item">
-                        <span class="en-phrase">"She lived in London."</span>
-                        <span class="explanation">(Simple Past): Yaşadı ve bitti. Artık başka bir yerde. Kapalı bir dönem.</span>
-                    </div>
-                    <div class="case-item">
-                        <span class="en-phrase">"She has lived in London."</span>
-                        <span class="explanation">(Present Perfect): Londra deneyimi var. Bu bilgi şu anki konuşmamız için geçerli ve masada.</span>
-                    </div>
+                <div class="case-example">
+                    <span class="en-phrase">"I <span class="highlight-gold">have</span> lost my keys." (Present Perfect)</span>
+                    <p class="mechanic"><strong>Mekanik:</strong> <span class="highlight-gold">'Have'</span> (Şu anki durum) + 'lost' (Geçmiş eylem).</p>
+                    <div class="word-by-word">Kelime kelime çevirisi: "Şu an 'anahtarı kaybetmiş olma' durumuna sahibim."</div>
+                    <p class="mechanic"><strong>İz:</strong> <span class="highlight-gold">Şu an</span> kapıda kaldım ve bu konuşmada senden yardım veya tavsiye bekliyorum.</p>
                 </div>
-            </section>
-        </article>
+            </div>
 
-        <!-- Visual Column (40%) -->
-        <figure class="visual-column">
-            <img src="./assets/trace_test_infographic.png" alt="İz Testi Görselleştirmesi">
-        </figure>
+            <!-- Case 2: London -->
+            <div class="case-card">
+                <h3>VAKA 2 - LONDRA DENEYİMİ (Bilgisel İz)</h3>
+
+                <div class="case-example">
+                    <span class="en-phrase">"She lived in London." (Simple Past)</span>
+                    <p class="mechanic"><strong>Mekanik:</strong> Biyografik bir gerçektir. Dönem kapandı. Bu bilgiyi, onun geçmişini tarihsel olarak anlatırken kullanırız.</p>
+                </div>
+
+                <div class="case-example">
+                    <span class="en-phrase">"She <span class="highlight-gold">has</span> lived in London." (Present Perfect)</span>
+                    <p class="mechanic"><strong>Mekanik:</strong> <span class="highlight-gold">'Has'</span> (Şu anki durum) + 'lived' (Geçmiş eylem).</p>
+                    <div class="word-by-word">Kelime kelime çevirisi: "O, <span class="highlight-gold">şu an</span> 'Londra'da yaşamış olma' tecrübesine sahip."</div>
+                    <p class="mechanic"><strong>İz:</strong> Masada İngiltere ile ilgili bir konu var ve onun bu geçmiş tecrübesi <span class="highlight-gold">şu anki</span> sohbetimiz için aktif, kullanılabilir bir veri.</p>
+                </div>
+
+            </div>
+
+        </section>
     </div>
 
 </body>
