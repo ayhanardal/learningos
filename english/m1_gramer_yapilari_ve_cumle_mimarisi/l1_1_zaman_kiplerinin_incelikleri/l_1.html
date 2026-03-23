@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Öğrenim Hedefleri: Zaman Kiplerinin İncelikleri</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-deep-green: #1e2b24;
+            --text-white: #ffffff;
+            --accent-green: #a5d6a7;
+            --card-header-bg: rgba(0, 0, 0, 0.2);
+            --border-color: rgba(165, 214, 167, 0.2);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: #121212; /* External contrast */
+            color: var(--text-white);
+            font-family: 'Inter', sans-serif;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .objectives-card {
+            width: 95vw;
+            max-width: 1200px;
+            height: clamp(300px, 45vh, 500px); /* Aspect ratio 1:4 feel */
+            background-color: var(--bg-deep-green);
+            border-radius: 12px;
+            padding: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            box-shadow: 0 30px 60px -12px rgba(0,0,0,0.5);
+            animation: slideIn 0.8s ease-out;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        header h1 {
+            font-size: 1rem;
+            letter-spacing: 0.4rem;
+            color: var(--accent-green);
+            text-transform: uppercase;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: var(--text-white);
+            opacity: 0.9;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            flex-grow: 1;
+            margin-bottom: 2rem;
+        }
+
+        /* Reversed Card Architecture */
+        .reversed-card {
+            display: flex;
+            flex-direction: column;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .card-content {
+            padding: 1.5rem;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: var(--text-white);
+            font-weight: 400;
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+        }
+
+        .card-title-strip {
+            background-color: var(--card-header-bg);
+            padding: 0.8rem 1.5rem;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.15rem;
+            color: var(--accent-green);
+            border-top: 1px solid var(--border-color);
+        }
+
+        .punchline-box {
+            border: 1.5px dashed var(--accent-green);
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-align: center;
+            background: rgba(165, 214, 167, 0.03);
+            font-size: 1.15rem;
+            font-weight: 500;
+            color: var(--accent-green);
+            text-shadow: 0 0 10px rgba(165, 214, 167, 0.2);
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: scale(0.98) translateY(10px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="objectives-card">
+        <!-- Header Section -->
+        <header>
+            <h1>DERS 1.1: ZAMAN KİPLERİNİN İNCELİKLERİ</h1>
+            <p>Perfect Aspect ve Zaman Seçimi (B2-C1 Geçişi)</p>
+        </header>
+
+        <!-- Twin Grid Container -->
+        <div class="grid-container">
+            <!-- Left Card: Reversed -->
+            <div class="reversed-card">
+                <div class="card-content">
+                    Zaman kiplerini "Ne zaman oldu?" sorusuyla değil, "Şu anki duruma (state) bir iz bıraktı mı?" sorusuyla okumayı öğreneceğiz. Simple Past ile Present Perfect arasındaki ayrımı sezgisel bir 'zaman bağlantısı' mimarisi olarak kavrayacağız.
+                </div>
+                <div class="card-title-strip">
+                    TEORİK KAVRAYIŞ VE DURUM ANALİZİ
+                </div>
+            </div>
+
+            <!-- Right Card: Reversed -->
+            <div class="reversed-card">
+                <div class="card-content">
+                    İngiliz ve Amerikan İngilizcesi arasındaki register (kullanım) farklarını deşifre edecek; Past Perfect'i olay sırası gerçekten belirsiz olduğunda, stratejik bir araç olarak kullanmayı pratik edeceğiz.
+                </div>
+                <div class="card-title-strip">
+                    ANALİTİK PRATİK VE OPTİMİZASYON
+                </div>
+            </div>
+        </div>
+
+        <!-- Punchline Box -->
+        <div class="punchline-box">
+            "Hedefimiz kuralları ezberlemek değil; bir anadili konuşan kişinin zihnindeki o 'doğal hissi' mekanik olarak inşa etmektir."
+        </div>
+    </div>
+
+</body>
+</html>
