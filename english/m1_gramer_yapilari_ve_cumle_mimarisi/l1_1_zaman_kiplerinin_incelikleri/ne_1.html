@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Zamanın Bağlantı Mimarisi</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;800&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg: #191919;
@@ -12,7 +12,8 @@
             --text-dim: #b0bec5;
             --accent-blue: #4fc3f7;
             --accent-gold: #fbc02d;
-            --divider: rgba(255, 255, 255, 0.1);
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.1);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -33,7 +34,7 @@
             width: 100%;
             max-width: 1200px;
             height: 100%;
-            padding: 8vh 8vw; /* UX Standard */
+            padding: 10vh 10vw;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -49,9 +50,6 @@
             letter-spacing: -0.04em;
             text-transform: uppercase;
             margin-bottom: 0.2rem;
-            background: linear-gradient(135deg, #ffffff 40%, #64748b 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
         }
 
         h2 {
@@ -62,89 +60,88 @@
             text-transform: uppercase;
         }
 
-        .visual-frame {
-            flex: 1;
+        .visual-container {
             width: 100%;
-            max-height: 400px;
-            margin: 2rem 0;
-            background: rgba(0, 0, 0, 0.2);
-            border: 1px solid var(--divider);
-            border-radius: 1.5rem;
+            max-height: 280px;
+            margin: 1.5rem 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             overflow: hidden;
-            position: relative;
-            box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.5);
+            border-radius: 12px;
+            background: #191919;
         }
 
-        .visual-frame img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
+        .visual-container img {
+            max-width: 100%;
+            height: auto;
+            max-height: 280px;
+            object-fit: contain;
+            border-radius: 12px;
         }
 
         .analogy-box {
             border-left: 4px solid var(--accent-gold);
             background: rgba(251, 192, 45, 0.04);
-            padding: 1.2rem 1.8rem;
-            margin-bottom: 2rem;
+            padding: 1.5rem 2rem;
+            font-size: 1.15rem;
+            font-weight: 500;
             font-style: italic;
-            font-size: 1.05rem;
             line-height: 1.6;
-            color: #eceff1;
+            color: #ffffff;
+            margin-bottom: 2rem;
         }
 
         .text-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 2.5rem;
+            gap: 2rem;
+        }
+
+        .text-block {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
         }
 
         .text-block h3 {
             font-size: 0.85rem;
             text-transform: uppercase;
-            letter-spacing: 0.15rem;
+            letter-spacing: 0.12rem;
             margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .text-block h3::before {
-            content: '';
-            width: 12px;
-            height: 1px;
-            background: currentColor;
+            font-weight: 600;
         }
 
         .blue-title { color: var(--accent-blue); }
         .gold-title { color: var(--accent-gold); }
 
         .text-block p {
-            font-size: 0.9rem;
-            line-height: 1.6;
-            color: var(--text-dim);
-            font-weight: 300;
+            font-size: 1.15rem;
+            font-weight: 500;
+            line-height: 1.5;
+            color: #ffffff;
         }
 
-        @keyframes fadeInScale {
-            from { opacity: 0; transform: scale(0.98); }
-            to { opacity: 1; transform: scale(1); }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
-        .container { animation: fadeInScale 1s cubic-bezier(0.2, 0.8, 0.2, 1); }
+        .container { animation: fadeIn 0.8s ease-in-out; }
 
     </style>
 </head>
 <body>
 
-    <div class="container">
+    <div class="container" id="presentation-container">
         <header>
             <h1>Zamanın Bağlantı Mimarisi</h1>
             <h2>Perfect Aspect ve Durum (State) Analizi</h2>
         </header>
 
-        <div class="visual-frame">
-            <img src="./assets/temporal_connection.png" alt="Temporal Connection Visualization">
+        <div class="visual-container">
+            <img src="./assets/minimalist_infographic.png" alt="Zaman Akış Çizgisi">
         </div>
 
         <div class="analogy-box">
