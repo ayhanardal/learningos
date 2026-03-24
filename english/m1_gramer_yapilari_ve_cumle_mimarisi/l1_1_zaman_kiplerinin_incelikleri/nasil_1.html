@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NASIL? — Hikaye Anlatımında Tempo</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    <title>NASIL? — Kamera Kontrolü ve Tempo (Revize 2)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg: #191919;
             --text-main: #ffffff;
             --text-header: #e0e0e0;
             --text-dim: #b0bec5;
-            --accent-blue: #4fc3f7;
+            --accent-blue: #4dd0e1;
             --accent-gold: #fbc02d;
             --card-bg: rgba(255, 255, 255, 0.03);
             --border: rgba(255, 255, 255, 0.08);
@@ -29,114 +29,138 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            padding: 4vh 4vw;
         }
 
-        .main-container {
-            width: 95%;
+        .layout-wrapper {
+            width: 100%;
             max-width: 1200px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 4rem;
-            animation: fadeIn 1s ease-out;
-        }
-
-        .content-column {
-            width: 60%;
+            height: 100%;
             display: flex;
             flex-direction: column;
-            gap: 1.8rem;
+            gap: 2.5rem;
         }
 
-        .visual-column {
-            width: 40%;
+        /* I. HEADER & ANALOGY (TOP - FULL WIDTH) */
+        header.page-header {
+            width: 100%;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
+            gap: 0.8rem;
         }
 
-        .visual-column img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 20px;
-            border: 2px solid #333;
-            box-shadow: 0 40px 100px -30px rgba(0,0,0,0.6);
-        }
-
-        header h1 {
+        header.page-header h1 {
             font-size: 2.2rem;
             font-weight: 800;
             color: var(--text-header);
             text-transform: uppercase;
             letter-spacing: -0.02em;
-            margin-bottom: 0.3rem;
-        }
-
-        header h2 {
-            font-size: 1rem;
-            color: var(--text-dim);
-            text-transform: uppercase;
-            letter-spacing: 0.3rem;
-            font-weight: 400;
         }
 
         .analogy-box {
-            border-left: 4px solid var(--accent-gold);
-            background: rgba(251, 192, 45, 0.04);
-            padding: 1.5rem 2rem;
-            font-size: 1.15rem;
+            border-left: 3px solid var(--accent-gold);
+            padding: 0.2rem 1.2rem;
+            font-size: 1.1rem;
             font-weight: 500;
+            line-height: 1.5;
+            color: var(--text-dim);
             font-style: italic;
-            line-height: 1.6;
-            color: #ffffff;
         }
 
-        .tempo-cards {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
+        /* II. MAIN CONTENT (GRID 60/40) */
+        .main-content {
+            display: flex;
+            align-items: center; /* Vertically center everything */
+            justify-content: space-between;
+            gap: 3.5rem;
+            /* Height will be determined by cards-column */
         }
 
-        .card {
+        /* Left Column (60%) */
+        .cards-column {
+            width: 60%;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .tempo-card {
             background: var(--card-bg);
             border: 1px solid var(--border);
-            padding: 1.5rem;
-            border-radius: 12px;
+            padding: 2.2rem;
+            border-radius: 16px;
             display: flex;
             flex-direction: column;
             gap: 1.2rem;
+            transition: transform 0.3s ease, border-color 0.3s ease;
         }
 
-        .card h3 {
-            font-size: 0.8rem;
+        .tempo-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255, 255, 255, 0.15);
+        }
+
+        .tempo-card h3 {
+            font-size: 0.85rem;
             text-transform: uppercase;
-            letter-spacing: 0.12rem;
-            font-weight: 700;
-            color: var(--text-header);
+            letter-spacing: 0.15rem;
+            font-weight: 800;
+            color: var(--text-dim);
+            padding-bottom: 0.8rem;
             border-bottom: 1px solid var(--border);
-            padding-bottom: 0.6rem;
         }
 
-        .example {
+        .linear-card {
+            border-left: 4px solid var(--accent-blue);
+        }
+
+        .break-card {
+            border-left: 4px solid var(--accent-gold);
+        }
+
+        .phrase {
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.95rem;
-            line-height: 1.5;
-            color: var(--accent-blue);
-        }
-
-        .example b {
-            color: var(--accent-gold);
-            text-decoration: underline;
+            font-size: 1.4rem;
+            font-weight: 600;
+            line-height: 1.4;
+            color: #f5f5f5;
         }
 
         .director-note {
-            font-size: 0.95rem;
-            color: var(--text-dim);
-            line-height: 1.5;
+            font-size: 1rem;
+            line-height: 1.6;
+            font-weight: 500;
         }
 
-        .director-note b {
+        .linear-card .director-note {
+            color: var(--accent-blue);
+        }
+
+        .break-card .director-note {
+            color: var(--accent-gold);
+        }
+
+        .director-note strong {
             color: #ffffff;
-            font-weight: 600;
+            font-weight: 700;
+        }
+
+        /* Right Column (40%) */
+        .visual-column {
+            width: 40%;
+            display: flex;
+            align-items: stretch; /* Stretch to parent height */
+            justify-content: center;
+        }
+
+        .visual-column img {
+            width: auto;
+            height: 100%; /* Force height to match cards */
+            max-width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 40px 100px -30px rgba(0,0,0,0.7);
+            border: 1px solid rgba(255,255,255,0.05);
+            object-fit: contain;
         }
 
         @keyframes fadeIn {
@@ -144,47 +168,55 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
+        .layout-wrapper {
+            animation: fadeIn 0.8s ease-out;
+        }
+
     </style>
 </head>
 <body>
 
-    <div class="main-container">
-        <!-- Content Column (60%) -->
-        <article class="content-column">
-            <header>
-                <h1>NASIL UYGULARIZ?</h1>
-                <h2>Hikaye Anlatımında Tempo ve Kamera Kontrolü</h2>
-            </header>
-
+    <div class="layout-wrapper">
+        <!-- I. HEADER & ANALOGY (TOP) -->
+        <header class="page-header">
+            <h1>NASIL UYGULARIZ? | Kamera Kontrolü</h1>
             <section class="analogy-box">
-                "C1 seviyesinde zaman kipleri sadece 'doğru/yanlış' meselesi değil, bir yönetmen gibi tempoyu yönetme aracıdır. Zaman kiplerini değiştirerek kameranın odağını şu andan geçmişe, eylemden sonuca kaydırırsın."
+                "Zaman kipleriyle kameranın temposunu akıtır veya dondurursunuz."
             </section>
+        </header>
 
-            <section class="tempo-cards">
-                <!-- Card 1: Linear Tempo -->
-                <div class="card">
-                    <h3>LİNEER TEMPO (Film Akıyor)</h3>
-                    <p class="example">"I woke up, made coffee, sat down and started reading."</p>
+        <!-- II. MAIN CONTENT (60/40 SPLIT) -->
+        <main class="main-content">
+            <!-- Left Column: Content Cards -->
+            <section class="cards-column">
+                
+                <!-- ÜST KART: LİNEER TEMPO -->
+                <div class="tempo-card linear-card">
+                    <h3>LİNEER TEMPO (AKSİYON AKIYOR)</h3>
+                    <p class="phrase">I woke up, made coffee, sat down, and started reading.</p>
                     <p class="director-note">
-                        <b>Yönetmenin Notu:</b> Olaylar bir aksiyon filmi gibi akar. Biri biter, diğeri başlar. Zaman çizgisi ileri doğru hareket eder, arka planda iz bırakmaz.
+                        <strong>Kamera sürekli ileri akar.</strong> Bir eylem biter, diğeri başlar. Zaman çizgisi mühürlenmiş log kayıtlarından oluşur, iz bırakmaz. (Tümü Simple Past)
                     </p>
                 </div>
 
-                <!-- Card 2: Breaking Tempo -->
-                <div class="card">
-                    <h3>TEMPOYU KIRMAK (Flashback)</h3>
-                    <p class="example">"I sat down to read, but I <b>HAD forgotten</b> my glasses upstairs."</p>
+                <!-- ALT KART: TEMPOYU KIRMAK -->
+                <div class="tempo-card break-card">
+                    <h3>TEMPOYU KIRMAK (HAD İLE GERİ SARMA)</h3>
+                    <p class="phrase">
+                        I sat down to read, but I <span style="color: #fbc02d; font-weight: bold;">HAD forgotten</span> my glasses upstairs.
+                    </p>
                     <p class="director-note">
-                        <b>Yönetmenin Notu:</b> Kamera aniden durur. Tempo kesilir ve anlatıcı 'daha da geçmişte' bıraktığı bir İZ'e (gözlüksüzlük durumu) geri döner.
+                        <strong>Kamera aniden durur.</strong> İleri giden tempo kesilip aniden 'daha da geçmişte' bırakılan bir İZ'e (gözlüksüzlük durumu) geri dönülür. Past Perfect sadece resmi görünmek için değil, hikayedeki sırayı ve tempoyu kırmak için stratejik olarak kullanılır.
                     </p>
                 </div>
-            </section>
-        </article>
 
-        <!-- Visual Column (40%) -->
-        <figure class="visual-column">
-            <img src="./assets/narrative_tempo_infographic.png" alt="Hikaye Anlatımı Tempo Diyagramı">
-        </figure>
+            </section>
+
+            <!-- Right Column: Visual -->
+            <figure class="visual-column">
+                <img src="./assets/narrative_tempo_revision.png" alt="Hikaye Anlatımı Tempo Diyagramı - Revize">
+            </figure>
+        </main>
     </div>
 
 </body>
