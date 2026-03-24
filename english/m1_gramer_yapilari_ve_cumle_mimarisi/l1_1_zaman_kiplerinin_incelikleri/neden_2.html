@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KÜLTÜREL BAĞLAM VE REGISTER — İngiliz vs Amerikan Farkı</title>
+    <title>KÜLTÜREL BAĞLAM VE REGISTER — Köprü vs. Kestirme</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -38,7 +38,7 @@
             height: 100%;
             display: flex;
             flex-direction: column;
-            gap: 2rem;
+            gap: 2.2rem;
             animation: fadeIn 0.8s ease-out;
         }
 
@@ -100,7 +100,7 @@
             width: 60%;
             display: flex;
             flex-direction: column;
-            gap: 1.8rem;
+            gap: 2rem;
         }
 
         /* Case Cards Grid */
@@ -113,13 +113,16 @@
         .case-card {
             background: var(--card-bg);
             border: 1px solid var(--border);
-            padding: 2rem;
+            padding: 2.2rem;
             border-radius: 16px;
             display: flex;
             flex-direction: column;
             gap: 1.2rem;
             height: 100%;
         }
+
+        .card-uk { border-left: 3px solid var(--accent-blue); }
+        .card-us { border-left: 3px solid var(--accent-gold); }
 
         .case-card h3 {
             font-size: 0.75rem;
@@ -141,8 +144,8 @@
             align-items: center;
         }
 
-        .phrase-gold { color: var(--accent-gold); }
         .phrase-blue { color: var(--accent-blue); }
+        .phrase-gold { color: var(--accent-gold); }
 
         .case-description {
             font-size: 0.98rem;
@@ -183,7 +186,7 @@
 
         <!-- ANALOGY -->
         <section class="analogy-box">
-            "Gramer evrensel bir fizik yasası değil, kültürel bir uzlaşmadır. Orijinal içerik (dizi, film, podcast) tüketirken kuralların esnediğini göreceksin. Bu bir gramer hatası değil; hız ve gelenek arasındaki bir <strong>'Register' (Kullanım/Bağlam)</strong> farkıdır."
+            "Gramer evrensel bir fizik yasası değil, kültürel bir uzlaşmadır. Dizi, film veya sokak konuşmalarında kuralların esnediğini göreceksin. Bu bir gramer hatası değil; hız ve gelenek arasındaki bir <strong>'Register' (Kullanım)</strong> farkıdır."
         </section>
 
         <!-- MAIN CONTENT -->
@@ -192,24 +195,24 @@
                 
                 <div class="case-grid">
                     <!-- KUTU 1: UK -->
-                    <div class="case-card">
+                    <div class="case-card card-uk">
                         <h3>İNGİLİZ İNGİLİZCESİ (Geleneksel)</h3>
-                        <div class="phrase-box phrase-gold">
+                        <div class="phrase-box phrase-blue">
                             "HAVE you eaten yet?"
                         </div>
                         <p class="case-description">
-                            Geçmişte yeni bitmiş olaylarda, İngiliz İngilizcesi o kurduğumuz <strong>'Zaman Köprüsü'ne (Present Perfect)</strong> sıkı sıkıya bağlı kalır. Sistemin mantığına tam uyar.
+                            İngiliz İngilizcesi o kurduğumuz <strong>'Zaman Köprüsü'ne (Present Perfect)</strong> sıkı sıkıya bağlı kalır. Sistemin mantığına tam uyar, formülü eksiksiz tamamlar.
                         </p>
                     </div>
 
                     <!-- KUTU 2: US -->
-                    <div class="case-card">
+                    <div class="case-card card-us">
                         <h3>AMERİKAN İNGİLİZCESİ (Pragmatik)</h3>
-                        <div class="phrase-box phrase-blue">
+                        <div class="phrase-box phrase-gold">
                             "DID you eat yet?"
                         </div>
                         <p class="case-description">
-                            Amerikan İngilizcesi hız odaklıdır. Sonuç bariz ortadaysa, fazladan 'Have' kullanmak yerine <strong>Simple Past</strong> ile hızlıca iletişim kurmayı tercih ederler. Günlük hayatta kabul edilebilirdir.
+                            Amerikan İngilizcesi kestirmeden gider. Olayın 'şu anla' bağlantısı bağlamdan barizse, fazladan 'Have' kullanmak yerine doğrudan <strong>Simple Past</strong> ile işi çözer.
                         </p>
                     </div>
                 </div>
@@ -218,7 +221,7 @@
 
             <!-- VISUAL -->
             <figure class="visual-column">
-                <img src="./assets/uk_vs_us_register.png" alt="UK vs US Register - Gramatik Yapı Karşılaştırması">
+                <img src="./assets/uk_vs_us_bridge_shortcut.png" alt="UK vs US Register - Köprü vs Kestirme Analojisi">
             </figure>
         </main>
     </div>
