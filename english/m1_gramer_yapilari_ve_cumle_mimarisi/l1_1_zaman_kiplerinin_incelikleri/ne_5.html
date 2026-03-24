@@ -159,84 +159,83 @@
             min-height: 120px;
         }
 
-        /* ACCESSIBLE STYLE FOR BASIC TENSES (Fully Readable) */
-        .cell-faint {
+        .grid-cell {
             background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            padding: 0;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            min-height: 140px;
         }
 
-        .cell-faint h3 { 
-            font-size: 0.7rem; 
-            color: #ffffff; 
-            opacity: 0.5;
-            letter-spacing: 0.05rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .cell-faint .example { 
-            font-size: 0.85rem; 
-            font-family: 'JetBrains Mono', monospace; 
-            color: #ffffff; 
-            padding: 0.4rem 0;
-            border-top: 1px solid rgba(255,255,255,0.05);
-        }
-
-        .cell-faint .func { 
-            font-size: 0.7rem; 
-            color: var(--text-dim);
-            margin-top: auto;
-            padding-top: 0.4rem;
-            border-top: 1px solid rgba(255,255,255,0.05);
-            font-style: italic;
-        }
-
-        /* BRIGHT/FOCUS STYLE (STRONGLY PROMINENT) */
-        .cell-bright {
-            background: rgba(255, 255, 255, 0.06);
-            border-width: 3px;
-            transform: scale(1.02);
-            z-index: 10;
-        }
-
-        .cell-blue { 
-            border-color: var(--accent-blue); 
-            box-shadow: 0 0 25px -5px rgba(77, 208, 225, 0.4);
-        }
-        .cell-gold { 
-            border-color: var(--accent-gold); 
-            box-shadow: 0 0 25px -5px rgba(251, 192, 45, 0.4);
-        }
-
-        .cell-bright h3 {
-            font-size: 0.75rem;
+        /* HEADER SECTION */
+        .cell-header {
+            padding: 0.6rem 1rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
             font-weight: 800;
             text-transform: uppercase;
             letter-spacing: 0.1rem;
-            margin-bottom: 0.5rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            color: #888;
         }
 
-        .cell-blue h3 { color: var(--accent-blue); }
-        .cell-gold h3 { color: var(--accent-gold); }
+        /* CONTENT SECTION (EXAMPLE) */
+        .cell-content {
+            flex-grow: 1;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
 
-        .cell-bright .example {
+        .cell-content .example {
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.95rem;
             font-weight: 700;
             color: #ffffff;
-            margin: 0.2rem 0;
-            padding: 0.5rem 0;
-            border-top: 1px solid rgba(255,255,255,0.1);
+            line-height: 1.2;
         }
 
-        .cell-bright .func {
+        /* FOOTER SECTION (FUNCTION) */
+        .cell-footer {
+            padding: 0.6rem 1rem;
             font-size: 0.75rem;
-            font-weight: 600;
-            color: #ffffff;
-            margin-top: auto;
-            padding-top: 0.5rem;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            opacity: 0.9;
+            background: rgba(255, 255, 255, 0.02);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: #aaa;
+            font-weight: 500;
         }
+
+        /* C1 FOCUS STYLE */
+        .cell-bright {
+            background: rgba(255, 255, 255, 0.05);
+            transform: scale(1.03);
+            z-index: 10;
+        }
+
+        .cell-blue { 
+            border: 2px solid var(--accent-blue); 
+            box-shadow: 0 0 30px -10px rgba(77, 208, 225, 0.5);
+        }
+        .cell-blue .cell-header { color: var(--accent-blue); background: rgba(77, 208, 225, 0.05); }
+        .cell-blue .cell-footer { color: #ffffff; background: rgba(77, 208, 225, 0.05); }
+
+        .cell-gold { 
+            border: 2px solid var(--accent-gold); 
+            box-shadow: 0 0 30px -10px rgba(251, 192, 45, 0.5);
+        }
+        .cell-gold .cell-header { color: var(--accent-gold); background: rgba(251, 192, 45, 0.05); }
+        .cell-gold .cell-footer { color: #ffffff; background: rgba(251, 192, 45, 0.05); }
+
+        /* FAINT STYLE (NOW FULLY READABLE) */
+        .cell-faint .cell-header { color: #888; }
+        .cell-faint .cell-footer { color: #777; font-style: italic; }
 
         /* ROW/COLUMN HEADERS (Small labels inside grid or nearby) */
         .row-name {
@@ -294,68 +293,68 @@
                 
                 <!-- ROW 1: PAST -->
                 <article class="grid-cell cell-faint">
-                    <h3>PAST SIMPLE</h3>
-                    <div class="example">"I worked."</div>
-                    <div class="func">Tarihsel Kayıt</div>
+                    <div class="cell-header">PAST SIMPLE</div>
+                    <div class="cell-content"><div class="example">"I worked."</div></div>
+                    <div class="cell-footer">Tarihsel Kayıt</div>
                 </article>
                 <article class="grid-cell cell-faint">
-                    <h3>PAST CONT.</h3>
-                    <div class="example">"I was working."</div>
-                    <div class="func">Kesilen Süreç</div>
+                    <div class="cell-header">PAST CONT.</div>
+                    <div class="cell-content"><div class="example">"I was working."</div></div>
+                    <div class="cell-footer">Kesilen Süreç</div>
                 </article>
                 <article class="grid-cell cell-bright cell-gold">
-                    <h3>PAST PERFECT</h3>
-                    <div class="example">"I HAD worked."</div>
-                    <div class="func">Geçmişin Geçmişi (Sıralama)</div>
+                    <div class="cell-header">PAST PERFECT</div>
+                    <div class="cell-content"><div class="example">"I HAD worked."</div></div>
+                    <div class="cell-footer">Geçmişin Geçmişi (Sıralama)</div>
                 </article>
                 <article class="grid-cell cell-bright cell-gold">
-                    <h3>PAST PERF. CONT.</h3>
-                    <div class="example">"I HAD BEEN working."</div>
-                    <div class="func">Geçmişteki Birikim</div>
+                    <div class="cell-header">PAST PERF. CONT.</div>
+                    <div class="cell-content"><div class="example">"I HAD BEEN working."</div></div>
+                    <div class="cell-footer">Geçmişteki Birikim</div>
                 </article>
 
                 <!-- ROW 2: PRESENT -->
                 <article class="grid-cell cell-faint">
-                    <h3>PRESENT SIMPLE</h3>
-                    <div class="example">"I work."</div>
-                    <div class="func">Genel Geçer</div>
+                    <div class="cell-header">PRESENT SIMPLE</div>
+                    <div class="cell-content"><div class="example">"I work."</div></div>
+                    <div class="cell-footer">Genel Geçer</div>
                 </article>
                 <article class="grid-cell cell-faint">
-                    <h3>PRESENT CONT.</h3>
-                    <div class="example">"I am working."</div>
-                    <div class="func">Şu Anki Eylem</div>
+                    <div class="cell-header">PRESENT CONT.</div>
+                    <div class="cell-content"><div class="example">"I am working."</div></div>
+                    <div class="cell-footer">Şu Anki Eylem</div>
                 </article>
                 <article class="grid-cell cell-bright cell-blue">
-                    <h3>PRESENT PERFECT</h3>
-                    <div class="example">"I HAVE worked."</div>
-                    <div class="func">Şu Anki Sonuç (Skor/İz)</div>
+                    <div class="cell-header">PRESENT PERFECT</div>
+                    <div class="cell-content"><div class="example">"I HAVE worked."</div></div>
+                    <div class="cell-footer">Şu Anki Sonuç (Skor/İz)</div>
                 </article>
                 <article class="grid-cell cell-bright cell-blue">
-                    <h3>PRESENT PERF. CONT.</h3>
-                    <div class="example">"I HAVE BEEN working."</div>
-                    <div class="func">Şu Anki Yorgunluk (Efor/İz)</div>
+                    <div class="cell-header">PRESENT PERF. CONT.</div>
+                    <div class="cell-content"><div class="example">"I HAVE BEEN working."</div></div>
+                    <div class="cell-footer">Şu Anki Yorgunluk (Efor/İz)</div>
                 </article>
 
                 <!-- ROW 3: FUTURE -->
                 <article class="grid-cell cell-faint">
-                    <h3>FUTURE SIMPLE</h3>
-                    <div class="example">"I will work."</div>
-                    <div class="func">Plan/Tahmin</div>
+                    <div class="cell-header">FUTURE SIMPLE</div>
+                    <div class="cell-content"><div class="example">"I will work."</div></div>
+                    <div class="cell-footer">Plan/Tahmin</div>
                 </article>
                 <article class="grid-cell cell-faint">
-                    <h3>FUTURE CONT.</h3>
-                    <div class="example">"I will be working."</div>
-                    <div class="func">Gelecekteki Süreç</div>
+                    <div class="cell-header">FUTURE CONT.</div>
+                    <div class="cell-content"><div class="example">"I will be working."</div></div>
+                    <div class="cell-footer">Gelecekteki Süreç</div>
                 </article>
                 <article class="grid-cell cell-faint">
-                    <h3>FUTURE PERFECT</h3>
-                    <div class="example">"I will have worked."</div>
-                    <div class="func">Gelecekte Tamamlanmışlık</div>
+                    <div class="cell-header">FUTURE PERFECT</div>
+                    <div class="cell-content"><div class="example">"I will have worked."</div></div>
+                    <div class="cell-footer">Gelecekte Tamamlanmışlık</div>
                 </article>
                 <article class="grid-cell cell-faint">
-                    <h3>FUTURE PERF. CONT.</h3>
-                    <div class="example">"I will have been working."</div>
-                    <div class="func">Gelecekteki Birikim</div>
+                    <div class="cell-header">FUTURE PERF. CONT.</div>
+                    <div class="cell-content"><div class="example">"I will have been working."</div></div>
+                    <div class="cell-footer">Gelecekteki Birikim</div>
                 </article>
 
             </main>
