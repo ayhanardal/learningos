@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MAKRO HARİTA: İNGİLİZCE ZAMAN MİMARİSİ — C1 Odağı</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #191919;
+            --text-main: #ffffff;
+            --text-dim: #9e9e9e;
+            --accent-blue: #4dd0e1;
+            --accent-gold: #fbc02d;
+            --border: rgba(255, 255, 255, 0.08);
+            --card-bg: rgba(255, 255, 255, 0.02);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            width: 100vw;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 4vh 4vw;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* HEADER */
+        header.page-header h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: -0.01em;
+        }
+
+        header.page-header p.subtitle {
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: var(--accent-blue);
+            opacity: 0.9;
+        }
+
+        /* ANALOGY BOX */
+        .analogy-box {
+            border-left: 4px solid var(--accent-gold);
+            padding: 1.2rem 2rem;
+            font-size: 1.1rem;
+            font-weight: 500;
+            line-height: 1.65;
+            color: var(--text-dim);
+            background: rgba(251, 192, 45, 0.03);
+            border-radius: 0 12px 12px 0;
+        }
+
+        /* 12-TENSE GRID (3 rows x 4 cols) */
+        .tense-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        /* Row/Col Labels styling (Optional, but helps clarity) */
+        .grid-header {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15rem;
+            color: var(--accent-blue);
+            padding-bottom: 0.5rem;
+            text-align: center;
+            font-weight: 700;
+        }
+
+        .tense-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 1.5rem;
+            border-radius: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        /* FAINT (PREVIOUSLY LEARNED) TENSES */
+        .tense-faint {
+            opacity: 0.25;
+            filter: grayscale(1);
+        }
+
+        .tense-faint h3 { font-size: 0.85rem; color: var(--text-dim); }
+        
+        /* C1 FOCUS TENSES */
+        .tense-bright {
+            background: rgba(255, 255, 255, 0.04);
+            border-width: 2px;
+            box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5);
+        }
+
+        .tense-bright-blue { border-color: var(--accent-blue); }
+        .tense-bright-gold { border-color: var(--accent-gold); }
+
+        .tense-card h3 {
+            font-size: 0.9rem;
+            font-weight: 800;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .tense-bright-blue h3 { color: var(--accent-blue); }
+        .tense-bright-gold h3 { color: var(--accent-gold); }
+
+        .tense-example {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .tense-faint .tense-example { font-size: 0.95rem; color: var(--text-dim); }
+
+        .tense-desc {
+            font-size: 0.8rem;
+            color: var(--text-dim);
+            line-height: 1.4;
+        }
+
+        /* BADGES */
+        .badge {
+            position: absolute;
+            top: -10px;
+            right: 15px;
+            padding: 4px 10px;
+            font-size: 0.65rem;
+            font-weight: 800;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.05rem;
+        }
+
+        .badge-blue { background: var(--accent-blue); color: #191919; box-shadow: 0 0 15px var(--accent-blue); }
+        .badge-gold { background: var(--accent-gold); color: #191919; box-shadow: 0 0 15px var(--accent-gold); }
+        .badge-faint { background: var(--border); color: var(--text-dim); }
+
+        /* GRID ROW LABELS */
+        .row-label {
+            position: absolute;
+            left: -40px;
+            top: 50%;
+            transform: rotate(-90deg) translateY(-50%);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            letter-spacing: 0.3rem;
+            color: var(--text-dim);
+            opacity: 0.5;
+            text-transform: uppercase;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- HEADER -->
+        <header class="page-header">
+            <h1>MAKRO HARİTA: İNGİLİZCE ZAMAN MİMARİSİ</h1>
+            <p class="subtitle">Temellerden İleri Seviye (C1) Yapılara Geçiş</p>
+        </header>
+
+        <!-- ANALOGY -->
+        <section class="analogy-box">
+            "Aşağıdaki harita, İngilizcenin tüm zaman (Tense) ve durum (Aspect) matrisidir. Soluk renkli alanlar, A1-B2 seviyelerinde hallettiğiniz temel yapılardır. Bu dersteki asıl hedefimiz, parlayan kutulardaki 'Zaman Köprüleri'ni (Perfect Aspect) ve bunların yarattığı anlamsal nüansları deşifre etmektir."
+        </section>
+
+        <!-- 12-TENSE GRID -->
+        <div style="position: relative;">
+            
+            <!-- Column Labels -->
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); margin-bottom: 0.5rem; padding: 0 5px;">
+                <div class="grid-header">Simple</div>
+                <div class="grid-header">Continuous</div>
+                <div class="grid-header">Perfect</div>
+                <div class="grid-header">Perfect Cont.</div>
+            </div>
+
+            <main class="tense-grid">
+                
+                <!-- PRESENT ROW -->
+                <article class="tense-card tense-faint">
+                    <span class="badge badge-faint">Temel</span>
+                    <h3>PRESENT SIMPLE</h3>
+                    <div class="tense-example">"I work."</div>
+                    <p class="tense-desc">Genel geçer gerçeklikler ve alışkanlıklar.</p>
+                </article>
+
+                <article class="tense-card tense-faint">
+                    <span class="badge badge-faint">Temel</span>
+                    <h3>PRESENT CONT.</h3>
+                    <div class="tense-example">"I am working."</div>
+                    <p class="tense-desc">Şu anda gerçekleşen eylemler.</p>
+                </article>
+
+                <article class="tense-card tense-bright tense-bright-blue">
+                    <span class="badge badge-blue">C1 Odak Noktası</span>
+                    <h3>PRESENT PERFECT</h3>
+                    <div class="tense-example">"I HAVE worked."</div>
+                    <p class="tense-desc">Geçmişin şu ana mirası. Skor ve sonuç odaklı.</p>
+                </article>
+
+                <article class="tense-card tense-bright tense-bright-gold">
+                    <span class="badge badge-gold">C1 Odak Noktası</span>
+                    <h3>PRESENT PERFECT CONT.</h3>
+                    <div class="tense-example">"I HAVE BEEN working."</div>
+                    <p class="tense-desc">Sürecin fiziksel izi ve yorgunluğu. Efor odaklı.</p>
+                </article>
+
+                <!-- PAST ROW -->
+                <article class="tense-card tense-faint">
+                    <span class="badge badge-faint">Temel</span>
+                    <h3>PAST SIMPLE</h3>
+                    <div class="tense-example">"I worked."</div>
+                    <p class="tense-desc">Mühürlenmiş tarihsel kayıtlar.</p>
+                </article>
+
+                <article class="tense-card tense-faint">
+                    <span class="badge badge-faint">Temel</span>
+                    <h3>PAST CONT.</h3>
+                    <div class="tense-example">"I was working."</div>
+                    <p class="tense-desc">Geçmişte yarıda kesilen süreçler.</p>
+                </article>
+
+                <article class="tense-card tense-bright tense-bright-gold">
+                    <span class="badge badge-gold">C1 Odak Noktası</span>
+                    <h3>PAST PERFECT</h3>
+                    <div class="tense-example">"I HAD worked."</div>
+                    <p class="tense-desc">Geçmişin geçmişi. Matematiksel sıralama ve optimizasyon.</p>
+                </article>
+
+                <article class="tense-card tense-faint">
+                    <span class="badge badge-faint">İkincil</span>
+                    <h3>PAST PERFECT CONT.</h3>
+                    <div class="tense-example">"I had been working."</div>
+                    <p class="tense-desc">Geçmişteki sürecin birikimi.</p>
+                </article>
+
+                <!-- FUTURE ROW -->
+                <article class="tense-card tense-faint">
+                    <span class="badge badge-faint">Temel</span>
+                    <h3>FUTURE SIMPLE</h3>
+                    <div class="tense-example">"I will work."</div>
+                    <p class="tense-desc">Gelecek tahminleri ve anlık kararlar.</p>
+                </article>
+
+                <article class="tense-card tense-faint">
+                    <span class="badge badge-faint">Temel</span>
+                    <h3>FUTURE CONT.</h3>
+                    <div class="tense-example">"I will be working."</div>
+                    <p class="tense-desc">Gelecekte belirli bir andaki süreç.</p>
+                </article>
+
+                <article class="tense-card tense-bright tense-bright-blue">
+                    <span class="badge badge-blue">C1 Odak Noktası</span>
+                    <h3>FUTURE PERFECT</h3>
+                    <div class="tense-example">"I will HAVE worked."</div>
+                    <p class="tense-desc">Gelecekteki tamamlanmışlık projeksiyonu.</p>
+                </article>
+
+                <article class="tense-card tense-faint">
+                    <span class="badge badge-faint">İkincil</span>
+                    <h3>FUTURE PERFECT CONT.</h3>
+                    <div class="tense-example">"I will have been working."</div>
+                    <p class="tense-desc">Gelecekteki zaman birikimi.</p>
+                </article>
+
+            </main>
+        </div>
+    </div>
+
+</body>
+</html>
