@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GEÇMİŞİN OPTİMİZASYONU — Past Perfect ve Gereksiz Yük</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #191919;
+            --text-main: #ffffff;
+            --text-header: #e0e0e0;
+            --text-dim: #b0bec5;
+            --accent-blue: #4dd0e1;
+            --accent-gold: #fbc02d;
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.08);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4vh 4vw;
+        }
+
+        .layout-wrapper {
+            width: 100%;
+            max-width: 1200px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 2.2rem;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* HEADER */
+        header.page-header {
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+        }
+
+        header.page-header h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--text-header);
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+        }
+
+        header.page-header p.subtitle {
+            font-size: 1.25rem;
+            font-weight: 500;
+            color: var(--accent-gold);
+            opacity: 0.9;
+        }
+
+        /* ANALOGY BOX */
+        .analogy-box {
+            border-left: 3px solid var(--accent-gold);
+            padding: 1rem 1.8rem;
+            font-size: 1.15rem;
+            font-weight: 500;
+            line-height: 1.6;
+            color: var(--text-dim);
+            background: rgba(251, 192, 45, 0.02);
+            border-radius: 0 8px 8px 0;
+        }
+
+        .analogy-box strong {
+            color: var(--text-main);
+            font-weight: 700;
+        }
+
+        /* MAIN CONTENT (GRID 60/40) */
+        .main-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 3.5rem;
+            flex: 1;
+        }
+
+        /* LEFT COLUMN (60%) */
+        .text-column {
+            width: 60%;
+            display: flex;
+            flex-direction: column;
+            gap: 1.8rem;
+        }
+
+        /* Case Cards Grid */
+        .case-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .case-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 2rem;
+            border-radius: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+            height: 100%;
+        }
+
+        .case-card h3 {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15rem;
+            font-weight: 800;
+            color: var(--text-dim);
+            padding-bottom: 0.8rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .phrase-box {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.3rem;
+            font-weight: 700;
+            line-height: 1.4;
+            min-height: 5rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .had-highlight { color: var(--accent-gold); }
+        .phrase-blue { color: var(--accent-blue); }
+
+        .case-description {
+            font-size: 0.98rem;
+            line-height: 1.6;
+            color: var(--text-dim);
+        }
+
+        .case-description strong {
+            color: #ffffff;
+        }
+
+        /* RIGHT COLUMN (40%) */
+        .visual-column {
+            width: 40%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .visual-column img {
+            width: 100%;
+            height: auto;
+            border-radius: 20px;
+            box-shadow: 0 40px 100px -30px rgba(0,0,0,0.6);
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="layout-wrapper">
+        <!-- HEADER -->
+        <header class="page-header">
+            <h1>GEÇMİŞİN OPTİMİZASYONU</h1>
+            <p class="subtitle">Past Perfect ve Gereksiz Yük (Redundancy)</p>
+        </header>
+
+        <!-- ANALOGY -->
+        <section class="analogy-box">
+            "Past Perfect (Miş'li geçmiş), cümleyi daha 'havalı' yapmaz; sadece iki olay arasındaki sırayı netleştirir. Eğer cümlede 'before' veya 'after' gibi olay sırasını zaten veren bir bağlaç varsa, Past Perfect kullanmak aynı koşulu iki kere kontrol eden gereksiz bir kod bloğu (redundancy) yazmak gibidir."
+        </section>
+
+        <!-- MAIN CONTENT -->
+        <main class="main-content">
+            <section class="text-column">
+                
+                <div class="case-grid">
+                    <!-- KUTU 1: GEREKSİZ YÜK -->
+                    <div class="case-card">
+                        <h3>GEREKSİZ YÜK (HANTAL YAPI)</h3>
+                        <div class="phrase-box">
+                            <span>Before I went to bed, I <span class="had-highlight">HAD</span> brushed my teeth.</span>
+                        </div>
+                        <p class="case-description">
+                            Yanlış değildir ama <strong>hantaldır.</strong> 'Before' kelimesi zaten hangi eylemin önce olduğunu bas bas bağırır. Buraya bir de Past Perfect eklemek, yön tabelası olan yola fazladan GPS takmak gibidir.
+                        </p>
+                    </div>
+
+                    <!-- KUTU 2: OPTİMİZE AKIŞ -->
+                    <div class="case-card">
+                        <h3>OPTİMİZE AKIŞ (TEMİZ İLETİŞİM)</h3>
+                        <div class="phrase-box phrase-blue">
+                            "Before I went to bed, I brushed my teeth."
+                        </div>
+                        <p class="case-description">
+                            <strong>Sadece Simple Past!</strong> Olay sırası zaten bağlaçla garanti altına alındığı için, fazladan bir zaman kipi mimarisine ihtiyaç kalmaz. İletişim temiz, hızlı ve akıcıdır.
+                        </p>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- VISUAL -->
+            <figure class="visual-column">
+                <img src="./assets/past_perfect_redundancy.png" alt="Past Perfect Gereksiz Yük ve Optimizasyon Karşılaştırması">
+            </figure>
+        </main>
+    </div>
+
+</body>
+</html>
