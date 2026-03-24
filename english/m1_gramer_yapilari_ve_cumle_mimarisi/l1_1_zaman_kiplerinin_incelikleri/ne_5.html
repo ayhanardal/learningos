@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MAKRO HARİTA: İNGİLİZCE ZAMAN KOORDİNATLARI — Tematik Renk Odaklı</title>
+    <title>MAKRO HARİTA: İNGİLİZCE ZAMAN KOORDİNATLARI — Tam İsim ve C1 Vurgusu</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -12,6 +12,7 @@
             --text-dim: #9e9e9e;
             --accent-blue: #4dd0e1; /* TIME Color */
             --accent-gold: #fbc02d; /* ASPECT Color */
+            --accent-c1: #bb86fc;   /* NEW C1 Highlight Color (Purple) */
             --axis-color: #555;
             --grid-border: rgba(255, 255, 255, 0.05);
         }
@@ -34,10 +35,10 @@
 
         .container {
             width: 100%;
-            max-width: 1350px; 
+            max-width: 1400px; 
             display: flex;
             flex-direction: column;
-            gap: 3rem; 
+            gap: 2.5rem; 
             animation: fadeIn 0.8s ease-out;
         }
 
@@ -48,7 +49,7 @@
 
         /* HEADER */
         header.page-header h1 {
-            font-size: 2.2rem;
+            font-size: 2.22rem;
             font-weight: 800;
             color: #ffffff;
             text-transform: uppercase;
@@ -69,7 +70,7 @@
             margin-left: 140px; 
             margin-right: 120px; 
             margin-bottom: 60px; 
-            padding: 30px; 
+            padding: 2.5rem; 
         }
 
         /* AXES */
@@ -117,7 +118,7 @@
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.8rem;
             font-weight: 700;
-            color: var(--accent-blue); /* Assigned Main Color for TIME */
+            color: var(--accent-blue);
             letter-spacing: 0.5rem;
             text-transform: uppercase;
             text-align: center;
@@ -132,7 +133,7 @@
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.8rem;
             font-weight: 700;
-            color: var(--accent-gold); /* Assigned Second Color for ASPECT */
+            color: var(--accent-gold);
             letter-spacing: 0.5rem;
             text-transform: uppercase;
             opacity: 0.7;
@@ -171,47 +172,45 @@
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             grid-template-rows: repeat(3, 1fr);
-            gap: 1.5rem;
+            gap: 1.25rem;
             position: relative;
             z-index: 1;
         }
 
         .grid-cell {
             background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 12px;
             display: flex;
             flex-direction: column;
-            padding: 0;
             overflow: hidden;
             transition: all 0.3s ease;
-            min-height: 140px;
+            min-height: 145px;
         }
 
         /* INTERNAL CELL STRUCTURE */
         .cell-header {
-            padding: 0.8rem 1.2rem;
+            padding: 0.8rem 1rem;
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.7rem;
+            font-size: 0.6rem; /* Slightly smaller for full text names */
             font-weight: 800;
             text-transform: uppercase;
-            letter-spacing: 0.05rem;
+            letter-spacing: 0.04rem;
             background: rgba(255, 255, 255, 0.03);
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            white-space: nowrap;
         }
 
-        /* Sub-coloring in headers */
         .cell-header .t-time { color: var(--accent-blue); }
         .cell-header .t-aspect { color: var(--accent-gold); }
 
         .cell-content {
             flex-grow: 1;
-            padding: 1.2rem;
+            padding: 1rem;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
-            background: transparent;
         }
 
         .cell-content .example {
@@ -223,34 +222,28 @@
         }
 
         .cell-footer {
-            padding: 0.7rem 1.2rem;
-            font-size: 0.7rem;
+            padding: 0.7rem 1rem;
+            font-size: 0.68rem;
             background: rgba(255, 255, 255, 0.01);
             border-top: 1px solid rgba(255, 255, 255, 0.03);
-            color: #666;
+            color: #555;
             font-weight: 500;
         }
 
-        /* C1 HIGHLIGHT - BORDER ONLY FOCUS */
+        /* C1 HIGHLIGHT - CUSTOM COLOR (PURPLE) & BORDER ONLY */
         .cell-bright {
-            transform: scale(1.02);
+            transform: scale(1.03);
             z-index: 10;
-            background: rgba(255, 255, 255, 0.04);
+            background: rgba(187, 134, 252, 0.03); /* Very subtle tint */
+            border: 1.8px solid var(--accent-c1);
+            box-shadow: 0 0 25px -10px rgba(187, 134, 252, 0.3);
         }
-
-        /* Perfect Border Highlight (Gold) */
-        .highlight-gold { 
-            border: 1.5px solid var(--accent-gold); 
-            box-shadow: 0 0 25px -10px rgba(251, 192, 45, 0.4);
+        
+        .cell-bright .cell-footer {
+            color: var(--accent-c1);
+            opacity: 0.8;
+            font-weight: 700;
         }
-        .highlight-gold .cell-footer { color: #aaa; }
-
-        /* Perfect Continuous Border Highlight (Blue) */
-        .highlight-blue { 
-            border: 1.5px solid var(--accent-blue); 
-            box-shadow: 0 0 25px -10px rgba(77, 208, 225, 0.4);
-        }
-        .highlight-blue .cell-footer { color: #aaa; }
 
     </style>
 </head>
@@ -260,7 +253,7 @@
         <!-- HEADER -->
         <header class="page-header">
             <h1>MAKRO HARİTA: İNGİLİZCE ZAMAN KOORDİNATLARI</h1>
-            <p class="subtitle">Zaman (Mavi) ve Durum (Sarı) Kesişimi — C1 Seviye Odakları</p>
+            <p class="subtitle">Zaman ve Durum Matrisi — Seviye C1 Fokus (Vurgulu)</p>
         </header>
 
         <!-- COORDINATE SYSTEM -->
@@ -277,7 +270,7 @@
                 <div class="col-header">Simple</div>
                 <div class="col-header">Continuous</div>
                 <div class="col-header">Perfect</div>
-                <div class="col-header">Perf. Cont.</div>
+                <div class="col-header">Perfect Continuous</div>
             </div>
 
             <!-- Row Labels -->
@@ -295,17 +288,17 @@
                     <div class="cell-footer">Tarihsel Kayıt</div>
                 </article>
                 <article class="grid-cell">
-                    <div class="cell-header"><span class="t-time">PAST</span> <span class="t-aspect">CONT.</span></div>
+                    <div class="cell-header"><span class="t-time">PAST</span> <span class="t-aspect">CONTINUOUS</span></div>
                     <div class="cell-content"><div class="example">"I was working."</div></div>
                     <div class="cell-footer">Kesilen Süreç</div>
                 </article>
-                <article class="grid-cell cell-bright highlight-gold">
+                <article class="grid-cell cell-bright">
                     <div class="cell-header"><span class="t-time">PAST</span> <span class="t-aspect">PERFECT</span></div>
                     <div class="cell-content"><div class="example">"I HAD worked."</div></div>
-                    <div class="cell-footer">Geçmişin Geçmişi (Sıralama)</div>
+                    <div class="cell-footer">Geçmişin Geçmişi</div>
                 </article>
-                <article class="grid-cell cell-bright highlight-blue">
-                    <div class="cell-header"><span class="t-time">PAST</span> <span class="t-aspect">PERF. CONT.</span></div>
+                <article class="grid-cell cell-bright">
+                    <div class="cell-header"><span class="t-time">PAST</span> <span class="t-aspect">PERFECT CONTINUOUS</span></div>
                     <div class="cell-content"><div class="example">"I HAD BEEN working."</div></div>
                     <div class="cell-footer">Geçmişteki Birikim</div>
                 </article>
@@ -314,32 +307,32 @@
                 <article class="grid-cell">
                     <div class="cell-header"><span class="t-time">PRESENT</span> <span class="t-aspect">SIMPLE</span></div>
                     <div class="cell-content"><div class="example">"I work."</div></div>
-                    <div class="cell-footer">Genel Geçer</div>
+                    <div class="cell-footer">Genel Geçer Bilgi</div>
                 </article>
                 <article class="grid-cell">
-                    <div class="cell-header"><span class="t-time">PRESENT</span> <span class="t-aspect">CONT.</span></div>
+                    <div class="cell-header"><span class="t-time">PRESENT</span> <span class="t-aspect">CONTINUOUS</span></div>
                     <div class="cell-content"><div class="example">"I am working."</div></div>
                     <div class="cell-footer">Şu Anki Eylem</div>
                 </article>
-                <article class="grid-cell cell-bright highlight-gold">
+                <article class="grid-cell cell-bright">
                     <div class="cell-header"><span class="t-time">PRESENT</span> <span class="t-aspect">PERFECT</span></div>
                     <div class="cell-content"><div class="example">"I HAVE worked."</div></div>
-                    <div class="cell-footer">Şu Anki Sonuç (Skor/İz)</div>
+                    <div class="cell-footer">Şu Anki Sonuç (İz)</div>
                 </article>
-                <article class="grid-cell cell-bright highlight-blue">
-                    <div class="cell-header"><span class="t-time">PRESENT</span> <span class="t-aspect">PERF. CONT.</span></div>
+                <article class="grid-cell cell-bright">
+                    <div class="cell-header"><span class="t-time">PRESENT</span> <span class="t-aspect">PERFECT CONTINUOUS</span></div>
                     <div class="cell-content"><div class="example">"I HAVE BEEN working."</div></div>
-                    <div class="cell-footer">Şu Anki Yorgunluk (Efor/İz)</div>
+                    <div class="cell-footer">Skor Değil Efor (İz)</div>
                 </article>
 
                 <!-- ROW 3: FUTURE -->
                 <article class="grid-cell">
                     <div class="cell-header"><span class="t-time">FUTURE</span> <span class="t-aspect">SIMPLE</span></div>
                     <div class="cell-content"><div class="example">"I will work."</div></div>
-                    <div class="cell-footer">Plan/Tahmin</div>
+                    <div class="cell-footer">Plan veya Tahmin</div>
                 </article>
                 <article class="grid-cell">
-                    <div class="cell-header"><span class="t-time">FUTURE</span> <span class="t-aspect">CONT.</span></div>
+                    <div class="cell-header"><span class="t-time">FUTURE</span> <span class="t-aspect">CONTINUOUS</span></div>
                     <div class="cell-content"><div class="example">"I will be working."</div></div>
                     <div class="cell-footer">Gelecekteki Süreç</div>
                 </article>
@@ -349,7 +342,7 @@
                     <div class="cell-footer">Gelecekte Tamamlanmışlık</div>
                 </article>
                 <article class="grid-cell">
-                    <div class="cell-header"><span class="t-time">FUTURE</span> <span class="t-aspect">PERF. CONT.</span></div>
+                    <div class="cell-header"><span class="t-time">FUTURE</span> <span class="t-aspect">PERFECT CONTINUOUS</span></div>
                     <div class="cell-content"><div class="example">"I will have been working."</div></div>
                     <div class="cell-footer">Gelecekteki Birikim</div>
                 </article>
