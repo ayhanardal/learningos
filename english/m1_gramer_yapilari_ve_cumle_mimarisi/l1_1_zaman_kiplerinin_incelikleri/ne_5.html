@@ -165,9 +165,30 @@
             border: 1px solid rgba(255, 255, 255, 0.15);
         }
 
-        .cell-faint h3 { font-size: 0.8rem; color: #ffffff; opacity: 0.8; }
-        .cell-faint .example { font-size: 0.9rem; font-family: 'JetBrains Mono', monospace; color: #ffffff; opacity: 0.9; }
-        .cell-faint .func { font-size: 0.75rem; color: var(--text-dim); }
+        .cell-faint h3 { 
+            font-size: 0.7rem; 
+            color: #ffffff; 
+            opacity: 0.5;
+            letter-spacing: 0.05rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .cell-faint .example { 
+            font-size: 0.85rem; 
+            font-family: 'JetBrains Mono', monospace; 
+            color: #ffffff; 
+            padding: 0.4rem 0;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .cell-faint .func { 
+            font-size: 0.7rem; 
+            color: var(--text-dim);
+            margin-top: auto;
+            padding-top: 0.4rem;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            font-style: italic;
+        }
 
         /* BRIGHT/FOCUS STYLE (STRONGLY PROMINENT) */
         .cell-bright {
@@ -187,10 +208,11 @@
         }
 
         .cell-bright h3 {
-            font-size: 0.85rem;
+            font-size: 0.75rem;
             font-weight: 800;
             text-transform: uppercase;
-            letter-spacing: 0.05rem;
+            letter-spacing: 0.1rem;
+            margin-bottom: 0.5rem;
         }
 
         .cell-blue h3 { color: var(--accent-blue); }
@@ -198,16 +220,22 @@
 
         .cell-bright .example {
             font-family: 'JetBrains Mono', monospace;
-            font-size: 1rem;
+            font-size: 0.95rem;
             font-weight: 700;
             color: #ffffff;
             margin: 0.2rem 0;
+            padding: 0.5rem 0;
+            border-top: 1px solid rgba(255,255,255,0.1);
         }
 
         .cell-bright .func {
             font-size: 0.75rem;
-            font-weight: 500;
-            color: var(--text-dim);
+            font-weight: 600;
+            color: #ffffff;
+            margin-top: auto;
+            padding-top: 0.5rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            opacity: 0.9;
         }
 
         /* ROW/COLUMN HEADERS (Small labels inside grid or nearby) */
