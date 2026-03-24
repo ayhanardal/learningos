@@ -3,20 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BÜYÜK RESİM: ZAMAN VE DURUM MATRİSİ — Koordinat Sistemi</title>
+    <title>PERFECT ASPECT (KÖPRÜ VE İZ) — Analitik İnceleme</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg: #191919;
             --text-main: #ffffff;
-            --text-dim: #b0bec5;
-            --text-faint: #90a4ae; /* More legible than before */
-            --accent-blue: #4dd0e1;
+            --text-dim: #9e9e9e;
             --accent-gold: #fbc02d;
-            --accent-deep-blue: #2196f3;
-            --accent-gray: #cfd8dc;
+            --accent-blue: #4dd0e1;
             --card-bg: rgba(255, 255, 255, 0.03);
-            --border: rgba(255, 255, 255, 0.1);
+            --border-subtle: rgba(255, 255, 255, 0.06);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -31,207 +28,196 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 3vh 4vw;
+            padding: 40px;
         }
 
-        .layout-wrapper {
+        .slide-container {
             width: 100%;
             max-width: 1200px;
             height: 100%;
             display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
+            gap: 60px;
             animation: fadeIn 0.8s ease-out;
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.98); }
-            to { opacity: 1; transform: scale(1); }
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        /* HEADER */
-        header.page-header h1 {
-            font-size: 2rem;
-            font-weight: 800;
-            color: #e0e0e0;
-            text-transform: uppercase;
-            letter-spacing: -0.01em;
-        }
-
-        header.page-header p.subtitle {
-            font-size: 1.1rem;
-            font-weight: 500;
-            color: var(--accent-blue);
-            opacity: 0.9;
-            margin-top: 0.2rem;
-        }
-
-        /* ANALOGY BOX */
-        .analogy-box {
-            border-left: 4px solid var(--accent-gold);
-            padding: 1rem 1.8rem;
-            font-size: 1rem;
-            font-weight: 500;
-            line-height: 1.55;
-            color: var(--text-dim);
-            background: rgba(251, 192, 45, 0.02);
-            border-radius: 0 10px 10px 0;
-        }
-
-        .analogy-box strong { color: #ffffff; }
-
-        /* MAIN 60/40 */
-        .main-content {
-            display: flex;
-            align-items: stretch;
-            gap: 3rem;
+        /* LEFT CONTENT - 50% */
+        .content-column {
             flex: 1;
-            min-height: 0;
-        }
-
-        /* LEFT COLUMN (60%) */
-        .grid-column {
-            width: 60%;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            grid-template-rows: 1fr 1fr;
-            gap: 1.5rem;
-            min-height: 0;
-        }
-
-        .matrix-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            padding: 1.5rem;
-            border-radius: 16px;
             display: flex;
             flex-direction: column;
-            gap: 0.8rem;
+            justify-content: center;
+        }
+
+        header {
+            margin-bottom: 2rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            color: var(--text-main);
+            margin-bottom: 0.4rem;
+        }
+
+        .subtitle {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--accent-gold);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .intro-text {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: var(--text-dim);
+            margin-bottom: 2.5rem;
+            padding-left: 1rem;
+            border-left: 2px solid var(--border-subtle);
+        }
+
+        /* CARDS */
+        .card-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .analysis-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-subtle);
+            border-radius: 12px;
+            padding: 1.25rem 1.5rem;
             transition: all 0.3s ease;
         }
 
-        .matrix-card:hover {
-            border-color: rgba(255, 255, 255, 0.2);
+        .analysis-card:hover {
+            border-color: rgba(255, 255, 255, 0.15);
             background: rgba(255, 255, 255, 0.05);
-            transform: translateY(-2px);
+            transform: translateX(5px);
         }
 
-        .card-faint {
-            border-color: rgba(255, 255, 255, 0.05);
-            opacity: 0.8; /* Increased from pure faint to better visibility */
-        }
-
-        .card-meta {
+        .card-label {
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             font-weight: 700;
-            text-transform: uppercase;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .card-meta span { color: var(--text-dim); opacity: 0.6; }
-
-        .card-desc {
-            font-size: 0.88rem;
-            line-height: 1.45;
+            margin-bottom: 0.6rem;
             color: var(--text-dim);
-            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
         }
 
-        .card-example {
-            margin-top: auto;
+        .example-sentence {
             font-family: 'JetBrains Mono', monospace;
+            font-size: 0.95rem;
+            font-weight: 700;
+            margin-bottom: 0.8rem;
+            line-height: 1.4;
+        }
+
+        .highlight-past { color: var(--accent-gold); }
+        .highlight-present { color: var(--accent-blue); }
+        .highlight-future { color: var(--accent-gold); }
+
+        .analysis-text {
             font-size: 0.85rem;
+            line-height: 1.5;
+            color: var(--text-dim);
+        }
+
+        .analysis-text strong {
             color: #ffffff;
             font-weight: 600;
-            padding-top: 0.6rem;
-            border-top: 1px solid var(--border);
         }
 
-        /* RIGHT COLUMN (40%) */
+        /* RIGHT VISUAL - 50% */
         .visual-column {
-            width: 40%;
+            flex: 1;
             display: flex;
             align-items: center;
             justify-content: center;
+            background: rgba(255, 255, 255, 0.01);
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
         }
 
         .visual-column img {
             width: 100%;
             height: auto;
-            border-radius: 20px;
-            box-shadow: 0 40px 80px -20px rgba(0,0,0,0.6);
-            border: 1px solid rgba(255,255,255,0.05);
+            max-height: 90%;
+            object-fit: contain;
+            filter: drop-shadow(0 0 30px rgba(0,0,0,0.5));
         }
 
-        /* COLORS PER CARD */
-        .card-past h3 { font-size: 1rem; color: var(--accent-gray); font-weight: 800; }
-        .card-perfect-past h3 { font-size: 1rem; color: var(--accent-deep-blue); font-weight: 800; }
-        .card-perfect-simple h3 { font-size: 1rem; color: var(--accent-blue); font-weight: 800; }
-        .card-perfect-cont h3 { font-size: 1rem; color: var(--accent-gold); font-weight: 800; }
+        .visual-column::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at center, transparent 40%, var(--bg) 95%);
+            pointer-events: none;
+        }
 
     </style>
 </head>
 <body>
 
-    <div class="layout-wrapper">
-        <!-- HEADER -->
-        <header class="page-header">
-            <h1>BÜYÜK RESİM: ZAMAN VE DURUM MATRİSİ</h1>
-            <p class="subtitle">İki Eksenin Kesişimi (Tense x Aspect)</p>
-        </header>
+    <div class="slide-container">
+        <!-- LEFT COLUMN -->
+        <div class="content-column">
+            <header>
+                <div class="subtitle">Zamanlar Arası Veri Taşıma ve Sonuç Odaklılık</div>
+                <h1>PERFECT ASPECT (KÖPRÜ VE İZ)</h1>
+            </header>
 
-        <!-- ANALOGY -->
-        <section class="analogy-box">
-            "Gramer terimleri kafa karıştırıcı olabilir. Aslında İngilizce zaman kipleri ezberlenecek kurallar yığını değil, iki eksenin kesişimidir: Takvimde ne zaman oldu? (<strong>Zaman</strong>) ve şu anki gerçekliğe nasıl bir iz bıraktı? (<strong>Durum/Aspect</strong>). Adı 'Perfect' ama Latince 'perfectus' (tamamlanmış, bütün) kelimesinden gelir, 'Kusursuz' demek değildir."
-        </section>
+            <p class="intro-text">
+                "Perfect Aspect (Tamamlanmışlık Durumu), eylemin takvimdeki yerinden ziyade, bıraktığı 'İz' ile ilgilenir. 
+                Bu yapı, daima eski bir noktadan daha yeni bir referans noktasına atılan mantıksal bir köprüdür."
+            </p>
 
-        <!-- MAIN CONTENT -->
-        <main class="main-content">
-            <!-- 2x2 GRID -->
-            <section class="grid-column">
-                
-                <!-- KART 1: SIMPLE PAST -->
-                <article class="matrix-card card-faint card-past">
-                    <h3>SIMPLE PAST</h3>
-                    <div class="card-meta"><span>KESİŞİM:</span> Past x Simple</div>
-                    <p class="card-desc">Olay oldu, bitti ve mühürlendi. Şu anki gerçekliğimizle hiçbir teması yoktur. Sadece bir <strong>'Log Kaydı'</strong>dır.</p>
-                    <div class="card-example">Örn: I lost my keys.</div>
+            <div class="card-stack">
+                <!-- PAST PERFECT -->
+                <article class="analysis-card">
+                    <div class="card-label">KUTU 1: PAST PERFECT (Geçmişten -> Geçmişe)</div>
+                    <div class="example-sentence">The team <span class="highlight-past">HAD RESOLVED</span> the issue before the client called.</div>
+                    <p class="analysis-text">
+                        <strong>Öncelik ve Sıralama (Prior-Past).</strong> Eylem geçmişte başlamış, yine geçmişteki bir referans noktasına 
+                        (müşterinin araması) kadar taşınmış ve orada mühürlenmiştir. Olayın şu anla hiçbir teması yoktur.
+                    </p>
                 </article>
 
-                <!-- KART 2: PAST PERFECT -->
-                <article class="matrix-card card-perfect-past">
-                    <h3>PAST PERFECT</h3>
-                    <div class="card-meta"><span>KESİŞİM:</span> Past x Perfect</div>
-                    <p class="card-desc">Sadece geçmişteki iki olaydan hangisinin daha eski olduğunu netleştirmek için kullanılır. <strong>'Geçmişin Geçmişi'</strong>dir.</p>
-                    <div class="card-example">Örn: I had lost my keys before...</div>
+                <!-- PRESENT PERFECT -->
+                <article class="analysis-card">
+                    <div class="card-label">KUTU 2: PRESENT PERFECT (Geçmişten -> Şu Ana)</div>
+                    <div class="example-sentence">The team <span class="highlight-present">HAS RESOLVED</span> the issue.</div>
+                    <p class="analysis-text">
+                        <strong>Aktif İz ve Sonuç (Current Relevance).</strong> Eylem geçmişte gerçekleşmiş olabilir, ancak asıl odak noktası 
+                        problemin "ŞU AN" çözülmüş olmasıdır. Eylemin tarihsel kaydı değil, mevcut duruma bıraktığı ürün masadadır.
+                    </p>
                 </article>
 
-                <!-- KART 3: PRESENT PERFECT SIMPLE -->
-                <article class="matrix-card card-perfect-simple">
-                    <h3>PRESENT PERFECT SIMPLE</h3>
-                    <div class="card-meta"><span>KESİŞİM:</span> Present x Perfect</div>
-                    <p class="card-desc">Eylem geçmişte oldu ama skoru, tamamlanmış ürünü veya tecrübesi şu an masada aktif.</p>
-                    <div class="card-example">Örn: I have read 3 books.</div>
+                <!-- FUTURE PERFECT -->
+                <article class="analysis-card">
+                    <div class="card-label">KUTU 3: FUTURE PERFECT (Şu Andan -> Gelecekteki Bir Limite)</div>
+                    <div class="example-sentence">The team <span class="highlight-future">WILL HAVE RESOLVED</span> the issue by 5 PM.</div>
+                    <p class="analysis-text">
+                        <strong>Gelecekten Geriye Bakış (Future Retrospection).</strong> Referans noktası gelecekteki bir "deadline"dır. 
+                        Zihinsel olarak o gelecekteki noktaya gidilir ve eylemin o an itibarıyla "tamamlanmış" olacağı projeksiyonu yapılır.
+                    </p>
                 </article>
+            </div>
+        </div>
 
-                <!-- KART 4: PRESENT PERFECT CONT. -->
-                <article class="matrix-card card-perfect-cont">
-                    <h3>PRESENT PERFECT CONT.</h3>
-                    <div class="card-meta"><span>KESİŞİM:</span> Present x Continuous</div>
-                    <p class="card-desc">Eylem geçmişte başladı, belki yeni bitti ama sürecin yorgunluğu/terlemesi (fiziksel izi) şu an aktif.</p>
-                    <div class="card-example">Örn: I have been reading.</div>
-                </article>
-
-            </section>
-
-            <!-- VISUAL -->
-            <figure class="visual-column">
-                <img src="./assets/tense_aspect_matrix_v2.png" alt="Zaman ve Durum Matrisi Koordinat Sistemi V2">
-            </figure>
-        </main>
+        <!-- RIGHT COLUMN -->
+        <div class="visual-column">
+            <img src="assets/perfect_aspect_bridge_timelines.png" alt="Perfect Aspect Bridge Timelines Infographic">
+        </div>
     </div>
 
 </body>
