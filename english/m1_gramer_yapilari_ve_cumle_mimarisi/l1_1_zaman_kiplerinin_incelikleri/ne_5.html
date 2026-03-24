@@ -12,7 +12,7 @@
             --text-dim: #9e9e9e;
             --accent-blue: #4dd0e1;
             --accent-gold: #fbc02d;
-            --axis-color: #666;
+            --axis-color: #555;
             --grid-border: rgba(255, 255, 255, 0.05);
         }
 
@@ -24,20 +24,20 @@
             font-family: 'Inter', sans-serif;
             width: 100vw;
             height: 100vh;
-            overflow: hidden; /* Scroll prohibited */
+            overflow: hidden;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            padding: 2vh 4vw;
+            justify-content: flex-start;
+            padding: 5vh 4vw;
         }
 
         .container {
             width: 100%;
-            max-width: 1200px;
+            max-width: 1250px;
             display: flex;
             flex-direction: column;
-            gap: 2rem;
+            gap: 5rem; /* Increased gap between header and grid */
             animation: fadeIn 0.8s ease-out;
         }
 
@@ -47,20 +47,17 @@
         }
 
         /* HEADER */
-        header.page-header {
-            text-align: left;
-        }
-
         header.page-header h1 {
-            font-size: 2rem;
+            font-size: 2.4rem;
             font-weight: 800;
             color: #ffffff;
             text-transform: uppercase;
             letter-spacing: -0.01em;
+            margin-bottom: 0.5rem;
         }
 
         header.page-header p.subtitle {
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             font-weight: 500;
             color: var(--accent-blue);
             opacity: 0.9;
@@ -69,16 +66,17 @@
         /* COORDINATE SYSTEM CONTAINER */
         .coordinates-wrapper {
             position: relative;
-            margin-left: 60px; /* Space for Y-axis label */
-            margin-bottom: 60px; /* Space for X-axis label */
-            padding: 20px;
+            margin-left: 100px; /* Space for Y labels */
+            margin-right: 40px;
+            margin-bottom: 80px; /* Space for X labels */
+            padding: 30px; /* Buffer between axes and first cells */
         }
 
         /* AXES */
         .axes-container {
             position: absolute;
-            top: 0;
-            left: 0;
+            top: 10px;
+            left: 10px;
             width: 100%;
             height: 100%;
             border-left: 2px solid var(--axis-color);
@@ -109,58 +107,72 @@
             border-left: 10px solid var(--axis-color);
         }
 
-        /* AXIS LABELS */
-        .y-label {
+        /* AXIS TITLES */
+        .y-axis-title {
             position: absolute;
-            left: -55px;
+            left: -110px;
             top: 50%;
             transform: translateY(-50%) rotate(-90deg);
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             font-weight: 700;
-            color: var(--text-dim);
-            letter-spacing: 0.4rem;
+            color: #444;
+            letter-spacing: 0.5rem;
             text-transform: uppercase;
         }
 
-        .x-label {
+        .x-axis-title {
             position: absolute;
-            bottom: -55px;
+            bottom: -85px;
             left: 50%;
             transform: translateX(-50%);
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             font-weight: 700;
-            color: var(--text-dim);
-            letter-spacing: 0.4rem;
+            color: #444;
+            letter-spacing: 0.5rem;
             text-transform: uppercase;
         }
 
-        /* THE GRID (3 rows x 4 columns) */
+        /* COLUMN AND ROW LABELS */
+        .col-header {
+            text-align: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--accent-gold);
+            opacity: 0.5;
+            text-transform: uppercase;
+            letter-spacing: 0.1rem;
+            padding-bottom: 1rem;
+        }
+
+        .row-label {
+            position: absolute;
+            left: -80px;
+            width: 60px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--accent-blue);
+            opacity: 0.5;
+            text-transform: uppercase;
+            text-align: right;
+            line-height: 1;
+        }
+
+        /* GRID SYSTEM */
         .grid-main {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             grid-template-rows: repeat(3, 1fr);
-            gap: 1rem;
+            gap: 1.5rem;
             position: relative;
             z-index: 1;
         }
 
         .grid-cell {
             background: rgba(255, 255, 255, 0.02);
-            border: 1px solid var(--grid-border);
-            border-radius: 8px;
-            padding: 1.2rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            gap: 0.4rem;
-            transition: all 0.3s ease;
-            min-height: 120px;
-        }
-
-        .grid-cell {
-            background: rgba(255, 255, 255, 0.03);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 12px;
             display: flex;
@@ -171,9 +183,9 @@
             min-height: 140px;
         }
 
-        /* HEADER SECTION */
+        /* INTERNAL CELL STRUCTURE */
         .cell-header {
-            padding: 0.6rem 1rem;
+            padding: 0.7rem 1rem;
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.65rem;
             font-weight: 800;
@@ -181,13 +193,12 @@
             letter-spacing: 0.1rem;
             background: rgba(255, 255, 255, 0.03);
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            color: #888;
+            color: #777;
         }
 
-        /* CONTENT SECTION (EXAMPLE) */
         .cell-content {
             flex-grow: 1;
-            padding: 1rem;
+            padding: 1.2rem;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -196,69 +207,42 @@
 
         .cell-content .example {
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.95rem;
+            font-size: 1rem;
             font-weight: 700;
             color: #ffffff;
-            line-height: 1.2;
+            line-height: 1.3;
         }
 
-        /* FOOTER SECTION (FUNCTION) */
         .cell-footer {
-            padding: 0.6rem 1rem;
+            padding: 0.7rem 1rem;
             font-size: 0.75rem;
             background: rgba(255, 255, 255, 0.02);
             border-top: 1px solid rgba(255, 255, 255, 0.05);
-            color: #aaa;
+            color: #888;
             font-weight: 500;
+            font-style: italic;
         }
 
-        /* C1 FOCUS STYLE */
+        /* FOCUS STYLING */
         .cell-bright {
             background: rgba(255, 255, 255, 0.05);
-            transform: scale(1.03);
+            transform: scale(1.04);
             z-index: 10;
         }
 
         .cell-blue { 
             border: 2px solid var(--accent-blue); 
-            box-shadow: 0 0 30px -10px rgba(77, 208, 225, 0.5);
+            box-shadow: 0 0 40px -10px rgba(77, 208, 225, 0.5);
         }
-        .cell-blue .cell-header { color: var(--accent-blue); background: rgba(77, 208, 225, 0.05); }
-        .cell-blue .cell-footer { color: #ffffff; background: rgba(77, 208, 225, 0.05); }
+        .cell-blue .cell-header { color: var(--accent-blue); background: rgba(77, 208, 225, 0.08); }
+        .cell-blue .cell-footer { color: #ffffff; background: rgba(77, 208, 225, 0.08); font-style: normal; font-weight: 700; }
 
         .cell-gold { 
             border: 2px solid var(--accent-gold); 
-            box-shadow: 0 0 30px -10px rgba(251, 192, 45, 0.5);
+            box-shadow: 0 0 40px -10px rgba(251, 192, 45, 0.5);
         }
-        .cell-gold .cell-header { color: var(--accent-gold); background: rgba(251, 192, 45, 0.05); }
-        .cell-gold .cell-footer { color: #ffffff; background: rgba(251, 192, 45, 0.05); }
-
-        /* FAINT STYLE (NOW FULLY READABLE) */
-        .cell-faint .cell-header { color: #888; }
-        .cell-faint .cell-footer { color: #777; font-style: italic; }
-
-        /* ROW/COLUMN HEADERS (Small labels inside grid or nearby) */
-        .row-name {
-            position: absolute;
-            left: -85px;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.7rem;
-            font-weight: 700;
-            color: var(--accent-blue);
-            opacity: 0.6;
-            text-transform: uppercase;
-        }
-
-        .col-name {
-            text-align: center;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.65rem;
-            font-weight: 700;
-            color: var(--accent-gold);
-            opacity: 0.6;
-            text-transform: uppercase;
-            margin-bottom: 0.5rem;
-        }
+        .cell-gold .cell-header { color: var(--accent-gold); background: rgba(251, 192, 45, 0.08); }
+        .cell-gold .cell-footer { color: #ffffff; background: rgba(251, 192, 45, 0.08); font-style: normal; font-weight: 700; }
 
     </style>
 </head>
@@ -268,36 +252,41 @@
         <!-- HEADER -->
         <header class="page-header">
             <h1>MAKRO HARİTA: İNGİLİZCE ZAMAN KOORDİNATLARI</h1>
-            <p class="subtitle">Temel yapılardan (Soluk), İleri Seviye C1 hedeflerine (Parlak)</p>
+            <p class="subtitle">Temel yapılardan (Sade), İleri Seviye C1 hedeflerine (Vurgulu)</p>
         </header>
 
         <!-- COORDINATE SYSTEM -->
         <div class="coordinates-wrapper">
-            <!-- Labels -->
-            <div class="y-label">TIME (Zaman)</div>
-            <div class="x-label">ASPECT (Durum)</div>
+            <!-- Axis Main Labels -->
+            <div class="y-axis-title">TIME (Zaman)</div>
+            <div class="x-axis-title">ASPECT (Durum)</div>
 
             <!-- Axes Drawing -->
             <div class="axes-container"></div>
 
-            <!-- Column Header Labels -->
-            <div style="display: grid; grid-template-columns: repeat(4, 1fr); position: absolute; top: -25px; width: 100%;">
-                <div class="col-name">Simple</div>
-                <div class="col-name">Continuous</div>
-                <div class="col-name">Perfect</div>
-                <div class="col-name">Perf. Cont.</div>
+            <!-- Column Labels -->
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); width: 100%;">
+                <div class="col-header">Simple</div>
+                <div class="col-header">Continuous</div>
+                <div class="col-header">Perfect</div>
+                <div class="col-header">Perf. Cont.</div>
             </div>
+
+            <!-- Row Labels (Manually positioned to align with grid rows) -->
+            <div class="row-label" style="top: 130px;">PAST</div>
+            <div class="row-label" style="top: 295px;">PRESENT</div>
+            <div class="row-label" style="top: 455px;">FUTURE</div>
 
             <!-- THE GRID -->
             <main class="grid-main">
                 
                 <!-- ROW 1: PAST -->
-                <article class="grid-cell cell-faint">
+                <article class="grid-cell">
                     <div class="cell-header">PAST SIMPLE</div>
                     <div class="cell-content"><div class="example">"I worked."</div></div>
                     <div class="cell-footer">Tarihsel Kayıt</div>
                 </article>
-                <article class="grid-cell cell-faint">
+                <article class="grid-cell">
                     <div class="cell-header">PAST CONT.</div>
                     <div class="cell-content"><div class="example">"I was working."</div></div>
                     <div class="cell-footer">Kesilen Süreç</div>
@@ -314,12 +303,12 @@
                 </article>
 
                 <!-- ROW 2: PRESENT -->
-                <article class="grid-cell cell-faint">
+                <article class="grid-cell">
                     <div class="cell-header">PRESENT SIMPLE</div>
                     <div class="cell-content"><div class="example">"I work."</div></div>
                     <div class="cell-footer">Genel Geçer</div>
                 </article>
-                <article class="grid-cell cell-faint">
+                <article class="grid-cell">
                     <div class="cell-header">PRESENT CONT.</div>
                     <div class="cell-content"><div class="example">"I am working."</div></div>
                     <div class="cell-footer">Şu Anki Eylem</div>
@@ -336,22 +325,22 @@
                 </article>
 
                 <!-- ROW 3: FUTURE -->
-                <article class="grid-cell cell-faint">
+                <article class="grid-cell">
                     <div class="cell-header">FUTURE SIMPLE</div>
                     <div class="cell-content"><div class="example">"I will work."</div></div>
                     <div class="cell-footer">Plan/Tahmin</div>
                 </article>
-                <article class="grid-cell cell-faint">
+                <article class="grid-cell">
                     <div class="cell-header">FUTURE CONT.</div>
                     <div class="cell-content"><div class="example">"I will be working."</div></div>
                     <div class="cell-footer">Gelecekteki Süreç</div>
                 </article>
-                <article class="grid-cell cell-faint">
+                <article class="grid-cell">
                     <div class="cell-header">FUTURE PERFECT</div>
                     <div class="cell-content"><div class="example">"I will have worked."</div></div>
                     <div class="cell-footer">Gelecekte Tamamlanmışlık</div>
                 </article>
-                <article class="grid-cell cell-faint">
+                <article class="grid-cell">
                     <div class="cell-header">FUTURE PERF. CONT.</div>
                     <div class="cell-content"><div class="example">"I will have been working."</div></div>
                     <div class="cell-footer">Gelecekteki Birikim</div>
