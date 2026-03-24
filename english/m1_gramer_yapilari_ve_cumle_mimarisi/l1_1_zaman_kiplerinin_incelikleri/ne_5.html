@@ -161,23 +161,30 @@
 
         /* ACCESSIBLE STYLE FOR BASIC TENSES (Readable but secondary) */
         .cell-faint {
-            opacity: 0.75;
-            border-style: dashed;
+            opacity: 0.6;
+            border: 1px solid rgba(255,255,255,0.1);
         }
 
-        .cell-faint h3 { font-size: 0.75rem; color: #ccc; }
-        .cell-faint .example { font-size: 0.85rem; font-family: 'JetBrains Mono', monospace; color: #bbb; }
-        .cell-faint .func { font-size: 0.7rem; color: var(--text-dim); }
+        .cell-faint h3 { font-size: 0.7rem; color: #888; }
+        .cell-faint .example { font-size: 0.8rem; font-family: 'JetBrains Mono', monospace; color: #777; }
+        .cell-faint .func { font-size: 0.65rem; color: #666; }
 
-        /* BRIGHT/FOCUS STYLE */
+        /* BRIGHT/FOCUS STYLE (STRONGLY PROMINENT) */
         .cell-bright {
-            background: rgba(255, 255, 255, 0.04);
-            border-width: 2px;
-            box-shadow: 0 5px 20px -10px rgba(0,0,0,0.5);
+            background: rgba(255, 255, 255, 0.06);
+            border-width: 3px;
+            transform: scale(1.02);
+            z-index: 10;
         }
 
-        .cell-blue { border-color: var(--accent-blue); }
-        .cell-gold { border-color: var(--accent-gold); }
+        .cell-blue { 
+            border-color: var(--accent-blue); 
+            box-shadow: 0 0 25px -5px rgba(77, 208, 225, 0.4);
+        }
+        .cell-gold { 
+            border-color: var(--accent-gold); 
+            box-shadow: 0 0 25px -5px rgba(251, 192, 45, 0.4);
+        }
 
         .cell-bright h3 {
             font-size: 0.85rem;
