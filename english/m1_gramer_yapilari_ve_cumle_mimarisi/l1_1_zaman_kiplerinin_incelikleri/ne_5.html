@@ -149,16 +149,17 @@
 
         .row-label {
             position: absolute;
-            left: -80px;
+            left: -45px; /* Moved right from -80px to avoid line overlap */
             width: 60px;
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.7rem;
             font-weight: 700;
             color: var(--accent-blue);
-            opacity: 0.5;
+            opacity: 0.6;
             text-transform: uppercase;
             text-align: right;
             line-height: 1;
+            z-index: 5;
         }
 
         /* GRID SYSTEM */
