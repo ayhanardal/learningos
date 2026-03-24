@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASPECT DASHBOARD — Uygulama Analizi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #111111;
+            --card-bg: #191919;
+            --border: rgba(255, 255, 255, 0.08);
+            --text-main: #ffffff;
+            --text-dim: #9e9e9e;
+            
+            --simple-color: #e0e0e0;
+            --cont-color: #4dd0e1;
+            --perfect-color: #fbc02d;
+            --perf-cont-gradient: linear-gradient(135deg, #fbc02d 0%, #ff7043 100%);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .dashboard-container {
+            width: 100%;
+            max-width: 1300px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        header.main-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .main-header h1 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+        }
+
+        .main-header span {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        /* GRID LAYOUT */
+        .grid-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            gap: 1.5rem;
+            flex-grow: 1;
+            height: 0; /* Important for flex-grow to work with height:100% and nested scrolls */
+            min-height: 0;
+        }
+
+        /* PANEL STYLE */
+        .panel {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden; /* Header is sticky, content scrolls */
+            transition: border-color 0.3s ease;
+        }
+
+        .panel:hover {
+            border-color: rgba(255, 255, 255, 0.15);
+        }
+
+        .panel-header {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            background: rgba(25, 25, 25, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 1.25rem 1.5rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .panel-header h2 {
+            font-size: 0.9rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .color-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        /* SCROLLABLE CONTENT */
+        .panel-content {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding: 1rem 1.5rem 1.5rem 1.5rem;
+        }
+
+        /* CUSTOM SCROLLBAR */
+        .panel-content::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .panel-content::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .panel-content::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+
+        .panel-content::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* EXAMPLE CARS */
+        .example-card {
+            padding: 1.2rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            transition: transform 0.2s ease;
+        }
+
+        .example-card:last-child {
+            border-bottom: none;
+        }
+
+        .example-card:hover {
+            transform: translateX(4px);
+        }
+
+        .sentence {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 0.4rem;
+            line-height: 1.4;
+        }
+
+        .explanation {
+            font-size: 0.8rem;
+            color: var(--text-dim);
+            line-height: 1.5;
+        }
+
+        /* SPECIFIC PANEL COLORS */
+        .simple h2 { color: var(--simple-color); }
+        .simple .color-dot { background: var(--simple-color); }
+
+        .cont h2 { color: var(--cont-color); }
+        .cont .color-dot { background: var(--cont-color); }
+
+        .perfect h2 { color: var(--perfect-color); }
+        .perfect .color-dot { background: var(--perfect-color); }
+
+        .perf-cont h2 { 
+            background: var(--perf-cont-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .perf-cont .color-dot { background: #ff7043; }
+
+        @media (max-width: 900px) {
+            .grid-layout { grid-template-columns: 1fr; overflow-y: auto; height: auto; display: flex; flex-direction: column; }
+            body { overflow-y: auto; height: auto; padding: 1rem; }
+            .dashboard-container { height: auto; }
+            .panel { height: 500px; flex-shrink: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="dashboard-container">
+        <header class="main-header">
+            <h1>NASIL? <span style="font-weight: 300; opacity: 0.5; margin-left: 0.5rem;">C1 Contextual Application</span></h1>
+            <span>Dashboard — Phase 1.1</span>
+        </header>
+
+        <div class="grid-layout">
+            <!-- SIMPLE ASPECT -->
+            <section class="panel simple">
+                <div class="panel-header">
+                    <div class="color-dot"></div>
+                    <h2>Simple Aspect</h2>
+                </div>
+                <div class="panel-content">
+                    <div class="example-card">
+                        <div class="sentence">"The committee approved the new budget yesterday."</div>
+                        <div class="explanation">Geçmişte mühürlenmiş, tamamlanmış ve kapatılmış kesin bir karar.</div>
+                    </div>
+                    <div class="example-card">
+                        <div class="sentence">"Water boils at 100 degrees Celsius."</div>
+                        <div class="explanation">Zaman üstü, değişmeyen evrensel fiziksel gerçeklik.</div>
+                    </div>
+                    <div class="example-card">
+                        <div class="sentence">"The shipment will arrive on Thursday."</div>
+                        <div class="explanation">Geleceğe dair net bir olay noktası; süreçten bağımsız veri girişi.</div>
+                    </div>
+                    <div class="example-card">
+                        <div class="sentence">"The system crashed due to a memory leak."</div>
+                        <div class="explanation">Sürece veya ize bakmayan, sadece olayı bildiren yalın bir hata logu.</div>
+                    </div>
+                    <div class="example-card">
+                        <div class="sentence">"The CEO reviews the quarterly reports every Monday."</div>
+                        <div class="explanation">Değişmez bir kurumsal rutin; zamanın her dilimi için geçerli kural.</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CONTINUOUS ASPECT -->
+            <section class="panel cont">
+                <div class="panel-header">
+                    <div class="color-dot"></div>
+                    <h2>Continuous Aspect</h2>
+                </div>
+                <div class="panel-content">
+                    <div class="example-card">
+                        <div class="sentence">"The servers were compiling the data when the outage occurred."</div>
+                        <div class="explanation">Geçmişte arka planda aktif olan ve kesintiye uğrayan bir akış.</div>
+                    </div>
+                    <div class="example-card">
+                        <div class="sentence">"The algorithm is processing a high volume of requests right now."</div>
+                        <div class="explanation">Şu an aktif olan, sistem kaynakları üzerinden akan geçici durum.</div>
+                    </div>
+                    <div class="example-card">
+                        <div class="sentence">"This time tomorrow, the team will be migrating the database."</div>
+                        <div class="explanation">Gelecekteki belirli bir anda tam kapasite çalışıyor olacak süreç.</div>
+                    </div>
+                    <div class="example-card">
+                        <div class="sentence">"Inflation is rising faster than anticipated this quarter."</div>
+                        <div class="explanation">Kalıcı olmayan, şu anki döneme özgü akışkan bir trend.</div>
+                    </div>
+                    <div class="example-card">
+                        <div class="sentence">"I was monitoring the network traffic when the anomaly spiked."</div>
+                        <div class="explanation">Geçmişte dikkat ve odak gerektiren, aktif ve süregelen eylem.</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- PERFECT ASPECT -->
+            <section class="panel perfect">
+                <div class="panel-header">
+                    <div class="color-dot"></div>
+                    <h2>Perfect Aspect</h2>
+                </div>
+                <div class="panel-content">
+                    <div class="example-card">
+                        <div class="sentence">"We have resolved the security vulnerability."</div>
+                        <div class="explanation">Eylem geçmişte kaldı ama sistem şu an güvenli; kazanılmış sonuç/durum.</div>
+                    </div>
+                    <div class="example-card">
+                        <div class="sentence">"The client had signed the contract before the meeting started."</div>
+                        <div class="explanation">Toplantı başlama anından önce mühürlenmiş etkili geçmiş (P-Past).</div>
+                    </div>
+                    <div class="example-card">
+                        <div class="sentence">"By Q4, we will have launched the new interface."</div>
+                        <div class="explanation">Gelecekteki deadline'da tamamlanmış olacak ürün teslimatı.</div>
+                    </div>
+                    <div class="example-card">
+                        <div class="sentence">"She has authored three papers on machine learning."</div>
+                        <div class="explanation">Geçmişten bugüne taşınan ve şu an geçerli olan akademik birikim/skor.</div>
+                    </div>
+                    <div class="example-card">
+                        <div class="sentence">"The market had already closed when the news broke."</div>
+                        <div class="explanation">Haber yayıldığında zaten tamamlanmış olup mevcut durumu kilitleyen olay.</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- PERFECT CONTINUOUS ASPECT -->
+            <section class="panel perf-cont">
+                <div class="panel-header">
+                    <div class="color-dot"></div>
+                    <h2>Perfect Continuous</h2>
+                </div>
+                <div class="panel-content">
+                    <div class="example-card">
+                        <div class="sentence">"The CPU has been running at 100% capacity for an hour."</div>
+                        <div class="explanation">Geçmişte başlayan, hala süren ve sistemde 'yorgunluk' yaratan birikmiş efor.</div>
+                    </div>
+                    <div class="example-card">
+                        <div class="sentence">"They had been negotiating the terms for months before reaching an agreement."</div>
+                        <div class="explanation">Sonuca ulaşmadan önceki yoğun, yıpratıcı ve kesintisiz sürecin birikimi.</div>
+                    </div>
+                    <div class="example-card">
+                        <div class="sentence">"By next year, he will have been managing this department for a decade."</div>
+                        <div class="explanation">Gelecekteki o noktaya gelindiğinde birikmiş olacak toplam zaman ve çaba.</div>
+                    </div>
+                    <div class="example-card">
+                        <div class="sentence">"The sensors have been collecting data continuously since Tuesday."</div>
+                        <div class="explanation">Hiç durmadan akan, şu anki veri havuzunu oluşturan aktif süreç birikimi.</div>
+                    </div>
+                    <div class="example-card">
+                        <div class="sentence">"We had been trying to replicate the bug all morning."</div>
+                        <div class="explanation">Geçmişteki bir ana gelene kadar harcanan saatlerin ve çabanın vurgusu.</div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <footer style="margin-top: 0.5rem; text-align: center; font-size: 0.65rem; color: rgba(255,255,255,0.2); letter-spacing: 0.05em; text-transform: uppercase;">
+            Learning OS &copy; 2026 — Conceptual Design Agent System
+        </footer>
+    </div>
+
+</body>
+</html>
