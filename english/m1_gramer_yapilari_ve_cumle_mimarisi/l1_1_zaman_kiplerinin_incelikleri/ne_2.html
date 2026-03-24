@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIMPLE ASPECT (NOKTA VE BÜTÜN) — Analitik İnceleme</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #191919;
+            --text-main: #ffffff;
+            --text-dim: #e0e0e0;
+            --accent-gold: #fbc02d;
+            --accent-blue: #4dd0e1;
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --border-subtle: rgba(255, 255, 255, 0.06);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+        }
+
+        .slide-container {
+            width: 100%;
+            max-width: 1200px;
+            height: 100%;
+            display: flex;
+            gap: 60px;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* LEFT CONTENT - 50% */
+        .content-column {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        header {
+            margin-bottom: 2rem;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            color: var(--text-main);
+            margin-bottom: 0.4rem;
+        }
+
+        .subtitle {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--accent-gold);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .intro-text {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: var(--text-dim);
+            margin-bottom: 2rem;
+            padding-left: 1rem;
+            border-left: 3px solid var(--accent-gold);
+            font-style: italic;
+        }
+
+        /* CARDS */
+        .card-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .analysis-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-subtle);
+            border-radius: 12px;
+            padding: 1.25rem 1.5rem;
+        }
+
+        .card-label {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--text-dim);
+            opacity: 0.5;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .example-sentence {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+        }
+
+        .example-sentence.blue { color: var(--accent-blue); }
+        .example-sentence.gold { color: var(--accent-gold); }
+
+        .analysis-text {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: var(--text-dim);
+        }
+
+        .analysis-text strong {
+            color: var(--text-main);
+            font-weight: 600;
+        }
+
+        /* RIGHT VISUAL - 50% */
+        .visual-column {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0,0,0,0.2);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid var(--border-subtle);
+        }
+
+        .visual-column img {
+            width: 100%;
+            height: auto;
+            max-height: 100%;
+            object-fit: contain;
+            opacity: 0.9;
+        }
+
+        @media (max-width: 1024px) {
+            .slide-container { flex-direction: column; gap: 30px; overflow-y: auto; }
+            .visual-column { min-height: 300px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="slide-container">
+        <!-- LEFT COLUMN -->
+        <div class="content-column">
+            <header>
+                <h1>SIMPLE ASPECT (NOKTA VE BÜTÜN)</h1>
+                <div class="subtitle">Yalın Veri, Tarihsel Kayıt ve Genel Gerçekler</div>
+            </header>
+
+            <div class="intro-text">
+                "Simple Aspect (Yalın Durum), eylemin sürecine veya bıraktığı ize odaklanmaz. Eylemi dışarıdan, tamamlanmış ve kapalı bir 'veri paketi' veya 'nokta' olarak ele alır. Detaylardan arındırılmış, net ve bütünsel bir bilgi aktarımıdır."
+            </div>
+
+            <div class="card-stack">
+                <!-- PAST SIMPLE -->
+                <div class="analysis-card">
+                    <div class="card-label">PAST SIMPLE (Geçmişten Bağımsız Bir Log)</div>
+                    <div class="example-sentence blue">The system crashed at midnight.</div>
+                    <div class="analysis-text">
+                        <strong>Mühürlenmiş Kayıt (Sealed Record).</strong> Eylem geçmişte oldu, bitti ve zaman çizelgesinde kapalı bir kutu olarak kaldı. Şu anki durumla mantıksal bir köprü kurmaz; sadece veri tabanındaki tarihsel bir log kaydıdır.
+                    </div>
+                </div>
+
+                <!-- PRESENT SIMPLE -->
+                <div class="analysis-card">
+                    <div class="card-label">PRESENT SIMPLE (Evrensel Doğru ve Rutin)</div>
+                    <div class="example-sentence gold">The system runs backup protocols daily.</div>
+                    <div class="analysis-text">
+                        <strong>Zaman Üstü Geçerlilik (Timeless Validity).</strong> Sadece şu anı değil, geçmişi ve geleceği de kapsayan genel geçer bir durumu veya rutini ifade eder. Olayın anlık süreci değil, değişmez bir "gerçeklik" (fact) olması vurgulanır.
+                    </div>
+                </div>
+
+                <!-- FUTURE SIMPLE -->
+                <div class="analysis-card">
+                    <div class="card-label">FUTURE SIMPLE (Gelecek Projeksiyonu)</div>
+                    <div class="example-sentence blue">The system will reboot after the update.</div>
+                    <div class="analysis-text">
+                        <strong>Tahmin ve Karar (Prediction & Decision).</strong> Gelecekteki bir noktada gerçekleşecek olan eylemi; süreç, efor veya köprü karmaşası olmadan, yalın bir öngörü veya anlık karar olarak zaman çizgisine yerleştirir.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- RIGHT COLUMN -->
+        <div class="visual-column">
+            <img src="assets/simple_aspect_timelines.png" alt="Simple Aspect Timeline Diagrams">
+        </div>
+    </div>
+
+</body>
+</html>
