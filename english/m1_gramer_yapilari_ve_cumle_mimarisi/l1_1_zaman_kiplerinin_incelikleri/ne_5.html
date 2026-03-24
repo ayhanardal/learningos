@@ -14,6 +14,9 @@
             --accent-blue: #4dd0e1;
             --card-bg: rgba(255, 255, 255, 0.02);
             --border-subtle: rgba(255, 255, 255, 0.05);
+            --past-color: #4dd0e1;
+            --present-color: #fbc02d;
+            --future-color: #81c784;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -108,12 +111,16 @@
             font-size: 1.1rem;
             font-weight: 800;
             margin-bottom: 0.6rem;
-            color: #ffffff;
             line-height: 1.3;
         }
 
-        .highlight-gold { color: var(--accent-gold); }
-        .highlight-blue { color: var(--accent-blue); }
+        .analysis-card.section-past .card-label { color: var(--past-color); opacity: 1; border-bottom: 1px solid rgba(77, 208, 225, 0.2); display: inline-block; padding-bottom: 2px; }
+        .analysis-card.section-present .card-label { color: var(--present-color); opacity: 1; border-bottom: 1px solid rgba(251, 192, 45, 0.2); display: inline-block; padding-bottom: 2px; }
+        .analysis-card.section-future .card-label { color: var(--future-color); opacity: 1; border-bottom: 1px solid rgba(129, 199, 132, 0.2); display: inline-block; padding-bottom: 2px; }
+
+        .highlight-past { color: var(--past-color); }
+        .highlight-present { color: var(--present-color); }
+        .highlight-future { color: var(--future-color); }
 
         .analysis-text {
             font-size: 0.9rem;
@@ -164,27 +171,27 @@
 
             <div class="card-stack">
                 <!-- PAST PERFECT CONTINUOUS -->
-                <div class="analysis-card">
-                    <div class="card-label">PAST PERFECT CONTINUOUS (Geçmişteki Birikim)</div>
-                    <div class="example-sentence">They <span class="highlight-blue">had been waiting</span> for two hours before the bus finally came.</div>
+                <div class="analysis-card section-past">
+                    <div class="card-label">PAST PERFECT CONTINUOUS</div>
+                    <div class="example-sentence">They <span class="highlight-past">had been waiting</span> for two hours before the bus finally came.</div>
                     <div class="analysis-text">
                         <strong>Birikmiş Geçmiş Efor (Accumulated Past Effort).</strong> Otobüsün gelme anına kadar süregelen iki saatlik "bekleme eylemi", o geçmiş anın içindeki birikmiş yorgunluğu ve süreci temsil eder.
                     </div>
                 </div>
 
                 <!-- PRESENT PERFECT CONTINUOUS -->
-                <div class="analysis-card">
-                    <div class="card-label">PRESENT PERFECT CONTINUOUS (Şu Anki Yorgunluk)</div>
-                    <div class="example-sentence">She <span class="highlight-gold">has been practicing</span> the violin since 8 AM.</div>
+                <div class="analysis-card section-present">
+                    <div class="card-label">PRESENT PERFECT CONTINUOUS</div>
+                    <div class="example-sentence">She <span class="highlight-present">has been practicing</span> the violin since 8 AM.</div>
                     <div class="analysis-text">
                         <strong>Aktif Akış ve Meşguliyet (Current Process).</strong> Keman çalma eylemi sabah sekizde başladı ve eforu kesilmeden şu anki saniyeye kadar taşındı. Odak, kemanın ne kadar iyi çalındığı değil, çaba akışıdır.
                     </div>
                 </div>
 
                 <!-- FUTURE PERFECT CONTINUOUS -->
-                <div class="analysis-card">
-                    <div class="card-label">FUTURE PERFECT CONTINUOUS (Gelecekteki Toplam Süre)</div>
-                    <div class="example-sentence">By next month, I <span class="highlight-blue">will have been living</span> in this city for ten years.</div>
+                <div class="analysis-card section-future">
+                    <div class="card-label">FUTURE PERFECT CONTINUOUS</div>
+                    <div class="example-sentence">By next month, I <span class="highlight-future">will have been living</span> in this city for ten years.</div>
                     <div class="analysis-text">
                         <strong>Gelecek Sürekliliği (Future Accumulation).</strong> Gelecek ay geldiğinde, o şehirdeki "on yıllık yaşam" birikmiş olacaktır. Sürecin o noktadaki toplam hacmini ve devamlılığını ölçer.
                     </div>

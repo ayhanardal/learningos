@@ -181,12 +181,15 @@
         /* SPECIFIC PANEL COLORS */
         .simple h2 { color: var(--simple-color); }
         .simple .color-dot { background: var(--simple-color); }
+        .simple .keyword { color: var(--simple-color); }
 
         .cont h2 { color: var(--cont-color); }
         .cont .color-dot { background: var(--cont-color); }
+        .cont .keyword { color: var(--cont-color); }
 
         .perfect h2 { color: var(--perfect-color); }
         .perfect .color-dot { background: var(--perfect-color); }
+        .perfect .keyword { color: var(--perfect-color); }
 
         .perf-cont h2 { 
             background: var(--perf-cont-gradient);
@@ -194,6 +197,7 @@
             -webkit-text-fill-color: transparent;
         }
         .perf-cont .color-dot { background: #ff7043; }
+        .perf-cont .keyword { color: #ffab91; }
 
         @media (max-width: 900px) {
             .grid-layout { grid-template-columns: 1fr; overflow-y: auto; height: auto; display: flex; flex-direction: column; }
@@ -220,24 +224,24 @@
                 </div>
                 <div class="panel-content">
                     <div class="example-card">
-                        <div class="sentence">"The committee approved the new budget yesterday."</div>
+                        <div class="sentence">"The committee <span class="keyword">approved</span> the new budget yesterday."</div>
                         <div class="explanation">Geçmişte mühürlenmiş, tamamlanmış ve kapatılmış kesin bir karar.</div>
                     </div>
                     <div class="example-card">
-                        <div class="sentence">"Water boils at 100 degrees Celsius."</div>
+                        <div class="sentence">"Water <span class="keyword">boils</span> at 100 degrees Celsius."</div>
                         <div class="explanation">Zaman üstü, değişmeyen evrensel fiziksel gerçeklik.</div>
                     </div>
                     <div class="example-card">
-                        <div class="sentence">"The shipment will arrive on Thursday."</div>
+                        <div class="sentence">"The shipment <span class="keyword">will arrive</span> on Thursday."</div>
                         <div class="explanation">Geleceğe dair net bir olay noktası; süreçten bağımsız veri girişi.</div>
                     </div>
                     <div class="example-card">
-                        <div class="sentence">"The system crashed due to a memory leak."</div>
-                        <div class="explanation">Sürece veya ize bakmayan, sadece olayı bildiren yalın bir hata logu.</div>
+                        <div class="sentence">"The vase <span class="keyword">fell</span> and shattered into pieces."</div>
+                        <div class="explanation">Sürece veya ize bakmayan, sadece olayı bildiren yalın bir fiziksel kayıt.</div>
                     </div>
                     <div class="example-card">
-                        <div class="sentence">"The CEO reviews the quarterly reports every Monday."</div>
-                        <div class="explanation">Değişmez bir kurumsal rutin; zamanın her dilimi için geçerli kural.</div>
+                        <div class="sentence">"The librarian <span class="keyword">checks</span> the new returns every morning."</div>
+                        <div class="explanation">Değişmez bir kurumsal/günlük rutin; her dilimi için geçerli kural.</div>
                     </div>
                 </div>
             </section>
@@ -250,23 +254,23 @@
                 </div>
                 <div class="panel-content">
                     <div class="example-card">
-                        <div class="sentence">"The servers were compiling the data when the outage occurred."</div>
+                        <div class="sentence">"The children <span class="keyword">were playing</span> when it started to rain."</div>
                         <div class="explanation">Geçmişte arka planda aktif olan ve kesintiye uğrayan bir akış.</div>
                     </div>
                     <div class="example-card">
-                        <div class="sentence">"The algorithm is processing a high volume of requests right now."</div>
-                        <div class="explanation">Şu an aktif olan, sistem kaynakları üzerinden akan geçici durum.</div>
+                        <div class="sentence">"The chef <span class="keyword">is preparing</span> a special dessert right now."</div>
+                        <div class="explanation">Şu an aktif olan, mutfaktaki tezgahtan akan geçici eylem durumu.</div>
                     </div>
                     <div class="example-card">
-                        <div class="sentence">"This time tomorrow, the team will be migrating the database."</div>
-                        <div class="explanation">Gelecekteki belirli bir anda tam kapasite çalışıyor olacak süreç.</div>
+                        <div class="sentence">"By this time tomorrow, I <span class="keyword">will be walking</span> through Paris."</div>
+                        <div class="explanation">Gelecekteki belirli bir anda tam kapasite yaşanıyor olacak süreç.</div>
                     </div>
                     <div class="example-card">
-                        <div class="sentence">"Inflation is rising faster than anticipated this quarter."</div>
-                        <div class="explanation">Kalıcı olmayan, şu anki döneme özgü akışkan bir trend.</div>
+                        <div class="sentence">"House prices <span class="keyword">are rising</span> faster than usual this year."</div>
+                        <div class="explanation">Kalıcı olmayan, şu anki döneme özgü akışkan bir piyasa trendi.</div>
                     </div>
                     <div class="example-card">
-                        <div class="sentence">"I was monitoring the network traffic when the anomaly spiked."</div>
+                        <div class="sentence">"I <span class="keyword">was watching</span> the sunset when a deer crossed."</div>
                         <div class="explanation">Geçmişte dikkat ve odak gerektiren, aktif ve süregelen eylem.</div>
                     </div>
                 </div>
@@ -280,24 +284,24 @@
                 </div>
                 <div class="panel-content">
                     <div class="example-card">
-                        <div class="sentence">"We have resolved the security vulnerability."</div>
-                        <div class="explanation">Eylem geçmişte kaldı ama sistem şu an güvenli; kazanılmış sonuç/durum.</div>
+                        <div class="sentence">"We <span class="keyword">have finished</span> the harvest for this season."</div>
+                        <div class="explanation">Eylem geçmişte kaldı ama ambarlar dolu; kazanılmış sonuç/durum.</div>
                     </div>
                     <div class="example-card">
-                        <div class="sentence">"The client had signed the contract before the meeting started."</div>
-                        <div class="explanation">Toplantı başlama anından önce mühürlenmiş etkili geçmiş (P-Past).</div>
+                        <div class="sentence">"The hikers <span class="keyword">had checked</span> the map before they entered."</div>
+                        <div class="explanation">Ormana giriş anından önce mühürlenmiş etkili geçmiş (P-Past).</div>
                     </div>
                     <div class="example-card">
-                        <div class="sentence">"By Q4, we will have launched the new interface."</div>
-                        <div class="explanation">Gelecekteki deadline'da tamamlanmış olacak ürün teslimatı.</div>
+                        <div class="sentence">"By next summer, they <span class="keyword">will have completed</span> the new park."</div>
+                        <div class="explanation">Gelecekteki belirli bir ana kadar tamamlanmış olacak proje teslimatı.</div>
                     </div>
                     <div class="example-card">
-                        <div class="sentence">"She has authored three papers on machine learning."</div>
-                        <div class="explanation">Geçmişten bugüne taşınan ve şu an geçerli olan akademik birikim/skor.</div>
+                        <div class="sentence">"She <span class="keyword">has written</span> three novels about historical figures."</div>
+                        <div class="explanation">Geçmişten bugüne taşınan ve şu an geçerli olan edebi birikim/deneyim.</div>
                     </div>
                     <div class="example-card">
-                        <div class="sentence">"The market had already closed when the news broke."</div>
-                        <div class="explanation">Haber yayıldığında zaten tamamlanmış olup mevcut durumu kilitleyen olay.</div>
+                        <div class="sentence">"The bakery <span class="keyword">had already closed</span> when I got there."</div>
+                        <div class="explanation">Vardığımda zaten tamamlanmış olup mevcut durumu kilitleyen olay.</div>
                     </div>
                 </div>
             </section>
@@ -310,23 +314,23 @@
                 </div>
                 <div class="panel-content">
                     <div class="example-card">
-                        <div class="sentence">"The CPU has been running at 100% capacity for an hour."</div>
-                        <div class="explanation">Geçmişte başlayan, hala süren ve sistemde 'yorgunluk' yaratan birikmiş efor.</div>
+                        <div class="sentence">"The baker <span class="keyword">has been kneading</span> dough for an hour."</div>
+                        <div class="explanation">Geçmişte başlayan, hala süren ve fırında 'yorgunluk' yaratan birikmiş efor.</div>
                     </div>
                     <div class="example-card">
-                        <div class="sentence">"They had been negotiating the terms for months before reaching an agreement."</div>
-                        <div class="explanation">Sonuca ulaşmadan önceki yoğun, yıpratıcı ve kesintisiz sürecin birikimi.</div>
+                        <div class="sentence">"They <span class="keyword">had been rehearsing</span> for months before the concert."</div>
+                        <div class="explanation">Sahneye çıkmadan önceki yoğun, yıpratıcı ve kesintisiz sürecin birikimi.</div>
                     </div>
                     <div class="example-card">
-                        <div class="sentence">"By next year, he will have been managing this department for a decade."</div>
+                        <div class="sentence">"By next year, she <span class="keyword">will have been teaching</span> for a decade."</div>
                         <div class="explanation">Gelecekteki o noktaya gelindiğinde birikmiş olacak toplam zaman ve çaba.</div>
                     </div>
                     <div class="example-card">
-                        <div class="sentence">"The sensors have been collecting data continuously since Tuesday."</div>
-                        <div class="explanation">Hiç durmadan akan, şu anki veri havuzunu oluşturan aktif süreç birikimi.</div>
+                        <div class="sentence">"The rivers <span class="keyword">have been flowing</span> forcefully since the melt."</div>
+                        <div class="explanation">Hiç durmadan akan, şu anki havzayı besleyen aktif süreç birikimi.</div>
                     </div>
                     <div class="example-card">
-                        <div class="sentence">"We had been trying to replicate the bug all morning."</div>
+                        <div class="sentence">"We <span class="keyword">had been trying</span> to fix the old clock all morning."</div>
                         <div class="explanation">Geçmişteki bir ana gelene kadar harcanan saatlerin ve çabanın vurgusu.</div>
                     </div>
                 </div>

@@ -14,6 +14,9 @@
             --accent-blue: #4dd0e1;
             --card-bg: rgba(255, 255, 255, 0.03);
             --border-subtle: rgba(255, 255, 255, 0.06);
+            --past-color: #4dd0e1;
+            --present-color: #fbc02d;
+            --future-color: #81c784;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -119,13 +122,16 @@
             font-size: 1.2rem;
             font-weight: 800;
             margin-bottom: 0.8rem;
-            line-height: 1.3;
             color: #ffffff;
         }
 
-        .highlight-past { color: var(--accent-gold); }
-        .highlight-present { color: var(--accent-blue); }
-        .highlight-future { color: var(--accent-gold); }
+        .analysis-card.section-past .card-label { color: var(--past-color); opacity: 1; border-bottom: 1px solid rgba(77, 208, 225, 0.2); display: inline-block; padding-bottom: 2px; }
+        .analysis-card.section-present .card-label { color: var(--present-color); opacity: 1; border-bottom: 1px solid rgba(251, 192, 45, 0.2); display: inline-block; padding-bottom: 2px; }
+        .analysis-card.section-future .card-label { color: var(--future-color); opacity: 1; border-bottom: 1px solid rgba(129, 199, 132, 0.2); display: inline-block; padding-bottom: 2px; }
+
+        .highlight-past { color: var(--past-color); }
+        .highlight-present { color: var(--present-color); }
+        .highlight-future { color: var(--future-color); }
 
         .analysis-text {
             font-size: 0.9rem;
@@ -179,7 +185,7 @@
 
             <div class="card-stack">
                 <!-- PAST PERFECT -->
-                <article class="analysis-card">
+                <article class="analysis-card section-past">
                     <div class="card-label">PAST PERFECT</div>
                     <div class="example-sentence">She <span class="highlight-past">had already cooked</span> dinner before he arrived.</div>
                     <p class="analysis-text">
@@ -188,7 +194,7 @@
                 </article>
 
                 <!-- PRESENT PERFECT -->
-                <article class="analysis-card">
+                <article class="analysis-card section-present">
                     <div class="card-label">PRESENT PERFECT</div>
                     <div class="example-sentence">I <span class="highlight-present">have visited</span> Rome several times.</div>
                     <p class="analysis-text">
@@ -197,7 +203,7 @@
                 </article>
 
                 <!-- FUTURE PERFECT -->
-                <article class="analysis-card">
+                <article class="analysis-card section-future">
                     <div class="card-label">FUTURE PERFECT</div>
                     <div class="example-sentence">They <span class="highlight-future">will have finished</span> the new house by next year.</div>
                     <p class="analysis-text">
