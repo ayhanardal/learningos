@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEDEN? — Dilin Veri Sıkıştırma Algoritması</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #191919;
+            --text-main: #ffffff;
+            --text-header: #e0e0e0;
+            --text-dim: #b0bec5;
+            --accent-blue: #4dd0e1;
+            --accent-gold: #fbc02d;
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.08);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4vh 4vw;
+        }
+
+        .layout-wrapper {
+            width: 100%;
+            max-width: 1200px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* I. HEADER SECTION */
+        header.page-header {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        header.page-header h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--text-header);
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+        }
+
+        header.page-header p.subtitle {
+            font-size: 1.25rem;
+            font-weight: 500;
+            color: var(--accent-gold);
+            opacity: 0.9;
+        }
+
+        /* II. ANALOGY BOX */
+        .analogy-box {
+            border-left: 3px solid var(--accent-gold);
+            padding: 0.8rem 1.5rem;
+            font-size: 1.15rem;
+            font-weight: 500;
+            line-height: 1.6;
+            color: var(--text-dim);
+            background: rgba(251, 192, 45, 0.03);
+            border-radius: 0 8px 8px 0;
+        }
+
+        .analogy-box strong {
+            color: var(--text-main);
+            font-weight: 700;
+        }
+
+        /* III. MAIN CONTENT (GRID 60/40) */
+        .main-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 3.5rem;
+            flex: 1;
+        }
+
+        /* Left Column (60%) */
+        .text-column {
+            width: 60%;
+            display: flex;
+            flex-direction: column;
+            gap: 1.8rem;
+        }
+
+        /* Case Cards Grid */
+        .case-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .case-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 1.8rem;
+            border-radius: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            transition: transform 0.3s ease;
+        }
+
+        .case-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255, 255, 255, 0.12);
+        }
+
+        .case-card h3 {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12rem;
+            font-weight: 800;
+            color: var(--text-dim);
+            padding-bottom: 0.8rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .phrase-box {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.1rem;
+            font-weight: 600;
+            line-height: 1.4;
+            min-height: 4.5rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .phrase-blue { color: var(--accent-blue); }
+        .phrase-gold { color: var(--accent-gold); }
+
+        .case-description {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: var(--text-dim);
+        }
+
+        .case-description strong {
+            color: #ffffff;
+        }
+
+        /* Right Column (40%) */
+        .visual-column {
+            width: 40%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .visual-column img {
+            width: 100%;
+            height: auto;
+            border-radius: 20px;
+            box-shadow: 0 40px 100px -30px rgba(0,0,0,0.7);
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="layout-wrapper">
+        <!-- HEADER -->
+        <header class="page-header">
+            <h1>NEDEN İHTİYACIMIZ VAR?</h1>
+            <p class="subtitle">Dilin Veri Sıkıştırma Algoritması</p>
+        </header>
+
+        <!-- ANALOGY -->
+        <section class="analogy-box">
+            "Eğer Perfect Aspect olmasaydı, geçmişin bugüne olan etkisini anlatmak için her defasında uzun ve yorucu açıklamalar yapmak zorunda kalırdık. Bu kip, tek satır kodla iki farklı zamanı birbirine bağlayan bir <strong>veri sıkıştırma (ZIP)</strong> aracıdır."
+        </section>
+
+        <!-- MAIN CONTENT -->
+        <main class="main-content">
+            <section class="text-column">
+                
+                <div class="case-grid">
+                    <!-- KUTU 1: PROBLEM -->
+                    <div class="case-card">
+                        <h3>PROBLEM (OLMASAYDI?)</h3>
+                        <div class="phrase-box phrase-blue">
+                            "I lost my keys yesterday, and I still don't have them now, so I need help."
+                        </div>
+                        <p class="case-description">
+                            Perfect Aspect icat edilmeseydi, o "İZ" durumunu aktarmak için sürekli ek cümleler kurmak gerekirdi. İletişim hızı düşer ve beynin <strong>işlem yükü (cognitive load)</strong> artardı.
+                        </p>
+                    </div>
+
+                    <!-- KUTU 2: ÇÖZÜM -->
+                    <div class="case-card">
+                        <h3>ÇÖZÜM (İLETİŞİM EKONOMİSİ)</h3>
+                        <div class="phrase-box phrase-gold">
+                            "I HAVE lost my keys."
+                        </div>
+                        <p class="case-description">
+                            Dil, bu karmaşayı tek bir <strong>"have + V3"</strong> formülüne sıkıştırır. Dinleyici, olayın tarihçesini değil, şu anki sonucunu umursaması gerektiğini anında kavrar.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="summary-note" style="font-size: 1rem; color: var(--text-dim); border-top: 1px solid var(--border); padding-top: 1.5rem; font-style: italic;">
+                    İki mesaj (Geçmiş eylem + Şu anki aciliyet) tek bir gramere sıkıştırılmıştır.
+                </div>
+
+            </section>
+
+            <!-- VISUAL -->
+            <figure class="visual-column">
+                <img src="./assets/perfect_aspect_compression.png" alt="Perfect Aspect Veri Sıkıştırma Analojisi">
+            </figure>
+        </main>
+    </div>
+
+</body>
+</html>
