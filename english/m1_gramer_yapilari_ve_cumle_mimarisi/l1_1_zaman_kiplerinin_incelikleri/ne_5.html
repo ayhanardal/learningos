@@ -66,10 +66,10 @@
         /* COORDINATE SYSTEM CONTAINER */
         .coordinates-wrapper {
             position: relative;
-            margin-left: 100px; /* Space for Y labels */
-            margin-right: 40px;
-            margin-bottom: 80px; /* Space for X labels */
-            padding: 30px; /* Buffer between axes and first cells */
+            margin-left: 60px; 
+            margin-right: 100px; /* Increased margin on the right for labels */
+            margin-bottom: 80px; 
+            padding: 30px; 
         }
 
         /* AXES */
@@ -110,7 +110,7 @@
         /* AXIS TITLES */
         .y-axis-title {
             position: absolute;
-            left: -110px;
+            left: -60px; /* Adjusted since labels moved right */
             top: 50%;
             transform: translateY(-50%) rotate(-90deg);
             font-family: 'JetBrains Mono', monospace;
@@ -149,15 +149,15 @@
 
         .row-label {
             position: absolute;
-            left: -45px; /* Moved right from -80px to avoid line overlap */
-            width: 60px;
+            right: -100px; /* Moved to the right side as requested */
+            width: 80px;
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.7rem;
             font-weight: 700;
             color: var(--accent-blue);
             opacity: 0.6;
             text-transform: uppercase;
-            text-align: right;
+            text-align: left; /* Aligned left since they are on the right side */
             line-height: 1;
             z-index: 5;
         }
