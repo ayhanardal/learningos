@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SİMÜLASYON VE TEST — Öğrenimi Reflekse Dönüştürmek</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #191919;
+            --text-main: #ffffff;
+            --text-header: #e0e0e0;
+            --text-dim: #b0bec5;
+            --accent-blue: #4dd0e1;
+            --accent-gold: #fbc02d;
+            --accent-red: #ff5252;
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.08);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4vh 4vw;
+        }
+
+        .layout-wrapper {
+            width: 100%;
+            max-width: 1200px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* HEADER */
+        header.page-header {
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+        }
+
+        header.page-header h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--text-header);
+            text-transform: uppercase;
+            letter-spacing: -0.01em;
+        }
+
+        header.page-header p.subtitle {
+            font-size: 1.25rem;
+            font-weight: 500;
+            color: var(--accent-gold);
+            opacity: 0.9;
+        }
+
+        /* ANALOGY BOX */
+        .analogy-box {
+            border-left: 3px solid var(--accent-gold);
+            padding: 0.8rem 1.5rem;
+            font-size: 1.15rem;
+            font-weight: 500;
+            line-height: 1.6;
+            color: var(--text-dim);
+            background: rgba(251, 192, 45, 0.02);
+            border-radius: 0 8px 8px 0;
+        }
+
+        /* MAIN CONTENT (GRID 60/40) */
+        .main-content {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 3.5rem;
+            flex: 1;
+        }
+
+        /* LEFT COLUMN (60%) */
+        .exercise-column {
+            width: 60%;
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+
+        .exercise-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 1.5rem 1.8rem;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .exercise-card:hover {
+            transform: scale(1.01);
+            border-color: rgba(255, 255, 255, 0.15);
+        }
+
+        .card-blue { border-left: 3px solid var(--accent-blue); }
+        .card-gold { border-left: 3px solid var(--accent-gold); }
+        .card-red { border-left: 3px solid var(--accent-red); }
+
+        .exercise-card h3 {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12rem;
+            font-weight: 800;
+            color: var(--text-dim);
+            opacity: 0.8;
+        }
+
+        .question-text {
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--text-main);
+        }
+
+        .phrase-box {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.25rem;
+            font-weight: 700;
+            line-height: 1.4;
+            padding: 0.5rem 0;
+        }
+
+        .phrase-blue { color: var(--accent-blue); }
+        .phrase-gold { color: var(--accent-gold); }
+        .phrase-red { color: var(--accent-red); }
+
+        /* RIGHT COLUMN (40%) */
+        .visual-column {
+            width: 40%;
+            position: sticky;
+            top: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding-top: 2rem;
+        }
+
+        .visual-column img {
+            width: 100%;
+            height: auto;
+            border-radius: 20px;
+            box-shadow: 0 40px 100px -30px rgba(0,0,0,0.6);
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="layout-wrapper">
+        <!-- HEADER -->
+        <header class="page-header">
+            <h1>SİMÜLASYON VE TEST</h1>
+            <p class="subtitle">Öğrenimi Reflekse Dönüştürmek</p>
+        </header>
+
+        <!-- ANALOGY -->
+        <section class="analogy-box">
+            "Kuralları bilmek yetmez, o 'hissi' refleks haline getirmek gerekir. Şimdi dedektif şapkanı tak ve aşağıdaki senaryolarda bırakılan 'İzleri' tespit et."
+        </section>
+
+        <!-- MAIN CONTENT -->
+        <main class="main-content">
+            <section class="exercise-column">
+                
+                <!-- GÖREV 1 -->
+                <div class="exercise-card card-blue">
+                    <h3>GÖREV 1 - HİS TESTİ</h3>
+                    <p class="question-text">Aşağıdaki iki cümle arasındaki 'hissiyat' ve 'iz' farkını Türkçe nasıl açıklarsın?</p>
+                    <div class="phrase-box">
+                        <div class="phrase-blue">Cümle 1: I went to Paris.</div>
+                        <div class="phrase-gold">Cümle 2: I have been to Paris.</div>
+                    </div>
+                </div>
+
+                <!-- GÖREV 2 -->
+                <div class="exercise-card card-gold">
+                    <h3>GÖREV 2 - BAĞLAM YAZ (REVERSE ENGINEERING)</h3>
+                    <p class="question-text">Aşağıdaki cümleyi kurmanı gerektirecek o anki sohbet/senaryo ne olabilir?</p>
+                    <div class="phrase-box phrase-gold">
+                        "She has lived in three different countries."
+                    </div>
+                </div>
+
+                <!-- GÖREV 3 -->
+                <div class="exercise-card card-red">
+                    <h3>GÖREV 3 - HATA AYIKLAMA (DEBUGGING)</h3>
+                    <p class="question-text">Aşağıdaki kodda/cümlede sistemin çökmesine neden olan mantık hatası nedir?</p>
+                    <div class="phrase-box phrase-red">
+                        "I have seen that movie last week."
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- VISUAL -->
+            <figure class="visual-column">
+                <img src="./assets/simulation_analysis.png" alt="Eğitim Simülasyonu ve Analiz Arayüzü">
+            </figure>
+        </main>
+    </div>
+
+</body>
+</html>
