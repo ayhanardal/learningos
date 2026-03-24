@@ -12,8 +12,8 @@
             --text-dim: #9e9e9e;
             --accent-gold: #fbc02d;
             --accent-blue: #4dd0e1;
-            --card-bg: rgba(255, 255, 255, 0.02);
-            --border-subtle: rgba(255, 255, 255, 0.05);
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --border-subtle: rgba(255, 255, 255, 0.06);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -87,6 +87,13 @@
             border: 1px solid var(--border-subtle);
             border-radius: 12px;
             padding: 1.25rem 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .analysis-card:hover {
+            border-color: rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.05);
+            transform: translateX(5px);
         }
 
         .card-label {
@@ -101,13 +108,16 @@
 
         .example-sentence {
             font-family: 'JetBrains Mono', monospace;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             font-weight: 800;
-            margin-bottom: 0.6rem;
+            margin-bottom: 0.8rem;
+            line-height: 1.3;
+            color: #ffffff;
         }
 
-        .example-sentence.blue { color: var(--accent-blue); }
-        .example-sentence.gold { color: var(--accent-gold); }
+        .highlight-past { color: var(--accent-blue); }
+        .highlight-present { color: var(--accent-gold); }
+        .highlight-future { color: var(--accent-blue); }
 
         .analysis-text {
             font-size: 0.95rem;
@@ -162,7 +172,7 @@
                 <!-- PAST SIMPLE -->
                 <div class="analysis-card">
                     <div class="card-label">PAST SIMPLE (Geçmişten Bağımsız Bir Log)</div>
-                    <div class="example-sentence blue">The system crashed at midnight.</div>
+                    <div class="example-sentence">The system <span class="highlight-past">crashed</span> at midnight.</div>
                     <div class="analysis-text">
                         <strong>Mühürlenmiş Kayıt (Sealed Record).</strong> Eylem geçmişte oldu, bitti ve zaman çizelgesinde kapalı bir kutu olarak kaldı. Şu anki durumla mantıksal bir köprü kurmaz; sadece veri tabanındaki tarihsel bir log kaydıdır.
                     </div>
@@ -171,7 +181,7 @@
                 <!-- PRESENT SIMPLE -->
                 <div class="analysis-card">
                     <div class="card-label">PRESENT SIMPLE (Evrensel Doğru ve Rutin)</div>
-                    <div class="example-sentence gold">The system runs backup protocols daily.</div>
+                    <div class="example-sentence">The system <span class="highlight-present">runs</span> backup protocols daily.</div>
                     <div class="analysis-text">
                         <strong>Zaman Üstü Geçerlilik (Timeless Validity).</strong> Sadece şu anı değil, geçmişi ve geleceği de kapsayan genel geçer bir durumu veya rutini ifade eder. Olayın anlık süreci değil, değişmez bir "gerçeklik" (fact) olması vurgulanır.
                     </div>
@@ -180,7 +190,7 @@
                 <!-- FUTURE SIMPLE -->
                 <div class="analysis-card">
                     <div class="card-label">FUTURE SIMPLE (Gelecek Projeksiyonu)</div>
-                    <div class="example-sentence blue">The system will reboot after the update.</div>
+                    <div class="example-sentence">The system <span class="highlight-future">will reboot</span> after the update.</div>
                     <div class="analysis-text">
                         <strong>Tahmin ve Karar (Prediction & Decision).</strong> Gelecekteki bir noktada gerçekleşecek olan eylemi; süreç, efor veya köprü karmaşası olmadan, yalın bir öngörü veya anlık karar olarak zaman çizgisine yerleştirir.
                     </div>
