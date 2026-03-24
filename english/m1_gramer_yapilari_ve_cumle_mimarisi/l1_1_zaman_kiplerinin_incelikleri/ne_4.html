@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BÜYÜK RESİM: ZAMAN VE DURUM MATRİSİ — Cheat Sheet</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #191919;
+            --text-main: #ffffff;
+            --text-dim: #b0bec5;
+            --accent-blue: #4dd0e1;
+            --accent-gold: #fbc02d;
+            --accent-deep-blue: #2196f3;
+            --accent-gray: #e0e0e0;
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.08);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden; /* No scroll allowed */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2vh 4vw;
+        }
+
+        .layout-wrapper {
+            width: 100%;
+            max-width: 1200px;
+            height: 90vh;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.98); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* HEADER */
+        header.page-header h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #e0e0e0;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+        }
+
+        header.page-header p.subtitle {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--accent-blue);
+            opacity: 0.8;
+            margin-top: 0.2rem;
+        }
+
+        /* ANALOGY BOX */
+        .analogy-box {
+            border-left: 3px solid var(--accent-gold);
+            padding: 0.8rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 500;
+            line-height: 1.5;
+            color: var(--text-dim);
+            background: rgba(251, 192, 45, 0.02);
+            border-radius: 0 8px 8px 0;
+        }
+
+        /* MAIN 60/40 */
+        .main-content {
+            display: flex;
+            gap: 2.5rem;
+            flex: 1;
+            min-height: 0; /* Important for flex child in fixed height container */
+        }
+
+        /* LEFT COLUMN (60%) */
+        .grid-column {
+            width: 60%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            gap: 1.2rem;
+            height: 100%;
+        }
+
+        .matrix-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 1.2rem;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+            transition: all 0.3s ease;
+        }
+
+        .matrix-card:hover {
+            border-color: rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .card-past { border-top: 3px solid var(--accent-gray); }
+        .card-perfect-past { border-top: 3px solid var(--accent-deep-blue); }
+        .card-perfect-simple { border-top: 3px solid var(--accent-blue); }
+        .card-perfect-cont { border-top: 3px solid var(--accent-gold); }
+
+        .matrix-card h3 {
+            font-size: 0.9rem;
+            font-weight: 800;
+            letter-spacing: 0.05rem;
+            color: #ffffff;
+        }
+
+        .card-meta {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 0.3rem 0;
+            text-transform: uppercase;
+        }
+
+        .card-meta span { color: var(--text-dim); margin-right: 0.5rem; }
+
+        .card-desc {
+            font-size: 0.85rem;
+            line-height: 1.4;
+            color: var(--text-dim);
+            font-weight: 400;
+        }
+
+        .card-example {
+            margin-top: auto;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: #ffffff;
+            font-weight: 600;
+            padding-top: 0.5rem;
+            border-top: 1px solid var(--border);
+        }
+
+        /* RIGHT COLUMN (40%) */
+        .visual-column {
+            width: 40%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .visual-column img {
+            width: 100%;
+            height: auto;
+            border-radius: 16px;
+            box-shadow: 0 30px 60px -15px rgba(0,0,0,0.5);
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        /* DYNAMIC COLORS PER CARD */
+        .card-past h3 { color: var(--accent-gray); }
+        .card-perfect-past h3 { color: var(--accent-deep-blue); }
+        .card-perfect-simple h3 { color: var(--accent-blue); }
+        .card-perfect-cont h3 { color: var(--accent-gold); }
+
+    </style>
+</head>
+<body>
+
+    <div class="layout-wrapper">
+        <!-- HEADER -->
+        <header class="page-header">
+            <h1>BÜYÜK RESİM: ZAMAN VE DURUM MATRİSİ</h1>
+            <p class="subtitle">İki Eksenin Kesişimi (Tense x Aspect)</p>
+        </header>
+
+        <!-- ANALOGY -->
+        <section class="analogy-box">
+            "İngilizce zaman kipleri ezberlenecek kurallar yığını değil, iki eksenin kesişimidir: Olay takvimde ne zaman oldu? (Zaman) ve şu anki gerçekliğe nasıl bir iz bıraktı? (Durum/Aspect)."
+        </section>
+
+        <!-- MAIN CONTENT -->
+        <main class="main-content">
+            <!-- 2x2 GRID -->
+            <section class="grid-column">
+                
+                <!-- KART 1: SIMPLE PAST -->
+                <article class="matrix-card card-past">
+                    <h3>SIMPLE PAST</h3>
+                    <div class="card-meta"><span>KESİŞİM:</span> Past + Nokta</div>
+                    <p class="card-desc">Olay oldu, bitti ve mühürlendi. Şu anki gerçekliğimizle hiçbir teması yoktur. Sadece bir log kaydıdır.</p>
+                    <div class="card-example">Egz: I lost my keys.</div>
+                </article>
+
+                <!-- KART 2: PAST PERFECT -->
+                <article class="matrix-card card-perfect-past">
+                    <h3>PAST PERFECT</h3>
+                    <div class="card-meta"><span>KESİŞİM:</span> Past + Geçmişin Geçmişi</div>
+                    <p class="card-desc">Sadece geçmişteki iki olaydan hangisinin "daha eski" olduğunu netleştirmek için kullanılır.</p>
+                    <div class="card-example">Egz: I had lost my keys before...</div>
+                </article>
+
+                <!-- KART 3: PRESENT PERFECT SIMPLE -->
+                <article class="matrix-card card-perfect-simple">
+                    <h3>PRESENT PERFECT SIMPLE</h3>
+                    <div class="card-meta"><span>KESİŞİM:</span> Present + Sonuç</div>
+                    <p class="card-desc">Eylem geçmişte oldu ama skoru, tamamlanmış ürünü veya tecrübesi şu an masada aktif.</p>
+                    <div class="card-example">Egz: I have read 3 books.</div>
+                </article>
+
+                <!-- KART 4: PRESENT PERFECT CONT. -->
+                <article class="matrix-card card-perfect-cont">
+                    <h3>PRESENT PERFECT CONT.</h3>
+                    <div class="card-meta"><span>KESİŞİM:</span> Present + Fiziksel İz</div>
+                    <p class="card-desc">Eylem geçmişte başladı, belki yeni bitti ama sürecin yorgunluğu veya terlemesi şu an aktif.</p>
+                    <div class="card-example">Egz: I have been reading.</div>
+                </article>
+
+            </section>
+
+            <!-- VISUAL -->
+            <figure class="visual-column">
+                <img src="./assets/tense_aspect_matrix.png" alt="Zaman ve Durum Matrisi Koordinat Sistemi">
+            </figure>
+        </main>
+    </div>
+
+</body>
+</html>
