@@ -159,14 +159,15 @@
             min-height: 120px;
         }
 
-        /* FAINT STYLE */
+        /* ACCESSIBLE STYLE FOR BASIC TENSES (Readable but secondary) */
         .cell-faint {
-            opacity: 0.35;
+            opacity: 0.75;
+            border-style: dashed;
         }
 
-        .cell-faint h3 { font-size: 0.75rem; color: var(--text-dim); }
-        .cell-faint .example { font-size: 0.85rem; font-family: 'JetBrains Mono', monospace; color: var(--text-dim); }
-        .cell-faint .func { font-size: 0.7rem; color: var(--text-dim); opacity: 0.7; }
+        .cell-faint h3 { font-size: 0.75rem; color: #ccc; }
+        .cell-faint .example { font-size: 0.85rem; font-family: 'JetBrains Mono', monospace; color: #bbb; }
+        .cell-faint .func { font-size: 0.7rem; color: var(--text-dim); }
 
         /* BRIGHT/FOCUS STYLE */
         .cell-bright {
