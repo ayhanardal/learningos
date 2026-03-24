@@ -3,19 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZAMAN DEDEKTİFİ: SAHA GÖREVİ — Simülasyon</title>
+    <title>İLERİ SEVİYE VAKA ANALİZLERİ — Anlamsal Nüanslar</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg: #191919;
-            --text-main: #ffffff;
-            --text-header: #e0e0e0;
-            --text-dim: #b0bec5;
-            --accent-blue: #4dd0e1;
-            --accent-gold: #fbc02d;
-            --accent-red: #ff5252;
-            --card-bg: rgba(255, 255, 255, 0.03);
+            --text-main: #e0e0e0;
+            --text-muted: #9e9e9e;
+            --accent: #80deea;
+            --card-bg: rgba(255, 255, 255, 0.02);
             --border: rgba(255, 255, 255, 0.08);
+            --block-bg: rgba(128, 222, 234, 0.03);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -24,256 +22,230 @@
             background-color: var(--bg);
             color: var(--text-main);
             font-family: 'Inter', sans-serif;
+            line-height: 1.6;
             width: 100vw;
             min-height: 100vh;
-            overflow-y: auto; /* Scroll allowed */
+            overflow-y: auto;
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 5vh 4vw;
+            padding: 60px 24px;
         }
 
-        /* Hide scrollbar but keep functionality for a cleaner look if desired, 
-           but the user said scroll is allowed, so standard scrollbar is fine. */
-        body::-webkit-scrollbar { width: 8px; }
+        /* Scrollbar Styling */
+        body::-webkit-scrollbar { width: 6px; }
         body::-webkit-scrollbar-track { background: var(--bg); }
-        body::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+        body::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
 
-        .main-container {
+        .container {
             width: 100%;
             max-width: 1200px;
             display: flex;
             flex-direction: column;
-            gap: 2.5rem;
+            gap: 48px;
             animation: fadeIn 0.8s ease-out;
-            padding-bottom: 5vh;
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
+            from { opacity: 0; transform: translateY(15px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
         /* HEADER */
         header.page-header {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-            text-align: left;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 24px;
         }
 
         header.page-header h1 {
-            font-size: 2.5rem;
+            font-size: 2.25rem;
             font-weight: 800;
-            color: var(--text-header);
-            text-transform: uppercase;
             letter-spacing: -0.02em;
+            color: #ffffff;
+            margin-bottom: 8px;
         }
 
         header.page-header p.subtitle {
-            font-size: 1.4rem;
+            font-size: 1.2rem;
             font-weight: 500;
-            color: var(--accent-gold);
-            opacity: 0.9;
+            color: var(--accent);
+            opacity: 0.8;
         }
 
-        /* ANALOGY BOX */
-        .analogy-box {
-            border-left: 4px solid var(--accent-gold);
-            padding: 1.2rem 2rem;
+        /* INTRO */
+        .intro-text {
             font-size: 1.15rem;
-            font-weight: 500;
-            line-height: 1.7;
-            color: var(--text-dim);
-            background: rgba(251, 192, 45, 0.03);
-            border-radius: 0 12px 12px 0;
+            color: var(--text-muted);
+            max-width: 900px;
+            font-weight: 400;
         }
 
-        /* EXERCISE CARDS LIST */
-        .exercise-list {
+        /* CASE STUDY CARDS */
+        .case-study-list {
             display: flex;
             flex-direction: column;
-            gap: 2rem;
+            gap: 40px;
         }
 
-        .exercise-card {
+        .case-card {
             background: var(--card-bg);
             border: 1px solid var(--border);
-            padding: 2.5rem;
-            border-radius: 20px;
+            border-radius: 16px;
+            overflow: hidden;
             display: flex;
             flex-direction: column;
-            gap: 1.5rem;
-            transition: border-color 0.3s ease;
         }
 
-        .exercise-card:hover {
-            border-color: rgba(255, 255, 255, 0.15);
-        }
-
-        .card-uk { border-left: 4px solid var(--accent-blue); }
-        .card-us { border-left: 4px solid var(--accent-gold); }
-        .card-opt { border-left: 4px solid var(--accent-blue); }
-        .card-iz { border-left: 4px solid var(--accent-blue); }
-        .card-debug { border-left: 4px solid var(--accent-red); }
-
-        .exercise-card h3 {
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 0.15rem;
-            font-weight: 800;
-            color: var(--text-dim);
-            opacity: 0.7;
-            padding-bottom: 0.8rem;
+        .case-header {
+            padding: 24px 32px;
+            background: rgba(255, 255, 255, 0.01);
             border-bottom: 1px solid var(--border);
         }
 
-        .question-text {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--text-main);
-        }
-
-        .phrase-box {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 1.35rem;
-            font-weight: 700;
-            line-height: 1.4;
-            padding: 0.5rem 0;
-        }
-
-        .phrase-blue { color: var(--accent-blue); }
-        .phrase-gold { color: var(--accent-gold); }
-        .phrase-red { color: var(--accent-red); }
-
-        .analysis-section {
-            background: rgba(255, 255, 255, 0.02);
-            padding: 1.5rem;
-            border-radius: 12px;
-            font-size: 1.05rem;
-            line-height: 1.6;
-            color: var(--text-dim);
-        }
-
-        .analysis-section strong {
-            color: #ffffff;
-        }
-
-        .highlight-blue { color: var(--accent-blue); font-weight: 700; }
-        .highlight-gold { color: var(--accent-gold); font-weight: 700; }
-
-        /* CHECKBOXES FOR REGISTER TASK */
-        .register-choice {
-            display: flex;
-            gap: 2rem;
-            margin-top: 0.5rem;
-            font-family: 'JetBrains Mono', monospace;
+        .case-header h2 {
             font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1rem;
+            font-weight: 700;
+            color: var(--text-muted);
         }
 
-        .choice-item { opacity: 0.9; }
-        .checked { color: var(--accent-gold); font-weight: 700; }
+        .case-content {
+            padding: 32px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        /* EXAMPLE BLOCKS */
+        .example-block {
+            background: var(--block-bg);
+            border-left: 2px solid var(--accent);
+            padding: 24px;
+            border-radius: 0 8px 8px 0;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.2rem;
+        }
+
+        .example-item {
+            display: block;
+            margin-bottom: 12px;
+        }
+
+        .example-item:last-child { margin-bottom: 0; }
+
+        .label {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-right: 12px;
+            text-transform: uppercase;
+        }
+
+        .sentence {
+            color: var(--accent);
+            font-weight: 500;
+        }
+
+        /* ANALYSIS BLOCKS */
+        .analysis-block {
+            font-size: 1.05rem;
+            color: var(--text-main);
+            padding: 0 8px;
+        }
+
+        .analysis-block strong {
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .container { gap: 32px; }
+            header.page-header h1 { font-size: 1.75rem; }
+            .case-content { padding: 20px; }
+            .example-block { font-size: 1rem; }
+        }
 
     </style>
 </head>
 <body>
 
-    <div class="main-container">
+    <div class="container">
         <!-- HEADER -->
         <header class="page-header">
-            <h1>ZAMAN DEDEKTİFİ: SAHA GÖREVİ</h1>
-            <p class="subtitle">Teori bitti, şimdi refleks testi zamanı.</p>
+            <h1>İLERİ SEVİYE VAKA ANALİZLERİ</h1>
+            <p class="subtitle">Anlamsal Nüanslar ve Yapısal Optimizasyon</p>
         </header>
 
-        <!-- ANALOGY -->
-        <section class="analogy-box">
-            "Gerçek hayatta karşınıza gramer tabloları çıkmaz, 'bağlam' çıkar. Bu bölümdeki görevler, kuralları ezberlemek değil, o 'İZ' hissini anlık bir reflekse dönüştürmek için tasarlanmıştır. Bu sayfa, zengin içerik barındırdığı için aşağı doğru kaydırılabilir (scroll)."
+        <!-- INTRO -->
+        <section class="intro-text">
+            "Bu bölüm, B2 seviyesindeki mekanik kuralların C1 seviyesindeki anlamsal (semantic) ve edimbilimsel (pragmatic) kullanımlara nasıl dönüştüğünü incelemektedir. Odak noktamız, zaman kiplerinin kurumsal ve günlük Amerikan İngilizcesi bağlamında yarattığı ince algı farklarıdır."
         </section>
 
-        <!-- EXERCISE LIST -->
-        <main class="exercise-list">
+        <!-- CASE STUDIES -->
+        <main class="case-study-list">
             
-            <!-- KUTU 1: GÖREV 1 -->
-            <article class="exercise-card card-iz">
-                <h3>GÖREV 1 - İZ ANALİZİ (His Testi)</h3>
-                <p class="question-text">Aşağıdaki iki cümle arasındaki 'hissiyat' ve 'iz' farkını Türkçe nasıl açıklarsın?</p>
-                
-                <div class="phrase-box">
-                    <span class="phrase-blue">Cümle 1: I went to Paris.</span><br>
-                    <span class="phrase-gold">Cümle 2: I have been to Paris.</span>
+            <!-- VAKA 1 -->
+            <article class="case-card">
+                <div class="case-header">
+                    <h2>VAKA 1: ANLAMSAL NÜANS (Tarihsel Kayıt vs. Aktif Veri)</h2>
                 </div>
-
-                <div class="analysis-section">
-                    <p><strong>Analiz Notu:</strong> Cümle 1, sadece bir biyografi kaydı. Şu an Paris'te değilim veya Paris tecrübem şu anki sohbetimiz için önemsiz. Sayfa kapandı. Cümle 2 ise bu tecrübeyi ŞU AN cebimde taşıdığımı gösterir. Masadaki gezi sohbetimiz için aktif, kullanılabilir bir veri.</p>
-                </div>
-            </article>
-
-            <!-- KUTU 2: GÖREV 2 -->
-            <article class="exercise-card card-gold">
-                <h3>GÖREV 2 - BAĞLAM YAZ (Reverse Engineering)</h3>
-                <p class="question-text">Aşağıdaki Present Perfect cümleyi kurmanı gerektirecek o anki sohbet/senaryo ne olabilir?</p>
-                
-                <div class="phrase-box">
-                    Someone <span class="phrase-gold">HAS BROKEN</span> the window. We are in danger!
-                </div>
-
-                <div class="analysis-section">
-                    <p><strong>Saha Dedektifi Notu [Zorluk: C1]:</strong> Dışarıdan geldin, odada kırık bir cam ve yerde bir taş var. Pencerenin kırıldığı 'an' (ne zaman olduğu) umrumuzda değil. Umrumuzda olan şey, ŞU AN odanın güvensiz olduğu ve bir tehlikenin aktif olarak elinde bulunduğu (İZ).</p>
-                </div>
-            </article>
-
-            <!-- KUTU 3: GÖREV 3 -->
-            <article class="exercise-card card-opt">
-                <h3>GÖREV 3 - OPTİMİZASYON DUVARI (Refactoring)</h3>
-                <p class="question-text">Aşağıdaki hantal cümleyi, bağlamdaki ipuçlarını kullanarak 'optimize' et.</p>
-                
-                <div class="phrase-box">
-                    Hantal: Before I <span class="phrase-gold">had</span> finished my dinner, I decided to go back to my work.
-                </div>
-
-                <div class="analysis-section">
-                    <p><strong>Optimize Cümle:</strong> <span class="phrase-blue">"After I finished my dinner, I went back to work."</span></p>
-                    <p style="margin-top: 1rem;"><strong>Dedektif Notu:</strong> 'After' bağlacı sırayı zaten mühürledi. Sırf 'ileri seviye' görünmek için Past Perfect kullanmak gereksiz yük (redundancy) yaratır. Simple Past ile optimizasyon tam gaz çalışır.</p>
-                </div>
-            </article>
-
-            <!-- KUTU 4: GÖREV 4 -->
-            <article class="exercise-card card-us">
-                <h3>GÖREV 4 - KÜLTÜR CHECK (Register)</h3>
-                <p class="question-text">Cümlelerin arkasındaki niyet 'İngiliz (Törensel)' mi yoksa 'Amerikan (Pragmatik Kestirme)' mi?</p>
-                
-                <div style="display: flex; flex-direction: column; gap: 1.5rem;">
-                    <div>
-                        <div class="phrase-box phrase-gold">"Have you eaten yet?"</div>
-                        <div class="register-choice">
-                            <span class="checked">(X) UK</span>
-                            <span class="choice-item">( ) US</span>
-                            <span style="font-size: 0.9rem; color: var(--text-dim); opacity: 0.8;">(Kurallara ve 'Have' köprüsüne sadık.)</span>
-                        </div>
+                <div class="case-content">
+                    <div class="example-block">
+                        <span class="example-item"><span class="label">A:</span> <span class="sentence">"The company expanded its operations to Asia."</span> (Simple Past)</span>
+                        <span class="example-item"><span class="label">B:</span> <span class="sentence">"The company has expanded its operations to Asia."</span> (Present Perfect)</span>
                     </div>
-                    <div>
-                        <div class="phrase-box phrase-blue">"Did you eat yet?"</div>
-                        <div class="register-choice">
-                            <span class="choice-item">( ) UK</span>
-                            <span class="checked">(X) US</span>
-                            <span style="font-size: 0.9rem; color: var(--text-dim); opacity: 0.8;">(Pragmatik kestirme, işi Simple Past ile çözer.)</span>
-                        </div>
+                    <div class="analysis-block">
+                        A cümlesi kapalı bir tarihsel kayıttır. Şirket Asya'ya açılmış, ancak sonrasında çekilmiş olabilir veya bu bilgi sadece bir şirket tarihçesi sunumunda geçiyordur. B cümlesi ise bu genişlemenin <strong>ŞU AN aktif</strong> olduğunu ve mevcut toplantının/durumun ana bağlamlarından birini oluşturduğunu belirtir. Karar verici mekanizmalar (board members) B cümlesini duyduğunda bu verinin güncel operasyonları etkilediğini anlar.
                     </div>
                 </div>
             </article>
 
-            <!-- KUTU 5: GÖREV 5 -->
-            <article class="exercise-card card-debug">
-                <h3>GÖREV 5 - DIALOG DEBUG (Mantık Hatası)</h3>
-                <p class="question-text">Bir iş görüşmesindesiniz. Candidate'in cevabındaki sistem neden çöküyor?</p>
-                
-                <div class="phrase-box" style="font-size: 1.15rem; color: var(--text-header);">
-                    Interviewer: "Have you ever been to London?"<br>
-                    Candidate: "Yes, I have been there <span class="phrase-red">yesterday</span>."
+            <!-- VAKA 2 -->
+            <article class="case-card">
+                <div class="case-header">
+                    <h2>VAKA 2: EDİMBİLİMSEL ÇIKARIM (Ürün vs. Süreç)</h2>
                 </div>
+                <div class="case-content">
+                    <div class="example-block">
+                        <span class="example-item"><span class="label">A:</span> <span class="sentence">"I've reviewed the quarterly reports."</span> (Perfect Simple)</span>
+                        <span class="example-item"><span class="label">B:</span> <span class="sentence">"I've been reviewing the quarterly reports."</span> (Perfect Continuous)</span>
+                    </div>
+                    <div class="analysis-block">
+                        A yapısı eylemin tamamlandığına ve ortaya çıkan <strong>"ürüne"</strong> odaklanır. Verilen zımni mesaj şudur: "Raporlar okundu, değerlendirmeye geçebiliriz." B yapısı ise eylemin <strong>"sürecine"</strong> ve bıraktığı fiziksel/zihinsel ize odaklanır. Zımni mesaj: "Tüm sabahım bu raporlarla geçti, zihnen yorgunum veya şu an başka bir görev alamam."
+                    </div>
+                </div>
+            </article>
 
-                <div class="analysis-section">
-                    <p><strong>Saha Dedektifi Notu [Zorluk: C1]:</strong> "Last week, yesterday, 2 days ago" gibi açık zaman ifadeleri sistemi "Simple Past" moduna kilitler. Bu ifadeler varken "HAVE (Zaman Köprüsü)" kurulamaz. Doğru yanıt: "Yes, I went there yesterday." olmalıydı.</p>
+            <!-- VAKA 3 -->
+            <article class="case-card">
+                <div class="case-header">
+                    <h2>VAKA 3: SÖZDİZİMSEL OPTİMİZASYON (Redundancy / Gereksiz Yük)</h2>
+                </div>
+                <div class="case-content">
+                    <div class="example-block">
+                        <span class="example-item"><span class="label">Hantal:</span> <span class="sentence">"After the management team had finalized the merger, they announced it to the press."</span></span>
+                        <span class="example-item"><span class="label">Optimize:</span> <span class="sentence">"After the management team finalized the merger, they announced it to the press."</span></span>
+                    </div>
+                    <div class="analysis-block">
+                        "After" bağlacı, kronolojik sırayı zaten matematiksel bir kesinlikle belirler. Sıranın zaten net olduğu bir kurguda fazladan Past Perfect (had finalized) kullanmak, aynı mantıksal koşulu iki kez kontrol etmek gibi <strong>gereksiz bir sözdizimsel yük (redundancy)</strong> yaratır. Akıcı ve profesyonel Amerikan İngilizcesinde bu tür durumlarda doğrudan Simple Past tercih edilir.
+                    </div>
+                </div>
+            </article>
+
+            <!-- VAKA 4 -->
+            <article class="case-card">
+                <div class="case-header">
+                    <h2>VAKA 4: BAĞLAMSAL ÇIPALAMA (Contextual Anchoring) VE HATA AYIKLAMA</h2>
+                </div>
+                <div class="case-content">
+                    <div class="example-block">
+                        <span class="example-item"><span class="label">Hatalı:</span> <span class="sentence">"We have launched the new marketing campaign in Q3."</span></span>
+                        <span class="example-item"><span class="label">Doğru:</span> <span class="sentence">"We launched the new marketing campaign in Q3."</span></span>
+                    </div>
+                    <div class="analysis-block">
+                        "In Q3" (3. Çeyrekte) ifadesi, zaman çizgisinde kapalı ve mühürlenmiş bir referans noktasıdır (Temporal Anchor). Present Perfect yapısı doğası gereği geçmişi şu ana bağlayan bir açık uçluluk gerektirir. Kapalı bir zaman belirteci ile açık uçlu bir kip aynı cümlede barınamaz; bu durum <strong>yapısal bir çökmeye</strong> neden olur. Eylem ne kadar yakın zamanda olmuş olursa olsun, zaman belirtildiği an sistem Simple Past moduna geçmek zorundadır.
+                    </div>
                 </div>
             </article>
 
