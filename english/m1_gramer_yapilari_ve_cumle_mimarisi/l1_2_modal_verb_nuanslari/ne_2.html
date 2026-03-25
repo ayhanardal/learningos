@@ -35,74 +35,75 @@
             justify-content: center;
             align-items: center;
             overflow: hidden;
-            padding: 20px;
+            padding: 0;
+            margin: 0;
         }
 
         .app-container {
             width: 100%;
-            max-width: 1100px;
-            height: 90vh;
-            max-height: 720px;
+            max-width: 1180px; /* Yumuşatılmış genişlik */
+            height: auto;
+            max-height: 680px; /* Dikeyde daha derli toplu */
             display: flex;
             flex-direction: column;
             padding: 20px;
+            /* Dikeyde görsel odağı hafifçe yukarı çekmek için */
+            transform: translateY(-20px); 
         }
 
         header {
-            margin-bottom: 2.5rem;
+            margin-bottom: 2rem;
             flex-shrink: 0;
             text-align: center;
         }
 
         h1 {
-            font-size: 1.6rem;
+            font-size: 1.5rem;
             font-weight: 800;
-            letter-spacing: 3px;
-            margin-bottom: 8px;
+            letter-spacing: 4px;
+            margin-bottom: 6px;
             text-transform: uppercase;
         }
 
         .subtitle {
             color: var(--teal);
-            font-size: 1rem;
+            font-size: 0.95rem;
             font-weight: 500;
         }
 
         main {
             display: flex;
             flex: 1;
-            gap: 60px;
+            gap: 80px; /* Sütunlar arası daha rahat bir boşluk */
             align-items: center;
             justify-content: center;
         }
 
         .left-column {
-            flex: 1;
+            flex: 0 1 500px;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            gap: 16px;
-            max-width: 500px;
+            gap: 12px;
         }
 
         .right-column {
-            flex: 1;
+            flex: 0 1 420px;
             display: flex;
             justify-content: center;
             align-items: center;
-            max-width: 450px;
         }
 
         .card {
             background-color: var(--card-bg);
             border: 1px solid var(--card-border);
-            padding: 20px;
+            padding: 16px 20px;
             border-radius: 4px;
             display: flex;
             flex-direction: column;
-            gap: 6px;
+            gap: 4px;
             width: 100%;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .card:hover {
