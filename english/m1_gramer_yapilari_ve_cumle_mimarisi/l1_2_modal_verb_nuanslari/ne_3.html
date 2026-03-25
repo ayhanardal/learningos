@@ -3,15 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modal Verbs - Geçmiş Çıkarım Yapısı</title>
+    <title>Modal Verbs - Geçmiş Çıkarım</title>
     <style>
         :root {
             --bg-color: #0d0d0d;
+            --card-bg: #161616;
+            --card-border: #222;
             --teal: #4ecdc4;
             --amber: #f5c518;
             --white: #ffffff;
-            --muted-gray: #888888;
-            --border-color: #222222;
+            --gray: #888888;
+            --muted-gray: #444444;
+            --font-main: 'Inter', system-ui, -apple-system, sans-serif;
             --font-mono: 'JetBrains Mono', 'Courier New', monospace;
         }
 
@@ -24,108 +27,174 @@
         body {
             background-color: var(--bg-color);
             color: var(--white);
-            font-family: var(--font-mono);
+            font-family: var(--font-main);
             height: 100vh;
             width: 100vw;
             display: flex;
             justify-content: center;
             align-items: center;
             overflow: hidden;
+            padding: 0;
+            margin: 0;
         }
 
-        .diagram-container {
+        .app-container {
             width: 100%;
-            max-width: 900px;
-            aspect-ratio: 16 / 9;
+            max-width: 1200px;
+            height: auto;
+            max-height: 720px;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            transform: translateY(-10px);
+        }
+
+        header {
+            margin-bottom: 2rem;
+            flex-shrink: 0;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 1.6rem;
+            font-weight: 800;
+            letter-spacing: 4px;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+        }
+
+        .subtitle {
+            color: var(--teal);
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        main {
+            display: flex;
+            flex: 1;
+            gap: 50px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .left-column {
+            flex: 0 1 600px;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            padding: 40px;
+            gap: 12px;
         }
 
-        .formula-header {
-            color: var(--muted-gray);
-            font-size: 0.85rem;
-            text-align: center;
-            letter-spacing: 2px;
-            margin-bottom: 3rem;
-            text-transform: lowercase;
+        .right-column {
+            flex: 0 1 400px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
-        .phrase-table {
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--card-border);
+            padding: 16px 20px;
+            border-radius: 4px;
             display: flex;
             flex-direction: column;
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .phrase-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            text-align: center;
-            font-size: 2.2rem;
-            letter-spacing: 3px;
-        }
-
-        .modal { color: var(--amber); font-weight: 700; }
-        .aux { color: var(--teal); }
-        .verb { color: var(--white); }
-
-        .separator {
-            height: 1px;
-            background-color: var(--border-color);
+            gap: 4px;
             width: 100%;
-            margin-bottom: 1.5rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .label-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            text-align: center;
+        .card:hover {
+            transform: translateX(5px);
+            border-color: var(--gray);
         }
 
-        .column-label {
-            color: var(--muted-gray);
+        .card:last-child {
+            border-top: 2px dashed #ff6b6b44;
+            background-color: #1a1515;
+            margin-top: 4px;
+        }
+
+        .card-label {
+            color: var(--teal);
             font-size: 0.75rem;
-            letter-spacing: 4px;
-            text-transform: uppercase;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        .example-sentence {
+            font-family: var(--font-mono);
+            font-size: 1.15rem;
+            color: var(--white);
+        }
+
+        .highlight {
+            color: var(--amber);
+            font-weight: 700;
+        }
+
+        .explanation {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .diagram-img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
         }
     </style>
 </head>
 <body>
 
-    <div class="diagram-container">
-        <!-- Top formula label -->
-        <div class="formula-header">modal + have + past participle</div>
+    <div class="app-container">
+        <header>
+            <h1>GEÇMİŞ ÇIKARIM</h1>
+            <p class="subtitle">Geçmişte ne olduğunu tahmin etmek için modal + have + pp kullanırsın.</p>
+        </header>
 
-        <!-- Phrase rows -->
-        <div class="phrase-table">
-            <div class="phrase-row">
-                <span class="modal">must</span>
-                <span class="aux">have</span>
-                <span class="verb">happened</span>
-            </div>
-            <div class="phrase-row">
-                <span class="modal">might</span>
-                <span class="aux">have</span>
-                <span class="verb">happened</span>
-            </div>
-            <div class="phrase-row">
-                <span class="modal">can't</span>
-                <span class="aux">have</span>
-                <span class="verb">happened</span>
-            </div>
-        </div>
+        <main>
+            <section class="left-column">
+                <!-- Card 1 -->
+                <div class="card">
+                    <span class="card-label">MUST HAVE</span>
+                    <p class="example-sentence">Something <span class="highlight">must have happened</span> to him.</p>
+                    <p class="explanation">Kanıta dayalı güçlü çıkarım — neredeyse kesin, geçmişte oldu</p>
+                </div>
 
-        <!-- Separator Line -->
-        <div class="separator"></div>
+                <!-- Card 2 -->
+                <div class="card">
+                    <span class="card-label">MIGHT HAVE</span>
+                    <p class="example-sentence">She <span class="highlight">might have missed</span> the train.</p>
+                    <p class="explanation">Zayıf geçmiş tahmin — belki oldu, emin değilim</p>
+                </div>
 
-        <!-- Column Labels -->
-        <div class="label-row">
-            <span class="column-label">TUTUM</span>
-            <span class="column-label">GEÇMİŞ</span>
-            <span class="column-label">EYLEM</span>
-        </div>
+                <!-- Card 3 -->
+                <div class="card">
+                    <span class="card-label">COULD HAVE</span>
+                    <p class="example-sentence">I <span class="highlight">could have helped</span> you.</p>
+                    <p class="explanation">İmkân vardı ama gerçekleşmedi — geçmişte mümkündü</p>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="card">
+                    <span class="card-label">SHOULD HAVE</span>
+                    <p class="example-sentence">You <span class="highlight">should have called</span> me.</p>
+                    <p class="explanation">Beklenti vardı ama olmadı — hafif eleştiri içerir</p>
+                </div>
+
+                <!-- Card 5 -->
+                <div class="card">
+                    <span class="card-label">CAN'T HAVE</span>
+                    <p class="example-sentence">They <span class="highlight">can't have arrived</span> yet.</p>
+                    <p class="explanation">Güçlü ret — geçmişte olmuş olamaz</p>
+                </div>
+            </section>
+
+            <section class="right-column">
+                <img src="assets/gecmis_cikarim_diagram.png" alt="Geçmiş Çıkarım Diyagramı" class="diagram-img">
+            </section>
+        </main>
     </div>
 
 </body>
