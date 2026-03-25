@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1.2 — Modal Verbs: Nuances of Possibility, Inference, and Politeness</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0d0d0d;
+            --card-bg: #141414;
+            --border: #222;
+            --teal: #4ecdc4;
+            --amber: #f5c518;
+            --text: #e0e0e0;
+            --text-dim: #888;
+            --white: #ffffff;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 60px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* HEADER SECTION (~15%) */
+        header {
+            flex: 0 0 15%;
+            border-left: 4px solid var(--teal);
+            padding-left: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            color: var(--white);
+            text-transform: uppercase;
+        }
+
+        .subtitle {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--teal);
+            letter-spacing: 0.12em;
+            margin-top: 0.2rem;
+        }
+
+        /* THREE DIMENSIONS CARDS (~55%) */
+        .dimensions-grid {
+            flex: 0 0 55%;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin: 1rem 0;
+        }
+
+        .dim-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 2rem;
+            border-radius: 4px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .dim-card:hover { border-color: #333; background: #1a1a1a; }
+
+        .dim-title { font-size: 1.2rem; font-weight: 800; color: var(--white); letter-spacing: -0.01em; margin-bottom: 0.2rem; }
+        .dim-academic { font-size: 0.75rem; font-weight: 700; color: var(--text-dim); text-transform: uppercase; margin-bottom: 1.2rem; display: block; }
+        .dim-explanation { font-size: 0.95rem; color: var(--text); line-height: 1.6; margin-bottom: 2rem; }
+
+        .example-block { margin-bottom: 1.2rem; }
+        .example-text { font-family: 'JetBrains Mono', monospace; font-size: 1.05rem; font-weight: 600; color: var(--white); }
+        .example-text span { color: var(--amber); }
+        .example-label { font-size: 0.8rem; color: var(--text-dim); margin-top: 0.4rem; display: block; border-left: 2px solid #333; padding-left: 0.8rem; }
+
+        /* KEY INSIGHT BOX (~25%) */
+        .insight-box {
+            flex: 0 0 25%;
+            background: rgba(78, 205, 196, 0.03);
+            border: 1px dashed var(--teal);
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 1.2rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .insight-header { font-size: 1.1rem; font-weight: 800; color: var(--white); }
+        .insight-comparison { display: flex; gap: 4rem; font-family: 'JetBrains Mono', monospace; font-size: 1rem; }
+        .insight-comparison div span { color: var(--amber); font-weight: 700; }
+        .insight-comparison div i { color: var(--text-dim); font-style: normal; font-size: 0.9rem; margin-left: 0.8rem; }
+        .insight-note { font-size: 0.85rem; color: var(--teal); font-weight: 600; opacity: 0.9; }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- HEADER -->
+        <header>
+            <h1>MODAL VERBS</h1>
+            <p class="subtitle">OLASILIK, ÇIKARIM VE KİBARLIK NÜANSLARI</p>
+        </header>
+
+        <!-- THREE DIMENSIONS -->
+        <section class="dimensions-grid">
+            <!-- Card 1: Epistemic -->
+            <article class="dim-card">
+                <h2 class="dim-title">NE KADAR EMİNSİN?</h2>
+                <span class="dim-academic">(EPISTEMIC)</span>
+                <p class="dim-explanation">Konuşmacının bir şeyin doğruluğuna olan güven derecesini gösterir.</p>
+                
+                <div class="example-block">
+                    <p class="example-text">She <span>must</span> be home.</p>
+                    <span class="example-label">Kanıta dayalı çıkarım &mdash; kesinlik</span>
+                </div>
+                <div class="example-block">
+                    <p class="example-text">She <span>might</span> be home.</p>
+                    <span class="example-label">Belirsiz tahmin &mdash; düşük ihtimal</span>
+                </div>
+            </article>
+
+            <!-- Card 2: Deontic -->
+            <article class="dim-card">
+                <h2 class="dim-title">NE KADAR ZORUNLU?</h2>
+                <span class="dim-academic">(DEONTIC)</span>
+                <p class="dim-explanation">Bir eylemin kural mı, tavsiye mi yoksa izin mi olduğunu belirler.</p>
+                
+                <div class="example-block">
+                    <p class="example-text">You <span>must</span> submit the form.</p>
+                    <span class="example-label">Kural &mdash; otorite sesi, mecburiyet</span>
+                </div>
+                <div class="example-block">
+                    <p class="example-text">You <span>should</span> submit the form.</p>
+                    <span class="example-label">Tavsiye &mdash; kişisel öneri</span>
+                </div>
+            </article>
+
+            <!-- Card 3: Dynamic -->
+            <article class="dim-card">
+                <h2 class="dim-title">NE KADAR MÜMKÜN?</h2>
+                <span class="dim-academic">(DYNAMIC)</span>
+                <p class="dim-explanation">Yetenek, gönüllülük veya alışkanlığı ifade eder.</p>
+                
+                <div class="example-block">
+                    <p class="example-text">She <span>can</span> speak three languages.</p>
+                    <span class="example-label">Yetenek &mdash; özneye ait beceri</span>
+                </div>
+                <div class="example-block">
+                    <p class="example-text">I <span>will</span> help you.</p>
+                    <span class="example-label">Gönüllülük &mdash; anlık niyet ve istek</span>
+                </div>
+            </article>
+        </section>
+
+        <!-- KEY INSIGHT -->
+        <div class="insight-box">
+            <h3 class="insight-header">Aynı modal, farklı bağlamda farklı boyutta çalışır.</h3>
+            <div class="insight-comparison">
+                <div>"You <span>must</span> leave." <i>&rarr; zorunluluk (deontic)</i></div>
+                <div>"You <span>must</span> be tired." <i>&rarr; çıkarım (epistemic)</i></div>
+            </div>
+            <span class="insight-note">Bağlamı okumak, kelimeyi bilmekten daha önemlidir.</span>
+        </div>
+    </div>
+
+</body>
+</html>
