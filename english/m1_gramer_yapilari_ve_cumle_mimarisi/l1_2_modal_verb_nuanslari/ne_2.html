@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modal Verbs - Olasılık Skalası</title>
+    <style>
+        :root {
+            --bg-color: #0d0d0d;
+            --card-bg: #161616;
+            --card-border: #222;
+            --teal: #4ecdc4;
+            --amber: #f5c518;
+            --white: #ffffff;
+            --gray: #888888;
+            --muted-gray: #444444;
+            --coral: #ff6b6b;
+            --font-main: 'Inter', system-ui, -apple-system, sans-serif;
+            --font-mono: 'JetBrains Mono', 'Courier New', monospace;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--white);
+            font-family: var(--font-main);
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            padding: 40px;
+        }
+
+        header {
+            margin-bottom: 2rem;
+            flex-shrink: 0;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            margin-bottom: 4px;
+            text-transform: uppercase;
+        }
+
+        .subtitle {
+            color: var(--teal);
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        main {
+            display: flex;
+            flex: 1;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .left-column {
+            flex: 0 0 55%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+        }
+
+        .right-column {
+            flex: 0 0 45%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--card-border);
+            padding: 24px;
+            border-radius: 4px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            width: 100%;
+            transition: transform 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateX(5px);
+            border-color: var(--muted-gray);
+        }
+
+        .card:last-child {
+            margin-top: 12px;
+            border-top: 2px dashed #ff6b6b44;
+            background-color: #1a1515;
+        }
+
+        .card-label {
+            color: var(--teal);
+            font-size: 0.75rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        .example-sentence {
+            font-family: var(--font-mono);
+            font-size: 1.3rem;
+            color: var(--white);
+        }
+
+        .highlight {
+            color: var(--amber);
+            font-weight: 700;
+        }
+
+        .explanation {
+            color: var(--gray);
+            font-size: 0.95rem;
+        }
+
+        svg {
+            width: 100%;
+            height: 90%;
+            max-width: 450px;
+        }
+
+        .node-label {
+            font-family: var(--font-mono);
+            font-size: 16px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .percentage {
+            font-family: var(--font-mono);
+            font-size: 14px;
+            fill: var(--gray);
+        }
+
+        .threshold-text {
+            font-family: var(--font-main);
+            font-size: 12px;
+            fill: var(--gray);
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>OLASILIK SKALASI</h1>
+        <p class="subtitle">Ne kadar emin olduğunu modal ile ayarlarsın.</p>
+    </header>
+
+    <main>
+        <section class="left-column">
+            <!-- MUST Card -->
+            <div class="card">
+                <span class="card-label">MUST</span>
+                <p class="example-sentence">She <span class="highlight">must</span> be home.</p>
+                <p class="explanation">Kanıta dayalı güçlü çıkarım — neredeyse kesin</p>
+            </div>
+
+            <!-- SHOULD Card -->
+            <div class="card">
+                <span class="card-label">SHOULD</span>
+                <p class="example-sentence">She <span class="highlight">should</span> be home by now.</p>
+                <p class="explanation">Beklentiye dayalı tahmin — programa göre olması lazım</p>
+            </div>
+
+            <!-- MAY Card -->
+            <div class="card">
+                <span class="card-label">MAY</span>
+                <p class="example-sentence">She <span class="highlight">may</span> be home.</p>
+                <p class="explanation">Nötr olasılık — bilmiyorum, iki ihtimal de var</p>
+            </div>
+
+            <!-- MIGHT Card -->
+            <div class="card">
+                <span class="card-label">MIGHT</span>
+                <p class="example-sentence">She <span class="highlight">might</span> be home.</p>
+                <p class="explanation">Belirsiz tahmin — zayıf ihtimal, pek emin değilim</p>
+            </div>
+
+            <!-- CAN'T Card -->
+            <div class="card">
+                <span class="card-label">CAN'T</span>
+                <p class="example-sentence">She <span class="highlight">can't</span> be home.</p>
+                <p class="explanation">Güçlü ret — kanıta göre neredeyse imkansız</p>
+            </div>
+        </section>
+
+        <section class="right-column">
+            <svg viewBox="0 0 400 600" preserveAspectRatio="xMidYMid meet">
+                <!-- Vertical Line Background -->
+                <line x1="200" y1="50" x2="200" y2="550" stroke="#222" stroke-width="2" />
+                
+                <!-- Belirsizlik Eşiği -->
+                <line x1="120" y1="300" x2="280" y2="300" stroke="#555" stroke-width="1" stroke-dasharray="8,4" />
+                <text x="285" y="305" class="threshold-text">belirsizlik eşiği</text>
+
+                <!-- Signal gradient/line -->
+                <line x1="200" y1="50" x2="200" y2="550" stroke="url(#scaleGradient)" stroke-width="4" stroke-linecap="round" />
+                
+                <defs>
+                    <linearGradient id="scaleGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" style="stop-color:var(--white);stop-opacity:1" />
+                        <stop offset="25%" style="stop-color:var(--teal);stop-opacity:1" />
+                        <stop offset="50%" style="stop-color:var(--gray);stop-opacity:0.5" />
+                        <stop offset="75%" style="stop-color:var(--muted-gray);stop-opacity:0.3" />
+                        <stop offset="100%" style="stop-color:var(--coral);stop-opacity:1" />
+                    </linearGradient>
+                </defs>
+
+                <!-- MUST Node -->
+                <circle cx="200" cy="50" r="8" fill="white" />
+                <text x="215" y="56" fill="white" class="node-label">MUST</text>
+                <text x="145" y="56" text-anchor="end" class="percentage">95%</text>
+
+                <!-- SHOULD Node -->
+                <circle cx="200" cy="175" r="7" fill="#4ecdc4" />
+                <text x="215" y="181" fill="#4ecdc4" class="node-label">SHOULD</text>
+                <text x="145" y="181" text-anchor="end" class="percentage">70%</text>
+
+                <!-- MAY Node -->
+                <circle cx="200" cy="300" r="6" fill="#888" />
+                <text x="215" y="306" fill="#888" class="node-label">MAY</text>
+                <text x="145" y="306" text-anchor="end" class="percentage">50%</text>
+
+                <!-- MIGHT Node -->
+                <circle cx="200" cy="425" r="5" fill="#444" />
+                <text x="215" y="431" fill="#444" class="node-label">MIGHT</text>
+                <text x="145" y="431" text-anchor="end" class="percentage">35%</text>
+
+                <!-- CAN'T Node -->
+                <circle cx="200" cy="550" r="8" fill="#ff6b6b" />
+                <text x="215" y="556" fill="#ff6b6b" class="node-label">CAN'T</text>
+                <text x="145" y="556" text-anchor="end" class="percentage">~5%</text>
+            </svg>
+        </section>
+    </main>
+
+</body>
+</html>
