@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modal Verbs - Geçmiş Çıkarım Yapısı</title>
+    <style>
+        :root {
+            --bg-color: #0d0d0d;
+            --teal: #4ecdc4;
+            --amber: #f5c518;
+            --white: #ffffff;
+            --muted-gray: #888888;
+            --border-color: #222222;
+            --font-mono: 'JetBrains Mono', 'Courier New', monospace;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--white);
+            font-family: var(--font-mono);
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .diagram-container {
+            width: 100%;
+            max-width: 900px;
+            aspect-ratio: 16 / 9;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 40px;
+        }
+
+        .formula-header {
+            color: var(--muted-gray);
+            font-size: 0.85rem;
+            text-align: center;
+            letter-spacing: 2px;
+            margin-bottom: 3rem;
+            text-transform: lowercase;
+        }
+
+        .phrase-table {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .phrase-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            text-align: center;
+            font-size: 2.2rem;
+            letter-spacing: 3px;
+        }
+
+        .modal { color: var(--amber); font-weight: 700; }
+        .aux { color: var(--teal); }
+        .verb { color: var(--white); }
+
+        .separator {
+            height: 1px;
+            background-color: var(--border-color);
+            width: 100%;
+            margin-bottom: 1.5rem;
+        }
+
+        .label-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            text-align: center;
+        }
+
+        .column-label {
+            color: var(--muted-gray);
+            font-size: 0.75rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="diagram-container">
+        <!-- Top formula label -->
+        <div class="formula-header">modal + have + past participle</div>
+
+        <!-- Phrase rows -->
+        <div class="phrase-table">
+            <div class="phrase-row">
+                <span class="modal">must</span>
+                <span class="aux">have</span>
+                <span class="verb">happened</span>
+            </div>
+            <div class="phrase-row">
+                <span class="modal">might</span>
+                <span class="aux">have</span>
+                <span class="verb">happened</span>
+            </div>
+            <div class="phrase-row">
+                <span class="modal">can't</span>
+                <span class="aux">have</span>
+                <span class="verb">happened</span>
+            </div>
+        </div>
+
+        <!-- Separator Line -->
+        <div class="separator"></div>
+
+        <!-- Column Labels -->
+        <div class="label-row">
+            <span class="column-label">TUTUM</span>
+            <span class="column-label">GEÇMİŞ</span>
+            <span class="column-label">EYLEM</span>
+        </div>
+    </div>
+
+</body>
+</html>
