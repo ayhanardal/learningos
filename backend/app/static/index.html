@@ -785,6 +785,14 @@ h3.ce-header {
 <script>
 const API = '/api';
 
+const INTERACTIVE_TOPICS = {
+    "Türkçe": ["Paragrafta Yapı"]
+};
+
+let interactiveData = null;
+let currentCarouselIndex = 0;
+let interactiveAutoSaveTimeout = null;
+
 let currentMainTopic = "";
 let isFullScreen = false;
 let workspaceEditor;
@@ -880,100 +888,248 @@ window.goBackToMainTopic = async function() {
     openWorkspace(subject, currentMainTopic);
 };
 
-function loadEditorData(subject, topicKey) {
+window.loadEditorData = function(subject, topicKey) {
+    if (subject === "Türkçe" && topicKey === "Paragrafta Yapı") {
+        const tempKey = `note_${subject}_${topicKey}`;
+        const tempData = JSON.parse(localStorage.getItem(tempKey) || "{}");
+        if (!tempData._template) localStorage.removeItem(tempKey);
+    }
+
     if (workspaceEditor) {
         workspaceEditor.destroy();
+        workspaceEditor = null;
     }
 
     const storageKey = `note_${subject}_${topicKey}`;
-    const savedData = JSON.parse(localStorage.getItem(storageKey));
+    let savedData = JSON.parse(localStorage.getItem(storageKey));
 
-    workspaceEditor = new EditorJS({
-        holder: 'editorjs',
-        placeholder: 'Bir şeyler yazın, / komutunu kullanın veya fotoğraf yapıştırın...',
-        data: savedData || {},
-        onChange: (api, event) => {
-            clearTimeout(autoSaveTimeout);
-            autoSaveTimeout = setTimeout(() => {
-                saveWorkspaceNote();
-            }, 1000);
-        },
-        tools: {
-            header1: {
-                class: class extends Header { static get toolbox() { return { icon: 'H1', title: 'Başlık 1' }; } },
-                inlineToolbar: true,
-                shortcut: 'CMD+SHIFT+1',
-                config: { placeholder: 'Büyük Başlık (H1)', levels: [1], defaultLevel: 1 }
+    const isInteractive = INTERACTIVE_TOPICS[subject] && INTERACTIVE_TOPICS[subject].includes(topicKey);
+
+    if (isInteractive) {
+        document.getElementById('editorjs').style.paddingRight = '0';
+        renderInteractiveStudyView(subject, topicKey, savedData);
+    } else {
+        document.getElementById('editorjs').style.paddingRight = '60px';
+
+        workspaceEditor = new EditorJS({
+            holder: 'editorjs',
+            placeholder: 'Bir şeyler yazın, / komutunu kullanın veya fotoğraf yapıştırın...',
+            data: (savedData && !savedData._template) ? savedData : {},
+            onChange: (api, event) => {
+                clearTimeout(autoSaveTimeout);
+                autoSaveTimeout = setTimeout(() => {
+                    saveWorkspaceNote();
+                }, 1000);
             },
-            header2: {
-                class: class extends Header { static get toolbox() { return { icon: 'H2', title: 'Başlık 2' }; } },
-                inlineToolbar: true,
-                shortcut: 'CMD+SHIFT+2',
-                config: { placeholder: 'Orta Başlık (H2)', levels: [2], defaultLevel: 2 }
-            },
-            header3: {
-                class: class extends Header { static get toolbox() { return { icon: 'H3', title: 'Başlık 3' }; } },
-                inlineToolbar: true,
-                shortcut: 'CMD+SHIFT+3',
-                config: { placeholder: 'Küçük Başlık (H3)', levels: [3], defaultLevel: 3 }
-            },
-            image: {
-                class: ImageTool,
-                config: {
-                    uploader: {
-                        uploadByFile(file) {
-                            return new Promise((resolve) => {
-                                const reader = new FileReader();
-                                reader.onload = (e) => {
-                                    resolve({
-                                        success: 1,
-                                        file: { url: e.target.result }
-                                    });
-                                };
-                                reader.readAsDataURL(file);
-                            });
+            tools: {
+                header1: {
+                    class: class extends Header { static get toolbox() { return { icon: 'H1', title: 'Başlık 1' }; } },
+                    inlineToolbar: true,
+                    shortcut: 'CMD+SHIFT+1',
+                    config: { placeholder: 'Büyük Başlık (H1)', levels: [1], defaultLevel: 1 }
+                },
+                header2: {
+                    class: class extends Header { static get toolbox() { return { icon: 'H2', title: 'Başlık 2' }; } },
+                    inlineToolbar: true,
+                    shortcut: 'CMD+SHIFT+2',
+                    config: { placeholder: 'Orta Başlık (H2)', levels: [2], defaultLevel: 2 }
+                },
+                header3: {
+                    class: class extends Header { static get toolbox() { return { icon: 'H3', title: 'Başlık 3' }; } },
+                    inlineToolbar: true,
+                    shortcut: 'CMD+SHIFT+3',
+                    config: { placeholder: 'Küçük Başlık (H3)', levels: [3], defaultLevel: 3 }
+                },
+                image: {
+                    class: ImageTool,
+                    config: {
+                        uploader: {
+                            uploadByFile(file) {
+                                return new Promise((resolve) => {
+                                    const reader = new FileReader();
+                                    reader.onload = (e) => {
+                                        resolve({
+                                            success: 1,
+                                            file: { url: e.target.result }
+                                        });
+                                    };
+                                    reader.readAsDataURL(file);
+                                });
+                            }
                         }
                     }
-                }
-            },
-            ayrac: {
-                class: class extends Delimiter {
-                    static get toolbox() {
-                        return {
-                            icon: '<svg width="24" height="24" viewBox="0 0 24 24"><path stroke="currentColor" stroke-width="2" d="M4 12h16"/></svg>',
-                            title: 'Ayraç (Çizgi)'
-                        };
-                    }
-                }
-            },
-            list: {
-                class: List,
-                inlineToolbar: true,
-                config: { defaultStyle: 'unordered' }
-            },
-            checklist: {
-                class: Checklist,
-                inlineToolbar: true,
-            },
-            quote: {
-                class: Quote,
-                inlineToolbar: true,
-                shortcut: 'CMD+SHIFT+O',
-                config: {
-                    quotePlaceholder: 'Alıntıyı buraya yazın...',
-                    captionPlaceholder: 'Yazar veya Kaynak (Opsiyonel)',
                 },
-            },
-            Marker: {
-                class: Marker,
-                shortcut: 'CMD+SHIFT+M',
-            },
-            inlineCode: {
-                class: InlineCode,
-                shortcut: 'CMD+SHIFT+C',
+                ayrac: {
+                    class: class extends Delimiter {
+                        static get toolbox() {
+                            return {
+                                icon: '<svg width="24" height="24" viewBox="0 0 24 24"><path stroke="currentColor" stroke-width="2" d="M4 12h16"/></svg>',
+                                title: 'Ayraç (Çizgi)'
+                            };
+                        }
+                    }
+                },
+                list: {
+                    class: List,
+                    inlineToolbar: true,
+                    config: { defaultStyle: 'unordered' }
+                },
+                checklist: {
+                    class: Checklist,
+                    inlineToolbar: true,
+                },
+                quote: {
+                    class: Quote,
+                    inlineToolbar: true,
+                    shortcut: 'CMD+SHIFT+O',
+                    config: {
+                        quotePlaceholder: 'Alıntıyı buraya yazın...',
+                        captionPlaceholder: 'Yazar veya Kaynak (Opsiyonel)',
+                    },
+                },
+                Marker: {
+                    class: Marker,
+                    shortcut: 'CMD+SHIFT+M',
+                },
+                inlineCode: {
+                    class: InlineCode,
+                    shortcut: 'CMD+SHIFT+C',
+                }
             }
+        });
+    }
+};
+
+window.renderInteractiveStudyView = function(subject, topicKey, savedData) {
+    if (!savedData || !savedData._template) {
+        interactiveData = {
+            _template: "interactive-v1",
+            diagram: {
+                title: "Cümle Ögeleri: Tarama ve Doğrulama Ağırlıkları",
+                boxes: [
+                    { 
+                        title: "1. Yüksek Ağırlık (%90)", 
+                        desc: "Yüklem / Ana Yargı (İlk bunu tara)", 
+                        color: "#E53935"
+                    },
+                    { 
+                        title: "2. Kritik Ağırlık (%100)", 
+                        desc: "Kısıtlayıcı Zarf (Sadece, Kesinlikle, En)", 
+                        color: "#FB8C00"
+                    },
+                    { 
+                        title: "3. Doğrulama Katmanı", 
+                        desc: "Özne / Nesne (Eşleşmeyi Onayla)", 
+                        color: "#43A047"
+                    }
+                ]
+            },
+            carousel: {
+                activeIndex: 0,
+                questions: [
+                    { 
+                        id: 1, 
+                        htmlContent: `Toplumun başından geçen büyük olayların dönemin insanı üzerindeki etkisi kaçınılmazdır. Yaşadığınız olay ne olursa olsun ki bu göç, deprem, sel felaketi vs. olabilir. Bu olayların tamamında insanda mutlaka zihinsel bir etki bırakılacaktır. Genellikle kalıcı izler bırakmaktadır. Kişi yaşanılan olay sonrası o toplumda yaşamını sürdürüyorsa bu durum eğitim hayatından her türlü yaşantısına kadar etkisini gösteriyor. Bir de bu olayların merkezinde bir yerlerde yaşıyorsa etkilenmemesi olası değildir. Bu tarz toplumsal ve kitlesel sorunlar yaratan olaylara karşı rehabilitasyon merkezlerinin etkin olmasında büyük fayda vardır. Bu tarz merkezlerde bireyler önce içsel sonra da dışsal sorunlarına çözümler bulabilirler. Bu merkezler günümüzde de varlığını sürdürmektedir. Rehabilitasyon merkezleri, kişi üzerindeki her türlü baskıyı kaldırabilecek güce sahiptir.<br><br><br><b>8.&nbsp;&nbsp;&nbsp;&nbsp;Bu parçadan hareketle,</b><br><br>&nbsp;&nbsp;&nbsp;&nbsp;I.&nbsp;&nbsp;Toplumun yaşadıklarının bireyin üzerinde geçici<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;etkiler bıraktığı da olmuştur.<br><br>&nbsp;&nbsp;&nbsp;&nbsp;II.&nbsp;Rehabilitasyon merkezlerinin sorunlara yaklaşı-<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mında bir sistemi vardır.<br><br>&nbsp;&nbsp;&nbsp;&nbsp;III. Olay sonrası kişinin yaşamını nerede sürdürdü-<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ğü, olaydan etkilenişini etkilemez.<br><br><b>bilgilerinden hangilerine <u>ulaşılamaz?</u></b><br><br>A) Yalnız I&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B) I ve III&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C) Yalnız II<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;D) II ve III&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;E) Yalnız III<br><br><br><b>9.&nbsp;&nbsp;&nbsp;&nbsp;Bu parçadan hareketle aşağıdakilerden hangisine<br>&nbsp;&nbsp;&nbsp;&nbsp;varılabilir?</b><br><br>A) Toplumsal olayların birey üzerindeki baskısı reha-<br>&nbsp;&nbsp;&nbsp;&nbsp;bilitasyon merkezlerinin esas alanıdır.<br><br>B) Günümüzde rehabilitasyon merkezlerinin varlığı,<br>&nbsp;&nbsp;&nbsp;&nbsp;toplumsal sorunlara işarettir.<br><br>C) İnsanların içinde yaşadıkları toplumdan etkilenme-<br>&nbsp;&nbsp;&nbsp;&nbsp;meleri zordur.<br><br>D) Toplumun bireyi baskı altına almasına neden olabi-<br>&nbsp;&nbsp;&nbsp;&nbsp;lecek olaylar sınırlıdır.<br><br>E) Birey, toplumdan kendini soyutlarsa olaylardan et-<br>&nbsp;&nbsp;&nbsp;&nbsp;kilenmez.` 
+                    }
+                ]
+            },
+            notes: { 
+                text: "🎯 TAKTİK (Olumsuz Kök / Çıkarılamaz):\n\n1. Asla önce paragrafı okuma. Önce şıklara in.\n2. Şıktaki YÜKLEME veya KISITLAYICI ZARFA odaklan (Yüksek Ağırlık).\n3. Paragrafa çık ve bu kelimeyi Hızlı Tarama (Hashing) ile ara.\n4. Kelimeyi bulduğunda, cümlenin başındaki ÖZNEYİ (Doğrulama Katmanı) kontrol et.\n5. İkisi de uyuşuyorsa şıkkı ele ve arkana bakma!\n\n\n--- 📄 İşlenen Soru Metni (ALES) ---\n\n[ORTAK PARAGRAF]\nToplumun başından geçen büyük olayların dönemin insanı üzerindeki etkisi kaçınılmazdır. Yaşadığınız olay ne olursa olsun ki bu göç, deprem, sel felaketi vs. olabilir. Bu olayların tamamında insanda mutlaka zihinsel bir etki bırakılacaktır. Genellikle kalıcı izler bırakmaktadır. Kişi yaşanılan olay sonrası o toplumda yaşamını sürdürüyorsa bu durum eğitim hayatından her türlü yaşantısına kadar etkisini gösteriyor. Bir de bu olayların merkezinde bir yerlerde yaşıyorsa etkilenmemesi olası değildir. Bu tarz toplumsal ve kitlesel sorunlar yaratan olaylara karşı rehabilitasyon merkezlerinin etkin olmasında büyük fayda vardır. Bu tarz merkezlerde bireyler önce içsel sonra da dışsal sorunlarına çözümler bulabilirler. Bu merkezler günümüzde de varlığını sürdürmektedir. Rehabilitasyon merkezleri, kişi üzerindeki her türlü baskıyı kaldırabilecek güce sahiptir.\n\n[SORU 8 - ULAŞILAMAZ]\n8. Bu parçadan hareketle,\nI. Toplumun yaşadıklarının bireyin üzerinde geçici etkiler bıraktığı da olmuştur.\nII. Rehabilitasyon merkezlerinin sorunlara yaklaşımında bir sistemi vardır.\nIII. Olay sonrası kişinin yaşamını nerede sürdürdüğü, olaydan etkilenişini etkilemez.\nbilgilerinden hangilerine ulaşılamaz?\nA) Yalnız I      B) I ve III      C) Yalnız II\nD) II ve III     E) Yalnız III\n\n[SORU 9 - VARILABİLİR]\n9. Bu parçadan hareketle aşağıdakilerden hangisine varılabilir?\nA) Toplumsal olayların birey üzerindeki baskısı rehabilitasyon merkezlerinin esas alanıdır.\nB) Günümüzde rehabilitasyon merkezlerinin varlığı, toplumsal sorunlara işarettir.\nC) İnsanların içinde yaşadıkları toplumdan etkilenmemeleri zordur.\nD) Toplumun bireyi baskı altına almasına neden olabilecek olaylar sınırlıdır.\nE) Birey, toplumdan kendini soyutlarsa olaylardan etkilenmez." 
+            }
+        };
+    } else {
+        interactiveData = savedData;
+    }
+
+    currentCarouselIndex = interactiveData.carousel.activeIndex || 0;
+    const container = document.getElementById('editorjs');
+    if (container.parentElement) {
+        container.parentElement.style.maxWidth = "100%";
+        container.parentElement.style.width = "100%";
+        container.parentElement.style.padding = "0 10px";
+    }
+    container.style.maxWidth = "100%";
+    container.style.width = "100%";
+    container.style.padding = "0";
+
+    let html = `
+        <div style="width: 100%; max-width: none; padding: 0 10px; margin: 0 auto; display: flex; flex-direction: column; gap: 24px;">
+            <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 16px;">
+                <h3 style="margin-bottom: 16px; color: var(--text);">${interactiveData.diagram.title}</h3>
+                <div style="display: flex; gap: 12px; justify-content: space-between;">
+                    ${interactiveData.diagram.boxes.map(b => `
+                        <div style="flex: 1; border-top: 4px solid ${b.color}; background: var(--bg); padding: 12px; border-radius: 6px; text-align: center;">
+                            <strong style="color: var(--text); display: block; font-size: 14px;">${b.title}</strong>
+                            <span style="color: var(--text2); font-size: 12px;">${b.desc}</span>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+
+            <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 16px; text-align: center;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                    <button onclick="changeInteractiveQuestion(-1)" style="padding: 6px 12px; cursor: pointer; border-radius: 4px; border: 1px solid var(--border); background: var(--bg); color: var(--text);">◀ Önceki</button>
+                    <span id="int-counter" style="color: var(--text); font-weight: bold;">${currentCarouselIndex + 1} / ${interactiveData.carousel.questions.length}</span>
+                    <button onclick="changeInteractiveQuestion(1)" style="padding: 6px 12px; cursor: pointer; border-radius: 4px; border: 1px solid var(--border); background: var(--bg); color: var(--text);">Sonraki ▶</button>
+                </div>
+                <div id="int-question-text" style="text-align: justify; padding: 40px; background: #fdfcf8; border-radius: 4px; border: 1px solid #d1d5db; color: #111827; line-height: 1.6; font-size: 15px; font-family: Arial, Helvetica, sans-serif; letter-spacing: 0.3px; column-count: 2; column-gap: 60px; column-rule: 1px solid #e5e7eb; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">${interactiveData.carousel.questions[currentCarouselIndex].htmlContent}</div>
+            </div>
+
+            <div>
+                <h3 style="margin-bottom: 8px; color: var(--text); font-size: 14px;">📝 Taktik Notları</h3>
+                <textarea id="int-notes-area" style="width: 100%; height: 150px; padding: 12px; border-radius: 8px; border: 1px solid var(--border); background: var(--surface); color: var(--text); resize: vertical; line-height: 1.6;" oninput="triggerInteractiveSave()">${interactiveData.notes.text}</textarea>
+            </div>
+        </div>
+    `;
+
+    container.innerHTML = html;
+};
+
+window.changeInteractiveQuestion = function(direction) {
+    if (!interactiveData) return;
+
+    let total = interactiveData.carousel.questions.length;
+    currentCarouselIndex += direction;
+
+    if (currentCarouselIndex < 0) currentCarouselIndex = total - 1;
+    if (currentCarouselIndex >= total) currentCarouselIndex = 0;
+
+    document.getElementById('int-question-text').innerHTML = interactiveData.carousel.questions[currentCarouselIndex].htmlContent;
+    document.getElementById('int-counter').innerText = `${currentCarouselIndex + 1} / ${total}`;
+
+    interactiveData.carousel.activeIndex = currentCarouselIndex;
+    saveInteractiveNote();
+};
+
+window.triggerInteractiveSave = function() {
+    clearTimeout(interactiveAutoSaveTimeout);
+    interactiveAutoSaveTimeout = setTimeout(() => {
+        if (interactiveData) {
+            interactiveData.notes.text = document.getElementById('int-notes-area').value;
+            saveInteractiveNote();
         }
-    });
+    }, 1000);
+};
+
+window.saveInteractiveNote = function() {
+    if (!interactiveData) return Promise.resolve();
+
+    const currentSubject = document.getElementById('ws-subject').innerText.replace(' (Kaydedildi ✓)', '').trim();
+    const currentTopic = document.getElementById('ws-topic').innerText.trim();
+    const storageKey = `note_${currentSubject}_${currentTopic}`;
+
+    localStorage.setItem(storageKey, JSON.stringify(interactiveData));
+
+    const saveStatusIndicator = document.getElementById('ws-subject');
+    const originalText = currentSubject;
+    saveStatusIndicator.innerText = originalText + " (Kaydedildi ✓)";
+    setTimeout(() => {
+        if (document.getElementById('ws-topic').innerText.trim() === currentTopic) {
+            saveStatusIndicator.innerText = originalText;
+        }
+    }, 2000);
+
+    return Promise.resolve();
 };
 
 window.closeWorkspace = function() {
