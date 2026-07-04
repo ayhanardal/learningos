@@ -6,6 +6,91 @@ from pathlib import Path
 from datetime import datetime
 from app.services.data import CURRICULUM_DIR, get_progress_raw, slugify
 
+EXACT_ALLOCATIONS = {
+    # TÜRKÇE (Toplam 34 Oturum)
+    "Paragrafta Anlam": 20,
+    "Sözel Mantık": 7,
+    "Sözcükte ve Cümlede Anlam": 5,
+    "Dil Bilgisi ve Ses Olayları": 2,
+    
+    # TARİH (Toplam 25 Oturum)
+    "İnkılap Tarihi": 15,
+    "Osmanlı Devleti": 7,
+    "Çağdaş Türk ve Dünya Tarihi": 2,
+    "İlk Türk-İslam Devletleri": 1,
+    "İslamiyet Öncesi Türk Tarihi": 0,
+    
+    # MATEMATİK (Toplam 38 Oturum)
+    "Problemler": 13,
+    "Cebir (Üslü, Köklü, Çarpanlara Ayırma)": 8,
+    "Temel Kavramlar ve Rasyonel Sayılar": 8,
+    "Sayısal Mantık": 6,
+    "Olasılık ve İstatistik": 3,
+    "Geometri": 0,
+    "Kümeler ve Fonksiyonlar": 0,
+    
+    # VATANDAŞLIK (Toplam 11 Oturum)
+    "Yasama, Yürütme ve Yargı": 5,
+    "Uluslararası Kuruluşlar ve Güncel Olaylar": 4,
+    "Hukukun Temel Kavramları": 2,
+    "İdare Hukuku": 0,
+    "Devlet Biçimleri ve Anayasa Tarihi": 0,
+    
+    # COĞRAFYA (Toplam 18 Oturum)
+    "Fiziki Coğrafya ve Su Örtüsü": 6,
+    "Sanayi, Ulaşım, Ticaret ve Turizm": 3,
+    "Madenler ve Enerji Kaynakları": 3,
+    "Nüfus ve Yerleşme": 2,
+    "İklim ve Bitki Örtüsü": 2,
+    "Tarım, Hayvancılık ve Ormancılık": 2,
+    "Türkiye'nin Coğrafi Konumu": 0,
+    
+    # İSTATİSTİK (Toplam 52 Oturum)
+    "Olasılık ve Stokastik Süreçler": 11,
+    "Uygulamalı İstatistik": 8,
+    "Regresyon Analizi": 8,
+    "Matematiksel İstatistik": 5,
+    "Varyans Analizi (ANOVA)": 5,
+    "Çok Değişkenli Analizler": 5,
+    "Örnekleme": 5,
+    "Zaman Serileri": 5,
+    "Yöneylem Araştırması": 0,
+    "Parametrik Olmayan Testler": 0
+}
+
+SUBJECT_OF_TOPIC = {
+    "Paragrafta Anlam": "Türkçe", "Sözel Mantık": "Türkçe", "Sözcükte ve Cümlede Anlam": "Türkçe", "Dil Bilgisi ve Ses Olayları": "Türkçe",
+    "İnkılap Tarihi": "Tarih", "Osmanlı Devleti": "Tarih", "Çağdaş Türk ve Dünya Tarihi": "Tarih", "İlk Türk-İslam Devletleri": "Tarih", "İslamiyet Öncesi Türk Tarihi": "Tarih",
+    "Problemler": "Matematik", "Cebir (Üslü, Köklü, Çarpanlara Ayırma)": "Matematik", "Temel Kavramlar ve Rasyonel Sayılar": "Matematik", "Sayısal Mantık": "Matematik", "Olasılık ve İstatistik": "Matematik", "Geometri": "Matematik", "Kümeler ve Fonksiyonlar": "Matematik",
+    "Yasama, Yürütme ve Yargı": "Vatandaşlık", "Uluslararası Kuruluşlar ve Güncel Olaylar": "Vatandaşlık", "Hukukun Temel Kavramları": "Vatandaşlık", "İdare Hukuku": "Vatandaşlık", "Devlet Biçimleri ve Anayasa Tarihi": "Vatandaşlık",
+    "Fiziki Coğrafya ve Su Örtüsü": "Coğrafya", "Sanayi, Ulaşım, Ticaret ve Turizm": "Coğrafya", "Madenler ve Enerji Kaynakları": "Coğrafya", "Nüfus ve Yerleşme": "Coğrafya", "İklim ve Bitki Örtüsü": "Coğrafya", "Tarım, Hayvancılık ve Ormancılık": "Coğrafya", "Türkiye'nin Coğrafi Konumu": "Coğrafya",
+    "Olasılık ve Stokastik Süreçler": "İstatistik", "Uygulamalı İstatistik": "İstatistik", "Regresyon Analizi": "İstatistik", "Matematiksel İstatistik": "İstatistik", "Varyans Analizi (ANOVA)": "İstatistik", "Çok Değişkenli Analizler": "İstatistik", "Örnekleme": "İstatistik", "Zaman Serileri": "İstatistik", "Yöneylem Araştırması": "İstatistik", "Parametrik Olmayan Testler": "İstatistik"
+}
+
+def build_topic_queues(allocations):
+    grouped = {}
+    for topic, count in allocations.items():
+        if count <= 0:
+            continue
+        subj = SUBJECT_OF_TOPIC.get(topic)
+        if not subj:
+            continue
+        if subj not in grouped:
+            grouped[subj] = {}
+        grouped[subj][topic] = count
+        
+    queues = {}
+    for subj, topics in grouped.items():
+        queue = []
+        counts = dict(topics)
+        while sum(counts.values()) > 0:
+            for topic in sorted(counts.keys(), key=lambda k: counts[k], reverse=True):
+                if counts[topic] > 0:
+                    queue.append(topic)
+                    counts[topic] -= 1
+        queues[subj] = queue
+    return queues
+
 TOPIC_ALLOCATIONS = {}
 
 def get_deterministic_schedule():
@@ -516,6 +601,18 @@ def get_macro_sprint():
         "focus_topics": focus_topics
     }
 
+def pop_unique_topic(subj, queues, used_topics_today):
+    if not queues.get(subj):
+        return "Genel Tekrar"
+    for i, candidate in enumerate(queues[subj]):
+        if candidate not in used_topics_today:
+            topic = queues[subj].pop(i)
+            used_topics_today.add(topic)
+            return topic
+    topic = queues[subj].pop(0)
+    used_topics_today.add(topic)
+    return topic
+
 def generate_roadmap_projection():
     packing = bin_packing_roadmap()
     gygk_list = packing["gygk_allocated"]
@@ -528,6 +625,7 @@ def generate_roadmap_projection():
     today = datetime.now()
     
     days_plan = []
+    queues = build_topic_queues(EXACT_ALLOCATIONS)
     
     for day_idx in range(60):
         current_date = today + timedelta(days=day_idx)
@@ -538,6 +636,7 @@ def generate_roadmap_projection():
         
         genel_tasks = []
         alan_tasks = []
+        used_topics_today = set()
         
         if is_alan_day:
             if gygk_idx < len(gygk_list):
@@ -546,12 +645,16 @@ def generate_roadmap_projection():
             else:
                 t = {"subject": "Matematik", "topic": "Genel Tekrar", "target_questions": 40, "topic_slug": "matematik-genel-tekrar"}
                 
+            subj = t["subject"]
+            topic = pop_unique_topic(subj, queues, used_topics_today)
+            topic_slug = f"{slugify(subj)}-{slugify(topic)}"
+            
             genel_tasks.append({
-                "subject": t["subject"],
-                "topic": t["topic"],
+                "subject": subj,
+                "topic": topic,
                 "hours": 1.5,
                 "target_questions": t.get("target_questions", 40),
-                "topic_slug": t["topic_slug"]
+                "topic_slug": topic_slug
             })
             
             for _ in range(2):
@@ -561,24 +664,32 @@ def generate_roadmap_projection():
                 else:
                     t = {"subject": "İstatistik", "topic": "Genel Tekrar", "target_questions": 45, "topic_slug": "istatistik-genel-tekrar"}
                     
+                subj = t["subject"]
+                topic = pop_unique_topic(subj, queues, used_topics_today)
+                topic_slug = f"{slugify(subj)}-{slugify(topic)}"
+                    
                 alan_tasks.append({
-                    "subject": t["subject"],
-                    "topic": t["topic"],
+                    "subject": subj,
+                    "topic": topic,
                     "hours": 1.5,
                     "target_questions": t.get("target_questions", 45),
-                    "topic_slug": t["topic_slug"]
+                    "topic_slug": topic_slug
                 })
         else:
             pulled, next_idx = pull_valid_gygk_tasks(gygk_list, gygk_idx, 3)
             gygk_idx = next_idx
             
             for t in pulled:
+                subj = t["subject"]
+                topic = pop_unique_topic(subj, queues, used_topics_today)
+                topic_slug = f"{slugify(subj)}-{slugify(topic)}"
+                
                 genel_tasks.append({
-                    "subject": t["subject"],
-                    "topic": t["topic"],
+                    "subject": subj,
+                    "topic": topic,
                     "hours": 1.5,
                     "target_questions": t.get("target_questions", 40),
-                    "topic_slug": t["topic_slug"]
+                    "topic_slug": topic_slug
                 })
                 
         total_hours = sum(t["hours"] for t in genel_tasks + alan_tasks)

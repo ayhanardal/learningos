@@ -65,9 +65,15 @@ def get_plan():
 
 
 def get_today():
-    # Asenkron dinamik planlayıcıdan üretilsin
-    from app.services.plan_generator import generate_daily_blocks
-    return generate_daily_blocks()
+    from app.services.plan_generator import generate_roadmap_projection
+    roadmap = generate_roadmap_projection()
+    weeks = roadmap.get("weeks", {})
+    if not weeks:
+        return {"genel": [], "alan": []}
+    
+    first_week_key = sorted(weeks.keys(), key=lambda x: int(x.replace("Hafta ", "")))[0]
+    days = weeks[first_week_key]["days"]
+    return days[0] if days else {"genel": [], "alan": []}
 
 
 def get_progress():
@@ -232,57 +238,7 @@ def get_curriculum_all():
     if not CURRICULUM_DIR.exists():
         return []
     
-    EXACT_ALLOCATIONS = {
-        # TÜRKÇE (Toplam 34 Oturum olacak şekilde güncellendi)
-        "Paragrafta Anlam": 20,
-        "Sözel Mantık": 7,
-        "Sözcükte ve Cümlede Anlam": 5,
-        "Dil Bilgisi ve Ses Olayları": 2,
-        
-        # TARİH (Toplam 25 Oturum - Mevcut çalışan yapı aynen korundu)
-        "İnkılap Tarihi": 15,
-        "Osmanlı Devleti": 7,
-        "Çağdaş Türk ve Dünya Tarihi": 2,
-        "İlk Türk-İslam Devletleri": 1,
-        "İslamiyet Öncesi Türk Tarihi": 0,
-        
-        # MATEMATİK (Toplam 38 Oturum)
-        "Problemler": 13,
-        "Cebir (Üslü, Köklü, Çarpanlara Ayırma)": 8,
-        "Temel Kavramlar ve Rasyonel Sayılar": 8,
-        "Sayısal Mantık": 6,
-        "Olasılık ve İstatistik": 3,
-        "Geometri": 0,
-        "Kümeler ve Fonksiyonlar": 0,
-        
-        # VATANDAŞLIK (Toplam 11 Oturum)
-        "Yasama, Yürütme ve Yargı": 5,
-        "Uluslararası Kuruluşlar ve Güncel Olaylar": 4,
-        "Hukukun Temel Kavramları": 2,
-        "İdare Hukuku": 0,
-        "Devlet Biçimleri ve Anayasa Tarihi": 0,
-        
-        # COĞRAFYA (Toplam 18 Oturum)
-        "Fiziki Coğrafya ve Su Örtüsü": 6,
-        "Sanayi, Ulaşım, Ticaret ve Turizm": 3,
-        "Madenler ve Enerji Kaynakları": 3,
-        "Nüfus ve Yerleşme": 2,
-        "İklim ve Bitki Örtüsü": 2,
-        "Tarım, Hayvancılık ve Ormancılık": 2,
-        "Türkiye'nin Coğrafi Konumu": 0,
-        
-        # İSTATİSTİK (Toplam 52 Oturum)
-        "Olasılık ve Stokastik Süreçler": 11,
-        "Uygulamalı İstatistik": 8,
-        "Regresyon Analizi": 8,
-        "Matematiksel İstatistik": 5,
-        "Varyans Analizi (ANOVA)": 5,
-        "Çok Değişkenli Analizler": 5,
-        "Örnekleme": 5,
-        "Zaman Serileri": 5,
-        "Yöneylem Araştırması": 0,
-        "Parametrik Olmayan Testler": 0
-    }
+    from app.services.plan_generator import EXACT_ALLOCATIONS
         
     raw_progress = get_progress_raw()
     if not isinstance(raw_progress, dict):
@@ -413,8 +369,14 @@ def get_stats():
 
 
 def get_plan_week():
-    from app.services.plan_generator import generate_weekly_projection
-    return generate_weekly_projection()
+    from app.services.plan_generator import generate_roadmap_projection
+    roadmap = generate_roadmap_projection()
+    weeks = roadmap.get("weeks", {})
+    if not weeks:
+        return {"days": []}
+    
+    first_week_key = sorted(weeks.keys(), key=lambda x: int(x.replace("Hafta ", "")))[0]
+    return weeks[first_week_key]
 
 
 def get_plan_macro():
