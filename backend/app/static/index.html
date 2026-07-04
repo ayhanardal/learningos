@@ -1,0 +1,1661 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KPSS Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #0a0c10; --surface: #12141c; --surface2: #1a1d28;
+  --border: #282c3a; --text: #e8eaed; --text2: #9aa0b0;
+  --accent: #00d4ff; --accent2: #7c5cfc; --green: #34d399;
+  --yellow: #fbbf24; --red: #f87171; --orange: #fb923c;
+}
+body {
+  font-family: 'Inter', -apple-system, sans-serif;
+  background: var(--bg); color: var(--text); min-height: 100vh;
+  display: flex; justify-content: center;
+}
+.container { max-width: 1200px; width: 100%; padding: 20px; }
+
+/* Header */
+header {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 20px 0; border-bottom: 1px solid var(--border); margin-bottom: 24px;
+  flex-wrap: wrap; gap: 16px;
+}
+header h1 { font-size: 24px; font-weight: 800; letter-spacing: -0.5px; }
+header h1 span { color: var(--accent); }
+.header-right { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+.countdown-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 10px; padding: 8px 16px; text-align: center;
+}
+.countdown-card .label { font-size: 11px; color: var(--text2); text-transform: uppercase; letter-spacing: 0.5px; }
+.countdown-card .value { font-size: 20px; font-weight: 700; }
+.countdown-card.genel .value { color: var(--accent); }
+.countdown-card.alan .value { color: var(--accent2); }
+
+/* Grid */
+.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.grid-full { grid-column: 1 / -1; }
+@media (max-width: 800px) { .grid { grid-template-columns: 1fr; } }
+
+/* Cards */
+.card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 12px; padding: 20px; transition: border-color .2s;
+}
+.card:hover { border-color: rgba(0,212,255,0.3); }
+.card h2 { font-size: 14px; font-weight: 600; color: var(--text2); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 16px; }
+
+/* Today Plan */
+.phase-badge {
+  display: inline-block; padding: 4px 12px; border-radius: 20px;
+  font-size: 12px; font-weight: 600; margin-bottom: 12px;
+}
+.phase-calisma { background: rgba(0,212,255,0.15); color: var(--accent); }
+.phase-dinlenme { background: rgba(251,191,36,0.15); color: var(--yellow); }
+.phase-sistem-kurulumu { background: rgba(124,92,252,0.15); color: var(--accent2); }
+.phase-plan-dis { background: rgba(248,113,113,0.15); color: var(--red); }
+
+.task-group { margin-bottom: 12px; }
+.task-group h3 { font-size: 13px; font-weight: 600; color: var(--text2); margin-bottom: 8px; }
+.task-item {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 8px 12px; background: var(--surface2); border-radius: 8px; margin-bottom: 6px;
+  font-size: 14px; cursor: pointer; transition: all .2s;
+}
+.task-item:hover { background: rgba(0,212,255,0.08); }
+.task-item .hours {
+  font-size: 12px; font-weight: 600; color: var(--accent);
+  background: rgba(0,212,255,0.1); padding: 2px 10px; border-radius: 12px;
+}
+.task-item.done { opacity: 0.5; text-decoration: line-through; }
+.plan-note { font-size: 13px; color: var(--text2); font-style: italic; margin-top: 8px; }
+
+/* Progress */
+.progress-item { margin-bottom: 14px; }
+.progress-item .label-row {
+  display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 4px;
+}
+.progress-item .label-row .name { font-weight: 500; }
+.progress-item .label-row .pct { color: var(--text2); }
+.progress-bar {
+  height: 8px; background: var(--surface2); border-radius: 4px; overflow: hidden;
+}
+.progress-bar .fill {
+  height: 100%; border-radius: 4px; transition: width .5s ease;
+  background: linear-gradient(90deg, var(--accent2), var(--accent));
+}
+
+/* Logger */
+.logger-form { display: flex; gap: 8px; flex-wrap: wrap; }
+.logger-form select, .logger-form input {
+  background: var(--surface2); border: 1px solid var(--border);
+  color: var(--text); border-radius: 8px; padding: 10px 14px;
+  font-family: inherit; font-size: 14px; flex: 1; min-width: 120px;
+  outline: none; transition: border-color .2s;
+}
+.logger-form select:focus, .logger-form input:focus { border-color: var(--accent); }
+.logger-form button {
+  background: var(--accent); color: #000; border: none;
+  border-radius: 8px; padding: 10px 20px; font-weight: 600;
+  font-family: inherit; font-size: 14px; cursor: pointer; transition: opacity .2s;
+}
+.logger-form button:hover { opacity: .85; }
+.log-feedback { font-size: 13px; margin-top: 8px; padding: 8px 12px; border-radius: 8px; display: none; }
+.log-feedback.ok { display: block; background: rgba(52,211,153,0.15); color: var(--green); }
+.log-feedback.err { display: block; background: rgba(248,113,113,0.15); color: var(--red); }
+
+/* Stats */
+.stats-row { display: flex; gap: 12px; flex-wrap: wrap; }
+.stat-item {
+  flex: 1; min-width: 100px; background: var(--surface2); border-radius: 10px;
+  padding: 14px; text-align: center;
+}
+.stat-item .stat-value { font-size: 24px; font-weight: 700; }
+.stat-item .stat-label { font-size: 11px; color: var(--text2); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 4px; }
+.stat-item.today .stat-value { color: var(--accent); }
+.stat-item.week .stat-value { color: var(--green); }
+.stat-item.total .stat-value { color: var(--accent2); }
+.stat-item.goal .stat-value { color: var(--yellow); }
+
+/* Weekly */
+.week-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
+.week-day { padding: 10px 6px; border-radius: 8px; background: var(--surface2); text-align: center; font-size: 12px; }
+.week-day .day-name { font-size: 10px; color: var(--text2); text-transform: uppercase; }
+.week-day .day-hours { font-weight: 600; margin-top: 4px; }
+.week-day.today { border: 1px solid var(--accent); }
+.week-day.mock { background: rgba(251,191,36,0.15); }
+.week-day.rest { opacity: 0.5; }
+.week-day.empty { background: transparent; }
+
+/* Mock exam timeline */
+.mock-list { display: flex; flex-wrap: wrap; gap: 8px; }
+.mock-item {
+  background: var(--surface2); border-radius: 8px; padding: 10px 14px;
+  display: flex; align-items: center; gap: 10px; font-size: 13px;
+}
+.mock-item .mock-icon { font-size: 18px; }
+.mock-item .mock-date { color: var(--yellow); font-weight: 600; }
+
+/* Loading / Error */
+.loading { text-align: center; padding: 40px; color: var(--text2); }
+.error { color: var(--red); text-align: center; padding: 20px; }
+
+/* Tabs */
+.tab-bar {
+  display: flex; gap: 4px; margin-bottom: 20px;
+  border-bottom: 1px solid var(--border); padding-bottom: 0;
+}
+.tab-btn {
+  background: transparent; border: none; color: var(--text2);
+  font-family: inherit; font-size: 14px; font-weight: 600;
+  padding: 10px 20px; cursor: pointer; border-bottom: 2px solid transparent;
+  transition: all .2s; border-radius: 8px 8px 0 0;
+}
+.tab-btn:hover { color: var(--text); background: var(--surface); }
+.tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); background: var(--surface); }
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/* Curriculum Center */
+.cc-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); gap: 20px; }
+.cc-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 12px; overflow: hidden; transition: border-color .2s;
+}
+.cc-card:hover { border-color: rgba(0,212,255,0.3); }
+.cc-header {
+  background: var(--surface2); padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+}
+.cc-header .cc-title { font-size: 16px; font-weight: 700; }
+.cc-header .cc-meta { font-size: 12px; color: var(--text2); margin-top: 4px; }
+.cc-header .cc-meta strong { color: var(--accent); }
+.cc-body { padding: 12px 20px 20px; }
+.cc-topic {
+  display: grid; grid-template-columns: 1fr 80px 100px 100px;
+  gap: 8px; padding: 10px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  align-items: center;
+}
+.cc-topic:last-child { border-bottom: none; }
+.cc-topic .cc-t-name { font-size: 14px; font-weight: 500; }
+.cc-topic .cc-col { font-size: 13px; font-weight: 600; text-align: center; }
+.cc-topic .cc-col.soru { color: var(--accent); }
+.cc-topic .cc-col.hedef { color: var(--yellow); }
+.cc-subtopics {
+  grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 4px; margin-top: 2px;
+  padding-top: 4px; border-top: 1px solid rgba(255,255,255,0.03);
+}
+.cc-subtopics span {
+  font-size: 11px; background: rgba(255,255,255,0.05);
+  color: var(--text2); padding: 2px 8px; border-radius: 4px;
+}
+
+/* Syllabus */
+.syllabus-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+@media (max-width: 900px) { .syllabus-grid { grid-template-columns: 1fr; } }
+.syllabus-col { }
+.syllabus-col h3 {
+  font-size: 13px; font-weight: 700; color: var(--text); text-transform: uppercase;
+  letter-spacing: 0.5px; margin-bottom: 12px; padding-bottom: 8px;
+  border-bottom: 2px solid var(--accent); display: inline-block;
+}
+.syllabus-col.gy h3 { border-color: var(--accent); }
+.syllabus-col.gk h3 { border-color: var(--green); }
+.syllabus-col.ab h3 { border-color: var(--accent2); }
+.subject-card {
+  background: var(--surface2); border: 1px solid var(--border);
+  border-radius: 10px; padding: 14px; margin-bottom: 10px;
+  cursor: pointer; transition: all .2s;
+}
+.subject-card:hover { border-color: var(--accent); transform: translateY(-1px); }
+.subject-card .s-name { font-size: 15px; font-weight: 600; margin-bottom: 6px; }
+.subject-card .s-target {
+  font-size: 12px; color: var(--text2); margin-bottom: 8px;
+}
+.subject-card .s-target strong { color: var(--accent); }
+.subject-card .s-bar-row {
+  display: flex; align-items: center; gap: 10px; margin-bottom: 4px;
+}
+.subject-card .s-bar {
+  flex: 1; height: 6px; background: rgba(255,255,255,0.08);
+  border-radius: 3px; overflow: hidden;
+}
+.subject-card .s-bar .fill {
+  height: 100%; border-radius: 3px; transition: width .5s;
+  background: linear-gradient(90deg, var(--accent2), var(--accent));
+}
+.subject-card .s-bar .fill.green { background: linear-gradient(90deg, var(--green), #06d6a0); }
+.subject-card .s-pct { font-size: 12px; font-weight: 700; min-width: 40px; text-align: right; }
+.subject-card .s-hours { font-size: 11px; color: var(--text2); margin-top: 4px; }
+
+/* Sub-tabs (exam level within curriculum) */
+.sub-tab-bar {
+  display: flex; gap: 4px; margin-bottom: 20px;
+}
+.sub-tab-btn {
+  background: var(--surface); border: 1px solid var(--border);
+  color: var(--text2); font-family: inherit; font-size: 13px; font-weight: 600;
+  padding: 10px 24px; cursor: pointer; transition: all .2s; border-radius: 8px;
+}
+.sub-tab-btn:hover { border-color: var(--accent); color: var(--text); }
+.sub-tab-btn.active { background: var(--accent); color: #000; border-color: var(--accent); }
+.sub-panel { display: none; }
+.sub-panel.active { display: block; }
+
+/* Test columns within exam */
+.test-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+@media (max-width: 900px) { .test-row { grid-template-columns: 1fr; } }
+.test-col h3 {
+  font-size: 13px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.5px; margin-bottom: 14px; padding-bottom: 8px;
+  border-bottom: 2px solid var(--border); display: inline-block;
+}
+.test-col.gy h3 { border-color: var(--accent); }
+.test-col.gk h3 { border-color: var(--green); }
+.test-col.ab h3 { border-color: var(--accent2); }
+
+/* Topic rows clickable */
+.cc-topic { cursor: pointer; }
+.cc-topic:hover .cc-t-name { color: var(--accent); }
+
+/* Workspace Modal */
+.ws-overlay {
+  display: none !important; position: fixed; inset: 0; background: rgba(0,0,0,0.8);
+  z-index: 200; justify-content: center; align-items: center;
+}
+.ws-overlay.active { display: flex !important; }
+.ws-modal {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 16px; width: 95%; max-width: 960px;
+  max-height: 90vh; display: grid; grid-template-columns: 1fr 1fr;
+  overflow: hidden;
+}
+@media (max-width: 700px) { .ws-modal { grid-template-columns: 1fr; } }
+.ws-left {
+  padding: 24px; border-right: 1px solid var(--border);
+  overflow-y: auto; max-height: 90vh;
+}
+.ws-right {
+  padding: 24px; overflow-y: auto; max-height: 90vh;
+}
+.ws-left h2 { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+.ws-left .ws-meta { font-size: 12px; color: var(--text2); margin-bottom: 16px; }
+.ws-subtopic {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 10px 12px; background: var(--surface2); border-radius: 8px; margin-bottom: 6px;
+  font-size: 13px;
+}
+.ws-subtopic .ws-st-target { font-weight: 600; color: var(--yellow); }
+.ws-right h3 { font-size: 14px; font-weight: 600; margin-bottom: 12px; color: var(--text2); }
+.ws-form { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
+.ws-form input, .ws-form textarea {
+  background: var(--surface2); border: 1px solid var(--border);
+  color: var(--text); border-radius: 8px; padding: 10px 14px;
+  font-family: inherit; font-size: 13px; outline: none;
+}
+.ws-form textarea { min-height: 80px; resize: vertical; }
+.ws-form input:focus, .ws-form textarea:focus { border-color: var(--accent); }
+.ws-form button {
+  background: var(--accent); color: #000; border: none;
+  border-radius: 8px; padding: 10px 20px; font-weight: 600;
+  font-family: inherit; font-size: 13px; cursor: pointer;
+}
+.ws-feed { display: flex; flex-direction: column; gap: 8px; }
+.ws-note {
+  background: var(--surface2); border: 1px solid var(--border);
+  border-radius: 8px; padding: 12px;
+}
+.ws-note .ws-n-type { font-size: 11px; font-weight: 600; color: var(--accent); text-transform: uppercase; margin-bottom: 4px; }
+.ws-note .ws-n-content { font-size: 13px; margin-bottom: 4px; }
+.ws-note .ws-n-solution { font-size: 12px; color: var(--text2); font-style: italic; }
+.ws-close {
+  position: absolute; top: 12px; right: 12px;
+  background: var(--surface2); border: 1px solid var(--border); color: var(--text2);
+  border-radius: 8px; padding: 6px 14px; cursor: pointer; font-family: inherit; font-size: 13px; z-index: 10;
+}
+.ws-modal-wrap { position: relative; }
+
+/* Navigation */
+.nav-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; }
+.nav-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 12px; padding: 20px; cursor: pointer;
+  transition: all .2s; text-align: center;
+}
+.nav-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+.nav-card .nc-icon { font-size: 32px; margin-bottom: 8px; }
+.nav-card .nc-title { font-size: 15px; font-weight: 600; }
+.nav-card .nc-meta { font-size: 12px; color: var(--text2); margin-top: 4px; }
+.breadcrumb {
+  display: flex; gap: 6px; align-items: center; flex-wrap: wrap;
+  font-size: 13px; color: var(--text2); margin-bottom: 20px; padding: 10px 16px;
+  background: var(--surface); border-radius: 8px; border: 1px solid var(--border);
+}
+.breadcrumb a { color: var(--accent); cursor: pointer; text-decoration: none; }
+.breadcrumb a:hover { text-decoration: underline; }
+.breadcrumb .sep { color: var(--border); }
+.breadcrumb .current { color: var(--text); font-weight: 600; }
+
+/* Notion Workspace */
+.ws-page { padding: 0; }
+.ws-page .ws-page-header {
+  padding: 20px 24px; border-bottom: 1px solid var(--border);
+  background: var(--surface2);
+}
+.ws-page .ws-page-header h2 { font-size: 20px; font-weight: 700; margin-bottom: 4px; }
+.ws-page .ws-page-header .ws-page-meta { font-size: 12px; color: var(--text2); }
+[contenteditable] {
+  outline: none; min-height: 200px; padding: 20px 24px;
+  font-size: 15px; line-height: 1.6; color: var(--text);
+  background: transparent; border: none; white-space: pre-wrap;
+}
+[contenteditable]:empty:before {
+  content: 'Notlarını yazmaya başla... (soru tipleri, taktikler, formüller)';
+  color: var(--text2); font-style: italic;
+}
+.ws-save-bar {
+  display: flex; gap: 12px; align-items: center;
+  padding: 12px 24px; border-top: 1px solid var(--border);
+  background: var(--surface2);
+}
+.ws-save-bar button {
+  background: var(--accent); color: #000; border: none;
+  border-radius: 8px; padding: 10px 24px; font-weight: 600;
+  font-family: inherit; font-size: 14px; cursor: pointer;
+}
+.ws-save-bar .ws-save-status { font-size: 13px; }
+.ws-save-bar .ws-back {
+  background: transparent; color: var(--text2); border: 1px solid var(--border);
+  border-radius: 8px; padding: 10px 18px; font-weight: 500;
+  font-family: inherit; font-size: 14px; cursor: pointer;
+}
+
+/* Pinned */
+.pinned-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+.pinned-card {
+  background: var(--surface2); border: 1px solid var(--border);
+  border-radius: 10px; padding: 12px 16px; cursor: pointer;
+  transition: all .2s; display: flex; align-items: center; gap: 10px;
+  min-width: 180px;
+}
+.pinned-card:hover { border-color: var(--accent); transform: translateY(-1px); }
+.pinned-card .pc-icon { font-size: 18px; }
+.pinned-card .pc-text { font-size: 13px; font-weight: 500; }
+.pinned-card .pc-text .pc-sub { font-size: 11px; color: var(--text2); font-weight: 400; }
+.pin-btn {
+  background: transparent; border: 1px solid var(--border); color: var(--text2);
+  border-radius: 6px; padding: 2px 8px; cursor: pointer; font-size: 12px;
+  transition: all .2s; opacity: 0; margin-left: auto;
+}
+.pin-btn:hover { border-color: var(--accent); color: var(--accent); }
+.pin-btn.active { opacity: 1; background: rgba(0,212,255,0.1); border-color: var(--accent); color: var(--accent); }
+.ws-subtopic { position: relative; }
+.ws-subtopic:hover .pin-btn { opacity: 1; }
+.st-chip {
+  display: inline-block; font-size: 12px; padding: 4px 12px;
+  border-radius: 16px; cursor: pointer; background: var(--surface2);
+  border: 1px solid var(--border); color: var(--text);
+  transition: all .2s;
+}
+.st-chip:hover { border-color: var(--accent); }
+.ws-editor {
+  width: 100%; min-height: 240px; padding: 20px 24px;
+  font-size: 15px; line-height: 1.6; font-family: inherit;
+  color: var(--text); background: transparent; border: none;
+  resize: vertical; outline: none; box-sizing: border-box;
+}
+.ws-editor::placeholder { color: var(--text2); font-style: italic; }
+
+/* Dashboard Sections */
+.dash-section {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 14px; padding: 20px 24px;
+}
+.dash-section-header {
+  margin-bottom: 14px;
+}
+.dash-section-header h2 { font-size: 16px; font-weight: 700; }
+
+/* Hierarchy Nav */
+.nav-breadcrumb a { color: var(--accent); cursor: pointer; text-decoration: none; }
+.nav-breadcrumb a:hover { text-decoration: underline; }
+.nav-breadcrumb .sep { color: var(--border); margin: 0 4px; }
+.nav-breadcrumb .current { color: var(--text); font-weight: 600; }
+.h-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
+.h-card {
+  background: var(--surface2); border: 1px solid var(--border);
+  border-radius: 12px; padding: 16px 18px; cursor: pointer;
+  transition: all .2s;
+}
+.h-card:hover { border-color: var(--accent); transform: translateY(-1px); }
+.h-card .hc-title { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+.h-card .hc-meta { font-size: 12px; color: var(--text2); }
+
+.roadmap-tooltip {
+  position: relative;
+  cursor: pointer;
+  display: inline-block;
+}
+.roadmap-tooltip .tooltip-text {
+  visibility: hidden;
+  width: 200px;
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text);
+  text-align: left;
+  border-radius: 8px;
+  padding: 8px 12px;
+  position: absolute;
+  z-index: 100;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -100px;
+  opacity: 0;
+  transition: opacity 0.2s;
+  font-size: 11px;
+  font-weight: 500;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+}
+.roadmap-tooltip:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+
+.current-day-focus {
+  border: 2px solid #00E5FF !important;
+  box-shadow: 0 0 12px rgba(0, 229, 255, 0.3) !important;
+}
+
+</style>
+</head>
+<body>
+<div class="container" id="app">
+  <header>
+    <h1>KPSS <span>Dashboard</span></h1>
+    <div class="header-right" id="countdowns"></div>
+  </header>
+
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="switchTab('dashboard')">📊 Dashboard</button>
+    <button class="tab-btn" onclick="switchTab('curriculum')">📋 Müfredat Merkezi</button>
+    <button class="tab-btn" onclick="switchTab('roadmap')">🗺️ Yol Haritası</button>
+  </div>
+
+  <!-- GLOBAL SPRINT PROGRESS -->
+  <div id="global-sprint-progress" style="margin-bottom: 20px;"></div>
+
+  <div class="tab-panel active" id="tab-dashboard">
+  <!-- AYLIK SPRINT HEDEFİ -->
+  <div class="card grid-full" id="macro-card" style="margin-bottom:20px">
+    <h2>🎯 Aylık Sprint Hedefi</h2>
+    <div id="macro-content"><div class="loading">Yükleniyor...</div></div>
+  </div>
+
+  <div class="dash-section" style="margin-bottom:20px">
+    <div class="dash-section-header">
+      <h2>🏛 Müfredat</h2>
+    </div>
+    <div class="nav-breadcrumb" id="nav-breadcrumb" style="margin-bottom:12px;font-size:13px;color:var(--text2);display:flex;gap:6px;align-items:center"></div>
+    <div id="hierarchy-content"></div>
+  </div>
+
+  <div class="grid">
+    <div class="card grid-full" id="today-card">
+      <h2>Bugünün Planı</h2>
+      <div id="today-content"><div class="loading">Yükleniyor...</div></div>
+    </div>
+
+    <div class="card" id="progress-card">
+      <h2>Konu Bazında İlerleme</h2>
+      <div id="progress-content"><div class="loading">Yükleniyor...</div></div>
+    </div>
+
+    <div class="card" id="stats-card">
+      <h2>İstatistikler</h2>
+      <div id="stats-content"><div class="loading">Yükleniyor...</div></div>
+    </div>
+
+    <div class="card grid-full" id="logger-card">
+      <h2>Çalışma Kaydet</h2>
+      <form class="logger-form" id="log-form">
+        <select id="log-subject" onchange="onSubjectChange()" required>
+          <option value="">Ders seç</option>
+          <option>Türkçe</option>
+          <option>Matematik</option>
+          <option>Tarih</option>
+          <option>Coğrafya</option>
+          <option>Vatandaşlık</option>
+          <option>İstatistik</option>
+        </select>
+        <select id="log-topic" required>
+          <option value="">Konu seç</option>
+        </select>
+        <input type="number" id="log-hours" placeholder="Saat" step="0.5" min="0.5" max="16" required>
+        <input type="number" id="log-questions" placeholder="Çözülen Soru" min="0" required>
+        <button type="submit">Kaydet</button>
+      </form>
+      <div class="log-feedback" id="log-feedback"></div>
+    </div>
+
+    <div class="card grid-full" id="weekly-card">
+      <h2>Haftalık Yol Haritası</h2>
+      <div id="weekly-content"><div class="loading">Yükleniyor...</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="tab-panel" id="tab-curriculum">
+  <div class="sub-tab-bar" id="exam-tabs"></div>
+  <div id="exam-panels"></div>
+</div>
+
+<div class="tab-panel" id="tab-roadmap">
+  <div class="card grid-full" style="margin-bottom:20px">
+    <h2>🗺️ 60 Günlük Yol Haritası</h2>
+    <p style="font-size:13px; color:var(--text2); margin-bottom:16px">60 günlük tüm çalışma planını ve asenkron paralel ilerleyişinizi buradan kuşbakışı görebilirsiniz.</p>
+    
+    <!-- PROJEKSİYON ÖZETİ -->
+    <div id="roadmap-projection-summary" style="margin-bottom: 24px;"></div>
+
+    <!-- PLAN YETERLİLİK RAPORU -->
+    <div id="roadmap-adequacy-report" style="margin-bottom: 24px;"></div>
+
+    <!-- ANALİZ PANOSU -->
+    <div id="roadmap-analysis-panel" style="margin-bottom: 24px;"></div>
+    
+    <div id="roadmap-content"><div class="loading">Yol haritası yükleniyor...</div></div>
+  </div>
+</div>
+
+</div>
+
+
+
+<div class="ws-overlay" id="ws-overlay">
+  <div class="ws-modal-wrap">
+    <div class="ws-modal">
+      <div class="ws-left" id="ws-left"></div>
+      <div class="ws-right" id="ws-right">
+        <h3>📝 İçerik Havuzu</h3>
+        <form class="ws-form" id="ws-form">
+          <input id="ws-note-type" placeholder="Soru Tipi / Taktik" required>
+          <textarea id="ws-note-content" placeholder="Not içeriğini yaz..." required></textarea>
+          <input id="ws-note-solution" placeholder="Çözüm / Açıklama (isteğe bağlı)">
+          <button type="submit">Kaydet</button>
+        </form>
+        <div id="ws-feedback" style="font-size:12px;margin-bottom:8px;display:none"></div>
+        <div class="ws-feed" id="ws-feed"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const API = '/api';
+
+async function fetchJSON(url) {
+  const r = await fetch(url);
+  if (!r.ok) throw new Error(await r.text());
+  const data = await r.json();
+  if (data && data.error) throw new Error(data.error);
+  return data;
+}
+
+function errHtml(msg) {
+  return '<div class="error">' + msg + '</div>';
+}
+
+function renderCountdowns(stats) {
+  const el = document.getElementById('countdowns');
+  if (!stats || stats.error) {
+    el.innerHTML = '<div class="error">Sınav bilgisi alınamadı</div>';
+    return;
+  }
+  
+  el.innerHTML = `
+    <div class="countdown-card genel">
+      <div class="label">Genel Sınav</div>
+      <div class="value">${stats.countdown.genel}g</div>
+    </div>
+    <div class="countdown-card alan">
+      <div class="label">Alan Sınavı</div>
+      <div class="value">${stats.countdown.alan}g</div>
+    </div>
+  `;
+}
+
+function renderGlobalSprintProgress() {
+  var el = document.getElementById('global-sprint-progress');
+  if (!el) return;
+  
+  var startDate = new Date('2026-07-02');
+  var today = new Date();
+  var diffTime = today.getTime() - startDate.getTime();
+  var diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+  if (diffDays < 0) diffDays = 0;
+  if (diffDays > 60) diffDays = 60;
+  var progressPct = Math.round((diffDays / 60) * 100 * 10) / 10;
+  
+  el.innerHTML = `
+    <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:12px 16px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; font-size:12px; font-weight:700; color:var(--text); margin-bottom:6px">
+        <span>🚀 60 Günlük Yol Haritası İlerlemesi</span>
+        <span style="color:var(--accent)">%${progressPct} Tamamlandı (${diffDays}/60 Gün)</span>
+      </div>
+      <div style="width:100%; height:6px; background:var(--surface2); border:1px solid var(--border); border-radius:3px; overflow:hidden">
+        <div style="width:${progressPct}%; height:100%; background:linear-gradient(90deg, var(--accent), var(--accent2)); border-radius:3px"></div>
+      </div>
+    </div>
+  `;
+}
+
+/* ---- Dashboard Card Renders ---- */
+function renderToday(today) {
+  var el = document.getElementById('today-content');
+  if (!today || today.error) { el.innerHTML = errHtml(today ? today.error : 'Veri alınamadı'); return; }
+
+  var phaseClass = 'phase-' + (today.phase || 'plan-dis');
+  var phaseLabel = today.phase === 'calisma' ? 'Çalışma' :
+    today.phase === 'dinlenme' ? 'Dinlenme' :
+    today.phase === 'sistem-kurulumu' ? 'Sistem Kurulumu' : 'Plan Dışı';
+
+  var html = '<span class="phase-badge ' + phaseClass + '">' + phaseLabel + '</span>';
+
+  if (today.mock_exam) {
+    html += '<div style="background:rgba(251,191,36,0.1);border:1px solid rgba(251,191,36,0.3);border-radius:10px;padding:16px;text-align:center;font-size:16px;font-weight:600;color:var(--yellow)">⏱ Deneme Sınavı Günü</div>';
+  }
+
+  if (today.genel && today.genel.length) {
+    html += '<div class="task-group"><h3>📖 Genel Kültür-Yetenek</h3>';
+    today.genel.forEach(function(t) {
+      html += '<div class="task-item" onclick="selectTaskForLog(\'' + escAttr(t.subject) + '\',\'' + escAttr(t.topic_slug) + '\',' + t.hours + ',' + t.target_questions + '); this.classList.toggle(\'done\')">' +
+        '<span>' + t.subject + ' — ' + t.topic + '</span>' +
+        '<div style="display:flex;gap:6px">' +
+          '<span class="hours">' + t.hours + 's</span>' +
+          '<span class="hours" style="background:rgba(124,92,252,0.15);color:var(--accent2)">' + t.target_questions + ' Soru</span>' +
+        '</div></div>';
+    });
+    html += '</div>';
+  }
+
+  if (today.alan && today.alan.length) {
+    html += '<div class="task-group"><h3>📊 Alan Bilgisi (İstatistik)</h3>';
+    today.alan.forEach(function(t) {
+      html += '<div class="task-item" onclick="selectTaskForLog(\'' + escAttr(t.subject) + '\',\'' + escAttr(t.topic_slug) + '\',' + t.hours + ',' + t.target_questions + '); this.classList.toggle(\'done\')">' +
+        '<span>' + t.topic + '</span>' +
+        '<div style="display:flex;gap:6px">' +
+          '<span class="hours">' + t.hours + 's</span>' +
+          '<span class="hours" style="background:rgba(124,92,252,0.15);color:var(--accent2)">' + t.target_questions + ' Soru</span>' +
+        '</div></div>';
+    });
+    html += '</div>';
+  }
+
+  if (today.note) {
+    html += '<div class="plan-note">' + today.note + '</div>';
+  }
+
+  if (!today.genel || !today.genel.length && !today.alan || !today.alan.length && !today.mock_exam) {
+    html += '<div style="color:var(--text2);padding:12px 0">Bugün için planlanmış ders bulunmuyor.</div>';
+  }
+
+  html += '<div style="margin-top:12px;font-size:13px;color:var(--text2)">Toplam: ' + (today.total_hours || 0) + 's</div>';
+  el.innerHTML = html;
+}
+
+function renderProgress(progress) {
+  var el = document.getElementById('progress-content');
+  if (!progress || progress.error) { el.innerHTML = errHtml(progress ? progress.error : 'Henüz veri yok'); return; }
+  var keys = Object.keys(progress);
+  if (!keys.length) { el.innerHTML = '<div class="loading">Henüz veri yok</div>'; return; }
+  var html = '';
+  var names = {turkce:'Türkçe',matematik:'Matematik',tarih:'Tarih',cografya:'Coğrafya',vatandaslik:'Vatandaşlık',istatistik:'İstatistik'};
+  var order = ['turkce','matematik','tarih','cografya','vatandaslik','istatistik'];
+  order.forEach(function(key) {
+    var d = progress[key];
+    if (!d) return;
+    var pct = d.total > 0 ? Math.round(d.done / d.total * 100) : 0;
+    html += '<div class="progress-item">' +
+      '<div class="label-row"><span class="name">' + (names[key]||key) + '</span>' +
+      '<span class="pct">' + d.done.toFixed(1) + '/' + d.total + 's (%' + pct + ')</span></div>' +
+      '<div class="progress-bar"><div class="fill" style="width:' + pct + '%"></div></div></div>';
+  });
+  el.innerHTML = html;
+}
+
+function renderStats(stats) {
+  var el = document.getElementById('stats-content');
+  if (!stats || stats.error) { el.innerHTML = errHtml(stats ? stats.error : 'Veri alınamadı'); return; }
+  var left = stats.plan_total - stats.total_hours;
+  el.innerHTML = '<div class="stats-row">' +
+    '<div class="stat-item today"><div class="stat-value">' + stats.today_hours.toFixed(1) + 's</div><div class="stat-label">Bugün</div></div>' +
+    '<div class="stat-item week"><div class="stat-value">' + stats.week_hours.toFixed(1) + 's</div><div class="stat-label">Bu Hafta</div></div>' +
+    '<div class="stat-item total"><div class="stat-value">' + stats.total_hours.toFixed(1) + 's</div><div class="stat-label">Toplam Saat</div></div>' +
+    '<div class="stat-item total" style="border-color:var(--green)"><div class="stat-value" style="color:var(--green)">' + (stats.total_questions || 0) + '</div><div class="stat-label">Toplam Soru</div></div>' +
+    '<div class="stat-item total" style="border-color:var(--yellow)"><div class="stat-value" style="color:var(--yellow)">' + (stats.avg_efficiency || 0) + '/s</div><div class="stat-label">Ort. Hız</div></div>' +
+    '<div class="stat-item goal"><div class="stat-value">' + left.toFixed(1) + 's</div><div class="stat-label">Kalan Saat</div></div>' +
+  '</div>';
+}
+
+function renderWeekly(weekPlan) {
+  var el = document.getElementById('weekly-content');
+  if (!weekPlan || weekPlan.error) { el.innerHTML = errHtml(weekPlan ? weekPlan.error : 'Veri yok'); return; }
+  if (!weekPlan.length) { el.innerHTML = '<div class="loading">Yol haritası bulunamadı</div>'; return; }
+
+  var today = new Date();
+  var todayStr = today.toISOString().split('T')[0];
+
+  var dayNames = ['Paz','Pzt','Sal','Çar','Per','Cum','Cmt'];
+  var html = '<div class="week-grid" style="display:grid; grid-template-columns:repeat(7, 1fr); gap:12px">';
+
+  var subjectColors = {
+    'Türkçe': 'background:rgba(59, 130, 246, 0.15); color: #60a5fa',
+    'Matematik': 'background:rgba(0, 212, 255, 0.15); color: var(--accent)',
+    'Tarih': 'background:rgba(52, 211, 153, 0.15); color: var(--green)',
+    'Coğrafya': 'background:rgba(251, 146, 60, 0.15); color: var(--orange)',
+    'Vatandaşlık': 'background:rgba(251, 191, 36, 0.15); color: var(--yellow)',
+    'İstatistik': 'background:rgba(124, 92, 252, 0.15); color: var(--accent2)'
+  };
+
+  weekPlan.forEach(function(dayEntry) {
+    var dayDate = new Date(dayEntry.date);
+    var isToday = dayEntry.date === todayStr;
+    var isPast = dayDate < today && !isToday;
+
+    var classes = 'week-day';
+    var borderStyle = isToday ? 'border: 2px solid var(--accent); box-shadow: 0 0 10px rgba(0,212,255,0.2)' : 'border: 1px solid var(--border)';
+    var opacityStyle = isPast ? 'opacity: 0.5' : 'opacity: 1';
+
+    html += '<div class="' + classes + '" style="background:var(--surface2); border-radius:10px; padding:12px 8px; text-align:center; min-height:160px; display:flex; flex-direction:column; justify-content:space-between; ' + borderStyle + '; ' + opacityStyle + '">';
+
+    html += '<div>' +
+      '<div class="day-name" style="font-size:11px; font-weight:700; color:var(--text2); text-transform:uppercase">' + dayNames[dayDate.getDay()] + '</div>' +
+      '<div style="font-size:10px; color:var(--text2); margin-bottom:8px">' + dayEntry.date.substring(8, 10) + ' Temmuz</div>';
+
+    var tasksHtml = '';
+    var allTasks = (dayEntry.genel || []).concat(dayEntry.alan || []);
+    if (allTasks.length > 0) {
+      allTasks.forEach(function(t) {
+        var col = subjectColors[t.subject] || 'background:rgba(255,255,255,0.08); color:var(--text)';
+        tasksHtml += '<div style="margin-bottom:6px; padding:4px 6px; border-radius:6px; font-size:11px; font-weight:600; text-align:left; text-overflow:ellipsis; overflow:hidden; white-space:nowrap; ' + col + '" title="' + esc(t.subject) + ': ' + esc(t.topic) + '">' +
+          esc(t.subject) +
+          '</div>';
+      });
+    } else {
+      tasksHtml = '<div style="font-size:12px; color:var(--text2); margin-top:20px">💤 Boş</div>';
+    }
+
+    html += tasksHtml + '</div>';
+    html += '<div style="font-size:11px; font-weight:700; color:var(--accent); margin-top:8px">' + (dayEntry.total_hours || 0) + 's</div>';
+    html += '</div>';
+  });
+
+  html += '</div>';
+  el.innerHTML = html;
+}
+
+/* ---- Hierarchy Navigation ---- */
+var _hNav = { exam: null, subject: null };
+
+function findExam(examId) {
+  for (var ei = 0; ei < _curriculumData.length; ei++)
+    if (_curriculumData[ei].exam_id === examId) return _curriculumData[ei];
+  return null;
+}
+function findSubject(examId, subjectName) {
+  var ex = findExam(examId);
+  if (!ex) return null;
+  for (var ti = 0; ti < ex.tests.length; ti++)
+    for (var si = 0; si < ex.tests[ti].subjects.length; si++)
+      if (ex.tests[ti].subjects[si].subject === subjectName) return ex.tests[ti].subjects[si];
+  return null;
+}
+
+function hNavTo(exam, subject) {
+  if (exam !== undefined) _hNav.exam = exam;
+  if (subject !== undefined) _hNav.subject = subject;
+  renderHierarchy();
+}
+function hGoBack() {
+  if (_hNav.subject) { _hNav.subject = null; renderHierarchy(); return; }
+  if (_hNav.exam) { _hNav.exam = null; renderHierarchy(); return; }
+}
+
+function renderHierarchy() {
+  var bc = document.getElementById('nav-breadcrumb');
+  var content = document.getElementById('hierarchy-content');
+  var html = '';
+
+  var parts = [{label: 'Sınavlar', action: 'hGoBack()'}];
+  if (_hNav.exam) {
+    var ex = findExam(_hNav.exam);
+    parts.push({label: ex ? ex.exam : _hNav.exam, action: "hNavTo('" + _hNav.exam + "',null)"});
+  }
+  if (_hNav.subject) {
+    parts.push({label: _hNav.subject, current: true});
+  }
+
+  var bcHtml = '';
+  parts.forEach(function(p, i) {
+    if (i > 0) bcHtml += '<span class="sep">›</span>';
+    if (p.current) bcHtml += '<span class="current">' + esc(p.label) + '</span>';
+    else bcHtml += '<a onclick="' + p.action + '">' + esc(p.label) + '</a>';
+  });
+  bc.innerHTML = bcHtml;
+
+  if (!_hNav.exam) {
+    html = '<div class="h-grid">';
+    _curriculumData.forEach(function(ex) {
+      var totalQ = 0, totalTopics = 0;
+      ex.tests.forEach(function(t) {
+        t.subjects.forEach(function(s) {
+          totalQ += s.total_questions || 0;
+          if (s.topics) totalTopics += s.topics.length;
+        });
+      });
+      html += '<div class="h-card" onclick="hNavTo(\'' + escAttr(ex.exam_id) + '\',null)">' +
+        '<div class="hc-title">' + esc(ex.exam) + '</div>' +
+        '<div class="hc-meta">' + totalTopics + ' Konu · ' + totalQ + ' Soru</div></div>';
+    });
+    html += '</div>';
+    content.innerHTML = html;
+    return;
+  }
+
+  var ex = findExam(_hNav.exam);
+  if (!ex) { content.innerHTML = '<div class="error">Sınav bulunamadı</div>'; return; }
+
+  if (!_hNav.subject) {
+    html = '<div class="h-grid">';
+    ex.tests.forEach(function(t) {
+      t.subjects.forEach(function(s) {
+        var q = s.total_questions || 0;
+        var net = s.target_correct || 0;
+        var topicCount = (s.topics || []).length;
+        var totalSubjAllocated = 0;
+        (s.topics || []).forEach(function(tp) {
+          totalSubjAllocated += tp.allocated_sessions || 0;
+        });
+        var displaySubjName = esc(s.subject) + (totalSubjAllocated > 0 ? ' - Toplam: ' + totalSubjAllocated + ' Oturum' : '');
+        
+        html += '<div class="h-card" onclick="hNavTo(\'' + escAttr(ex.exam_id) + '\',\'' + escAttr(s.subject) + '\')">' +
+          '<div class="hc-title">' + displaySubjName + '</div>' +
+          '<div class="hc-meta">' + topicCount + ' Konu · ' + q + ' Soruda ' + net + ' Net</div></div>';
+      });
+    });
+    html += '</div>';
+    content.innerHTML = html;
+    return;
+  }
+
+  var subj = findSubject(_hNav.exam, _hNav.subject);
+  if (!subj) { content.innerHTML = '<div class="error">Ders bulunamadı</div>'; return; }
+
+  html = '<div class="h-grid">';
+  (subj.topics || []).forEach(function(t) {
+    var q = Math.round(t.avg_questions || 0);
+    var net = t.target_net || 0;
+    
+    if (t.allocated_sessions === undefined) {
+      console.log("[debug] Topic allocated_sessions is undefined:", t);
+    }
+    
+    var allocated = t.allocated_sessions || 0;
+    var completed = t.completed_sessions || 0;
+    var isDone = allocated > 0 && completed >= allocated;
+    var cardStyle = '';
+    var progressHtml = '';
+    if (allocated > 0) {
+      progressHtml = '<div class="topic-session-progress" style="margin-top: 8px; border-top:1px solid rgba(255,255,255,0.05); padding-top:6px">' +
+          '<div style="font-size: 0.8rem; color: #a0aec0; margin-bottom: 4px;">' +
+              '🎯 Hedef: ' + allocated + ' Oturum' +
+          '</div>' +
+      '</div>';
+    }
+    
+    html += '<div class="h-card" style="' + cardStyle + '" onclick="openFocusWorkspaceFromHierarchy(\'' + escAttr(subj.subject) + '\',\'' + escAttr(t.name) + '\')">' +
+      '<div class="hc-title">' + esc(t.name) + '</div>' +
+      '<div class="hc-meta">' + (q > 0 ? q + ' Soru' : '-') + (net > 0 ? ' · ' + net + ' Net' : '') + '</div>' +
+      progressHtml +
+      '</div>';
+  });
+  html += '</div>';
+  content.innerHTML = html;
+}
+
+function openFocusWorkspaceFromHierarchy(subject, topic) {
+  var logSelect = document.getElementById('log-subject');
+  if (logSelect) {
+    for (var i = 0; i < logSelect.options.length; i++) {
+      if (logSelect.options[i].value === subject) {
+        logSelect.value = subject;
+        break;
+      }
+    }
+  }
+  openWorkspace(subject, topic, 0);
+}
+
+var _curriculumData = [];
+
+
+var _roadmapLoaded = false;
+async function switchTab(name) {
+  document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
+  document.querySelectorAll('.tab-panel').forEach(function(p) { p.classList.remove('active'); });
+  var btn = document.querySelector('.tab-btn[onclick*="' + name + '"]');
+  if (btn) btn.classList.add('active');
+  var panel = document.getElementById('tab-' + name);
+  if (panel) panel.classList.add('active');
+
+  if (name === 'roadmap' && !_roadmapLoaded) {
+    _roadmapLoaded = true;
+    try {
+      var results = await Promise.all([
+        fetchJSON(API + '/plan/roadmap?v=1.2'),
+        fetchJSON(API + '/plan/adequacy?v=1.2')
+      ]);
+      renderRoadmap(results[0]);
+      renderAdequacy(results[1]);
+    } catch(e) {
+      document.getElementById('roadmap-content').innerHTML = errHtml('Yol haritası yüklenemedi: ' + e.message);
+      _roadmapLoaded = false;
+    }
+  }
+}
+
+function switchExam(examId) {
+  document.querySelectorAll('.sub-tab-btn').forEach(function(b) { b.classList.remove('active'); });
+  document.querySelectorAll('.sub-panel').forEach(function(p) { p.classList.remove('active'); });
+  document.querySelector('.sub-tab-btn[data-exam="' + examId + '"]').classList.add('active');
+  document.getElementById('exam-' + examId).classList.add('active');
+}
+
+function escAttr(s) {
+  if (typeof s !== 'string') return '';
+  return s.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+}
+
+function renderCurriculumCenter(data) {
+  var examTabBar = document.getElementById('exam-tabs');
+  var examPanels = document.getElementById('exam-panels');
+  if (!data || data.error) {
+    examTabBar.innerHTML = '';
+    examPanels.innerHTML = errHtml(data ? data.error : 'Müfredat verisi yok');
+    return;
+  }
+  if (!data.length) {
+    examTabBar.innerHTML = '';
+    examPanels.innerHTML = '<div class="loading">Henüz müfredat bulunmuyor</div>';
+    return;
+  }
+
+  var tabHtml = '';
+  var panelHtml = '';
+  data.forEach(function(exam, ei) {
+    tabHtml += '<button class="sub-tab-btn' + (ei === 0 ? ' active' : '') + '" data-exam="' + esc(exam.exam_id) + '" onclick="switchExam(\'' + esc(exam.exam_id) + '\')">' + esc(exam.exam) + '</button>';
+    panelHtml += '<div class="sub-panel' + (ei === 0 ? ' active' : '') + '" id="exam-' + esc(exam.exam_id) + '">';
+
+    if (exam.tests.length === 1) {
+      panelHtml += renderTestColumn(exam.tests[0], true);
+    } else {
+      panelHtml += '<div class="test-row">';
+      exam.tests.forEach(function(test) {
+        panelHtml += '<div class="test-col ' + esc(test.test_id) + '">' +
+          '<h3>' + esc(test.test) + '</h3>' +
+          renderSubjectCards(test.subjects) +
+          '</div>';
+      });
+      panelHtml += '</div>';
+    }
+    panelHtml += '</div>';
+  });
+  examTabBar.innerHTML = tabHtml;
+  examPanels.innerHTML = panelHtml;
+}
+
+function renderTestColumn(test, fullWidth) {
+  var html = '';
+  if (fullWidth) {
+    html += '<h3 style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid var(--accent2);display:inline-block">' + esc(test.test) + '</h3>';
+  }
+  html += '<div class="' + (fullWidth ? '' : '') + '">' + renderSubjectCards(test.subjects) + '</div>';
+  return html;
+}
+
+function renderSubjectCards(subjects) {
+  var html = '';
+  subjects.forEach(function(subj) {
+    var totalSubjAllocated = 0;
+    (subj.topics || []).forEach(function(tp) {
+      totalSubjAllocated += tp.allocated_sessions || 0;
+    });
+    var displaySubjName = esc(subj.subject) + (totalSubjAllocated > 0 ? ' - ' + totalSubjAllocated + ' Oturum' : '');
+
+    html += '<div class="cc-card" style="margin-bottom:16px">' +
+      '<div class="cc-header">' +
+        '<div class="cc-title">' + displaySubjName + '</div>' +
+        '<div class="cc-meta">' + (subj.total_questions || 0) + ' Soruda <strong>' +
+        (subj.target_correct || 0) + ' Net</strong> Hedef</div></div>' +
+      '<div class="cc-body">' +
+      '<div class="cc-topic" style="border-bottom:2px solid var(--border);padding-bottom:8px;font-size:11px;color:var(--text2);text-transform:uppercase;letter-spacing:0.5px;cursor:default">' +
+        '<div>Konu</div><div class="cc-col">Soru</div><div class="cc-col">Hedef</div><div class="cc-col" style="text-align:center;">OTURUM</div></div>';
+
+    (subj.topics || []).forEach(function(t) {
+      html += '<div class="cc-topic" onclick="openWorkspace(\'' + esc(subj.subject) + '\',\'' + esc(t.name) + '\',' + (t.target_net || 0) + ')">' +
+        '<div class="cc-t-name">' + esc(t.name) + '</div>' +
+        '<div class="cc-col soru">' + (t.avg_questions > 0 ? Math.round(t.avg_questions) + ' Soru' : '-') + '</div>' +
+        '<div class="cc-col hedef">' + (t.target_net > 0 ? t.target_net + ' Net' : '-') + '</div>' +
+        '<div class="cc-col" style="text-align:center; font-weight:700; font-size:12px; color: var(--text); background: var(--surface); padding:4px 8px; border-radius:4px; border:1px solid var(--border); display:inline-block; margin:0 auto; min-width:70px;">' + (t.allocated_sessions || 0) + ' Oturum</div>';
+      if (t.subtopics && t.subtopics.length) {
+        html += '<div class="cc-subtopics">';
+        t.subtopics.forEach(function(st) {
+          html += '<span>' + esc(st.name) + '</span>';
+        });
+        html += '</div>';
+      }
+      html += '</div>';
+    });
+    html += '</div></div>';
+  });
+  return html;
+}
+
+var _wsSubject = '', _wsTopic = '';
+var _pinnedItems = [];
+
+async function togglePin(subject, topic, subtopic, btnEl) {
+  var url = API + '/pin/' + encodeURIComponent(subject) + '/' + encodeURIComponent(topic);
+  if (subtopic) url += '?subtopic=' + encodeURIComponent(subtopic);
+  try {
+    var r = await fetch(url, {method: 'POST'});
+    var data = await r.json();
+    if (data.error) throw new Error(data.error);
+    if (btnEl) {
+      btnEl.textContent = data.pinned ? '📌' : '📌';
+      btnEl.classList.toggle('active', data.pinned);
+    }
+    _pinnedItems = data.items || [];
+  } catch(e) { console.error('Pin error:', e); }
+}
+
+function findExamForSubject(subjectName) {
+  for (var ei = 0; ei < _curriculumData.length; ei++) {
+    var ex = _curriculumData[ei];
+    for (var ti = 0; ti < ex.tests.length; ti++)
+      for (var si = 0; si < ex.tests[ti].subjects.length; si++)
+        if (ex.tests[ti].subjects[si].subject === subjectName) return ex.exam_id;
+  }
+  return null;
+}
+
+function renderPinned(items) {
+  var el = document.getElementById('pinned-content');
+  if (!items || !items.length) {
+    el.innerHTML = '<div style="color:var(--text2);font-size:13px">Henüz iğnelenmiş sayfa yok. Müfredat Merkezi\'nden konu iğneleyebilirsin.</div>';
+    return;
+  }
+  var html = '<div class="pinned-grid">';
+  items.forEach(function(item) {
+    var examId = findExamForSubject(item.subject);
+    var navCall = 'navigateTo("' + escAttr(examId || item.subject) + '","' + escAttr(item.subject) + '","' + escAttr(item.topic) + '","' + escAttr(item.subtopic || '') + '")';
+    html += '<div class="pinned-card" onclick="' + navCall + '">' +
+      '<span class="pc-icon">📌</span>' +
+      '<div class="pc-text">' + esc(item.topic) +
+      (item.subtopic ? '<div class="pc-sub">' + esc(item.subject) + ' → ' + esc(item.subtopic) + '</div>' : '<div class="pc-sub">' + esc(item.subject) + '</div>') +
+      '</div></div>';
+  });
+  html += '</div>';
+  el.innerHTML = html;
+}
+
+function isPinned(subject, topic, subtopic) {
+  return _pinnedItems.some(function(item) {
+    if (item.subject !== subject || item.topic !== topic) return false;
+    if (subtopic) return item.subtopic === subtopic;
+    return !item.subtopic;
+  });
+}
+
+function closeWorkspace() {
+  document.getElementById('ws-overlay').classList.remove('active');
+}
+
+async function openWorkspace(subject, topic, targetNet) {
+  _wsSubject = subject;
+  _wsTopic = topic;
+  var left = document.getElementById('ws-left');
+  left.innerHTML = '<h2>' + esc(subject) + '</h2>' +
+    '<div class="ws-meta">' + esc(topic) + ' — Hedef: <strong style="color:var(--yellow)">' + targetNet + ' Net</strong></div>' +
+    '<div style="font-size:13px;color:var(--text2);margin-bottom:8px;font-weight:600">Alt Konular</div>';
+
+  var curriculum = await fetchJSON(API + '/curriculum/all').catch(function(e) { return null; });
+  if (curriculum && !curriculum.error) {
+    for (var ei = 0; ei < curriculum.length; ei++) {
+      for (var ti = 0; ti < curriculum[ei].tests.length; ti++) {
+        for (var si = 0; si < curriculum[ei].tests[ti].subjects.length; si++) {
+          var subj = curriculum[ei].tests[ti].subjects[si];
+          if (subj.subject === subject) {
+            for (var toi = 0; toi < subj.topics.length; toi++) {
+              if (subj.topics[toi].name === topic) {
+                (subj.topics[toi].subtopics || []).forEach(function(st) {
+                  var pinned = isPinned(subject, topic, st.name);
+                  left.innerHTML += '<div class="ws-subtopic"><span>' + esc(st.name) + '</span>' +
+                    '<button class="pin-btn' + (pinned ? ' active' : '') + '" onclick="togglePin(\'' + esc(subject) + '\',\'' + esc(topic) + '\',\'' + esc(st.name) + '\',this)">' + (pinned ? '📌' : '📌') + '</button></div>';
+                });
+                break;
+              }
+            }
+            break;
+          }
+        }
+      }
+    }
+  }
+
+  document.getElementById('ws-feed').innerHTML = '<div class="loading" style="padding:20px">Notlar yükleniyor...</div>';
+  document.getElementById('ws-overlay').classList.add('active');
+  loadNotes(subject, topic);
+}
+
+async function loadNotes(subject, topic) {
+  var feed = document.getElementById('ws-feed');
+  try {
+    var notes = await fetchJSON(API + '/notes/' + encodeURIComponent(subject) + '/' + encodeURIComponent(topic));
+    if (!notes || notes.error) { feed.innerHTML = '<div style="color:var(--text2);font-size:13px">Henüz not eklenmemiş.</div>'; return; }
+    if (!notes.length) { feed.innerHTML = '<div style="color:var(--text2);font-size:13px">Henüz not eklenmemiş.</div>'; return; }
+    var html = '';
+    notes.forEach(function(n) {
+      html += '<div class="ws-note">' +
+        '<div class="ws-n-type">' + esc(n.type) + '</div>' +
+        '<div class="ws-n-content">' + esc(n.content) + '</div>' +
+        (n.solution ? '<div class="ws-n-solution">💡 ' + esc(n.solution) + '</div>' : '') +
+        '</div>';
+    });
+    feed.innerHTML = html;
+  } catch(e) {
+    feed.innerHTML = '<div style="color:var(--red);font-size:13px">Notlar yüklenemedi.</div>';
+  }
+}
+
+document.getElementById('ws-form').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  var type = document.getElementById('ws-note-type').value;
+  var content = document.getElementById('ws-note-content').value;
+  var solution = document.getElementById('ws-note-solution').value;
+  var fb = document.getElementById('ws-feedback');
+
+  try {
+    var r = await fetch(API + '/notes/' + encodeURIComponent(_wsSubject) + '/' + encodeURIComponent(_wsTopic), {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({type: type, content: content, solution: solution})
+    });
+    var data = await r.json();
+    if (!r.ok || data.error) throw new Error(data.error || 'Kayıt hatası');
+    fb.style.display = 'block';
+    fb.style.color = 'var(--green)';
+    fb.textContent = '✓ Not kaydedildi';
+    document.getElementById('ws-note-type').value = '';
+    document.getElementById('ws-note-content').value = '';
+    document.getElementById('ws-note-solution').value = '';
+    loadNotes(_wsSubject, _wsTopic);
+  } catch(err) {
+    fb.style.display = 'block';
+    fb.style.color = 'var(--red)';
+    fb.textContent = '✗ ' + err.message;
+  }
+  setTimeout(function() { fb.style.display = 'none'; }, 3000);
+});
+
+document.getElementById('log-form').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  var subject = document.getElementById('log-subject').value;
+  var topicSlug = document.getElementById('log-topic').value;
+  var hours = parseFloat(document.getElementById('log-hours').value);
+  var solvedQuestions = parseInt(document.getElementById('log-questions').value) || 0;
+  var fb = document.getElementById('log-feedback');
+  fb.className = 'log-feedback';
+  try {
+    var r = await fetch(API + '/log', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({subject: subject, topic_slug: topicSlug, hours: hours, solved_questions: solvedQuestions})
+    });
+    var data = await r.json();
+    if (!r.ok || data.error) throw new Error(data.error || await r.text());
+    fb.textContent = '✓ ' + subject + ' — ' + hours + 's kaydedildi';
+    fb.className = 'log-feedback ok';
+    document.getElementById('log-hours').value = '';
+    document.getElementById('log-questions').value = '';
+    loadDashboard();
+  } catch(e) {
+    fb.textContent = '✗ Hata: ' + e.message;
+    fb.className = 'log-feedback err';
+  }
+  setTimeout(function() { fb.className = 'log-feedback'; }, 4000);
+});
+
+function onSubjectChange() {
+  var subjSelect = document.getElementById('log-subject');
+  var topicSelect = document.getElementById('log-topic');
+  var subjectName = subjSelect.value;
+  topicSelect.innerHTML = '<option value="">Konu seç</option>';
+  if (!subjectName) return;
+  
+  var foundTopics = [];
+  _curriculumData.forEach(function(exam) {
+    exam.tests.forEach(function(test) {
+      test.subjects.forEach(function(s) {
+        if (s.subject === subjectName) {
+          foundTopics = foundTopics.concat(s.topics || []);
+        }
+      });
+    });
+  });
+  
+  foundTopics.forEach(function(t) {
+    var opt = document.createElement('option');
+    opt.value = t.id;
+    opt.textContent = t.name;
+    topicSelect.appendChild(opt);
+  });
+}
+
+function selectTaskForLog(subject, topicSlug, hours, targetQ) {
+  var subjSelect = document.getElementById('log-subject');
+  subjSelect.value = subject;
+  onSubjectChange();
+  document.getElementById('log-topic').value = topicSlug;
+  document.getElementById('log-hours').value = hours;
+  document.getElementById('log-questions').value = targetQ;
+}
+
+var _escDiv = document.createElement('div');
+function esc(s) {
+  if (typeof s !== 'string') return s;
+  _escDiv.textContent = s;
+  return _escDiv.innerHTML;
+}
+
+async function loadDashboard() {
+  try {
+    var results = await Promise.all([
+      fetchJSON(API + '/stats?v=1.2').catch(function(e) { return {error: e.message}; }),
+      fetchJSON(API + '/today?v=1.2').catch(function(e) { return {error: e.message}; }),
+      fetchJSON(API + '/plan/week?v=1.2').catch(function(e) { return {error: e.message}; }),
+      fetchJSON(API + '/progress?v=1.2').catch(function(e) { return {error: e.message}; }),
+      fetchJSON(API + '/curriculum/all?v=1.2').catch(function(e) { return {error: e.message}; }),
+      fetchJSON(API + '/pinned?v=1.2').catch(function(e) { return {error: e.message}; }),
+      fetchJSON(API + '/plan/macro?v=1.2').catch(function(e) { return {error: e.message}; })
+    ]);
+    renderCountdowns(results[0]);
+    renderToday(results[1]);
+    renderProgress(results[3]);
+    renderStats(results[0]);
+    renderWeekly(results[2]);
+    renderMacro(results[6]);
+    renderGlobalSprintProgress();
+    if (results[4] && !results[4].error) {
+      _curriculumData = results[4];
+      renderHierarchy();
+      renderCurriculumCenter(results[4]);
+    }
+    if (results[5] && !results[5].error) {
+      _pinnedItems = results[5];
+    }
+  } catch(e) {
+    console.error(e);
+    document.querySelectorAll('.loading').forEach(function(el) {
+      el.innerHTML = '<div class="error">Bağlantı hatası: ' + e.message + '</div>';
+    });
+  }
+}
+
+function renderMacro(macroData) {
+  var el = document.getElementById('macro-content');
+  if (!macroData || macroData.error) { el.innerHTML = errHtml(macroData ? macroData.error : 'Makro veri alınamadı'); return; }
+
+  var focusNames = (macroData.focus_topics || []).map(function(t) {
+    return '<span style="background:rgba(255,255,255,0.06); padding:4px 8px; border-radius:6px; margin-right:6px; display:inline-block; font-size:12px; font-weight:600; border:1px solid var(--border)">' + esc(t.subject) + ' - ' + esc(t.topic) + '</span>';
+  }).join(' ');
+
+  var html = '<div style="display:flex; flex-direction:column; gap:12px">' +
+    '<div style="font-size:13px; color:var(--text2); line-height:1.6">' +
+      'Bu ayki ana odak: P0 öncelikli ' + (focusNames || 'herhangi bir konu bulunmuyor') + ' konularını eritmek.' +
+    '</div>' +
+    '<div style="margin-top:8px">' +
+      '<div style="display:flex; justify-content:space-between; font-size:14px; font-weight:700; margin-bottom:6px">' +
+        '<span>' + esc(macroData.sprint_name || 'Sprint Hedefi') + ' İlerlemesi</span>' +
+        '<span style="color:var(--accent)">%' + macroData.completion_pct + '</span>' +
+      '</div>' +
+      '<div class="progress-bar" style="height:14px; background:var(--surface2); border-radius:7px; overflow:hidden">' +
+        '<div class="fill" style="width:' + macroData.completion_pct + '%; height:100%; background: linear-gradient(90deg, var(--accent2), var(--accent))"></div>' +
+      '</div>' +
+      '<div style="display:flex; justify-content:space-between; font-size:12px; color:var(--text2); margin-top:6px">' +
+        '<span>⏱ Saat: ' + macroData.completed_hours + ' / ' + macroData.total_hours + 's</span>' +
+        '<span>✍ Soru: ' + macroData.completed_questions + ' / ' + macroData.total_questions + '</span>' +
+      '</div>' +
+    '</div>' +
+  '</div>';
+
+  el.innerHTML = html;
+}
+
+function renderRoadmap(roadmapData) {
+  var el = document.getElementById('roadmap-content');
+  if (!roadmapData || roadmapData.error) { el.innerHTML = errHtml(roadmapData ? roadmapData.error : 'Veri alınamadı'); return; }
+
+  var summaryEl = document.getElementById('roadmap-projection-summary');
+  var mStats = roadmapData.monthly_stats;
+  if (mStats && summaryEl) {
+    summaryEl.innerHTML = '<h3>📊 Projeksiyon Özeti</h3>' +
+      '<div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:12px">' +
+        '<div class="card" style="background:var(--surface2); border:1px solid var(--border); padding:16px; border-radius:10px">' +
+          '<div style="font-size:12px; color:var(--text2); text-transform:uppercase; font-weight:700">' + esc(mStats.sprint_1.name) + ' (' + esc(mStats.sprint_1.weeks_range) + ')</div>' +
+          '<div style="font-size:16px; font-weight:800; color:var(--accent); margin-top:8px">⏱ ' + mStats.sprint_1.total_hours + ' Saat | ✍ ' + mStats.sprint_1.total_questions + ' Soru</div>' +
+          '<div style="font-size:11px; color:var(--text2); margin-top:4px">Kritik P0 konuları için öngörülen hacim.</div>' +
+        '</div>' +
+        '<div class="card" style="background:var(--surface2); border:1px solid var(--border); padding:16px; border-radius:10px">' +
+          '<div style="font-size:12px; color:var(--text2); text-transform:uppercase; font-weight:700">' + esc(mStats.sprint_2.name) + ' (' + esc(mStats.sprint_2.weeks_range) + ')</div>' +
+          '<div style="font-size:16px; font-weight:800; color:var(--accent2); margin-top:8px">⏱ ' + mStats.sprint_2.total_hours + ' Saat | ✍ ' + mStats.sprint_2.total_questions + ' Soru</div>' +
+          '<div style="font-size:11px; color:var(--text2); margin-top:4px">Gelecek aşama P0 konuları için öngörülen hacim.</div>' +
+        '</div>' +
+      '</div>';
+  }
+
+  var analysisEl = document.getElementById('roadmap-analysis-panel');
+  var dist = roadmapData.distribution;
+  if (dist && analysisEl) {
+    var cat = dist.category;
+    
+    var listHtml = '<div style="display:flex; flex-direction:column; gap:10px">';
+    dist.subject.forEach(function(s) {
+      listHtml += '<div>' +
+        '<div style="display:flex; justify-content:space-between; font-size:12px; font-weight:600; margin-bottom:4px">' +
+          '<span>' + esc(s.subject) + '</span>' +
+          '<span>' + s.hours + 's (' + Math.round(s.hours / 1.5) + ' Oturum) | ' + s.questions + ' Soru (%' + s.pct + ')</span>' +
+        '</div>' +
+        '<div class="progress-bar" style="height:6px; background:var(--surface2); border-radius:3px; overflow:hidden">' +
+          '<div class="fill" style="width:' + s.pct + '%; height:100%; background:linear-gradient(90deg, var(--accent2), var(--accent))"></div>' +
+        '</div>' +
+      '</div>';
+    });
+    listHtml += '</div>';
+    
+    analysisEl.innerHTML = '<div class="card" style="border:1px solid var(--border); padding:16px; border-radius:12px">' +
+      '<h2>⚖️ 60 Günlük Müfredat Dağılımı</h2>' +
+      '<div style="display:grid; grid-template-columns:1fr 1.2fr; gap:32px; margin-top:16px">' +
+        '<div>' +
+          '<h4 style="font-size:13px; font-weight:700; color:var(--text2); margin-bottom:12px; text-transform:uppercase">Kategori Ağırlığı ( GY-GK / Alan )</h4>' +
+          '<div style="height:16px; display:flex; border-radius:8px; overflow:hidden; background:var(--surface2); margin-bottom:12px">' +
+            '<div style="width:' + cat.gygk.pct + '%; background:var(--accent);" title="GY-GK: %' + cat.gygk.pct + '"></div>' +
+            '<div style="width:' + cat.alan.pct + '%; background:var(--accent2);" title="Alan: %' + cat.alan.pct + '"></div>' +
+          '</div>' +
+          '<div style="display:flex; flex-direction:column; gap:6px; font-size:12px; color:var(--text2)">' +
+            '<div style="display:flex; align-items:center; gap:6px">' +
+              '<span style="display:inline-block; width:10px; height:10px; border-radius:50%; background:var(--accent)"></span>' +
+              '<strong>Genel Sınav (GY-GK):</strong> %' + cat.gygk.pct + ' (' + cat.gygk.hours + 's [' + Math.round(cat.gygk.hours / 1.5) + ' Oturum] / ' + cat.gygk.questions + ' Soru)' +
+            '</div>' +
+            '<div style="display:flex; align-items:center; gap:6px">' +
+              '<span style="display:inline-block; width:10px; height:10px; border-radius:50%; background:var(--accent2)"></span>' +
+              '<strong>Alan Bilgisi (İstatistik):</strong> %' + cat.alan.pct + ' (' + cat.alan.hours + 's [' + Math.round(cat.alan.hours / 1.5) + ' Oturum] / ' + cat.alan.questions + ' Soru)' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+        '<div>' +
+          '<h4 style="font-size:13px; font-weight:700; color:var(--text2); margin-bottom:12px; text-transform:uppercase">Ders Bazlı Ağırlık Dağılımı</h4>' +
+          listHtml +
+        '</div>' +
+      '</div>' +
+    '</div>';
+  }
+
+
+  var today = new Date();
+  var yyyy = today.getFullYear();
+  var mm = String(today.getMonth() + 1).padStart(2, '0');
+  var dd = String(today.getDate()).padStart(2, '0');
+  var todayStr = yyyy + '-' + mm + '-' + dd;
+
+  var dayNames = ['Pazartesi', 'Salı', 'Çarşamba', 'Perşembe', 'Cuma', 'Cumartesi', 'Pazar'];
+  var subjectColors = {
+    'Türkçe': 'background:rgba(59, 130, 246, 0.15); color: #60a5fa',
+    'Matematik': 'background:rgba(0, 212, 255, 0.15); color: var(--accent)',
+    'Tarih': 'background:rgba(52, 211, 153, 0.15); color: var(--green)',
+    'Coğrafya': 'background:rgba(251, 146, 60, 0.15); color: var(--orange)',
+    'Vatandaşlık': 'background:rgba(251, 191, 36, 0.15); color: var(--yellow)',
+    'İstatistik': 'background:rgba(124, 92, 252, 0.15); color: var(--accent2)'
+  };
+
+  var html = '<div style="display:flex; flex-direction:column; gap:24px">';
+
+  var weeksKeys = Object.keys(roadmapData.weeks).sort(function(a, b) {
+    var numA = parseInt(a.replace('Hafta ', ''));
+    var numB = parseInt(b.replace('Hafta ', ''));
+    return numA - numB;
+  });
+
+  weeksKeys.forEach(function(weekKey) {
+    var wData = roadmapData.weeks[weekKey];
+    var days = wData.days;
+    var startDay = new Date(days[0].date);
+    var endDay = new Date(days[days.length - 1].date);
+    var dateRangeStr = startDay.getDate() + ' ' + getTrMonthName(startDay.getMonth()) + ' - ' + endDay.getDate() + ' ' + getTrMonthName(endDay.getMonth());
+
+    var wStats = wData.stats;
+    var distHtml = '<div style="font-weight:700; margin-bottom:4px; border-bottom:1px solid rgba(255,255,255,0.15); padding-bottom:2px">Efor Dağılımı</div>';
+    for (var subj in wStats.distribution) {
+      distHtml += '<div style="display:flex; justify-content:space-between; gap:12px"><span>' + esc(subj) + '</span><strong>' + wStats.distribution[subj] + 's</strong></div>';
+    }
+
+    var badgeHtml = '<div class="roadmap-tooltip" style="font-size:11px; font-weight:600; background:rgba(0, 212, 255, 0.08); padding:4px 10px; border-radius:12px; border:1px solid var(--border); color:var(--accent)">' +
+      '📊 Özet: ' + wStats.total_hours + 's | ' + wStats.total_questions + ' Soru' +
+      '<span class="tooltip-text">' + distHtml + '</span>' +
+      '</div>';
+
+    var topSubjHtml = '';
+    (wStats.top_subjects || []).forEach(function(sName) {
+      topSubjHtml += '<span style="font-size:10px; background:rgba(255,255,255,0.06); border:1px solid var(--border); padding:1px 6px; border-radius:4px; margin-left:4px; font-weight:600; color:var(--text)">' + esc(sName) + '</span>';
+    });
+
+    var subHeaderHtml = '<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; border-bottom:1px solid var(--border); padding-bottom:8px">' +
+      '<div style="display:flex; align-items:center; gap:8px">' +
+        '<span style="font-size:11px; color:var(--text2)">Ağırlık:</span>' +
+        '<div style="height:6px; display:flex; border-radius:3px; overflow:hidden; background:var(--border); width:100px" title="GY-GK: %' + wStats.gygk_pct + ' | Alan: %' + wStats.alan_pct + '">' +
+          '<div style="width:' + wStats.gygk_pct + '%; background:var(--accent)"></div>' +
+          '<div style="width:' + wStats.alan_pct + '%; background:var(--accent2)"></div>' +
+        '</div>' +
+        '<span style="font-size:10px; color:var(--text2)">%' + wStats.gygk_pct + ' / %' + wStats.alan_pct + '</span>' +
+      '</div>' +
+      '<div style="display:flex; align-items:center">' +
+        '<span style="font-size:11px; color:var(--text2); margin-right:4px">🔥 Odak:</span>' +
+        topSubjHtml +
+      '</div>' +
+    '</div>';
+
+    html += '<div class="card" style="border:1px solid var(--border); border-radius:12px; padding:16px">';
+    html += '<h3 style="font-size:15px; font-weight:700; color:var(--text); margin-bottom:8px; display:flex; justify-content:space-between; align-items:center">' +
+      '<span>' + esc(weekKey) + ' <span style="font-size:12px; color:var(--text2); font-weight:400; margin-left:6px">' + dateRangeStr + '</span></span>' +
+      badgeHtml +
+      '</h3>';
+    html += subHeaderHtml;
+
+    var startDayLocal = new Date(days[0].date + 'T00:00:00');
+    var firstDayOfWeek = startDayLocal.getDay();
+    var paddingCount = firstDayOfWeek === 0 ? 6 : firstDayOfWeek - 1;
+
+    html += '<div style="display:flex; gap:20px; align-items:stretch; margin-top:12px">';
+    
+    // Sol Sütun (Takvim Grid'i)
+    html += '<div style="flex:1">';
+    html += '<div style="display:grid; grid-template-columns:repeat(7, 1fr); gap:8px">';
+
+    dayNames.forEach(function(dName) {
+      html += '<div style="font-size:10px; font-weight:700; color:var(--text2); text-transform:uppercase; text-align:center; padding-bottom:6px">' + dName.substring(0, 3) + '</div>';
+    });
+
+    for (var padIdx = 0; padIdx < paddingCount; padIdx++) {
+      html += '<div style="background:transparent; border:none; min-height:95px"></div>';
+    }
+
+    days.forEach(function(dayEntry) {
+      var dayDate = new Date(dayEntry.date + 'T00:00:00');
+      var isToday = dayEntry.date === todayStr;
+      var todayMidnight = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+      var isPast = dayDate < todayMidnight;
+
+      var dayClass = isToday ? 'current-day-focus' : '';
+      var opacityStyle = isPast ? 'opacity: 0.4' : 'opacity: 1';
+
+      html += '<div class="' + dayClass + '" style="background:var(--surface2); border-radius:8px; padding:8px; min-height:95px; display:flex; flex-direction:column; justify-content:space-between; border: 1px solid var(--border); ' + opacityStyle + '">';
+      html += '<div style="font-size:10px; font-weight:600; color:var(--text2); text-align:right">' + dayEntry.date.substring(8, 10) + '</div>';
+
+      var tasksHtml = '<div style="display:flex; flex-direction:column; gap:4px; margin-top:4px">';
+      var allTasks = (dayEntry.genel || []).concat(dayEntry.alan || []);
+      if (allTasks.length > 0) {
+        allTasks.forEach(function(t) {
+          var col = subjectColors[t.subject] || 'background:rgba(255,255,255,0.08); color:var(--text)';
+          tasksHtml += '<div style="padding:2px 4px; border-radius:4px; font-size:9px; font-weight:700; text-align:center; text-overflow:ellipsis; overflow:hidden; white-space:nowrap; ' + col + '" title="' + esc(t.subject) + ': ' + esc(t.topic) + '">' +
+            esc(t.subject) +
+            '</div>';
+        });
+      } else {
+        tasksHtml += '<div style="font-size:9px; color:var(--text2); text-align:center; margin-top:8px">Boş</div>';
+      }
+      tasksHtml += '</div>';
+
+      html += tasksHtml;
+      html += '<div style="font-size:9px; font-weight:700; color:var(--accent); text-align:left; margin-top:4px">' + (dayEntry.total_hours || 0) + 's</div>';
+      html += '</div>';
+    });
+
+    var totalCells = paddingCount + days.length;
+    var remainingPadding = (7 - (totalCells % 7)) % 7;
+    for (var fillIdx = 0; fillIdx < remainingPadding; fillIdx++) {
+      html += '<div style="background:transparent; border:none; min-height:95px"></div>';
+    }
+
+    html += '</div>'; // takvim grid'i sonu
+    html += '</div>'; // sol sütun sonu
+
+    // Sağ Sütun (Mini Dağılım Paneli)
+    html += '<div style="width:280px; background:var(--surface2); border:1px solid var(--border); border-radius:10px; padding:12px; display:flex; flex-direction:column; justify-content:space-between">';
+    html += '<div>';
+    html += '<h4 style="font-size:11px; font-weight:700; color:var(--text); margin-bottom:10px; text-transform:uppercase; border-bottom:1px solid var(--border); padding-bottom:6px">📊 Haftalık Dağılım</h4>';
+    
+    var wDist = wData.weekly_distribution || {};
+    var sortedSubjs = Object.keys(wDist).sort(function(a, b) {
+      return wDist[b].hours - wDist[a].hours;
+    });
+
+    var distHtml = '<div style="display:flex; flex-direction:column; gap:8px">';
+    sortedSubjs.forEach(function(subj) {
+      var item = wDist[subj];
+      var barColor = 'var(--accent)';
+      if (subjectColors[subj]) {
+        var match = subjectColors[subj].match(/color:\s*(#[0-9a-fA-F]+|var\(--[a-zA-Z0-9_-]+\))/);
+        if (match) barColor = match[1];
+      }
+      
+      distHtml += '<div>' +
+        '<div style="display:flex; justify-content:space-between; font-size:10px; font-weight:700; margin-bottom:2px; color:var(--text)">' +
+          '<span>' + esc(subj) + '</span>' +
+          '<span style="color:var(--text2)">' + item.hours + 's (' + Math.round(item.hours / 1.5) + ' Oturum) | ' + item.questions + ' Soru (%' + item.pct + ')</span>' +
+        '</div>' +
+        '<div style="height:5px; background:var(--surface); border-radius:2.5px; overflow:hidden; border: 1px solid var(--border)">' +
+          '<div style="width:' + item.pct + '%; height:100%; background:' + barColor + '; border-radius:2.5px"></div>' +
+        '</div>' +
+      '</div>';
+    });
+    distHtml += '</div>';
+    
+    html += distHtml;
+    html += '</div>';
+    html += '<div style="font-size:9px; color:var(--text2); text-align:right; margin-top:8px; border-top:1px solid var(--border); padding-top:6px">Konu odaklı asenkron dağılım</div>';
+    html += '</div>'; // sağ sütun sonu
+    
+    html += '</div>'; // yatay flex kapsayıcı sonu
+    html += '</div>'; // card end
+  });
+
+  html += '</div>';
+  el.innerHTML = html;
+}
+
+function getTrMonthName(monthIdx) {
+  var months = ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'];
+  return months[monthIdx] || '';
+}
+
+function renderAdequacy(adequacyData) {
+  var el = document.getElementById('roadmap-adequacy-report');
+  if (!el) return;
+  if (!adequacyData || adequacyData.error) { el.innerHTML = errHtml(adequacyData ? adequacyData.error : 'Veri alınamadı'); return; }
+  
+  var score = adequacyData.adequacy_score;
+  var capScore = Math.min(100, score);
+  
+  var badgesHtml = '<div style="display:grid; grid-template-columns:repeat(2, 1fr); gap:8px">';
+  for (var subj in adequacyData.subject_requirements) {
+    var req = adequacyData.subject_requirements[subj];
+    badgesHtml += '<div style="background:var(--surface2); border:1px solid var(--border); border-radius:8px; padding:6px 10px; font-size:11px; font-weight:600; display:flex; justify-content:space-between; align-items:center; gap:8px">' +
+      '<span>' + esc(subj) + '</span>' +
+      '<strong style="color:var(--accent)">' + req + ' Oturum</strong>' +
+      '</div>';
+  }
+  badgesHtml += '</div>';
+
+  var warningHtml = '';
+  if (score < 100) {
+    var btList = Object.keys(adequacyData.bottlenecks);
+    var btStr = btList.length > 0 ? btList.join(', ') : 'Bulunmuyor';
+    warningHtml = '<div style="background:rgba(239, 68, 68, 0.08); border:1px solid rgba(239, 68, 68, 0.15); border-radius:10px; padding:12px; color:#f87171; font-size:12px; font-weight:600; line-height:1.5; height: 100%; display: flex; flex-direction: column; justify-content: center">' +
+      '<div style="font-size:14px; margin-bottom:4px; color:#f87171">⚠️ Kapasite Aşımı Tespit Edildi</div>' +
+      'Mevcut ' + adequacyData.total_available_sessions + ' oturum kapasiteniz, yüksek net hedefleriniz için gereken ' + adequacyData.total_required_sessions + ' oturumu tam karşılamıyor. Hedefleri veya soru çarpanlarını optimize edebilirsiniz. ' +
+      '<div style="margin-top:6px; font-size:11px; color:var(--text2)">Darboğaza giren dersler: ' + esc(btStr) + '</div>' +
+      '</div>';
+  } else {
+    warningHtml = '<div style="background:rgba(16, 185, 129, 0.08); border:1px solid rgba(16, 185, 129, 0.15); border-radius:10px; padding:12px; color:#34d399; font-size:12px; font-weight:600; line-height:1.5; height: 100%; display: flex; flex-direction: column; justify-content: center">' +
+      '<div style="font-size:14px; margin-bottom:4px; color:#34d399">✓ Plan Yeterli Durumda</div>' +
+      '60 günlük (120 oturum) süre, müfredat hedeflerinizi tam olarak karşılamaya yetiyor.' +
+      '</div>';
+  }
+
+  el.innerHTML = '<div class="card" style="border:1px solid var(--border); padding:16px; border-radius:12px">' +
+    '<h3 style="font-size:15px; font-weight:700; margin-bottom:12px; color:var(--text)">🧪 Plan Yeterlilik ve Simülasyon Raporu</h3>' +
+    '<div style="display:grid; grid-template-columns:1fr 1.8fr 1.8fr; gap:24px; margin-top:16px; align-items:stretch">' +
+      '<div style="display:flex; flex-direction:column; align-items:center; justify-content:center; border-right:1px solid var(--border); padding-right:16px">' +
+        '<div style="width:110px; height:110px; border-radius:50%; background:conic-gradient(var(--accent) 0% ' + capScore + '%, var(--surface2) ' + capScore + '% 100%); display:flex; align-items:center; justify-content:center; position:relative; box-shadow:0 4px 10px rgba(0,0,0,0.2)">' +
+          '<div style="width:88px; height:88px; border-radius:50%; background:var(--surface); display:flex; flex-direction:column; align-items:center; justify-content:center">' +
+            '<span style="font-size:20px; font-weight:800; color:var(--text)">%' + score + '</span>' +
+            '<span style="font-size:9px; color:var(--text2); text-transform:uppercase; font-weight:700">Yeterlilik</span>' +
+          '</div>' +
+        '</div>' +
+        '<div style="font-size:11px; color:var(--text2); margin-top:8px; text-align:center">' + adequacyData.total_available_sessions + ' / ' + adequacyData.total_required_sessions + ' Oturum</div>' +
+      '</div>' +
+      '<div>' +
+        '<h4 style="font-size:12px; font-weight:700; color:var(--text2); margin-bottom:10px; text-transform:uppercase">Ders Oturum İhtiyaçları</h4>' +
+        badgesHtml +
+      '</div>' +
+      '<div>' +
+        warningHtml +
+      '</div>' +
+    '</div>' +
+  '</div>';
+}
+
+
+
+loadDashboard();
+setInterval(loadDashboard, 30000);
+</script>
+</body>
+</html>
