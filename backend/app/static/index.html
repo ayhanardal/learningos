@@ -657,11 +657,44 @@ h3.ce-header {
 .image-tool__image {
     cursor: default !important; 
 }
+
+/* Liste ve Checklist boşluklarını daralt */
+.cdx-list, .cdx-checklist {
+    margin: 0 !important;
+    padding-left: 20px !important;
+}
+.cdx-list__item, .cdx-checklist__item {
+    padding: 2px 0 !important;
+    line-height: 1.6 !important;
+}
+
+/* Checklist kutularını şıklaştır */
+.cdx-checklist__item-checkbox {
+    border-radius: 4px !important;
+    cursor: pointer !important;
+}
+
+/* Alıntı (Quote) bloğunu Notion stiline çevir */
+.cdx-quote {
+    border-left: 3px solid var(--text) !important;
+    padding: 2px 16px !important;
+    margin: 4px 0 !important;
+    background: transparent !important;
+}
+.cdx-quote [contenteditable] {
+    font-style: italic;
+    color: var(--text2);
+}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest"></script>
 <script src="https://cdn.jsdelivr.net/npm/@editorjs/header@latest"></script>
 <script src="https://cdn.jsdelivr.net/npm/@editorjs/image@latest"></script>
 <script src="https://cdn.jsdelivr.net/npm/@editorjs/delimiter@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/list@1"></script>
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/checklist@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/quote@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/marker@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/inline-code@latest"></script>
 </head>
 <body>
 <div class="container" id="app">
@@ -738,7 +771,11 @@ h3.ce-header {
         <div style="padding: 60px 80px; overflow-y: auto; height: calc(100vh - 65px); display: block;">
             <div style="max-width: 900px; margin: 0 auto;">
                 <div id="ws-subject" style="font-size: 14px; color: var(--text2); font-weight: 600; margin-bottom: 8px;">DERS ADI</div>
+                <div id="ws-breadcrumb" style="display: none; font-size: 14px; color: var(--text2); margin-bottom: 8px; cursor: pointer; transition: color 0.2s;" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text2)'" onclick="goBackToMainTopic()">
+                    ← Ana Konuya Dön
+                </div>
                 <h1 id="ws-topic" style="font-size: 40px; font-weight: 800; letter-spacing: -1px; margin: 0 0 32px 0; color: var(--text);">Konu Adı</h1>
+                <div id="ws-subpages" style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; margin-top: 16px;"></div>
                 <div id="editorjs" style="font-size: 16px; line-height: 1.7; color: var(--text);"></div>
             </div>
         </div>
@@ -748,24 +785,29 @@ h3.ce-header {
 <script>
 const API = '/api';
 
+let currentMainTopic = "";
 let isFullScreen = false;
 let workspaceEditor;
 
 let autoSaveTimeout;
 window.saveWorkspaceNote = function() {
-    if (!workspaceEditor) return;
+    if (!workspaceEditor) return Promise.resolve();
     
-    workspaceEditor.save().then((outputData) => {
-        const currentSubject = document.getElementById('ws-subject').innerText.replace(' (Kaydedildi ✓)', '').trim();
-        const currentTopic = document.getElementById('ws-topic').innerText.trim();
-        const storageKey = `note_${currentSubject}_${currentTopic}`;
-        
+    const currentSubject = document.getElementById('ws-subject').innerText.replace(' (Kaydedildi ✓)', '').trim();
+    const currentTopic = document.getElementById('ws-topic').innerText.trim();
+    const storageKey = `note_${currentSubject}_${currentTopic}`;
+    
+    return workspaceEditor.save().then((outputData) => {
         localStorage.setItem(storageKey, JSON.stringify(outputData));
         
         const saveStatusIndicator = document.getElementById('ws-subject');
         const originalText = currentSubject;
         saveStatusIndicator.innerText = originalText + " (Kaydedildi ✓)";
-        setTimeout(() => { saveStatusIndicator.innerText = originalText; }, 2000);
+        setTimeout(() => {
+            if (document.getElementById('ws-topic').innerText.trim() === currentTopic) {
+                saveStatusIndicator.innerText = originalText;
+            }
+        }, 2000);
         
         console.log("Otomatik kayıt başarılı:", storageKey);
     }).catch((error) => {
@@ -774,26 +816,82 @@ window.saveWorkspaceNote = function() {
 };
 
 window.openWorkspace = function(subject, topic) {
+    currentMainTopic = topic;
     document.getElementById('ws-subject').innerText = subject;
     document.getElementById('ws-topic').innerText = topic;
+    document.getElementById('ws-breadcrumb').style.display = 'none';
+
+    const subpagesContainer = document.getElementById('ws-subpages');
+    subpagesContainer.innerHTML = "";
+    const dynamicSubTopics = [];
+    for (let e = 0; e < _curriculumData.length; e++) {
+        const tests = _curriculumData[e].tests || [];
+        for (let t = 0; t < tests.length; t++) {
+            const subjects = tests[t].subjects || [];
+            for (let s = 0; s < subjects.length; s++) {
+                if (subjects[s].subject === subject) {
+                    const topics = subjects[s].topics || [];
+                    for (let tp = 0; tp < topics.length; tp++) {
+                        if (topics[tp].name === topic) {
+                            const subs = topics[tp].subtopics || [];
+                            for (let i = 0; i < subs.length; i++) {
+                                const subName = typeof subs[i] === 'string' ? subs[i] : subs[i].name;
+                                if (dynamicSubTopics.indexOf(subName) === -1) {
+                                    dynamicSubTopics.push(subName);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    if (dynamicSubTopics.length > 0) {
+        dynamicSubTopics.forEach(sub => {
+            subpagesContainer.innerHTML += `<div onclick="openSubPage('${subject}', '${sub}')" style="display: flex; align-items: center; gap: 6px; padding: 4px 8px; border-radius: 6px; cursor: pointer; color: var(--text); font-weight: 500; font-size: 14px; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='transparent'">📄 ${sub}</div>`;
+        });
+    }
+
     document.getElementById('workspace-backdrop').style.display = 'block';
-    
-    // Varsayılan olarak Side Peek (Yan Panel) açılır
     isFullScreen = false;
     document.getElementById('workspace-panel').style.width = '50vw';
-    document.getElementById('ws-fs-btn').innerText = '⛶'; 
-    
-    const storageKey = `note_${subject}_${topic}`;
-    let savedData = localStorage.getItem(storageKey);
-    savedData = savedData ? JSON.parse(savedData) : {};
-    
+    document.getElementById('ws-fs-btn').innerText = '⛶';
+
+    loadEditorData(subject, topic);
+};
+
+window.openSubPage = async function(subject, subTopic) {
+    await saveWorkspaceNote();
+
+    document.getElementById('ws-topic').innerText = subTopic;
+    document.getElementById('ws-subpages').innerHTML = "";
+
+    const breadcrumb = document.getElementById('ws-breadcrumb');
+    breadcrumb.style.display = 'block';
+    breadcrumb.innerText = `← ${currentMainTopic} sayfasına dön`;
+
+    loadEditorData(subject, subTopic);
+};
+
+window.goBackToMainTopic = async function() {
+    await saveWorkspaceNote();
+
+    const subject = document.getElementById('ws-subject').innerText.replace(' (Kaydedildi ✓)', '');
+    openWorkspace(subject, currentMainTopic);
+};
+
+function loadEditorData(subject, topicKey) {
     if (workspaceEditor) {
-        workspaceEditor.destroy(); // Önceki editörü temizle
+        workspaceEditor.destroy();
     }
+
+    const storageKey = `note_${subject}_${topicKey}`;
+    const savedData = JSON.parse(localStorage.getItem(storageKey));
+
     workspaceEditor = new EditorJS({
         holder: 'editorjs',
-        placeholder: 'Bir şeyler yazın, / komutunu kullanın veya buraya bir fotoğraf yapıştırın...',
-        data: savedData,
+        placeholder: 'Bir şeyler yazın, / komutunu kullanın veya fotoğraf yapıştırın...',
+        data: savedData || {},
         onChange: (api, event) => {
             clearTimeout(autoSaveTimeout);
             autoSaveTimeout = setTimeout(() => {
@@ -847,6 +945,32 @@ window.openWorkspace = function(subject, topic) {
                         };
                     }
                 }
+            },
+            list: {
+                class: List,
+                inlineToolbar: true,
+                config: { defaultStyle: 'unordered' }
+            },
+            checklist: {
+                class: Checklist,
+                inlineToolbar: true,
+            },
+            quote: {
+                class: Quote,
+                inlineToolbar: true,
+                shortcut: 'CMD+SHIFT+O',
+                config: {
+                    quotePlaceholder: 'Alıntıyı buraya yazın...',
+                    captionPlaceholder: 'Yazar veya Kaynak (Opsiyonel)',
+                },
+            },
+            Marker: {
+                class: Marker,
+                shortcut: 'CMD+SHIFT+M',
+            },
+            inlineCode: {
+                class: InlineCode,
+                shortcut: 'CMD+SHIFT+C',
             }
         }
     });
