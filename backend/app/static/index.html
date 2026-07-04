@@ -23,7 +23,7 @@ body {
 /* Header */
 header {
   display: flex; justify-content: space-between; align-items: center;
-  padding: 20px 0; border-bottom: 1px solid var(--border); margin-bottom: 24px;
+  padding: 20px 0; margin-bottom: 24px;
   flex-wrap: wrap; gap: 16px;
 }
 header h1 { font-size: 24px; font-weight: 800; letter-spacing: -0.5px; }
@@ -333,6 +333,8 @@ header h1 span { color: var(--accent); }
 .nav-card .nc-icon { font-size: 32px; margin-bottom: 8px; }
 .nav-card .nc-title { font-size: 15px; font-weight: 600; }
 .nav-card .nc-meta { font-size: 12px; color: var(--text2); margin-top: 4px; }
+.container { max-width: 95%; width: 100%; padding: 20px; }
+.card { background: var(--surface); padding: 24px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
 .breadcrumb {
   display: flex; gap: 6px; align-items: center; flex-wrap: wrap;
   font-size: 13px; color: var(--text2); margin-bottom: 20px; padding: 10px 16px;
@@ -357,8 +359,7 @@ header h1 span { color: var(--accent); }
   background: transparent; border: none; white-space: pre-wrap;
 }
 [contenteditable]:empty:before {
-  content: 'Notlarını yazmaya başla... (soru tipleri, taktikler, formüller)';
-  color: var(--text2); font-style: italic;
+  content: '';
 }
 .ws-save-bar {
   display: flex; gap: 12px; align-items: center;
@@ -472,11 +473,199 @@ header h1 span { color: var(--accent); }
   border: 2px solid #00E5FF !important;
   box-shadow: 0 0 12px rgba(0, 229, 255, 0.3) !important;
 }
+/* Editor.js Notion UI Fixes */
+.ce-block__content,
+.ce-toolbar__content {
+    max-width: 100% !important; /* Varsayılan 650px limitini kaldırır */
+    margin-left: 0 !important; /* Metni tam sola, başlığın hizasına yapıştırır */
+}
 
+/* Editor'ün ana sarmalayıcılarını normal blok akışına zorla */
+#editorjs, 
+.codex-editor, 
+.codex-editor__redactor {
+    display: block !important; 
+    height: auto !important; 
+    min-height: 0 !important;
+    flex: none !important; /* Esnemeyi yasakla */
+    justify-content: flex-start !important;
+    align-content: flex-start !important;
+}
+
+#editorjs {
+    padding-right: 60px !important; /* Butonlar için sağ boşluk */
+    box-sizing: border-box !important;
+}
+
+/* Ayar ikonlarını (6 nokta ve +) bu boşluğa oturt (Sağ taraf) */
+.ce-toolbar__actions {
+    right: -60px !important; 
+    left: auto !important;
+}
+
+/* Blokların ve içerik kutularının yüksekliğini kesin olarak metne (auto) uydur */
+.ce-block, 
+.ce-block__content, 
+.cdx-block, 
+.ce-paragraph {
+    height: auto !important;
+    min-height: 1.5em !important;
+    max-height: none !important;
+    flex: 0 0 auto !important; /* Hiçbir şekilde esnemesine izin verme */
+    flex-grow: 0 !important;
+    display: block !important;
+}
+
+/* Projedeki global contenteditable sızıntılarını ez */
+[contenteditable="true"] {
+    height: auto !important;
+    flex-grow: 0 !important;
+}
+
+/* Editor.js blokları arasındaki dikey marginleri Notion seviyesine çek */
+.ce-block {
+    margin-top: 2px !important;
+    margin-bottom: 2px !important;
+    padding: 2px 0 !important;
+}
+
+.ce-paragraph {
+    margin: 0 !important;
+    padding: 0 !important;
+    line-height: 1.6 !important;
+}
+
+/* Başlıkların altındaki devasa boşlukları tamamen sıfırla, yüksekliği sadece içeriğe odakla */
+.ce-header {
+    margin: 0 !important;
+    padding: 0 !important;
+    line-height: 1.2 !important;
+    display: block !important;
+    min-height: auto !important;
+}
+
+/* H1, H2, H3 boyutlandırmaları (Notion stili hiyerarşi ve sıfır boşluk) */
+h1.ce-header {
+    font-size: 28px !important;
+    font-weight: 800 !important;
+    letter-spacing: -0.5px !important;
+}
+h2.ce-header {
+    font-size: 22px !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.3px !important;
+}
+h3.ce-header {
+    font-size: 18px !important;
+    font-weight: 600 !important;
+}
+
+/* Ayraç (Delimiter) aracını Notion stili ince çizgiye dönüştür */
+.ce-delimiter {
+    padding: 12px 0 !important;
+    margin: 0 !important;
+}
+.ce-delimiter::before {
+    content: "" !important; /* *** işaretini kaldır */
+    display: block !important;
+    width: 100% !important;
+    height: 1px !important;
+    background-color: var(--border) !important; /* İnce gri çizgi */
+    border: none !important;
+    line-height: 0 !important;
+    letter-spacing: normal !important;
+}
+
+/* Odaklanmamış (idle) boş blokların placeholder yazısını tamamen gizle */
+.ce-block:not(.ce-block--focused) [data-placeholder]:empty::before {
+    opacity: 0 !important;
+    content: '' !important;
+}
+
+/* Odaklanılmış (focused) boş blokların placeholder yazısını çok hafif göster */
+.ce-block--focused [data-placeholder]:empty::before {
+    opacity: 0.2 !important;
+}
+
+/* Editor.js'in altındaki gereksiz devasa tıklama alanını daralt */
+.codex-editor__redactor {
+    padding-bottom: 50px !important; 
+}
+
+/* 1. STANDART DURUM: Ortalanmış ve %75 Boyutlu */
+.image-tool:not(.image-tool--withBackground):not(.image-tool--withBorder):not(.image-tool--stretched) .image-tool__image {
+    text-align: center !important;
+    display: block !important;
+}
+.image-tool:not(.image-tool--withBackground):not(.image-tool--withBorder):not(.image-tool--stretched) .image-tool__image-picture {
+    max-width: 75% !important; /* Resmi devasa olmaktan kurtarır */
+    display: inline-block !important;
+    margin: 0 auto !important;
+    border-radius: 8px; /* Şık bir görünüm için */
+}
+
+/* 2. "WITH BACKGROUND" BUTONU HACK'İ: %50 Küçült ve Sola Hizala */
+.image-tool--withBackground .image-tool__image {
+    background: transparent !important; /* Varsayılan gri arkaplanı sil */
+    padding: 0 !important;
+    text-align: left !important;
+    display: block !important;
+}
+.image-tool--withBackground .image-tool__image-picture {
+    max-width: 50% !important;
+    display: inline-block !important;
+    margin: 0 !important;
+    border-radius: 8px;
+}
+
+/* 3. "WITH BORDER" BUTONU HACK'İ: %50 Küçült ve Sağa Hizala */
+.image-tool--withBorder .image-tool__image {
+    border: none !important; /* Varsayılan çerçeveyi sil */
+    text-align: right !important;
+    display: block !important;
+}
+.image-tool--withBorder .image-tool__image-picture {
+    max-width: 50% !important;
+    display: inline-block !important;
+    margin: 0 !important;
+    border-radius: 8px;
+}
+
+/* 4. "STRETCHED" BUTONU: Tam Ekran %100 Genişlik */
+.image-tool--stretched .image-tool__image-picture {
+    max-width: 100% !important;
+    width: 100% !important;
+    border-radius: 8px;
+}
+
+/* 1. Resmin altındaki gizli alt yazı (caption) kutusunu görsel olarak sil ama Editor.js odağını bozma */
+.image-tool__caption {
+    opacity: 0 !important;
+    height: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    overflow: hidden !important;
+    pointer-events: none !important;
+}
+
+/* 2. Resim bloğunun kendisine tıklandığında araçların çıkması için focus'a izin ver, sadece imleci (caret) görünmez yap */
+.image-tool {
+    caret-color: transparent !important; /* İmleci tamamen görünmez yap */
+}
+
+/* 3. Sadece resmin üzerine gelindiğinde normal ok (default) veya tıklanabilir (pointer) ikon çıkar, metin ikonu (text) çıkamaz */
+.image-tool__image {
+    cursor: default !important; 
+}
 </style>
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/header@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/image@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/delimiter@latest"></script>
 </head>
 <body>
 <div class="container" id="app">
+  <div id="global-sprint-progress"></div>
   <header>
     <h1>KPSS <span>Dashboard</span></h1>
     <div class="header-right" id="countdowns"></div>
@@ -488,68 +677,23 @@ header h1 span { color: var(--accent); }
     <button class="tab-btn" onclick="switchTab('roadmap')">🗺️ Yol Haritası</button>
   </div>
 
-  <!-- GLOBAL SPRINT PROGRESS -->
-  <div id="global-sprint-progress" style="margin-bottom: 20px;"></div>
-
   <div class="tab-panel active" id="tab-dashboard">
-  <!-- AYLIK SPRINT HEDEFİ -->
-  <div class="card grid-full" id="macro-card" style="margin-bottom:20px">
-    <h2>🎯 Aylık Sprint Hedefi</h2>
-    <div id="macro-content"><div class="loading">Yükleniyor...</div></div>
-  </div>
-
-  <div class="dash-section" style="margin-bottom:20px">
-    <div class="dash-section-header">
-      <h2>🏛 Müfredat</h2>
-    </div>
-    <div class="nav-breadcrumb" id="nav-breadcrumb" style="margin-bottom:12px;font-size:13px;color:var(--text2);display:flex;gap:6px;align-items:center"></div>
-    <div id="hierarchy-content"></div>
-  </div>
-
-  <div class="grid">
-    <div class="card grid-full" id="today-card">
-      <h2>Bugünün Planı</h2>
-      <div id="today-content"><div class="loading">Yükleniyor...</div></div>
-    </div>
-
-    <div class="card" id="progress-card">
-      <h2>Konu Bazında İlerleme</h2>
-      <div id="progress-content"><div class="loading">Yükleniyor...</div></div>
-    </div>
-
-    <div class="card" id="stats-card">
-      <h2>İstatistikler</h2>
-      <div id="stats-content"><div class="loading">Yükleniyor...</div></div>
-    </div>
-
-    <div class="card grid-full" id="logger-card">
-      <h2>Çalışma Kaydet</h2>
-      <form class="logger-form" id="log-form">
-        <select id="log-subject" onchange="onSubjectChange()" required>
-          <option value="">Ders seç</option>
-          <option>Türkçe</option>
-          <option>Matematik</option>
-          <option>Tarih</option>
-          <option>Coğrafya</option>
-          <option>Vatandaşlık</option>
-          <option>İstatistik</option>
-        </select>
-        <select id="log-topic" required>
-          <option value="">Konu seç</option>
-        </select>
-        <input type="number" id="log-hours" placeholder="Saat" step="0.5" min="0.5" max="16" required>
-        <input type="number" id="log-questions" placeholder="Çözülen Soru" min="0" required>
-        <button type="submit">Kaydet</button>
-      </form>
-      <div class="log-feedback" id="log-feedback"></div>
-    </div>
-
-    <div class="card grid-full" id="weekly-card">
+    
+    <div class="card grid-full" id="weekly-card" style="margin-bottom: 24px;">
       <h2>Haftalık Yol Haritası</h2>
       <div id="weekly-content"><div class="loading">Yükleniyor...</div></div>
     </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 24px;">
+      <div id="dashboard-today-container">
+        <div class="card grid-full" id="today-card">
+          <h2>Bugünün Planı</h2>
+          <div id="today-content"><div class="loading">Yükleniyor...</div></div>
+        </div>
+      </div>
+      <div id="dashboard-right-placeholder"></div>
+    </div>
   </div>
-</div>
 
 <div class="tab-panel" id="tab-curriculum">
   <div class="sub-tab-bar" id="exam-tabs"></div>
@@ -578,28 +722,153 @@ header h1 span { color: var(--accent); }
 
 
 
-<div class="ws-overlay" id="ws-overlay">
-  <div class="ws-modal-wrap">
-    <div class="ws-modal">
-      <div class="ws-left" id="ws-left"></div>
-      <div class="ws-right" id="ws-right">
-        <h3>📝 İçerik Havuzu</h3>
-        <form class="ws-form" id="ws-form">
-          <input id="ws-note-type" placeholder="Soru Tipi / Taktik" required>
-          <textarea id="ws-note-content" placeholder="Not içeriğini yaz..." required></textarea>
-          <input id="ws-note-solution" placeholder="Çözüm / Açıklama (isteğe bağlı)">
-          <button type="submit">Kaydet</button>
-        </form>
-        <div id="ws-feedback" style="font-size:12px;margin-bottom:8px;display:none"></div>
-        <div class="ws-feed" id="ws-feed"></div>
-      </div>
+
+
+<div id="workspace-backdrop" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.6); z-index: 999; backdrop-filter: blur(3px);" onclick="closeWorkspace()">
+    <div id="workspace-panel" style="position: fixed; top: 0; right: 0; width: 50vw; height: 100vh; background: var(--bg); box-shadow: -10px 0 30px rgba(0,0,0,0.5); z-index: 1000; display: flex; flex-direction: column; transition: width 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);" onclick="event.stopPropagation()">
+        
+        <div style="display: flex; justify-content: space-between; align-items: center; padding: 16px 24px; border-bottom: 1px solid var(--border);">
+            <div style="display: flex; gap: 12px;">
+                <button onclick="toggleFullScreen()" id="ws-fs-btn" style="background: transparent; border: none; color: var(--text2); cursor: pointer; padding: 4px; font-size: 16px;" title="Genişlet / Daralt">⛶</button>
+                <button onclick="closeWorkspace()" style="background: transparent; border: none; color: var(--text2); cursor: pointer; padding: 4px; font-size: 16px;" title="Kapat">✕</button>
+            </div>
+
+        </div>
+
+        <div style="padding: 60px 80px; overflow-y: auto; height: calc(100vh - 65px); display: block;">
+            <div style="max-width: 900px; margin: 0 auto;">
+                <div id="ws-subject" style="font-size: 14px; color: var(--text2); font-weight: 600; margin-bottom: 8px;">DERS ADI</div>
+                <h1 id="ws-topic" style="font-size: 40px; font-weight: 800; letter-spacing: -1px; margin: 0 0 32px 0; color: var(--text);">Konu Adı</h1>
+                <div id="editorjs" style="font-size: 16px; line-height: 1.7; color: var(--text);"></div>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 
 <script>
 const API = '/api';
 
+let isFullScreen = false;
+let workspaceEditor;
+
+let autoSaveTimeout;
+window.saveWorkspaceNote = function() {
+    if (!workspaceEditor) return;
+    
+    workspaceEditor.save().then((outputData) => {
+        const currentSubject = document.getElementById('ws-subject').innerText.replace(' (Kaydedildi ✓)', '').trim();
+        const currentTopic = document.getElementById('ws-topic').innerText.trim();
+        const storageKey = `note_${currentSubject}_${currentTopic}`;
+        
+        localStorage.setItem(storageKey, JSON.stringify(outputData));
+        
+        const saveStatusIndicator = document.getElementById('ws-subject');
+        const originalText = currentSubject;
+        saveStatusIndicator.innerText = originalText + " (Kaydedildi ✓)";
+        setTimeout(() => { saveStatusIndicator.innerText = originalText; }, 2000);
+        
+        console.log("Otomatik kayıt başarılı:", storageKey);
+    }).catch((error) => {
+        console.error("Kayıt hatası: ", error);
+    });
+};
+
+window.openWorkspace = function(subject, topic) {
+    document.getElementById('ws-subject').innerText = subject;
+    document.getElementById('ws-topic').innerText = topic;
+    document.getElementById('workspace-backdrop').style.display = 'block';
+    
+    // Varsayılan olarak Side Peek (Yan Panel) açılır
+    isFullScreen = false;
+    document.getElementById('workspace-panel').style.width = '50vw';
+    document.getElementById('ws-fs-btn').innerText = '⛶'; 
+    
+    const storageKey = `note_${subject}_${topic}`;
+    let savedData = localStorage.getItem(storageKey);
+    savedData = savedData ? JSON.parse(savedData) : {};
+    
+    if (workspaceEditor) {
+        workspaceEditor.destroy(); // Önceki editörü temizle
+    }
+    workspaceEditor = new EditorJS({
+        holder: 'editorjs',
+        placeholder: 'Bir şeyler yazın, / komutunu kullanın veya buraya bir fotoğraf yapıştırın...',
+        data: savedData,
+        onChange: (api, event) => {
+            clearTimeout(autoSaveTimeout);
+            autoSaveTimeout = setTimeout(() => {
+                saveWorkspaceNote();
+            }, 1000);
+        },
+        tools: {
+            header1: {
+                class: class extends Header { static get toolbox() { return { icon: 'H1', title: 'Başlık 1' }; } },
+                inlineToolbar: true,
+                shortcut: 'CMD+SHIFT+1',
+                config: { placeholder: 'Büyük Başlık (H1)', levels: [1], defaultLevel: 1 }
+            },
+            header2: {
+                class: class extends Header { static get toolbox() { return { icon: 'H2', title: 'Başlık 2' }; } },
+                inlineToolbar: true,
+                shortcut: 'CMD+SHIFT+2',
+                config: { placeholder: 'Orta Başlık (H2)', levels: [2], defaultLevel: 2 }
+            },
+            header3: {
+                class: class extends Header { static get toolbox() { return { icon: 'H3', title: 'Başlık 3' }; } },
+                inlineToolbar: true,
+                shortcut: 'CMD+SHIFT+3',
+                config: { placeholder: 'Küçük Başlık (H3)', levels: [3], defaultLevel: 3 }
+            },
+            image: {
+                class: ImageTool,
+                config: {
+                    uploader: {
+                        uploadByFile(file) {
+                            return new Promise((resolve) => {
+                                const reader = new FileReader();
+                                reader.onload = (e) => {
+                                    resolve({
+                                        success: 1,
+                                        file: { url: e.target.result }
+                                    });
+                                };
+                                reader.readAsDataURL(file);
+                            });
+                        }
+                    }
+                }
+            },
+            ayrac: {
+                class: class extends Delimiter {
+                    static get toolbox() {
+                        return {
+                            icon: '<svg width="24" height="24" viewBox="0 0 24 24"><path stroke="currentColor" stroke-width="2" d="M4 12h16"/></svg>',
+                            title: 'Ayraç (Çizgi)'
+                        };
+                    }
+                }
+            }
+        }
+    });
+};
+
+window.closeWorkspace = function() {
+    document.getElementById('workspace-backdrop').style.display = 'none';
+};
+
+window.toggleFullScreen = function() {
+    const panel = document.getElementById('workspace-panel');
+    const btn = document.getElementById('ws-fs-btn');
+    if (!isFullScreen) {
+        panel.style.width = '100vw'; // Tam Ekrana Genişle
+        btn.innerText = '🗗'; // Daralt ikonu
+        isFullScreen = true;
+    } else {
+        panel.style.width = '50vw'; // Yan Panele Dön
+        btn.innerText = '⛶'; // Genişlet ikonu
+        isFullScreen = false;
+    }
+};
 async function fetchJSON(url) {
   const r = await fetch(url);
   if (!r.ok) throw new Error(await r.text());
@@ -675,8 +944,8 @@ function renderToday(today) {
   if (today.genel && today.genel.length) {
     html += '<div class="task-group"><h3>📖 Genel Kültür-Yetenek</h3>';
     today.genel.forEach(function(t) {
-      html += '<div class="task-item" onclick="selectTaskForLog(\'' + escAttr(t.subject) + '\',\'' + escAttr(t.topic_slug) + '\',' + t.hours + ',' + t.target_questions + '); this.classList.toggle(\'done\')">' +
-        '<span>' + t.subject + ' — ' + t.topic + '</span>' +
+      html += '<div class="task-item" onclick="openWorkspace(\'' + esc(t.subject) + '\', \'' + esc(t.topic) + '\')" style="cursor:pointer">' +
+        '<span style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:70%;">' + esc(t.subject) + ' | ' + esc(t.topic) + '</span>' +
         '<div style="display:flex;gap:6px">' +
           '<span class="hours">' + t.hours + 's</span>' +
           '<span class="hours" style="background:rgba(124,92,252,0.15);color:var(--accent2)">' + t.target_questions + ' Soru</span>' +
@@ -688,8 +957,8 @@ function renderToday(today) {
   if (today.alan && today.alan.length) {
     html += '<div class="task-group"><h3>📊 Alan Bilgisi (İstatistik)</h3>';
     today.alan.forEach(function(t) {
-      html += '<div class="task-item" onclick="selectTaskForLog(\'' + escAttr(t.subject) + '\',\'' + escAttr(t.topic_slug) + '\',' + t.hours + ',' + t.target_questions + '); this.classList.toggle(\'done\')">' +
-        '<span>' + t.topic + '</span>' +
+      html += '<div class="task-item" onclick="openWorkspace(\'' + esc(t.subject) + '\', \'' + esc(t.topic) + '\')" style="cursor:pointer">' +
+        '<span style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:70%;">' + esc(t.subject) + ' | ' + esc(t.topic) + '</span>' +
         '<div style="display:flex;gap:6px">' +
           '<span class="hours">' + t.hours + 's</span>' +
           '<span class="hours" style="background:rgba(124,92,252,0.15);color:var(--accent2)">' + t.target_questions + ' Soru</span>' +
@@ -747,13 +1016,14 @@ function renderStats(stats) {
 function renderWeekly(weekPlan) {
   var el = document.getElementById('weekly-content');
   if (!weekPlan || weekPlan.error) { el.innerHTML = errHtml(weekPlan ? weekPlan.error : 'Veri yok'); return; }
-  if (!weekPlan.length) { el.innerHTML = '<div class="loading">Yol haritası bulunamadı</div>'; return; }
+  var days = weekPlan.days || weekPlan;
+  if (!days.length) { el.innerHTML = '<div class="loading">Yol haritası bulunamadı</div>'; return; }
 
   var today = new Date();
   var todayStr = today.toISOString().split('T')[0];
 
   var dayNames = ['Paz','Pzt','Sal','Çar','Per','Cum','Cmt'];
-  var html = '<div class="week-grid" style="display:grid; grid-template-columns:repeat(7, 1fr); gap:12px">';
+  var html = '<div class="week-grid" style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 16px; width: 100%;">';
 
   var subjectColors = {
     'Türkçe': 'background:rgba(59, 130, 246, 0.15); color: #60a5fa',
@@ -764,7 +1034,7 @@ function renderWeekly(weekPlan) {
     'İstatistik': 'background:rgba(124, 92, 252, 0.15); color: var(--accent2)'
   };
 
-  weekPlan.forEach(function(dayEntry) {
+  days.forEach(function(dayEntry) {
     var dayDate = new Date(dayEntry.date);
     var isToday = dayEntry.date === todayStr;
     var isPast = dayDate < today && !isToday;
@@ -784,7 +1054,7 @@ function renderWeekly(weekPlan) {
     if (allTasks.length > 0) {
       allTasks.forEach(function(t) {
         var col = subjectColors[t.subject] || 'background:rgba(255,255,255,0.08); color:var(--text)';
-        tasksHtml += '<div style="margin-bottom:6px; padding:4px 6px; border-radius:6px; font-size:11px; font-weight:600; text-align:left; text-overflow:ellipsis; overflow:hidden; white-space:nowrap; ' + col + '" title="' + esc(t.subject) + ': ' + esc(t.topic) + '">' +
+        tasksHtml += '<div style="margin-bottom:6px; padding:4px 6px; border-radius:6px; font-size:11px; font-weight:600; text-align:center; text-overflow:ellipsis; overflow:hidden; white-space:nowrap; ' + col + '" title="' + esc(t.subject) + '">' +
           esc(t.subject) +
           '</div>';
       });
@@ -1128,155 +1398,8 @@ function closeWorkspace() {
   document.getElementById('ws-overlay').classList.remove('active');
 }
 
-async function openWorkspace(subject, topic, targetNet) {
-  _wsSubject = subject;
-  _wsTopic = topic;
-  var left = document.getElementById('ws-left');
-  left.innerHTML = '<h2>' + esc(subject) + '</h2>' +
-    '<div class="ws-meta">' + esc(topic) + ' — Hedef: <strong style="color:var(--yellow)">' + targetNet + ' Net</strong></div>' +
-    '<div style="font-size:13px;color:var(--text2);margin-bottom:8px;font-weight:600">Alt Konular</div>';
 
-  var curriculum = await fetchJSON(API + '/curriculum/all').catch(function(e) { return null; });
-  if (curriculum && !curriculum.error) {
-    for (var ei = 0; ei < curriculum.length; ei++) {
-      for (var ti = 0; ti < curriculum[ei].tests.length; ti++) {
-        for (var si = 0; si < curriculum[ei].tests[ti].subjects.length; si++) {
-          var subj = curriculum[ei].tests[ti].subjects[si];
-          if (subj.subject === subject) {
-            for (var toi = 0; toi < subj.topics.length; toi++) {
-              if (subj.topics[toi].name === topic) {
-                (subj.topics[toi].subtopics || []).forEach(function(st) {
-                  var pinned = isPinned(subject, topic, st.name);
-                  left.innerHTML += '<div class="ws-subtopic"><span>' + esc(st.name) + '</span>' +
-                    '<button class="pin-btn' + (pinned ? ' active' : '') + '" onclick="togglePin(\'' + esc(subject) + '\',\'' + esc(topic) + '\',\'' + esc(st.name) + '\',this)">' + (pinned ? '📌' : '📌') + '</button></div>';
-                });
-                break;
-              }
-            }
-            break;
-          }
-        }
-      }
-    }
-  }
 
-  document.getElementById('ws-feed').innerHTML = '<div class="loading" style="padding:20px">Notlar yükleniyor...</div>';
-  document.getElementById('ws-overlay').classList.add('active');
-  loadNotes(subject, topic);
-}
-
-async function loadNotes(subject, topic) {
-  var feed = document.getElementById('ws-feed');
-  try {
-    var notes = await fetchJSON(API + '/notes/' + encodeURIComponent(subject) + '/' + encodeURIComponent(topic));
-    if (!notes || notes.error) { feed.innerHTML = '<div style="color:var(--text2);font-size:13px">Henüz not eklenmemiş.</div>'; return; }
-    if (!notes.length) { feed.innerHTML = '<div style="color:var(--text2);font-size:13px">Henüz not eklenmemiş.</div>'; return; }
-    var html = '';
-    notes.forEach(function(n) {
-      html += '<div class="ws-note">' +
-        '<div class="ws-n-type">' + esc(n.type) + '</div>' +
-        '<div class="ws-n-content">' + esc(n.content) + '</div>' +
-        (n.solution ? '<div class="ws-n-solution">💡 ' + esc(n.solution) + '</div>' : '') +
-        '</div>';
-    });
-    feed.innerHTML = html;
-  } catch(e) {
-    feed.innerHTML = '<div style="color:var(--red);font-size:13px">Notlar yüklenemedi.</div>';
-  }
-}
-
-document.getElementById('ws-form').addEventListener('submit', async function(e) {
-  e.preventDefault();
-  var type = document.getElementById('ws-note-type').value;
-  var content = document.getElementById('ws-note-content').value;
-  var solution = document.getElementById('ws-note-solution').value;
-  var fb = document.getElementById('ws-feedback');
-
-  try {
-    var r = await fetch(API + '/notes/' + encodeURIComponent(_wsSubject) + '/' + encodeURIComponent(_wsTopic), {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({type: type, content: content, solution: solution})
-    });
-    var data = await r.json();
-    if (!r.ok || data.error) throw new Error(data.error || 'Kayıt hatası');
-    fb.style.display = 'block';
-    fb.style.color = 'var(--green)';
-    fb.textContent = '✓ Not kaydedildi';
-    document.getElementById('ws-note-type').value = '';
-    document.getElementById('ws-note-content').value = '';
-    document.getElementById('ws-note-solution').value = '';
-    loadNotes(_wsSubject, _wsTopic);
-  } catch(err) {
-    fb.style.display = 'block';
-    fb.style.color = 'var(--red)';
-    fb.textContent = '✗ ' + err.message;
-  }
-  setTimeout(function() { fb.style.display = 'none'; }, 3000);
-});
-
-document.getElementById('log-form').addEventListener('submit', async function(e) {
-  e.preventDefault();
-  var subject = document.getElementById('log-subject').value;
-  var topicSlug = document.getElementById('log-topic').value;
-  var hours = parseFloat(document.getElementById('log-hours').value);
-  var solvedQuestions = parseInt(document.getElementById('log-questions').value) || 0;
-  var fb = document.getElementById('log-feedback');
-  fb.className = 'log-feedback';
-  try {
-    var r = await fetch(API + '/log', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({subject: subject, topic_slug: topicSlug, hours: hours, solved_questions: solvedQuestions})
-    });
-    var data = await r.json();
-    if (!r.ok || data.error) throw new Error(data.error || await r.text());
-    fb.textContent = '✓ ' + subject + ' — ' + hours + 's kaydedildi';
-    fb.className = 'log-feedback ok';
-    document.getElementById('log-hours').value = '';
-    document.getElementById('log-questions').value = '';
-    loadDashboard();
-  } catch(e) {
-    fb.textContent = '✗ Hata: ' + e.message;
-    fb.className = 'log-feedback err';
-  }
-  setTimeout(function() { fb.className = 'log-feedback'; }, 4000);
-});
-
-function onSubjectChange() {
-  var subjSelect = document.getElementById('log-subject');
-  var topicSelect = document.getElementById('log-topic');
-  var subjectName = subjSelect.value;
-  topicSelect.innerHTML = '<option value="">Konu seç</option>';
-  if (!subjectName) return;
-  
-  var foundTopics = [];
-  _curriculumData.forEach(function(exam) {
-    exam.tests.forEach(function(test) {
-      test.subjects.forEach(function(s) {
-        if (s.subject === subjectName) {
-          foundTopics = foundTopics.concat(s.topics || []);
-        }
-      });
-    });
-  });
-  
-  foundTopics.forEach(function(t) {
-    var opt = document.createElement('option');
-    opt.value = t.id;
-    opt.textContent = t.name;
-    topicSelect.appendChild(opt);
-  });
-}
-
-function selectTaskForLog(subject, topicSlug, hours, targetQ) {
-  var subjSelect = document.getElementById('log-subject');
-  subjSelect.value = subject;
-  onSubjectChange();
-  document.getElementById('log-topic').value = topicSlug;
-  document.getElementById('log-hours').value = hours;
-  document.getElementById('log-questions').value = targetQ;
-}
 
 var _escDiv = document.createElement('div');
 function esc(s) {
@@ -1288,28 +1411,26 @@ function esc(s) {
 async function loadDashboard() {
   try {
     var results = await Promise.all([
-      fetchJSON(API + '/stats?v=1.2').catch(function(e) { return {error: e.message}; }),
-      fetchJSON(API + '/today?v=1.2').catch(function(e) { return {error: e.message}; }),
-      fetchJSON(API + '/plan/week?v=1.2').catch(function(e) { return {error: e.message}; }),
-      fetchJSON(API + '/progress?v=1.2').catch(function(e) { return {error: e.message}; }),
-      fetchJSON(API + '/curriculum/all?v=1.2').catch(function(e) { return {error: e.message}; }),
-      fetchJSON(API + '/pinned?v=1.2').catch(function(e) { return {error: e.message}; }),
-      fetchJSON(API + '/plan/macro?v=1.2').catch(function(e) { return {error: e.message}; })
+      fetchJSON(API + '/stats?v=1.3').catch(function(e) { return {error: e.message}; }),
+      fetchJSON(API + '/today?v=1.3').catch(function(e) { return {error: e.message}; }),
+      fetchJSON(API + '/plan/week?v=1.3').catch(function(e) { return {error: e.message}; }),
+      fetchJSON(API + '/curriculum/all?v=1.3').catch(function(e) { return {error: e.message}; }),
+      fetchJSON(API + '/pinned?v=1.3').catch(function(e) { return {error: e.message}; }),
+      fetchJSON(API + '/plan/roadmap?v=1.3').catch(function(e) { return {error: e.message}; })
     ]);
     renderCountdowns(results[0]);
     renderToday(results[1]);
-    renderProgress(results[3]);
-    renderStats(results[0]);
     renderWeekly(results[2]);
-    renderMacro(results[6]);
-    renderGlobalSprintProgress();
+    if (results[3] && !results[3].error) {
+      _curriculumData = results[3];
+      renderCurriculumCenter(results[3]);
+    }
     if (results[4] && !results[4].error) {
-      _curriculumData = results[4];
-      renderHierarchy();
-      renderCurriculumCenter(results[4]);
+      _pinnedItems = results[4];
     }
     if (results[5] && !results[5].error) {
-      _pinnedItems = results[5];
+      renderDashboardProgress(results[5]);
+      renderExpectedProgress(results[5]);
     }
   } catch(e) {
     console.error(e);
@@ -1317,6 +1438,175 @@ async function loadDashboard() {
       el.innerHTML = '<div class="error">Bağlantı hatası: ' + e.message + '</div>';
     });
   }
+}
+
+function renderDashboardProgress(roadmapData) {
+  var el = document.getElementById('global-sprint-progress');
+  if (!el) return;
+  if (!roadmapData || roadmapData.error || !roadmapData.weeks) {
+    el.innerHTML = ''; return;
+  }
+  
+  var weeksKeys = Object.keys(roadmapData.weeks).sort(function(a,b) {
+    return parseInt(a.replace('Hafta ','')) - parseInt(b.replace('Hafta ',''));
+  });
+  if(weeksKeys.length === 0) return;
+  
+  var firstWeekDays = roadmapData.weeks[weeksKeys[0]].days;
+  var lastWeekDays = roadmapData.weeks[weeksKeys[weeksKeys.length-1]].days;
+  
+  var startStr = firstWeekDays[0].date;
+  var endStr = lastWeekDays[lastWeekDays.length-1].date;
+  
+  var startDate = new Date(startStr);
+  var endDate = new Date(endStr);
+  var today = new Date();
+  
+  var totalTime = endDate.getTime() - startDate.getTime();
+  var passedTime = today.getTime() - startDate.getTime();
+  
+  var progressPct = 0;
+  if (totalTime > 0) {
+    progressPct = (passedTime / totalTime) * 100;
+  }
+  if (progressPct < 0) progressPct = 0;
+  if (progressPct > 100) progressPct = 100;
+  
+  var months = ['Ocak','Şubat','Mart','Nisan','Mayıs','Haziran','Temmuz','Ağustos','Eylül','Ekim','Kasım','Aralık'];
+  function fmt(d) {
+    return d.getDate() + ' ' + months[d.getMonth()];
+  }
+  
+  el.innerHTML = '<div style="max-width: 100%; margin: 0 16px 24px 16px; position: relative;">' +
+    '<div style="display: flex; justify-content: space-between; font-size: 11px; color: var(--text2); margin-bottom: 6px;">' +
+      '<span>Başlangıç: ' + fmt(startDate) + '</span>' +
+      '<span>Bitiş: ' + fmt(endDate) + '</span>' +
+    '</div>' +
+    '<div style="height: 6px; background: var(--border); border-radius: 3px; position: relative;">' +
+      '<div style="height: 100%; width: ' + progressPct + '%; background: #00E5FF; border-radius: 3px;"></div>' +
+      '<div style="position: absolute; top: 12px; left: ' + progressPct + '%; transform: translateX(-50%); font-size: 10px; background: var(--surface); border: 1px solid #00E5FF; color: #00E5FF; padding: 2px 6px; border-radius: 10px; white-space: nowrap; z-index: 10;">' + fmt(today) + '</div>' +
+    '</div>' +
+  '</div>';
+}
+
+function renderExpectedProgress(roadmapData) {
+  var el = document.getElementById('dashboard-right-placeholder');
+  if (!el || !roadmapData || !roadmapData.weeks) return;
+  
+  var allDays = [];
+  var weeksKeys = Object.keys(roadmapData.weeks).sort(function(a,b) {
+    return parseInt(a.replace('Hafta ','')) - parseInt(b.replace('Hafta ',''));
+  });
+  weeksKeys.forEach(function(wk) {
+    var d = roadmapData.weeks[wk].days;
+    allDays = allDays.concat(d);
+  });
+  
+  var totalSessions = { subjects: {}, topics: {} };
+  var elapsedSessions = { subjects: {}, topics: {} };
+  var todaysTopicsList = []; 
+  
+  var today = new Date();
+  var todayStr = today.toISOString().split('T')[0];
+  var currentDayIndex = allDays.findIndex(function(d) { return d.date === todayStr; });
+  if (currentDayIndex === -1) {
+    var startDay = new Date(allDays[0].date);
+    if (today < startDay) currentDayIndex = 0;
+    else currentDayIndex = allDays.length - 1;
+  }
+  
+  for (var i = 0; i < allDays.length; i++) {
+    var day = allDays[i];
+    var tasks = (day.genel || []).concat(day.alan || []);
+    
+    tasks.forEach(function(t) {
+      if (!totalSessions.subjects[t.subject]) totalSessions.subjects[t.subject] = 0;
+      if (!totalSessions.topics[t.topic]) totalSessions.topics[t.topic] = 0;
+      
+      var sessions = 1; 
+      totalSessions.subjects[t.subject] += sessions;
+      totalSessions.topics[t.topic] += sessions;
+      
+      if (i <= currentDayIndex) {
+        if (!elapsedSessions.subjects[t.subject]) elapsedSessions.subjects[t.subject] = 0;
+        if (!elapsedSessions.topics[t.topic]) elapsedSessions.topics[t.topic] = 0;
+        elapsedSessions.subjects[t.subject] += sessions;
+        elapsedSessions.topics[t.topic] += sessions;
+      }
+      
+      if (i === currentDayIndex) {
+        var exists = todaysTopicsList.some(function(x) { return x.topic === t.topic && x.subject === t.subject; });
+        if (!exists) {
+          todaysTopicsList.push({ subject: t.subject, topic: t.topic });
+        }
+      }
+    });
+  }
+
+  var subjectColors = {
+    'Türkçe': 'var(--blue, #3b82f6)',
+    'Matematik': 'var(--accent, #06b6d4)',
+    'Tarih': 'var(--green, #10b981)',
+    'Coğrafya': 'var(--orange, #f59e0b)',
+    'Vatandaşlık': 'var(--yellow, #eab308)',
+    'İstatistik': 'var(--accent2, #7c5cfc)'
+  };
+  
+  var subjectsHtml = '';
+  var sortedSubjects = Object.keys(totalSessions.subjects)
+    .filter(function(s) { return totalSessions.subjects[s] > 0; })
+    .sort(function(a,b) { return totalSessions.subjects[b] - totalSessions.subjects[a]; });
+    
+  sortedSubjects.forEach(function(subj) {
+    var tot = totalSessions.subjects[subj];
+    var elCount = elapsedSessions.subjects[subj] || 0;
+    var pct = Math.min(100, Math.round((elCount / tot) * 100)) || 0;
+    var color = subjectColors[subj] || 'var(--accent)';
+    
+    subjectsHtml += '<div style="margin-bottom: 12px;">' +
+      '<div style="display: flex; justify-content: space-between; font-size: 12px; font-weight: 600; margin-bottom: 6px;">' +
+        '<span>' + esc(subj) + '</span>' +
+        '<span style="color: var(--text2); font-weight: 500;">%' + pct + ' <span style="font-size:10px; opacity:0.8">(Planlanan: ' + elCount + '/' + tot + ' Otr)</span></span>' +
+      '</div>' +
+      '<div style="height: 6px; background: var(--surface2); border-radius: 3px; overflow: hidden;">' +
+        '<div style="height: 100%; width: ' + pct + '%; background: ' + color + '; border-radius: 3px;"></div>' +
+      '</div>' +
+    '</div>';
+  });
+  
+  var topicsHtml = '';
+  if (todaysTopicsList.length === 0) {
+    topicsHtml = '<div style="font-size: 13px; color: var(--text2); text-align: center; margin-top: 24px;">Bugün için planlanmış spesifik bir konu bulunmuyor.</div>';
+  } else {
+    todaysTopicsList.forEach(function(item) {
+      var top = item.topic;
+      var tot = totalSessions.topics[top] || 1;
+      var elCount = elapsedSessions.topics[top] || 0;
+      var pct = Math.min(100, Math.round((elCount / tot) * 100)) || 0;
+      var color = subjectColors[item.subject] || 'var(--accent)';
+      
+      topicsHtml += '<div style="margin-bottom: 12px;">' +
+        '<div style="display: flex; justify-content: space-between; font-size: 12px; font-weight: 600; margin-bottom: 6px;">' +
+          '<span style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:60%;" title="' + esc(top) + '">' + esc(top) + '</span>' +
+          '<span style="color: var(--text2); font-weight: 500;">%' + pct + ' <span style="font-size:10px; opacity:0.8">(Planlanan: ' + elCount + '/' + tot + ' Otr)</span></span>' +
+        '</div>' +
+        '<div style="height: 6px; background: var(--surface2); border-radius: 3px; overflow: hidden;">' +
+          '<div style="height: 100%; width: ' + pct + '%; background: ' + color + '; border-radius: 3px;"></div>' +
+        '</div>' +
+      '</div>';
+    });
+  }
+
+  el.innerHTML = '<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">' +
+    '<div class="card" id="expected-general-progress">' +
+      '<h3 style="font-size: 14px; margin-bottom: 20px; border-bottom: 1px solid var(--border); padding-bottom: 12px; margin-top: 0;">📈 Ders İlerlemeleri (Beklenen)</h3>' +
+      subjectsHtml +
+    '</div>' +
+    '<div class="card" id="expected-today-topics">' +
+      '<h3 style="font-size: 14px; margin-bottom: 20px; border-bottom: 1px solid var(--border); padding-bottom: 12px; margin-top: 0;">🎯 Bugünün Konu İlerlemeleri</h3>' +
+      topicsHtml +
+    '</div>' +
+  '</div>';
 }
 
 function renderMacro(macroData) {
@@ -1437,6 +1727,15 @@ function renderRoadmap(roadmapData) {
 
   var html = '<div style="display:flex; flex-direction:column; gap:24px">';
 
+  var baseColors = {
+    "İstatistik": "#8b5cf6",
+    "Matematik": "#06b6d4",
+    "Türkçe": "#3b82f6",
+    "Tarih": "#10b981",
+    "Coğrafya": "#f59e0b",
+    "Vatandaşlık": "#eab308"
+  };
+
   var weeksKeys = Object.keys(roadmapData.weeks).sort(function(a, b) {
     var numA = parseInt(a.replace('Hafta ', ''));
     var numB = parseInt(b.replace('Hafta ', ''));
@@ -1492,10 +1791,44 @@ function renderRoadmap(roadmapData) {
     var firstDayOfWeek = startDayLocal.getDay();
     var paddingCount = firstDayOfWeek === 0 ? 6 : firstDayOfWeek - 1;
 
-    html += '<div style="display:flex; gap:20px; align-items:stretch; margin-top:12px">';
+    // 1. O haftanın içine atanmış tüm konuları ders bazında grupla
+    var weekTopics = {};
+    days.forEach(function(dayEntry) {
+      var allTasks = (dayEntry.genel || []).concat(dayEntry.alan || []);
+      allTasks.forEach(function(t) {
+        if (!weekTopics[t.subject]) weekTopics[t.subject] = {};
+        if (!weekTopics[t.subject][t.topic]) weekTopics[t.subject][t.topic] = 0;
+        weekTopics[t.subject][t.topic]++;
+      });
+    });
     
-    // Sol Sütun (Takvim Grid'i)
-    html += '<div style="flex:1">';
+    var wSubjs = Object.keys(weekTopics);
+    var safeWeekId = escAttr(weekKey.replace(/\s+/g, ''));
+
+    html += '<div style="display:grid; grid-template-columns:220px 1fr 220px; gap:16px; align-items:stretch; margin-top:12px">';
+    
+    // 1. Kolon (Sol Pembe Panel)
+    html += '<div style="background:rgba(236, 72, 153, 0.05); border:1px solid rgba(236, 72, 153, 0.2); border-radius:10px; padding:12px; display:flex; flex-direction:column; overflow:hidden">';
+    html += '<h4 style="font-size:11px; font-weight:700; color:var(--text); margin-bottom:10px; text-transform:uppercase; border-bottom:1px solid var(--border); padding-bottom:6px">📌 Konu Dağılımı</h4>';
+    
+    html += '<div style="flex:1; overflow-y:auto; padding-right:4px;">';
+    wSubjs.forEach(function(s) {
+      var sColor = baseColors[s] || 'var(--accent)';
+      html += '<div style="margin-bottom: 12px;">';
+      html += '<div style="color: ' + sColor + '; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; margin-bottom: 4px;">' + esc(s) + '</div>';
+      var topics = Object.keys(weekTopics[s]).sort(function(a,b){ return weekTopics[s][b] - weekTopics[s][a]; });
+      topics.forEach(function(top) {
+        html += '<div style="border-left: 3px solid ' + sColor + '; padding-left: 8px; color: var(--text2); font-size: 0.85rem; margin-bottom: 4px;">';
+        html += '<div style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="' + escAttr(top) + '">' + esc(top) + ' <span style="font-size:0.75rem; opacity:0.7;">(' + weekTopics[s][top] + ' Otr)</span></div>';
+        html += '</div>';
+      });
+      html += '</div>';
+    });
+    html += '</div>';
+    html += '</div>';
+    
+    // 2. Kolon (Takvim Grid'i)
+    html += '<div style="flex:1; min-width:0; overflow-x:hidden;">';
     html += '<div style="display:grid; grid-template-columns:repeat(7, 1fr); gap:8px">';
 
     dayNames.forEach(function(dName) {
@@ -1515,7 +1848,7 @@ function renderRoadmap(roadmapData) {
       var dayClass = isToday ? 'current-day-focus' : '';
       var opacityStyle = isPast ? 'opacity: 0.4' : 'opacity: 1';
 
-      html += '<div class="' + dayClass + '" style="background:var(--surface2); border-radius:8px; padding:8px; min-height:95px; display:flex; flex-direction:column; justify-content:space-between; border: 1px solid var(--border); ' + opacityStyle + '">';
+      html += '<div class="' + dayClass + '" style="background:var(--surface2); border-radius:8px; padding:8px; min-height:95px; display:flex; flex-direction:column; justify-content:space-between; border: 1px solid var(--border); overflow:hidden; ' + opacityStyle + '">';
       html += '<div style="font-size:10px; font-weight:600; color:var(--text2); text-align:right">' + dayEntry.date.substring(8, 10) + '</div>';
 
       var tasksHtml = '<div style="display:flex; flex-direction:column; gap:4px; margin-top:4px">';
@@ -1523,8 +1856,11 @@ function renderRoadmap(roadmapData) {
       if (allTasks.length > 0) {
         allTasks.forEach(function(t) {
           var col = subjectColors[t.subject] || 'background:rgba(255,255,255,0.08); color:var(--text)';
+          var topicName = t.topic ? t.topic : "";
+          var shortTopic = topicName.length > 16 ? topicName.substring(0, 16) + '...' : topicName;
+          var displayTitle = esc(t.subject) + (shortTopic ? ' <span style="font-size:0.85em; opacity:0.8;">| ' + esc(shortTopic) + '</span>' : '');
           tasksHtml += '<div style="padding:2px 4px; border-radius:4px; font-size:9px; font-weight:700; text-align:center; text-overflow:ellipsis; overflow:hidden; white-space:nowrap; ' + col + '" title="' + esc(t.subject) + ': ' + esc(t.topic) + '">' +
-            esc(t.subject) +
+            displayTitle +
             '</div>';
         });
       } else {
@@ -1546,8 +1882,8 @@ function renderRoadmap(roadmapData) {
     html += '</div>'; // takvim grid'i sonu
     html += '</div>'; // sol sütun sonu
 
-    // Sağ Sütun (Mini Dağılım Paneli)
-    html += '<div style="width:280px; background:var(--surface2); border:1px solid var(--border); border-radius:10px; padding:12px; display:flex; flex-direction:column; justify-content:space-between">';
+    // 3. Kolon (Mini Dağılım Paneli)
+    html += '<div style="background:var(--surface2); border:1px solid var(--border); border-radius:10px; padding:12px; display:flex; flex-direction:column; justify-content:space-between; position:relative; z-index:10;">';
     html += '<div>';
     html += '<h4 style="font-size:11px; font-weight:700; color:var(--text); margin-bottom:10px; text-transform:uppercase; border-bottom:1px solid var(--border); padding-bottom:6px">📊 Haftalık Dağılım</h4>';
     
@@ -1565,10 +1901,13 @@ function renderRoadmap(roadmapData) {
         if (match) barColor = match[1];
       }
       
-      distHtml += '<div>' +
-        '<div style="display:flex; justify-content:space-between; font-size:10px; font-weight:700; margin-bottom:2px; color:var(--text)">' +
+      distHtml += '<div style="margin-bottom:8px">' +
+        '<div style="display:flex; justify-content:space-between; font-size:11px; font-weight:700; margin-bottom:2px; color:var(--text)">' +
           '<span>' + esc(subj) + '</span>' +
-          '<span style="color:var(--text2)">' + item.hours + 's (' + Math.round(item.hours / 1.5) + ' Oturum) | ' + item.questions + ' Soru (%' + item.pct + ')</span>' +
+          '<span>%' + item.pct + '</span>' +
+        '</div>' +
+        '<div style="font-size:9px; color:var(--text2); margin-bottom:4px; font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">' +
+          item.hours + 's | ' + Math.round(item.hours / 1.5) + ' Oturum | ' + item.questions + ' Soru' +
         '</div>' +
         '<div style="height:5px; background:var(--surface); border-radius:2.5px; overflow:hidden; border: 1px solid var(--border)">' +
           '<div style="width:' + item.pct + '%; height:100%; background:' + barColor + '; border-radius:2.5px"></div>' +
@@ -1656,6 +1995,30 @@ function renderAdequacy(adequacyData) {
 
 loadDashboard();
 setInterval(loadDashboard, 30000);
+
+document.addEventListener('keydown', function(e) {
+    // Sadece Editor.js içindeyken ve Ctrl+Enter (veya Cmd+Enter) basıldığında çalışır
+    if (e.target.closest('#editorjs') && (e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+        
+        // Tarayıcının kendi saçma sapan yeni satır oluşturma huyunu durdur
+        e.preventDefault();
+        e.stopPropagation();
+        
+        // Sisteme sahte bir 'Shift + Enter' tuşlaması gönder
+        // Editor.js bu sahte tuşlamayı yakalayacak ve mevcut bloğu bozmadan kusursuzca alt satıra geçirecektir.
+        const shiftEnterEvent = new KeyboardEvent('keydown', {
+            key: 'Enter',
+            code: 'Enter',
+            keyCode: 13,
+            which: 13,
+            shiftKey: true, // Sihir burada: Ctrl'yi Shift'e çeviriyoruz
+            bubbles: true,
+            cancelable: true
+        });
+        
+        e.target.dispatchEvent(shiftEnterEvent);
+    }
+});
 </script>
 </body>
 </html>
