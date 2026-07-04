@@ -1,0 +1,53 @@
+subject: Tarih
+exam: genel-kultur
+category: Genel Kültür
+total_questions: 27
+total_target_net: 14
+target_correct: 14
+target_net: 14
+priority: P1
+topics:
+  - name: İnkılap Tarihi
+    avg_questions: 12
+    target_net: 9
+    priority: P0
+    subtopics:
+      - XX. Yüzyıl Başlarında Osmanlı
+      - Millî Mücadele Hazırlık Dönemi
+      - Kurtuluş Savaşı Cepheleri
+      - Atatürk İlke ve İnkılapları
+      - Atatürk Dönemi İç ve Dış Politika
+  - name: Osmanlı Devleti
+    avg_questions: 9
+    target_net: 4
+    priority: P0
+    subtopics:
+      - Kuruluş ve Yükselme Dönemi
+      - Duraklama ve Gerileme Dönemi
+      - Dağılma Dönemi
+      - Osmanlı Kültür ve Medeniyeti
+  - name: Çağdaş Türk ve Dünya Tarihi
+    avg_questions: 3
+    target_net: 1
+    priority: P2
+    subtopics:
+      - İki Savaş Arası Dönem
+      - II. Dünya Savaşı
+      - Soğuk Savaş Dönemi
+      - Küreselleşen Dünya
+  - name: İlk Türk-İslam Devletleri
+    avg_questions: 2
+    target_net: 0
+    priority: P2
+    subtopics:
+      - Türklerin İslamiyet'i Kabulü
+      - Karahanlılar ve Gazneliler
+      - Büyük Selçuklu Devleti
+      - Türk-İslam Kültür ve Medeniyeti
+  - name: İslamiyet Öncesi Türk Tarihi
+    avg_questions: 1
+    target_net: 0
+    priority: P2
+    subtopics:
+      - Orta Asya Türk Tarihi
+      - İlk Türk Devletlerinde Kültür ve Medeniyet

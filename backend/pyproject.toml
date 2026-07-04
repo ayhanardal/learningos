@@ -1,0 +1,14 @@
+[project]
+name = "learningos-backend"
+version = "0.1.0"
+description = "KPSS Dashboard Backend"
+requires-python = ">=3.10"
+dependencies = [
+    "fastapi>=0.110.0",
+    "uvicorn[standard]>=0.29.0",
+    "pyyaml>=6.0",
+]
+
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.build_meta"

@@ -1,0 +1,72 @@
+subject: Matematik
+exam: genel-yetenek
+category: Genel Yetenek
+total_questions: 30
+total_target_net: 24
+target_correct: 24
+target_net: 24
+priority: P0
+topics:
+  - name: Problemler
+    avg_questions: 9
+    target_net: 8
+    priority: P0
+    subtopics:
+      - Sayı ve Kesir Problemleri
+      - Yaş Problemleri
+      - İşçi Problemleri
+      - Yüzde-Kâr-Zarar
+      - Hareket Problemleri
+      - Karışım Problemleri
+  - name: Cebir (Üslü, Köklü, Çarpanlara Ayırma)
+    avg_questions: 6
+    target_net: 5
+    priority: P1
+    subtopics:
+      - Üslü Sayılar
+      - Köklü Sayılar
+      - Mutlak Değer
+      - Basit Eşitsizlikler
+      - Çarpanlara Ayırma
+  - name: Temel Kavramlar ve Rasyonel Sayılar
+    avg_questions: 5
+    target_net: 5
+    priority: P1
+    subtopics:
+      - Temel Kavramlar
+      - Tek-Çift Sayılar
+      - Rasyonel ve Ondalık Sayılar
+      - Bölme-Bölünebilme
+  - name: Sayısal Mantık
+    avg_questions: 4
+    target_net: 4
+    priority: P0
+    subtopics:
+      - Sayısal Akıl Yürütme
+      - Şekil Yeteneği
+      - Grafik ve Tablo Okuma
+  - name: Geometri
+    avg_questions: 3
+    target_net: 0
+    priority: P2
+    subtopics:
+      - Üçgenler
+      - Çokgenler ve Dörtgenler
+      - Çember ve Daire
+      - Analitik Geometri
+  - name: Olasılık ve İstatistik
+    avg_questions: 2
+    target_net: 2
+    priority: P1
+    subtopics:
+      - Permütasyon
+      - Kombinasyon
+      - Olasılık
+  - name: Kümeler ve Fonksiyonlar
+    avg_questions: 1
+    target_net: 0
+    priority: P2
+    subtopics:
+      - Kümeler
+      - Fonksiyonlar
+      - İşlem Modüler Aritmetik

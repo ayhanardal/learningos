@@ -1,0 +1,18 @@
+{
+  "turkce-paragrafta-anlam": [
+    {
+      "type": "Soru Tipi",
+      "content": "Ana düşünce sorusu",
+      "solution": "İlk cümleye bak",
+      "id": 1
+    }
+  ],
+  "turkce-paragrafta-anlam-test-subtopic": [
+    {
+      "type": "test",
+      "content": "test note",
+      "solution": "",
+      "id": 1
+    }
+  ]
+}
