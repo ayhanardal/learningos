@@ -266,6 +266,7 @@ def round_robin_mix(allocated_list):
     return mixed
 
 def bin_packing_roadmap():
+    random.seed("learning_os_roadmap_v1")
     global TOPIC_ALLOCATIONS
     reqs = calculate_curriculum_requirements()
     
@@ -622,7 +623,7 @@ def generate_roadmap_projection():
     alan_idx = 0
     
     from datetime import timedelta
-    today = datetime.now()
+    today = datetime(2026, 7, 4)
     
     days_plan = []
     queues = build_topic_queues(EXACT_ALLOCATIONS)

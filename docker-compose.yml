@@ -1,5 +1,22 @@
 services:
+  db:
+    image: postgres:15-alpine
+    container_name: learningos-db
+    environment:
+      POSTGRES_USER: learningos_user
+      POSTGRES_PASSWORD: supersecretpassword
+      POSTGRES_DB: learningos_db
+    ports:
+      - "5433:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    restart: unless-stopped
+
   dashboard:
+    depends_on:
+      - db
+    environment:
+      - DATABASE_URL=postgresql://learningos_user:supersecretpassword@db:5432/learningos_db
     build:
       context: ./backend
       dockerfile: Dockerfile
@@ -13,3 +30,6 @@ services:
     restart: unless-stopped
     extra_hosts:
       - "host.docker.internal:host-gateway"
+
+volumes:
+  pgdata:

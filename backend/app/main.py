@@ -4,7 +4,12 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
 
-from app.api.routes import dashboard, plan
+from app.api.routes import dashboard, plan, db_routes
+from app.database import engine
+from app import models
+
+models.Base.metadata.create_all(bind=engine)
+
 
 app = FastAPI(
     title="LearningOS KPSS Dashboard",
@@ -26,6 +31,7 @@ os.makedirs(STATIC_DIR, exist_ok=True)
 app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
 app.include_router(dashboard.router, prefix="/api")
 app.include_router(plan.router, prefix="/api")
+app.include_router(db_routes.router, prefix="/api", tags=["Database"])
 
 
 @app.get("/")
