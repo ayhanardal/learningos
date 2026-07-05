@@ -718,13 +718,10 @@ h3.ce-header {
     </div>
 
     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 24px;">
-      <div id="dashboard-today-container">
-        <div class="card grid-full" id="today-card">
-          <h2>Bugünün Planı</h2>
-          <div id="today-content"><div class="loading">Yükleniyor...</div></div>
-        </div>
+      <div class="card" id="expected-today-topics-container">
       </div>
-      <div id="dashboard-right-placeholder"></div>
+      <div class="card" id="expected-general-progress-container">
+      </div>
     </div>
   </div>
 
@@ -888,7 +885,7 @@ window.goBackToMainTopic = async function() {
     openWorkspace(subject, currentMainTopic);
 };
 
-window.loadEditorData = function(subject, topicKey) {
+window.loadEditorData = async function(subject, topicKey) {
     if (subject === "Türkçe" && topicKey === "Paragrafta Yapı") {
         const tempKey = `note_${subject}_${topicKey}`;
         const tempData = JSON.parse(localStorage.getItem(tempKey) || "{}");
@@ -901,7 +898,16 @@ window.loadEditorData = function(subject, topicKey) {
     }
 
     const storageKey = `note_${subject}_${topicKey}`;
-    let savedData = JSON.parse(localStorage.getItem(storageKey));
+    let savedData = null;
+    try {
+        const res = await fetch(`/api/notes?subject=${encodeURIComponent(subject)}&topic=${encodeURIComponent(topicKey)}`);
+        if (res.ok) {
+            const data = await res.json();
+            savedData = data.content;
+        }
+    } catch(err) {
+        console.log("DB'de not bulunamadı veya hata oluştu");
+    }
 
     const isInteractive = INTERACTIVE_TOPICS[subject] && INTERACTIVE_TOPICS[subject].includes(topicKey);
 
@@ -1118,7 +1124,15 @@ window.saveInteractiveNote = function() {
     const currentTopic = document.getElementById('ws-topic').innerText.trim();
     const storageKey = `note_${currentSubject}_${currentTopic}`;
 
-    localStorage.setItem(storageKey, JSON.stringify(interactiveData));
+    fetch('/api/notes', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            subject: currentSubject,
+            topic: currentTopic,
+            content: interactiveData
+        })
+    }).catch(err => console.error("Not DB'ye kaydedilemedi:", err));
 
     const saveStatusIndicator = document.getElementById('ws-subject');
     const originalText = currentSubject;
@@ -1163,19 +1177,24 @@ function errHtml(msg) {
 
 function renderCountdowns(stats) {
   const el = document.getElementById('countdowns');
-  if (!stats || stats.error) {
-    el.innerHTML = '<div class="error">Sınav bilgisi alınamadı</div>';
-    return;
-  }
+  if (!el) return;
   
+  var today = new Date();
+  var todayOnly = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+  
+  // 1 Eylül hedefleniyor
+  var targetYear = today.getFullYear();
+  if (today.getMonth() > 8) targetYear++; // Eğer eylül ayını geçtiysek bir sonraki yıl
+  var targetDate = new Date(targetYear, 8, 1); // Ay indeksi 0'dan başladığı için 8 = Eylül
+  
+  var diffTime = targetDate.getTime() - todayOnly.getTime();
+  var diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  if (diffDays < 0) diffDays = 0;
+
   el.innerHTML = `
     <div class="countdown-card genel">
-      <div class="label">Genel Sınav</div>
-      <div class="value">${stats.countdown.genel}g</div>
-    </div>
-    <div class="countdown-card alan">
-      <div class="label">Alan Sınavı</div>
-      <div class="value">${stats.countdown.alan}g</div>
+      <div class="label">Sınava Kalan</div>
+      <div class="value">${diffDays}g</div>
     </div>
   `;
 }
@@ -1208,54 +1227,57 @@ function renderGlobalSprintProgress() {
 /* ---- Dashboard Card Renders ---- */
 function renderToday(today) {
   var el = document.getElementById('today-content');
+  if (!el) return;
   if (!today || today.error) { el.innerHTML = errHtml(today ? today.error : 'Veri alınamadı'); return; }
 
-  var phaseClass = 'phase-' + (today.phase || 'plan-dis');
-  var phaseLabel = today.phase === 'calisma' ? 'Çalışma' :
-    today.phase === 'dinlenme' ? 'Dinlenme' :
-    today.phase === 'sistem-kurulumu' ? 'Sistem Kurulumu' : 'Plan Dışı';
-
-  var html = '<span class="phase-badge ' + phaseClass + '">' + phaseLabel + '</span>';
+  var html = '';
 
   if (today.mock_exam) {
     html += '<div style="background:rgba(251,191,36,0.1);border:1px solid rgba(251,191,36,0.3);border-radius:10px;padding:16px;text-align:center;font-size:16px;font-weight:600;color:var(--yellow)">⏱ Deneme Sınavı Günü</div>';
   }
 
-  if (today.genel && today.genel.length) {
-    html += '<div class="task-group"><h3>📖 Genel Kültür-Yetenek</h3>';
-    today.genel.forEach(function(t) {
-      html += '<div class="task-item" onclick="openWorkspace(\'' + esc(t.subject) + '\', \'' + esc(t.topic) + '\')" style="cursor:pointer">' +
-        '<span style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:70%;">' + esc(t.subject) + ' | ' + esc(t.topic) + '</span>' +
-        '<div style="display:flex;gap:6px">' +
-          '<span class="hours">' + t.hours + 's</span>' +
-          '<span class="hours" style="background:rgba(124,92,252,0.15);color:var(--accent2)">' + t.target_questions + ' Soru</span>' +
-        '</div></div>';
+  var subjectColorsEx = {
+    'Türkçe': { border: '#3b82f6', bg: 'rgba(59, 130, 246, 0.1)' },
+    'Matematik': { border: '#00d4ff', bg: 'rgba(0, 212, 255, 0.1)' },
+    'Tarih': { border: '#10b981', bg: 'rgba(16, 185, 129, 0.1)' },
+    'Coğrafya': { border: '#f59e0b', bg: 'rgba(245, 158, 11, 0.1)' },
+    'Vatandaşlık': { border: '#eab308', bg: 'rgba(234, 179, 8, 0.1)' },
+    'İstatistik': { border: '#8b5cf6', bg: 'rgba(139, 92, 246, 0.1)' }
+  };
+
+  var allTasks = [];
+  if (today.genel) allTasks = allTasks.concat(today.genel);
+  if (today.alan) allTasks = allTasks.concat(today.alan);
+  
+  if (allTasks.length > 0) {
+    let previousSubject = "";
+    allTasks.forEach(function(t) {
+      var sColor = subjectColorsEx[t.subject] || { border: 'var(--accent)' };
+      if (t.subject !== previousSubject) {
+        var marginTop = previousSubject === "" ? "margin-top: 8px;" : "margin-top: 20px;";
+        html += `<div style="${marginTop} margin-bottom: 8px; display: flex; align-items: center; gap: 8px;">
+                   <div style="width: 8px; height: 8px; border-radius: 50%; background: ${sColor.border};"></div>
+                   <div style="font-size: 11px; font-weight: 700; color: var(--text2); text-transform: uppercase;">${esc(t.subject)}</div>
+                 </div>`;
+      }
+      var styleStr = `cursor:pointer; background: var(--surface2); border-left: 2px solid ${sColor.border}; padding: 10px 12px; border-radius: 0 6px 6px 0; margin-bottom: 8px; transition: background 0.2s ease;`;
+      
+      html += '<div onclick="openWorkspace(\'' + esc(t.subject) + '\', \'' + esc(t.topic) + '\')" style="' + styleStr + '" onmouseover="this.style.background=\'rgba(0,212,255,0.08)\'" onmouseout="this.style.background=\'var(--surface2)\'">' +
+        '<div style="display: flex; justify-content: space-between; font-size: 12px; font-weight: 600; margin-bottom: 8px;">' +
+          '<span style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:60%; color: var(--text);" title="' + esc(t.topic) + '">' + esc(t.topic) + '</span>' +
+          '<span style="color: var(--text2); font-weight: 500; font-size: 11px;">' + t.hours + 's <span style="font-size:10px; opacity:0.8">(' + t.target_questions + ' Soru)</span></span>' +
+        '</div>' +
+        '<div style="height: 6px; background: rgba(255,255,255,0.02); border-radius: 3px; overflow: hidden;">' +
+        '</div>' +
+      '</div>';
+      previousSubject = t.subject;
     });
-    html += '</div>';
   }
 
-  if (today.alan && today.alan.length) {
-    html += '<div class="task-group"><h3>📊 Alan Bilgisi (İstatistik)</h3>';
-    today.alan.forEach(function(t) {
-      html += '<div class="task-item" onclick="openWorkspace(\'' + esc(t.subject) + '\', \'' + esc(t.topic) + '\')" style="cursor:pointer">' +
-        '<span style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:70%;">' + esc(t.subject) + ' | ' + esc(t.topic) + '</span>' +
-        '<div style="display:flex;gap:6px">' +
-          '<span class="hours">' + t.hours + 's</span>' +
-          '<span class="hours" style="background:rgba(124,92,252,0.15);color:var(--accent2)">' + t.target_questions + ' Soru</span>' +
-        '</div></div>';
-    });
-    html += '</div>';
+  if (allTasks.length === 0 && !today.mock_exam) {
+    html += '<div style="font-size: 13px; color: var(--text2); text-align: center; margin-top: 24px;">Bugün için planlanmış ders bulunmuyor.</div>';
   }
 
-  if (today.note) {
-    html += '<div class="plan-note">' + today.note + '</div>';
-  }
-
-  if (!today.genel || !today.genel.length && !today.alan || !today.alan.length && !today.mock_exam) {
-    html += '<div style="color:var(--text2);padding:12px 0">Bugün için planlanmış ders bulunmuyor.</div>';
-  }
-
-  html += '<div style="margin-top:12px;font-size:13px;color:var(--text2)">Toplam: ' + (today.total_hours || 0) + 's</div>';
   el.innerHTML = html;
 }
 
@@ -1293,14 +1315,40 @@ function renderStats(stats) {
   '</div>';
 }
 
+window.weeklyDays = [];
+window.currentDayIndex = 0;
+
+function changeSelectedDay(index) {
+  window.currentDayIndex = index;
+  if (window.weeklyDays[index]) {
+    renderToday(window.weeklyDays[index]);
+  }
+  document.querySelectorAll('.week-day').forEach(function(el, i) {
+    if (i === index) {
+      el.style.border = '2px solid var(--accent)';
+      el.style.boxShadow = '0 0 10px rgba(0,212,255,0.2)';
+    } else {
+      el.style.border = '1px solid var(--border)';
+      el.style.boxShadow = 'none';
+    }
+  });
+}
+
 function renderWeekly(weekPlan) {
   var el = document.getElementById('weekly-content');
   if (!weekPlan || weekPlan.error) { el.innerHTML = errHtml(weekPlan ? weekPlan.error : 'Veri yok'); return; }
   var days = weekPlan.days || weekPlan;
+  window.weeklyDays = days;
   if (!days.length) { el.innerHTML = '<div class="loading">Yol haritası bulunamadı</div>'; return; }
 
   var today = new Date();
   var todayStr = today.toISOString().split('T')[0];
+
+  var foundIndex = days.findIndex(function(day) { return day.date === todayStr; });
+  window.currentDayIndex = foundIndex !== -1 ? foundIndex : 0;
+  
+  // Render today block with the matched index
+  renderToday(days[window.currentDayIndex]);
 
   var dayNames = ['Paz','Pzt','Sal','Çar','Per','Cum','Cmt'];
   var html = '<div class="week-grid" style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 16px; width: 100%;">';
@@ -1314,16 +1362,16 @@ function renderWeekly(weekPlan) {
     'İstatistik': 'background:rgba(124, 92, 252, 0.15); color: var(--accent2)'
   };
 
-  days.forEach(function(dayEntry) {
+  days.forEach(function(dayEntry, index) {
     var dayDate = new Date(dayEntry.date);
-    var isToday = dayEntry.date === todayStr;
-    var isPast = dayDate < today && !isToday;
+    var isToday = index === window.currentDayIndex;
+    var isPast = dayDate < today && dayEntry.date !== todayStr;
 
     var classes = 'week-day';
     var borderStyle = isToday ? 'border: 2px solid var(--accent); box-shadow: 0 0 10px rgba(0,212,255,0.2)' : 'border: 1px solid var(--border)';
     var opacityStyle = isPast ? 'opacity: 0.5' : 'opacity: 1';
 
-    html += '<div class="' + classes + '" style="background:var(--surface2); border-radius:10px; padding:12px 8px; text-align:center; min-height:160px; display:flex; flex-direction:column; justify-content:space-between; ' + borderStyle + '; ' + opacityStyle + '">';
+    html += '<div class="' + classes + '" onclick="changeSelectedDay(' + index + ')" style="cursor:pointer; background:var(--surface2); border-radius:10px; padding:12px 8px; text-align:center; min-height:160px; display:flex; flex-direction:column; justify-content:space-between; ' + borderStyle + '; ' + opacityStyle + '">';
 
     html += '<div>' +
       '<div class="day-name" style="font-size:11px; font-weight:700; color:var(--text2); text-transform:uppercase">' + dayNames[dayDate.getDay()] + '</div>' +
@@ -1507,17 +1555,33 @@ async function switchTab(name) {
 
   if (name === 'roadmap' && !_roadmapLoaded) {
     _roadmapLoaded = true;
-    try {
-      var results = await Promise.all([
-        fetchJSON(API + '/plan/roadmap?v=1.2'),
-        fetchJSON(API + '/plan/adequacy?v=1.2')
-      ]);
-      renderRoadmap(results[0]);
-      renderAdequacy(results[1]);
-    } catch(e) {
-      document.getElementById('roadmap-content').innerHTML = errHtml('Yol haritası yüklenemedi: ' + e.message);
-      _roadmapLoaded = false;
-    }
+    
+    fetchJSON(API + '/plan/adequacy?v=1.2').then(res => renderAdequacy(res)).catch(e => console.error(e));
+
+    const sprintDate = "2026-07-04"; // Başlangıç günümüz
+    fetch(`/api/plan/roadmap/load?sprint_start_date=${sprintDate}`)
+        .then(res => {
+            if (!res.ok) throw new Error("Plan henüz DB'de yok");
+            return res.json();
+        })
+        .then(data => renderRoadmap(data.roadmap_json))
+        .catch(() => {
+            // Plan DB'de yoksa backend'den taze (sabitlenmiş) planı çek ve DB'ye POST et
+            fetch(API + '/plan/roadmap')
+                .then(res => res.json())
+                .then(data => {
+                    fetch('/api/plan/roadmap/save', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ sprint_start_date: sprintDate, roadmap_json: data })
+                    });
+                    renderRoadmap(data);
+                })
+                .catch(err => {
+                    document.getElementById('roadmap-content').innerHTML = errHtml('Yol haritası yüklenemedi: ' + err.message);
+                    _roadmapLoaded = false;
+                });
+        });
   }
 }
 
@@ -1690,16 +1754,35 @@ function esc(s) {
 
 async function loadDashboard() {
   try {
+    let roadmapPromise;
+    const sprintDate = "2026-07-04"; // Başlangıç günümüz
+    roadmapPromise = fetch(`/api/plan/roadmap/load?sprint_start_date=${sprintDate}`)
+        .then(res => {
+            if (!res.ok) throw new Error("DB'de yok");
+            return res.json();
+        })
+        .then(data => data.roadmap_json)
+        .catch(() => {
+            return fetchJSON(API + '/plan/roadmap?v=1.3').then(data => {
+                fetch('/api/plan/roadmap/save', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ sprint_start_date: sprintDate, roadmap_json: data })
+                });
+                return data;
+            });
+        }).catch(function(e) { return {error: e.message}; });
+
     var results = await Promise.all([
       fetchJSON(API + '/stats?v=1.3').catch(function(e) { return {error: e.message}; }),
       fetchJSON(API + '/today?v=1.3').catch(function(e) { return {error: e.message}; }),
       fetchJSON(API + '/plan/week?v=1.3').catch(function(e) { return {error: e.message}; }),
       fetchJSON(API + '/curriculum/all?v=1.3').catch(function(e) { return {error: e.message}; }),
       fetchJSON(API + '/pinned?v=1.3').catch(function(e) { return {error: e.message}; }),
-      fetchJSON(API + '/plan/roadmap?v=1.3').catch(function(e) { return {error: e.message}; })
+      roadmapPromise
     ]);
     renderCountdowns(results[0]);
-    renderToday(results[1]);
+    // renderToday is now called inside renderWeekly
     renderWeekly(results[2]);
     if (results[3] && !results[3].error) {
       _curriculumData = results[3];
@@ -1770,8 +1853,9 @@ function renderDashboardProgress(roadmapData) {
 }
 
 function renderExpectedProgress(roadmapData) {
-  var el = document.getElementById('dashboard-right-placeholder');
-  if (!el || !roadmapData || !roadmapData.weeks) return;
+  var topicsEl = document.getElementById('expected-today-topics-container');
+  var generalEl = document.getElementById('expected-general-progress-container');
+  if ((!topicsEl && !generalEl) || !roadmapData || !roadmapData.weeks) return;
   
   var allDays = [];
   var weeksKeys = Object.keys(roadmapData.weeks).sort(function(a,b) {
@@ -1815,9 +1899,12 @@ function renderExpectedProgress(roadmapData) {
       }
       
       if (i === currentDayIndex) {
-        var exists = todaysTopicsList.some(function(x) { return x.topic === t.topic && x.subject === t.subject; });
-        if (!exists) {
-          todaysTopicsList.push({ subject: t.subject, topic: t.topic });
+        var existing = todaysTopicsList.find(function(x) { return x.topic === t.topic && x.subject === t.subject; });
+        if (!existing) {
+          todaysTopicsList.push({ subject: t.subject, topic: t.topic, hours: parseFloat(t.hours || 0), target_questions: parseInt(t.target_questions || 0) });
+        } else {
+          existing.hours += parseFloat(t.hours || 0);
+          existing.target_questions += parseInt(t.target_questions || 0);
         }
       }
     });
@@ -1843,50 +1930,78 @@ function renderExpectedProgress(roadmapData) {
     var pct = Math.min(100, Math.round((elCount / tot) * 100)) || 0;
     var color = subjectColors[subj] || 'var(--accent)';
     
-    subjectsHtml += '<div style="margin-bottom: 12px;">' +
-      '<div style="display: flex; justify-content: space-between; font-size: 12px; font-weight: 600; margin-bottom: 6px;">' +
-        '<span>' + esc(subj) + '</span>' +
-        '<span style="color: var(--text2); font-weight: 500;">%' + pct + ' <span style="font-size:10px; opacity:0.8">(Planlanan: ' + elCount + '/' + tot + ' Otr)</span></span>' +
+    subjectsHtml += '<div style="display: flex; align-items: center; gap: 12px; padding: 8px 0;">' +
+      '<div style="width: 44px; height: 44px; border-radius: 50%; background: conic-gradient(' + color + ' ' + pct + '%, var(--surface2) 0); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">' +
+        '<div style="width: 34px; height: 34px; border-radius: 50%; background: var(--surface); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; color: var(--text);">' +
+          '%' + pct +
+        '</div>' +
       '</div>' +
-      '<div style="height: 6px; background: var(--surface2); border-radius: 3px; overflow: hidden;">' +
-        '<div style="height: 100%; width: ' + pct + '%; background: ' + color + '; border-radius: 3px;"></div>' +
+      '<div style="display: flex; flex-direction: column; gap: 4px;">' +
+        '<span style="font-size: 12px; font-weight: 700; color: var(--text);">' + esc(subj) + '</span>' +
+        '<span style="font-size: 11px; color: var(--text2); font-weight: 500;">' + elCount + ' / ' + tot + ' Oturum</span>' +
       '</div>' +
     '</div>';
   });
   
+  var subjectColorsExtended = {
+    'Türkçe': { border: '#3b82f6', bg: 'rgba(59, 130, 246, 0.1)' },
+    'Matematik': { border: '#00d4ff', bg: 'rgba(0, 212, 255, 0.1)' },
+    'Tarih': { border: '#10b981', bg: 'rgba(16, 185, 129, 0.1)' },
+    'Coğrafya': { border: '#f59e0b', bg: 'rgba(245, 158, 11, 0.1)' },
+    'Vatandaşlık': { border: '#eab308', bg: 'rgba(234, 179, 8, 0.1)' },
+    'İstatistik': { border: '#8b5cf6', bg: 'rgba(139, 92, 246, 0.1)' }
+  };
+
   var topicsHtml = '';
   if (todaysTopicsList.length === 0) {
     topicsHtml = '<div style="font-size: 13px; color: var(--text2); text-align: center; margin-top: 24px;">Bugün için planlanmış spesifik bir konu bulunmuyor.</div>';
   } else {
+    let previousSubject = "";
     todaysTopicsList.forEach(function(item) {
       var top = item.topic;
       var tot = totalSessions.topics[top] || 1;
       var elCount = elapsedSessions.topics[top] || 0;
       var pct = Math.min(100, Math.round((elCount / tot) * 100)) || 0;
+      var sColorEx = subjectColorsExtended[item.subject] || { border: 'var(--accent)' };
       var color = subjectColors[item.subject] || 'var(--accent)';
       
-      topicsHtml += '<div style="margin-bottom: 12px;">' +
-        '<div style="display: flex; justify-content: space-between; font-size: 12px; font-weight: 600; margin-bottom: 6px;">' +
-          '<span style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:60%;" title="' + esc(top) + '">' + esc(top) + '</span>' +
-          '<span style="color: var(--text2); font-weight: 500;">%' + pct + ' <span style="font-size:10px; opacity:0.8">(Planlanan: ' + elCount + '/' + tot + ' Otr)</span></span>' +
+      if (item.subject !== previousSubject) {
+        var marginTop = previousSubject === "" ? "margin-top: 8px;" : "margin-top: 20px;";
+        topicsHtml += `<div style="${marginTop} margin-bottom: 8px; display: flex; align-items: center; gap: 8px;">
+                         <div style="width: 8px; height: 8px; border-radius: 50%; background: ${sColorEx.border};"></div>
+                         <div style="font-size: 11px; font-weight: 700; color: var(--text2); text-transform: uppercase;">${esc(item.subject)}</div>
+                       </div>`;
+      }
+      
+      var styleStr = `cursor: pointer; border-left: 2px solid ${sColorEx.border}; background: var(--surface2); padding: 10px 12px; border-radius: 0 6px 6px 0; margin-bottom: 8px; transition: background 0.2s ease;`;
+      
+      topicsHtml += '<div onclick="openWorkspace(\'' + esc(item.subject) + '\', \'' + esc(top) + '\')" style="' + styleStr + '" onmouseover="this.style.background=\'rgba(0,212,255,0.08)\'" onmouseout="this.style.background=\'var(--surface2)\'">' +
+        '<div style="display: flex; justify-content: space-between; align-items:center; font-size: 12px; font-weight: 600; margin-bottom: 8px;">' +
+          '<span style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:40%; color: var(--text);" title="' + esc(top) + '">' + esc(top) + '</span>' +
+          '<div style="display:flex;gap:4px;align-items:center">' +
+            '<span style="background:rgba(255,255,255,0.06);color:var(--text2);padding:2px 6px;border-radius:4px;font-size:10px;font-weight:600">' + (item.hours || 0) + 's</span>' +
+            '<span style="background:rgba(124,92,252,0.15);color:var(--accent2);padding:2px 6px;border-radius:4px;font-size:10px;font-weight:600">' + (item.target_questions || 0) + ' Soru</span>' +
+            '<span style="background:rgba(16,185,129,0.15);color:var(--green);padding:2px 6px;border-radius:4px;font-size:10px;font-weight:600">%' + pct + ' (' + elCount + '/' + tot + ')</span>' +
+          '</div>' +
         '</div>' +
-        '<div style="height: 6px; background: var(--surface2); border-radius: 3px; overflow: hidden;">' +
+        '<div style="height: 6px; background: rgba(255,255,255,0.05); border-radius: 3px; overflow: hidden;">' +
           '<div style="height: 100%; width: ' + pct + '%; background: ' + color + '; border-radius: 3px;"></div>' +
         '</div>' +
       '</div>';
+      previousSubject = item.subject;
     });
   }
 
-  el.innerHTML = '<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">' +
-    '<div class="card" id="expected-general-progress">' +
-      '<h3 style="font-size: 14px; margin-bottom: 20px; border-bottom: 1px solid var(--border); padding-bottom: 12px; margin-top: 0;">📈 Ders İlerlemeleri (Beklenen)</h3>' +
-      subjectsHtml +
-    '</div>' +
-    '<div class="card" id="expected-today-topics">' +
-      '<h3 style="font-size: 14px; margin-bottom: 20px; border-bottom: 1px solid var(--border); padding-bottom: 12px; margin-top: 0;">🎯 Bugünün Konu İlerlemeleri</h3>' +
-      topicsHtml +
-    '</div>' +
-  '</div>';
+  var topicsEl = document.getElementById('expected-today-topics-container');
+  var generalEl = document.getElementById('expected-general-progress-container');
+  
+  if (topicsEl) {
+    topicsEl.innerHTML = '<h3 style="font-size: 14px; margin-bottom: 20px; border-bottom: 1px solid var(--border); padding-bottom: 12px; margin-top: 0;">🎯 Bugünün Konu İlerlemeleri</h3>' + topicsHtml;
+  }
+  if (generalEl) {
+    var generalWrapper = '<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">' + subjectsHtml + '</div>';
+    generalEl.innerHTML = '<h3 style="font-size: 14px; margin-bottom: 20px; border-bottom: 1px solid var(--border); padding-bottom: 12px; margin-top: 0;">📈 Ders İlerlemeleri (Beklenen)</h3>' + generalWrapper;
+  }
 }
 
 function renderMacro(macroData) {
