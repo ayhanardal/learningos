@@ -1610,7 +1610,7 @@ function renderToday(today) {
       }
       var styleStr = `cursor:pointer; background: var(--surface2); border-left: 2px solid ${sColor.border}; padding: 10px 12px; border-radius: 0 6px 6px 0; margin-bottom: 8px; transition: background 0.2s ease;`;
       
-      html += '<div onclick="openWorkspace(\'' + esc(t.subject) + '\', \'' + esc(t.topic) + '\')" style="' + styleStr + '" onmouseover="this.style.background=\'rgba(0,212,255,0.08)\'" onmouseout="this.style.background=\'var(--surface2)\'">' +
+      html += '<div onclick=\'openWorkspace("' + esc(t.subject) + '", "' + esc(t.topic) + '")\' style="' + styleStr + '" onmouseover="this.style.background=\'rgba(0,212,255,0.08)\'" onmouseout="this.style.background=\'var(--surface2)\'">' +
         '<div style="display: flex; justify-content: space-between; font-size: 12px; font-weight: 600; margin-bottom: 8px;">' +
           '<span style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:60%; color: var(--text);" title="' + esc(t.topic) + '">' + esc(t.topic) + '</span>' +
           '<span style="color: var(--text2); font-weight: 500; font-size: 11px;">' + t.hours + 's <span style="font-size:10px; opacity:0.8">(' + t.target_questions + ' Soru)</span></span>' +
@@ -2020,7 +2020,7 @@ var sortedTopics = (subj.topics || []).slice().sort(function(a, b) {
       var routineTag = t.isRoutine ? 'R' : '';
       var displayOrder = (routineTag === 'R') ? 'R' : ci;
       var orderColor = routineTag === 'R' ? '#8b5cf6' : (typeof ci === 'number' && ci <= 3 ? '#34d399' : '#9ca3af');
-      html += '<div class="cc-topic" onclick="openWorkspace(\'' + esc(subj.subject) + '\',\'' + esc(t.name) + '\',' + (t.target_net || 0) + ')">' +
+      html += '<div class="cc-topic" onclick=\'openWorkspace("' + esc(subj.subject) + '","' + esc(t.name) + '",' + (t.target_net || 0) + ')\'>' +
         '<div class="cc-t-name">' + esc(t.name) + (routineTag ? ' <span style="color:#8b5cf6;font-size:10px;font-weight:600">⟳</span>' : '') + '</div>' +
         '<div class="cc-col soru">' + (t.avg_questions > 0 ? Math.round(t.avg_questions) + ' Soru' : '-') + '</div>' +
         '<div class="cc-col hedef">' + (t.target_net > 0 ? t.target_net + ' Net' : '-') + '</div>' +
@@ -2102,7 +2102,7 @@ var _escDiv = document.createElement('div');
 function esc(s) {
   if (typeof s !== 'string') return s;
   _escDiv.textContent = s;
-  return _escDiv.innerHTML;
+  return _escDiv.innerHTML.replace(/'/g, '&#39;');
 }
 
 async function loadDashboard() {
@@ -2404,7 +2404,7 @@ function renderExpectedProgress(roadmapData) {
       
       var styleStr = `cursor: pointer; border-left: 2px solid ${sColorEx.border}; background: var(--surface2); padding: 10px 12px; border-radius: 0 6px 6px 0; margin-bottom: 8px; transition: background 0.2s ease;`;
       
-      topicsHtml += '<div onclick="openWorkspace(\'' + esc(item.subject) + '\', \'' + esc(top) + '\')" style="' + styleStr + '" onmouseover="this.style.background=\'rgba(0,212,255,0.08)\'" onmouseout="this.style.background=\'var(--surface2)\'">' +
+      topicsHtml += '<div onclick=\'openWorkspace("' + esc(item.subject) + '", "' + esc(top) + '")\' style="' + styleStr + '" onmouseover="this.style.background=\'rgba(0,212,255,0.08)\'" onmouseout="this.style.background=\'var(--surface2)\'">' +
         '<div style="display: flex; justify-content: space-between; align-items:center; font-size: 12px; font-weight: 600; margin-bottom: 8px;">' +
           '<span style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:40%; color: var(--text);" title="' + esc(top) + '">' + esc(top) + '</span>' +
           '<div style="display:flex;gap:4px;align-items:center">' +
