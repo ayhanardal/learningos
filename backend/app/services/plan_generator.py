@@ -127,27 +127,51 @@ def _generate_frozen_schedule():
                 gygk_sequence.append(subj)
                 remaining[subj] -= 1
 
+    alan_total = subject_allocations.get("İstatistik", 0)
+
     frozen = []
     gygk_idx = 0
+    alan_remaining = alan_total
     for day_idx in range(60):
         current_date = start + timedelta(days=day_idx)
         date_str = current_date.strftime("%Y-%m-%d")
         dow = current_date.weekday()
-        is_alan = dow in [1, 3, 5]
+        is_alan_day = dow in [1, 3, 5]
 
         genel_slots = {}
         alan_slots = {}
 
-        if is_alan:
+        if is_alan_day and alan_remaining >= 2:
+            alan_slots["İstatistik"] = 2
+            alan_remaining -= 2
             if gygk_idx < len(gygk_sequence):
                 subj = gygk_sequence[gygk_idx]
                 genel_slots[subj] = 1
                 gygk_idx += 1
-            alan_slots["İstatistik"] = 2
-        else:
+        elif is_alan_day and alan_remaining == 1:
+            alan_slots["İstatistik"] = 1
+            alan_remaining -= 1
+            remaining_gygk = len(gygk_sequence) - gygk_idx
+            remaining_days = 60 - day_idx
+            genel_today = math.ceil(remaining_gygk / remaining_days) if remaining_days > 0 else 0
+            genel_today = max(1, min(4, genel_today))
             count = 0
             day_subjects = []
-            while count < 3 and gygk_idx < len(gygk_sequence):
+            while count < genel_today and gygk_idx < len(gygk_sequence):
+                subj = gygk_sequence[gygk_idx]
+                day_subjects.append(subj)
+                gygk_idx += 1
+                count += 1
+            for subj in day_subjects:
+                genel_slots[subj] = genel_slots.get(subj, 0) + 1
+        else:
+            remaining_gygk = len(gygk_sequence) - gygk_idx
+            remaining_days = 60 - day_idx
+            genel_today = math.ceil(remaining_gygk / remaining_days) if remaining_days > 0 else 0
+            genel_today = max(1, min(4, genel_today))
+            count = 0
+            day_subjects = []
+            while count < genel_today and gygk_idx < len(gygk_sequence):
                 subj = gygk_sequence[gygk_idx]
                 day_subjects.append(subj)
                 gygk_idx += 1
