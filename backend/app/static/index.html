@@ -786,7 +786,8 @@ const API = '/api';
 const INTERACTIVE_TOPICS = {
     "Türkçe": ["Paragrafta Yapı", "Sözcükte ve Cümlede Anlam"],
     "Matematik": ["Problemler"],
-    "İstatistik": ["Merkezi Eğilim", "Merkezi Dağılım"]
+    "İstatistik": ["Merkezi Eğilim", "Merkezi Dağılım"],
+    "Coğrafya": ["Türkiye'nin Coğrafi Konumu"]
 };
 
 let interactiveData = null;
@@ -817,6 +818,19 @@ window.saveWorkspaceNote = function() {
     
     return workspaceEditor.save().then((outputData) => {
         localStorage.setItem(storageKey, JSON.stringify(outputData));
+        
+        // Ayrıca backend DB'ye de kaydet
+        fetch('/api/notes', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                subject: currentSubject,
+                topic: currentTopic,
+                content: outputData
+            })
+        }).catch(function(err) {
+            console.error("Not DB'ye kaydedilemedi:", err);
+        });
         
         const saveStatusIndicator = document.getElementById('ws-subject');
         const originalText = currentSubject;
@@ -1069,10 +1083,6 @@ window.renderInteractiveStudyView = function(subject, topicKey, savedData) {
     container.style.padding = "0";
 
     window.renderSections(container, interactiveData._layout);
-
-    var notesDiv = document.createElement('div');
-    notesDiv.innerHTML = '<div style="margin-top: 20px;"><h3 style="margin-bottom: 8px; color: var(--text); font-size: 14px;">\u{1F4DD} Taktik Notlar\u0131</h3><textarea id="int-notes-area" style="width: 100%; height: 150px; padding: 12px; border-radius: 8px; border: 1px solid var(--border); background: var(--surface); color: var(--text); resize: vertical; line-height: 1.6;" oninput="triggerInteractiveSave()">' + ((interactiveData._notes && interactiveData._notes.text) || '') + '</textarea></div>';
-    container.appendChild(notesDiv);
 };
 
 window._getTopicTemplate = function(topicKey) {
@@ -1222,36 +1232,85 @@ window._buildSlideHtml = function(slide) {
 window._renderSection = function(section, idx) {
     var h = '';
     if (section.type === "carousel") {
-        if (section.columns) {
+        if (section.doubleColumn) {
             window._carouselSections = window._carouselSections || {};
-            h += '<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">';
+            window._carouselSections[idx] = section;
+            
+            section._currentPageIdx = section._currentPageIdx || 0;
+            var indices = [];
+            for (var i = 0; i < section.questions.length; i++) indices.push(i);
+            
+            var pageIdx = section._currentPageIdx;
+            var totalPages = Math.ceil(indices.length / 2);
+            
+            var leftQ = section.questions[indices[pageIdx * 2]] || { htmlContent: "" };
+            var rightQ = section.questions[indices[pageIdx * 2 + 1]] || { htmlContent: "" };
+            
+            h += '<div style="background: #ffffff; border: 1px solid #e0e0e0; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.03); padding: 24px; display: flex; flex-direction: column; font-family: Arial, Helvetica, sans-serif;">';
+            h += '<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-shrink: 0;">';
+            h += '<div style="color: #4b5563; font-size: 11px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;">' + (section.tag || 'SINAV KİTAPÇIĞI') + '</div>';
+            h += '<div style="display: flex; align-items: center; gap: 8px;">';
+            h += '<button onclick="changeMultiCarousel(\'' + idx + '\', -1)" style="padding: 2px 6px; cursor: pointer; border: 1px solid #d1d5db; background: #f9fafb; color: #374151; font-size: 10px; border-radius: 3px; font-weight: bold; line-height: 1;">◀</button>';
+            h += '<span id="int-counter-' + idx + '" style="color: #4b5563; font-weight: bold; font-size: 11px; min-width: 35px; text-align: center;">' + (pageIdx + 1) + ' / ' + totalPages + '</span>';
+            h += '<button onclick="changeMultiCarousel(\'' + idx + '\', 1)" style="padding: 2px 6px; cursor: pointer; border: 1px solid #d1d5db; background: #f9fafb; color: #374151; font-size: 10px; border-radius: 3px; font-weight: bold; line-height: 1;">▶</button>';
+            h += '</div></div>';
+            
+            h += '<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: stretch;">';
+            h += '<div style="display: flex; flex-direction: column; justify-content: space-between; height: 100%; border-right: 1px solid #fcd5b4; padding-right: 20px;">';
+            h += '<div id="int-question-text-' + idx + '-L" style="padding: 6px 0 20px 0; min-height: 240px; flex: 1; color: #111827; line-height: 1.6; font-size: 14.5px; font-family: Arial, Helvetica, sans-serif; text-align: left; letter-spacing: 0.1px;">' + leftQ.htmlContent + '</div>';
+            h += '</div>';
+            
+            h += '<div style="display: flex; flex-direction: column; justify-content: space-between; height: 100%;">';
+            h += '<div id="int-question-text-' + idx + '-R" style="padding: 6px 0 20px 0; min-height: 240px; flex: 1; color: #111827; line-height: 1.6; font-size: 14.5px; font-family: Arial, Helvetica, sans-serif; text-align: left; letter-spacing: 0.1px;">' + rightQ.htmlContent + '</div>';
+            h += '</div>';
+            h += '</div>';
+            h += '</div>';
+        } else if (section.columns) {
+            window._carouselSections = window._carouselSections || {};
+            
+            h += '<div style="background: #ffffff; border: 1px solid #e0e0e0; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.03); padding: 24px; display: flex; flex-direction: column; font-family: Arial, Helvetica, sans-serif;">';
+            h += '<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: stretch;">';
+            
             section.columns.forEach(function(col, colIdx) {
                 var cid = idx + '-' + colIdx;
                 window._carouselSections[cid] = col;
-                h += '<div style="background: #ffffff; border: 1px solid #e0e0e0; border-radius: 8px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); height: 100%; display: flex; flex-direction: column;">';
-                h += '<div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 18px; border-bottom: 1px solid #f0f0f0; flex-shrink: 0;">';
-                h += '<div style="color: #2563eb; font-size: 11px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;">' + (col.tag || col.title || '') + '</div>';
-                h += '<div style="display: flex; align-items: center; gap: 10px;">';
-                h += '<button onclick="changeMultiCarousel(\'' + cid + '\', -1)" style="padding: 2px 8px; cursor: pointer; border: none; background: transparent; color: #9ca3af; font-size: 14px;">\u25C0</button>';
-                h += '<span id="int-counter-' + cid + '" style="color: #9ca3af; font-weight: 500; font-size: 12px;">1 / ' + col.questions.length + '</span>';
-                h += '<button onclick="changeMultiCarousel(\'' + cid + '\', 1)" style="padding: 2px 8px; cursor: pointer; border: none; background: transparent; color: #9ca3af; font-size: 14px;">\u25B6</button>';
+                
+                var colStyle = "display: flex; flex-direction: column; justify-content: space-between; height: 100%;";
+                if (colIdx === 0) {
+                    colStyle += " border-right: 1px solid #fcd5b4; padding-right: 20px;";
+                }
+                
+                h += '<div style="' + colStyle + '">';
+                
+                // Navigasyon (◄►) - altında yatay çizgi ve border-bottom olmadan!
+                h += '<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-shrink: 0;">';
+                h += '<div style="color: #4b5563; font-size: 11px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;">' + (col.tag || col.title || '') + '</div>';
+                h += '<div style="display: flex; align-items: center; gap: 8px;">';
+                h += '<button onclick="changeMultiCarousel(\'' + cid + '\', -1)" style="padding: 2px 6px; cursor: pointer; border: 1px solid #d1d5db; background: #f9fafb; color: #374151; font-size: 10px; border-radius: 3px; font-weight: bold; line-height: 1;">◀</button>';
+                h += '<span id="int-counter-' + cid + '" style="color: #4b5563; font-weight: bold; font-size: 11px; min-width: 35px; text-align: center;">1 / ' + col.questions.length + '</span>';
+                h += '<button onclick="changeMultiCarousel(\'' + cid + '\', 1)" style="padding: 2px 6px; cursor: pointer; border: 1px solid #d1d5db; background: #f9fafb; color: #374151; font-size: 10px; border-radius: 3px; font-weight: bold; line-height: 1;">▶</button>';
                 h += '</div></div>';
-                h += '<div id="int-question-text-' + cid + '" style="padding: 22px 22px; min-height: 240px; flex: 1; color: #111827; line-height: 1.8; font-size: 14.5px; font-family: Arial, Helvetica, sans-serif; letter-spacing: 0.2px; background: #f3f4f6;">' + col.questions[0].htmlContent + '</div>';
+                
+                h += '<div id="int-question-text-' + cid + '" style="padding: 6px 0 20px 0; min-height: 240px; flex: 1; color: #111827; line-height: 1.6; font-size: 14.5px; font-family: Arial, Helvetica, sans-serif; text-align: left; letter-spacing: 0.1px;">' + col.questions[0].htmlContent + '</div>';
                 h += '</div>';
             });
-            h += '</div>';
+            
+            h += '</div>'; // grid sonu
+            h += '</div>'; // kart sonu
         } else {
+            // Tek Kolon (Yatay çizgi border-bottom ve padding-bottom olmadan)
             window._carouselSections = window._carouselSections || {};
             window._carouselSections[idx] = section;
-            h += '<div style="background: #ffffff; border: 1px solid #e0e0e0; border-radius: 8px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); height: 100%; display: flex; flex-direction: column; text-align: left;">';
-            h += '<div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 18px; border-bottom: 1px solid #f0f0f0; flex-shrink: 0;">';
-            h += '<div id="carousel-tag-' + idx + '" style="color: #2563eb; font-size: 11px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;">' + (section.tag || '') + '</div>';
-            h += '<div style="display: flex; align-items: center; gap: 10px;">';
-            h += '<button onclick="changeMultiCarousel(\'' + idx + '\', -1)" style="padding: 2px 8px; cursor: pointer; border: none; background: transparent; color: #9ca3af; font-size: 14px;">\u25C0</button>';
-            h += '<span id="int-counter-' + idx + '" style="color: #9ca3af; font-weight: 500; font-size: 12px;">1 / ' + section.questions.length + '</span>';
-            h += '<button onclick="changeMultiCarousel(\'' + idx + '\', 1)" style="padding: 2px 8px; cursor: pointer; border: none; background: transparent; color: #9ca3af; font-size: 14px;">\u25B6</button>';
+            
+            h += '<div style="background: #ffffff; border: 1px solid #e0e0e0; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.03); padding: 24px; display: flex; flex-direction: column; text-align: left; font-family: Arial, Helvetica, sans-serif; max-width: 50%; width: 100%; box-sizing: border-box;">';
+            h += '<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-shrink: 0;">';
+            h += '<div id="carousel-tag-' + idx + '" style="color: #4b5563; font-size: 11px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;">' + (section.tag || '') + '</div>';
+            h += '<div style="display: flex; align-items: center; gap: 8px;">';
+            h += '<button onclick="changeMultiCarousel(\'' + idx + '\', -1)" style="padding: 2px 6px; cursor: pointer; border: 1px solid #d1d5db; background: #f9fafb; color: #374151; font-size: 10px; border-radius: 3px; font-weight: bold; line-height: 1;">◀</button>';
+            h += '<span id="int-counter-' + idx + '" style="color: #4b5563; font-weight: bold; font-size: 11px; min-width: 35px; text-align: center;">1 / ' + section.questions.length + '</span>';
+            h += '<button onclick="changeMultiCarousel(\'' + idx + '\', 1)" style="padding: 2px 6px; cursor: pointer; border: 1px solid #d1d5db; background: #f9fafb; color: #374151; font-size: 10px; border-radius: 3px; font-weight: bold; line-height: 1;">▶</button>';
             h += '</div></div>';
-            h += '<div id="int-question-text-' + idx + '" style="padding: 22px 22px; min-height: 240px; flex: 1; color: #111827; line-height: 1.8; font-size: 14.5px; font-family: Arial, Helvetica, sans-serif; letter-spacing: 0.2px; background: #f3f4f6;">' + section.questions[0].htmlContent + '</div>';
+            h += '<div id="int-question-text-' + idx + '" style="padding: 6px 0 20px 0; min-height: 240px; flex: 1; color: #111827; line-height: 1.6; font-size: 14.5px; font-family: Arial, Helvetica, sans-serif; text-align: left; letter-spacing: 0.1px;">' + section.questions[0].htmlContent + '</div>';
             h += '</div>';
         }
     } else if (section.type === "slide") {
@@ -1395,6 +1454,50 @@ window.changeMultiCarousel = function(sectionIdx, direction) {
         indices = [];
         for (var i = 0; i < q.length; i++) indices.push(i);
     }
+    
+    if (section.doubleColumn) {
+        var totalPages = Math.ceil(indices.length / 2);
+        var pageIdx = (section._currentPageIdx || 0) + direction;
+        if (pageIdx < 0) pageIdx = totalPages - 1;
+        if (pageIdx >= totalPages) pageIdx = 0;
+        section._currentPageIdx = pageIdx;
+        
+        var leftIdx = indices[pageIdx * 2];
+        var rightIdx = indices[pageIdx * 2 + 1];
+        
+        var leftQEl = document.getElementById('int-question-text-' + sectionIdx + '-L');
+        if (leftQEl) {
+            leftQEl.innerHTML = (leftIdx !== undefined && q[leftIdx]) ? q[leftIdx].htmlContent : "";
+        }
+        var rightQEl = document.getElementById('int-question-text-' + sectionIdx + '-R');
+        if (rightQEl) {
+            rightQEl.innerHTML = (rightIdx !== undefined && q[rightIdx]) ? q[rightIdx].htmlContent : "";
+        }
+        
+        var counter = document.getElementById('int-counter-' + sectionIdx);
+        if (counter) counter.innerText = (pageIdx + 1) + ' / ' + totalPages;
+        
+        setTimeout(function() {
+            if (window.renderMathInElement) {
+                if (leftQEl) renderMathInElement(leftQEl, {
+                    delimiters: [
+                        {left: '$$', right: '$$', display: true},
+                        {left: '$', right: '$', display: false}
+                    ],
+                    throwOnError: false
+                });
+                if (rightQEl) renderMathInElement(rightQEl, {
+                    delimiters: [
+                        {left: '$$', right: '$$', display: true},
+                        {left: '$', right: '$', display: false}
+                    ],
+                    throwOnError: false
+                });
+            }
+        }, 50);
+        return;
+    }
+    
     var idx = (section._currentIdx || 0) + direction;
     if (idx < 0) idx = indices.length - 1;
     if (idx >= indices.length) idx = 0;
@@ -1463,41 +1566,7 @@ window.changeInteractiveQuestion = function(direction) {
     }
 };
 
-window.triggerInteractiveSave = function() {
-    clearTimeout(interactiveAutoSaveTimeout);
-    interactiveAutoSaveTimeout = setTimeout(function() {
-        if (interactiveData) {
-            var notesEl = document.getElementById('int-notes-area');
-            if (!interactiveData._notes) interactiveData._notes = {};
-            interactiveData._notes.text = notesEl ? notesEl.value : '';
-            saveInteractiveNote();
-        }
-    }, 1000);
-};
 
-window.saveInteractiveNote = function() {
-    if (!interactiveData) return Promise.resolve();
-    var currentSubject = document.getElementById('ws-subject').innerText.replace(' (Kaydedildi \u2713)', '').trim();
-    var currentTopic = document.getElementById('ws-topic').innerText.trim();
-    fetch('/api/notes', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-            subject: currentSubject,
-            topic: currentTopic,
-            content: interactiveData
-        })
-    }).catch(function(err) { console.error("Not DB'ye kaydedilemedi:", err); });
-    var saveStatusIndicator = document.getElementById('ws-subject');
-    var originalText = currentSubject;
-    saveStatusIndicator.innerText = originalText + " (Kaydedildi \u2713)";
-    setTimeout(function() {
-        if (document.getElementById('ws-topic').innerText.trim() === currentTopic) {
-            saveStatusIndicator.innerText = originalText;
-        }
-    }, 2000);
-    return Promise.resolve();
-};
 
 window.closeWorkspace = function() {
     document.getElementById('workspace-backdrop').style.display = 'none';
