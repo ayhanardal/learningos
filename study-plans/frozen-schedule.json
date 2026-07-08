@@ -626,8 +626,8 @@
     "date": "2026-08-30",
     "phase": "calisma",
     "genel_slots": {
-      "Türkçe": 1,
-      "Matematik": 2
+      "Türkçe": 2,
+      "Matematik": 1
     },
     "alan_slots": {},
     "total_hours": 4.5
@@ -636,18 +636,21 @@
     "date": "2026-08-31",
     "phase": "calisma",
     "genel_slots": {
-      "Matematik": 2
+      "Matematik": 2,
+      "Türkçe": 1
     },
     "alan_slots": {},
-    "total_hours": 3.0
+    "total_hours": 4.5
   },
   {
     "date": "2026-09-01",
     "phase": "calisma",
-    "genel_slots": {},
+    "genel_slots": {
+      "Türkçe": 1
+    },
     "alan_slots": {
       "İstatistik": 2
     },
-    "total_hours": 3.0
+    "total_hours": 4.5
   }
 ]
