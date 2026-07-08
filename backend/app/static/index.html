@@ -877,11 +877,12 @@ window.openWorkspace = function(subject, topic) {
     }
 
     document.getElementById('workspace-backdrop').style.display = 'block';
-    isFullScreen = false;
-    document.getElementById('workspace-panel').style.width = '50vw';
-    document.getElementById('ws-fs-btn').innerText = '⛶';
+    isFullScreen = true;
+    document.getElementById('workspace-panel').style.width = '100vw';
+    document.getElementById('ws-fs-btn').innerText = '🗗';
 
     loadEditorData(subject, topic);
+    localStorage.setItem('ws_state', JSON.stringify({subject: subject, topic: topic}));
 };
 
 window.openSubPage = async function(subject, subTopic) {
@@ -1500,6 +1501,7 @@ window.saveInteractiveNote = function() {
 
 window.closeWorkspace = function() {
     document.getElementById('workspace-backdrop').style.display = 'none';
+    localStorage.removeItem('ws_state');
 };
 
 window.toggleFullScreen = function() {
@@ -2153,6 +2155,12 @@ async function loadDashboard() {
       renderExpectedProgress(results[5]);
     }
     renderDailySessionTimeline();
+    var wsState = JSON.parse(localStorage.getItem('ws_state'));
+    if (wsState && wsState.subject && wsState.topic) {
+      setTimeout(function() {
+        openWorkspace(wsState.subject, wsState.topic);
+      }, 100);
+    }
   } catch(e) {
     console.error(e);
     document.querySelectorAll('.loading').forEach(function(el) {
