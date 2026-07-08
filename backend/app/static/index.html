@@ -867,9 +867,15 @@ window.openWorkspace = function(subject, topic) {
         }
     }
     if (dynamicSubTopics.length > 0) {
+        subpagesContainer.style.display = 'flex';
+        subpagesContainer.style.flexWrap = 'wrap';
+        subpagesContainer.style.gap = '4px';
+        subpagesContainer.style.padding = '4px 0';
         dynamicSubTopics.forEach(sub => {
-            subpagesContainer.innerHTML += `<div onclick="openSubPage('${subject}', '${sub}')" style="display: flex; align-items: center; gap: 6px; padding: 4px 8px; border-radius: 6px; cursor: pointer; color: var(--text); font-weight: 500; font-size: 14px; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='transparent'">📄 ${sub}</div>`;
+            subpagesContainer.innerHTML += `<span style="display:inline-block;background:rgba(255,255,255,0.06);border:1px solid var(--border);border-radius:4px;padding:2px 8px;font-size:11px;color:var(--text2);margin:1px;">${sub}</span>`;
         });
+    } else {
+        subpagesContainer.style.display = 'none';
     }
 
     document.getElementById('workspace-backdrop').style.display = 'block';
