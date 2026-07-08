@@ -8,7 +8,7 @@ from datetime import datetime, timedelta
 from app.services.data import CURRICULUM_DIR, get_progress_raw, slugify
 
 EXACT_ALLOCATIONS = {
-    "Paragrafta Anlam": 16,
+    "Paragrafta Anlam": 19,
     "Sözel Mantık": 7,
     "Sözcükte ve Cümlede Anlam": 5,
     "Dil Bilgisi ve Ses Olayları": 6,
@@ -23,7 +23,7 @@ EXACT_ALLOCATIONS = {
     "Temel Kavramlar ve Sayılar": 8,
     "Cebirsel İfadeler ve Denklemler": 8,
     "Oran - Orantı": 2,
-    "Problemler": 10,
+    "Problemler": 13,
     "Kümeler ve Fonksiyonlar": 3,
     "P.K.O. (Saymanın Kuralları)": 3,
     "Sayısal Mantık": 4,
@@ -48,11 +48,11 @@ EXACT_ALLOCATIONS = {
     "Örnekleme": 4,
     "Uygulamalı İstatistik": 6,
     "Varyans Analizi (ANOVA)": 4,
-    "Parametrik Olmayan Testler": 3,
+    "Parametrik Olmayan Testler": 2,
     "Regresyon Analizi": 6,
     "Zaman Serileri": 4,
     "Çok Değişkenli Analizler": 5,
-    "Yöneylem Araştırması": 5
+    "Yöneylem Araştırması": 0
 }
 
 FROZEN_SCHEDULE_PATH = CURRICULUM_DIR.parent / "study-plans" / "frozen-schedule.json"
