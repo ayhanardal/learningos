@@ -14,5 +14,21 @@
       "solution": "",
       "id": 1
     }
+  ],
+  "turkce-sozcukte-ve-cumlede-anlam": [
+    {
+      "title": "Sözcükte Anlam Sözlüğü ve Stratejiler",
+      "slides": [
+        {
+          "imagePlaceholder": "[İlgili Konu Görseli]",
+          "bullets": [
+            "[Bağlam Kuralı]: Bir kelimenin zıt veya eş anlamı sözlükteki karşılığına göre değil, cümledeki bağlamına (context) göre belirlenir. (Örn: 'Açık renk' -> Koyu renk / 'Açık kapı' -> Kapalı kapı)",
+            "**Gerçek Anlam** | Kelimeyi tek başına düşündüğünde aklına ilk gelen anlamdır.",
+            "**Yan Anlam** | Kelimenin gerçek anlamından kopmadan kazandığı yeni anlamdır.",
+            "[YENİ KELİMELER BURAYA EKLENECEK] | [YENİ TANIMLAR BURAYA EKLENECEK]"
+          ]
+        }
+      ]
+    }
   ]
 }

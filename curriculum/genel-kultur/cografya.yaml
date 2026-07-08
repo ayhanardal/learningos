@@ -5,62 +5,61 @@ total_questions: 18
 total_target_net: 11
 target_correct: 11
 target_net: 11
-priority: P1
 topics:
   - name: Fiziki Coğrafya ve Su Örtüsü
+    chronologicalIndex: 2
     avg_questions: 5
     target_net: 4
-    priority: P0
     subtopics:
       - Türkiye'nin Yer Şekilleri
       - Dağlar ve Ovalar
       - Akarsular ve Göller
       - Erozyon ve Heyelan
   - name: Sanayi, Ulaşım, Ticaret ve Turizm
+    chronologicalIndex: 7
     avg_questions: 4
     target_net: 2
-    priority: P1
     subtopics:
       - Türkiye'de Sanayi Dağılışı
       - Ulaşım Ağları
       - İç ve Dış Ticaret
       - Turizm Merkezleri
   - name: Madenler ve Enerji Kaynakları
+    chronologicalIndex: 6
     avg_questions: 2
     target_net: 2
-    priority: P0
     subtopics:
       - Önemli Madenlerin Çıkarım Yerleri
       - Enerji Üretim Tesisleri
       - Yenilenebilir Enerji
   - name: Nüfus ve Yerleşme
+    chronologicalIndex: 4
     avg_questions: 2
     target_net: 1
-    priority: P1
     subtopics:
       - Nüfus Dağılışı ve Yoğunluğu
       - Göçler
       - Kırsal ve Kentsel Yerleşmeler
   - name: İklim ve Bitki Örtüsü
+    chronologicalIndex: 3
     avg_questions: 2
     target_net: 1
-    priority: P1
     subtopics:
       - Türkiye'nin İklim Tipleri
       - Sıcaklık ve Yağış Dağılışı
       - Doğal Bitki Örtüsü
   - name: Tarım, Hayvancılık ve Ormancılık
+    chronologicalIndex: 5
     avg_questions: 2
     target_net: 1
-    priority: P2
     subtopics:
       - Tarım Ürünleri ve Bölgeleri
       - Hayvancılık Türleri
       - Orman Varlığı
   - name: Türkiye'nin Coğrafi Konumu
+    chronologicalIndex: 1
     avg_questions: 1
     target_net: 0
-    priority: P2
     subtopics:
       - Matematik ve Özel Konum
       - Sınır Kapıları

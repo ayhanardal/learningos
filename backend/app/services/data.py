@@ -70,9 +70,14 @@ def get_today():
     weeks = roadmap.get("weeks", {})
     if not weeks:
         return {"genel": [], "alan": []}
-    
-    first_week_key = sorted(weeks.keys(), key=lambda x: int(x.replace("Hafta ", "")))[0]
-    days = weeks[first_week_key]["days"]
+    today_str = datetime.now().strftime("%Y-%m-%d")
+    sorted_keys = sorted(weeks.keys(), key=lambda x: int(x.replace("Hafta ", "")))
+    for wk in sorted_keys:
+        for day in weeks[wk]["days"]:
+            if day["date"] == today_str:
+                return day
+    first_key = sorted_keys[0]
+    days = weeks[first_key]["days"]
     return days[0] if days else {"genel": [], "alan": []}
 
 
@@ -281,9 +286,10 @@ def get_curriculum_all():
                     "name": t_name,
                     "avg_questions": t.get("avg_questions", 0),
                     "target_net": t.get("target_net", 0),
-                    "priority": t.get("priority", ""),
                     "allocated_sessions": allocated,
                     "completed_sessions": completed,
+                    "chronologicalIndex": t.get("chronologicalIndex"),
+                    "isRoutine": t.get("isRoutine", False),
                     "subtopics": [{
                         "id": f"{t_slug}-{slugify(st)}",
                         "name": st
@@ -294,7 +300,6 @@ def get_curriculum_all():
                 "subject": subject_name,
                 "total_questions": subj.get("total_questions", 0),
                 "target_correct": subj.get("target_correct") or subj.get("target_net", 0),
-                "priority": subj.get("priority", ""),
                 "topics": topics_list,
             }
             exams.setdefault(exam_id, {"exam": meta["exam"], "exam_id": exam_id, "tests": {}})
@@ -374,9 +379,14 @@ def get_plan_week():
     weeks = roadmap.get("weeks", {})
     if not weeks:
         return {"days": []}
-    
-    first_week_key = sorted(weeks.keys(), key=lambda x: int(x.replace("Hafta ", "")))[0]
-    return weeks[first_week_key]
+    today_str = datetime.now().strftime("%Y-%m-%d")
+    sorted_keys = sorted(weeks.keys(), key=lambda x: int(x.replace("Hafta ", "")))
+    for wk in sorted_keys:
+        for day in weeks[wk]["days"]:
+            if day["date"] == today_str:
+                return weeks[wk]
+    first_key = sorted_keys[0]
+    return weeks[first_key]
 
 
 def get_plan_macro():

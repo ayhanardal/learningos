@@ -4,101 +4,92 @@ total_questions: 40
 total_target_net: 20
 target_correct: 20
 topics:
-  - name: Olasılık ve Stokastik Süreçler
-    avg_questions: 6
-    target_net: 4
-    priority: P0
-    subtopics:
-      - Olasılık Yoğunluk Fonksiyonları
-      - Beklenen Değer ve Varyans
-      - Kesikli ve Sürekli Dağılımlar
-      - Stokastik Süreçlere Giriş
-
-  - name: Uygulamalı İstatistik
-    avg_questions: 6
-    target_net: 3
-    priority: P0
-    subtopics:
-      - Hipotez Testleri
-      - Güven Aralıkları
-      - p-değeri Yorumlama
-      - Anlamlılık Testleri
-
-  - name: Matematiksel İstatistik
-    avg_questions: 6
-    target_net: 2
-    priority: P1
-    subtopics:
-      - Nokta Tahmini
-      - Yeterlilik ve Tamlık
-      - Maksimum Olabilirlik (MLE)
-      - Momentler Yöntemi
-
-  - name: Regresyon Analizi
-    avg_questions: 4
-    target_net: 3
-    priority: P0
-    subtopics:
-      - Basit Doğrusal Regresyon
-      - Çoklu Regresyon
-      - Model Varsayımları ve İhlalleri
-      - R-kare ve Düzeltilmiş R-kare
-
-  - name: Varyans Analizi (ANOVA)
-    avg_questions: 4
-    target_net: 2
-    priority: P1
-    subtopics:
-      - Tek Yönlü ANOVA
-      - Çift Yönlü ANOVA
-      - Post-Hoc Testleri
-      - Varsayım Kontrolleri
-
-  - name: Çok Değişkenli Analizler
-    avg_questions: 4
-    target_net: 2
-    priority: P1
-    subtopics:
-      - Temel Bileşenler Analizi (PCA)
-      - Faktör Analizi
-      - Diskriminant Analizi
-      - Kümeleme
-
-  - name: Örnekleme
-    avg_questions: 4
-    target_net: 2
-    priority: P2
-    subtopics:
-      - Basit Rastgele Örnekleme
-      - Tabakalı Örnekleme
-      - Küme Örneklemesi
-      - Sistematik Örnekleme
-
-  - name: Zaman Serileri
-    avg_questions: 2
-    target_net: 2
-    priority: P0
-    subtopics:
-      - Durağanlık
-      - Trend ve Mevsimsellik
-      - AR/MA/ARMA Modelleri
-      - Üstel Düzleştirme
-
-  - name: Yöneylem Araştırması
-    avg_questions: 2
-    target_net: 0
-    priority: P2
-    subtopics:
-      - Doğrusal Programlama
-      - Simpleks Yöntemi
-      - Ulaştırma Modelleri
-
-  - name: Parametrik Olmayan Testler
-    avg_questions: 2
-    target_net: 0
-    priority: P2
-    subtopics:
-      - İşaret Testi
-      - Wilcoxon
-      - Kruskal-Wallis
-      - Ki-Kare Bağımsızlık Testi
+- name: Olasılık ve Stokastik Süreçler
+  avg_questions: 6
+  target_net: 4
+  subtopics:
+  - Olasılık Yoğunluk Fonksiyonları
+  - Beklenen Değer ve Varyans
+  - Kesikli ve Sürekli Dağılımlar
+  - Stokastik Süreçlere Giriş
+  chronologicalIndex: 1
+- name: Uygulamalı İstatistik
+  avg_questions: 6
+  target_net: 3
+  subtopics:
+  - Hipotez Testleri
+  - Güven Aralıkları
+  - p-değeri Yorumlama
+  - Anlamlılık Testleri
+  chronologicalIndex: 4
+- name: Matematiksel İstatistik
+  avg_questions: 6
+  target_net: 2
+  subtopics:
+  - Nokta Tahmini
+  - Yeterlilik ve Tamlık
+  - Maksimum Olabilirlik (MLE)
+  - Momentler Yöntemi
+  chronologicalIndex: 2
+- name: Regresyon Analizi
+  avg_questions: 4
+  target_net: 3
+  subtopics:
+  - Basit Doğrusal Regresyon
+  - Çoklu Regresyon
+  - Model Varsayımları ve İhlalleri
+  - R-kare ve Düzeltilmiş R-kare
+  chronologicalIndex: 7
+- name: Varyans Analizi (ANOVA)
+  avg_questions: 4
+  target_net: 2
+  subtopics:
+  - Tek Yönlü ANOVA
+  - Çift Yönlü ANOVA
+  - Post-Hoc Testleri
+  - Varsayım Kontrolleri
+  chronologicalIndex: 5
+- name: Çok Değişkenli Analizler
+  avg_questions: 4
+  target_net: 2
+  subtopics:
+  - Temel Bileşenler Analizi (PCA)
+  - Faktör Analizi
+  - Diskriminant Analizi
+  - Kümeleme
+  chronologicalIndex: 9
+- name: Örnekleme
+  avg_questions: 4
+  target_net: 2
+  subtopics:
+  - Basit Rastgele Örnekleme
+  - Tabakalı Örnekleme
+  - Küme Örneklemesi
+  - Sistematik Örnekleme
+  chronologicalIndex: 3
+- name: Zaman Serileri
+  avg_questions: 2
+  target_net: 2
+  subtopics:
+  - Durağanlık
+  - Trend ve Mevsimsellik
+  - AR/MA/ARMA Modelleri
+  - Üstel Düzleştirme
+  chronologicalIndex: 8
+- name: Yöneylem Araştırması
+  avg_questions: 2
+  target_net: 0
+  subtopics:
+  - Doğrusal Programlama
+  - Simpleks Yöntemi
+  - Ulaştırma Modelleri
+  chronologicalIndex: 10
+- name: Parametrik Olmayan Testler
+  avg_questions: 2
+  target_net: 0
+  subtopics:
+  - İşaret Testi
+  - Wilcoxon
+  - Kruskal-Wallis
+  - Ki-Kare Bağımsızlık Testi
+  chronologicalIndex: 6

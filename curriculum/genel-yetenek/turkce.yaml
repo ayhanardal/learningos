@@ -5,37 +5,36 @@ total_questions: 30
 total_target_net: 20
 target_correct: 20
 target_net: 20
-priority: P1
 topics:
   - name: Paragrafta Anlam
+    isRoutine: true
     avg_questions: 16
     target_net: 13
-    priority: P0
     subtopics:
       - Paragrafta Ana Düşünce
       - Paragrafta Yardımcı Düşünce
       - Paragrafta Yapı
       - Anlatım Biçimleri
   - name: Sözel Mantık
+    chronologicalIndex: 3
     avg_questions: 4
     target_net: 4
-    priority: P0
     subtopics:
       - Şifreleme
       - Tablo ve Şema Okuma
       - Yer-Yön ve Sıralama Problemleri
   - name: Sözcükte ve Cümlede Anlam
+    chronologicalIndex: 1
     avg_questions: 5
     target_net: 3
-    priority: P1
     subtopics:
       - Sözcükte Anlam
       - Cümlede Anlam İlişkileri
       - Cümle Tamamlama
   - name: Dil Bilgisi ve Ses Olayları
+    chronologicalIndex: 2
     avg_questions: 5
     target_net: 1
-    priority: P2
     subtopics:
       - Ses Olayları
       - Yazım Kuralları

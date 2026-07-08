@@ -178,16 +178,18 @@ header h1 span { color: var(--accent); }
 .cc-header .cc-meta strong { color: var(--accent); }
 .cc-body { padding: 12px 20px 20px; }
 .cc-topic {
-  display: grid; grid-template-columns: 1fr 80px 100px 100px;
-  gap: 8px; padding: 10px 0;
+  display: grid; grid-template-columns: 1fr 65px 65px 55px 70px;
+  gap: 6px; padding: 10px 0;
   border-bottom: 1px solid rgba(255,255,255,0.04);
   align-items: center;
+  min-width: 0;
 }
 .cc-topic:last-child { border-bottom: none; }
-.cc-topic .cc-t-name { font-size: 14px; font-weight: 500; }
-.cc-topic .cc-col { font-size: 13px; font-weight: 600; text-align: center; }
+.cc-topic .cc-t-name { font-size: 14px; font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cc-topic .cc-col { font-size: 12px; font-weight: 600; text-align: center; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
 .cc-topic .cc-col.soru { color: var(--accent); }
 .cc-topic .cc-col.hedef { color: var(--yellow); }
+.cc-topic .cc-col.sira { font-size: 13px; font-weight: 800; letter-spacing: 0.3px; text-align: center; color: var(--text); }
 .cc-subtopics {
   grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 4px; margin-top: 2px;
   padding-top: 4px; border-top: 1px solid rgba(255,255,255,0.03);
@@ -783,7 +785,9 @@ h3.ce-header {
 const API = '/api';
 
 const INTERACTIVE_TOPICS = {
-    "Türkçe": ["Paragrafta Yapı"]
+    "Türkçe": ["Paragrafta Yapı", "Sözcükte ve Cümlede Anlam"],
+    "Matematik": ["Problemler"],
+    "İstatistik": ["Merkezi Eğilim", "Merkezi Dağılım"]
 };
 
 let interactiveData = null;
@@ -793,6 +797,16 @@ let interactiveAutoSaveTimeout = null;
 let currentMainTopic = "";
 let isFullScreen = false;
 let workspaceEditor;
+
+window._slideSections = {};
+window._carouselSections = {};
+window._splitLinks = {};
+
+window._cleanLabel = function(str) {
+    if (!str) return '';
+    return str.replace(/[^a-zA-ZÇÖŞÜĞİçöşüğğıı\s]/g, '').trim();
+};
+
 
 let autoSaveTimeout;
 window.saveWorkspaceNote = function() {
@@ -1008,47 +1022,37 @@ window.loadEditorData = async function(subject, topicKey) {
 
 window.renderInteractiveStudyView = function(subject, topicKey, savedData) {
     if (!savedData || !savedData._template) {
-        interactiveData = {
-            _template: "interactive-v1",
-            diagram: {
-                title: "Cümle Ögeleri: Tarama ve Doğrulama Ağırlıkları",
-                boxes: [
-                    { 
-                        title: "1. Yüksek Ağırlık (%90)", 
-                        desc: "Yüklem / Ana Yargı (İlk bunu tara)", 
-                        color: "#E53935"
-                    },
-                    { 
-                        title: "2. Kritik Ağırlık (%100)", 
-                        desc: "Kısıtlayıcı Zarf (Sadece, Kesinlikle, En)", 
-                        color: "#FB8C00"
-                    },
-                    { 
-                        title: "3. Doğrulama Katmanı", 
-                        desc: "Özne / Nesne (Eşleşmeyi Onayla)", 
-                        color: "#43A047"
-                    }
+        var template = window._getTopicTemplate(topicKey);
+        if (template) {
+            interactiveData = JSON.parse(JSON.stringify(template));
+        } else {
+            interactiveData = {
+                _template: "interactive-v2",
+                _layout: [
+                    { type: "carousel", tag: "SORU", questions: [
+                        { id: 1, htmlContent: "<b>Soru içeriği buraya gelecek</b>" }
+                    ]}
                 ]
-            },
-            carousel: {
-                activeIndex: 0,
-                questions: [
-                    { 
-                        id: 1, 
-                        htmlContent: `Toplumun başından geçen büyük olayların dönemin insanı üzerindeki etkisi kaçınılmazdır. Yaşadığınız olay ne olursa olsun ki bu göç, deprem, sel felaketi vs. olabilir. Bu olayların tamamında insanda mutlaka zihinsel bir etki bırakılacaktır. Genellikle kalıcı izler bırakmaktadır. Kişi yaşanılan olay sonrası o toplumda yaşamını sürdürüyorsa bu durum eğitim hayatından her türlü yaşantısına kadar etkisini gösteriyor. Bir de bu olayların merkezinde bir yerlerde yaşıyorsa etkilenmemesi olası değildir. Bu tarz toplumsal ve kitlesel sorunlar yaratan olaylara karşı rehabilitasyon merkezlerinin etkin olmasında büyük fayda vardır. Bu tarz merkezlerde bireyler önce içsel sonra da dışsal sorunlarına çözümler bulabilirler. Bu merkezler günümüzde de varlığını sürdürmektedir. Rehabilitasyon merkezleri, kişi üzerindeki her türlü baskıyı kaldırabilecek güce sahiptir.<br><br><br><b>8.&nbsp;&nbsp;&nbsp;&nbsp;Bu parçadan hareketle,</b><br><br>&nbsp;&nbsp;&nbsp;&nbsp;I.&nbsp;&nbsp;Toplumun yaşadıklarının bireyin üzerinde geçici<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;etkiler bıraktığı da olmuştur.<br><br>&nbsp;&nbsp;&nbsp;&nbsp;II.&nbsp;Rehabilitasyon merkezlerinin sorunlara yaklaşı-<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mında bir sistemi vardır.<br><br>&nbsp;&nbsp;&nbsp;&nbsp;III. Olay sonrası kişinin yaşamını nerede sürdürdü-<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ğü, olaydan etkilenişini etkilemez.<br><br><b>bilgilerinden hangilerine <u>ulaşılamaz?</u></b><br><br>A) Yalnız I&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B) I ve III&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C) Yalnız II<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;D) II ve III&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;E) Yalnız III<br><br><br><b>9.&nbsp;&nbsp;&nbsp;&nbsp;Bu parçadan hareketle aşağıdakilerden hangisine<br>&nbsp;&nbsp;&nbsp;&nbsp;varılabilir?</b><br><br>A) Toplumsal olayların birey üzerindeki baskısı reha-<br>&nbsp;&nbsp;&nbsp;&nbsp;bilitasyon merkezlerinin esas alanıdır.<br><br>B) Günümüzde rehabilitasyon merkezlerinin varlığı,<br>&nbsp;&nbsp;&nbsp;&nbsp;toplumsal sorunlara işarettir.<br><br>C) İnsanların içinde yaşadıkları toplumdan etkilenme-<br>&nbsp;&nbsp;&nbsp;&nbsp;meleri zordur.<br><br>D) Toplumun bireyi baskı altına almasına neden olabi-<br>&nbsp;&nbsp;&nbsp;&nbsp;lecek olaylar sınırlıdır.<br><br>E) Birey, toplumdan kendini soyutlarsa olaylardan et-<br>&nbsp;&nbsp;&nbsp;&nbsp;kilenmez.` 
-                    }
-                ]
-            },
-            notes: { 
-                text: "🎯 TAKTİK (Olumsuz Kök / Çıkarılamaz):\n\n1. Asla önce paragrafı okuma. Önce şıklara in.\n2. Şıktaki YÜKLEME veya KISITLAYICI ZARFA odaklan (Yüksek Ağırlık).\n3. Paragrafa çık ve bu kelimeyi Hızlı Tarama (Hashing) ile ara.\n4. Kelimeyi bulduğunda, cümlenin başındaki ÖZNEYİ (Doğrulama Katmanı) kontrol et.\n5. İkisi de uyuşuyorsa şıkkı ele ve arkana bakma!\n\n\n--- 📄 İşlenen Soru Metni (ALES) ---\n\n[ORTAK PARAGRAF]\nToplumun başından geçen büyük olayların dönemin insanı üzerindeki etkisi kaçınılmazdır. Yaşadığınız olay ne olursa olsun ki bu göç, deprem, sel felaketi vs. olabilir. Bu olayların tamamında insanda mutlaka zihinsel bir etki bırakılacaktır. Genellikle kalıcı izler bırakmaktadır. Kişi yaşanılan olay sonrası o toplumda yaşamını sürdürüyorsa bu durum eğitim hayatından her türlü yaşantısına kadar etkisini gösteriyor. Bir de bu olayların merkezinde bir yerlerde yaşıyorsa etkilenmemesi olası değildir. Bu tarz toplumsal ve kitlesel sorunlar yaratan olaylara karşı rehabilitasyon merkezlerinin etkin olmasında büyük fayda vardır. Bu tarz merkezlerde bireyler önce içsel sonra da dışsal sorunlarına çözümler bulabilirler. Bu merkezler günümüzde de varlığını sürdürmektedir. Rehabilitasyon merkezleri, kişi üzerindeki her türlü baskıyı kaldırabilecek güce sahiptir.\n\n[SORU 8 - ULAŞILAMAZ]\n8. Bu parçadan hareketle,\nI. Toplumun yaşadıklarının bireyin üzerinde geçici etkiler bıraktığı da olmuştur.\nII. Rehabilitasyon merkezlerinin sorunlara yaklaşımında bir sistemi vardır.\nIII. Olay sonrası kişinin yaşamını nerede sürdürdüğü, olaydan etkilenişini etkilemez.\nbilgilerinden hangilerine ulaşılamaz?\nA) Yalnız I      B) I ve III      C) Yalnız II\nD) II ve III     E) Yalnız III\n\n[SORU 9 - VARILABİLİR]\n9. Bu parçadan hareketle aşağıdakilerden hangisine varılabilir?\nA) Toplumsal olayların birey üzerindeki baskısı rehabilitasyon merkezlerinin esas alanıdır.\nB) Günümüzde rehabilitasyon merkezlerinin varlığı, toplumsal sorunlara işarettir.\nC) İnsanların içinde yaşadıkları toplumdan etkilenmemeleri zordur.\nD) Toplumun bireyi baskı altına almasına neden olabilecek olaylar sınırlıdır.\nE) Birey, toplumdan kendini soyutlarsa olaylardan etkilenmez." 
-            }
-        };
+            };
+        }
     } else {
         interactiveData = savedData;
     }
 
-    currentCarouselIndex = interactiveData.carousel.activeIndex || 0;
-    const container = document.getElementById('editorjs');
+    if (interactiveData._template !== "interactive-v2") {
+        interactiveData._template = "interactive-v2";
+        if (!interactiveData._layout) {
+            interactiveData._layout = [];
+            if (interactiveData.diagram) {
+                interactiveData._layout.push({ type: "diagram", title: interactiveData.diagram.title, boxes: interactiveData.diagram.boxes });
+            }
+            if (interactiveData.carousel) {
+                interactiveData._layout.push({ type: "carousel", tag: "SORU", questions: interactiveData.carousel.questions || [] });
+            }
+        }
+    }
+
+    var container = document.getElementById('editorjs');
     if (container.parentElement) {
         container.parentElement.style.maxWidth = "100%";
         container.parentElement.style.width = "100%";
@@ -1058,60 +1062,408 @@ window.renderInteractiveStudyView = function(subject, topicKey, savedData) {
     container.style.width = "100%";
     container.style.padding = "0";
 
-    let html = `
-        <div style="width: 100%; max-width: none; padding: 0 10px; margin: 0 auto; display: flex; flex-direction: column; gap: 24px;">
-            <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 16px;">
-                <h3 style="margin-bottom: 16px; color: var(--text);">${interactiveData.diagram.title}</h3>
-                <div style="display: flex; gap: 12px; justify-content: space-between;">
-                    ${interactiveData.diagram.boxes.map(b => `
-                        <div style="flex: 1; border-top: 4px solid ${b.color}; background: var(--bg); padding: 12px; border-radius: 6px; text-align: center;">
-                            <strong style="color: var(--text); display: block; font-size: 14px;">${b.title}</strong>
-                            <span style="color: var(--text2); font-size: 12px;">${b.desc}</span>
-                        </div>
-                    `).join('')}
-                </div>
-            </div>
+    window.renderSections(container, interactiveData._layout);
 
-            <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 16px; text-align: center;">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
-                    <button onclick="changeInteractiveQuestion(-1)" style="padding: 6px 12px; cursor: pointer; border-radius: 4px; border: 1px solid var(--border); background: var(--bg); color: var(--text);">◀ Önceki</button>
-                    <span id="int-counter" style="color: var(--text); font-weight: bold;">${currentCarouselIndex + 1} / ${interactiveData.carousel.questions.length}</span>
-                    <button onclick="changeInteractiveQuestion(1)" style="padding: 6px 12px; cursor: pointer; border-radius: 4px; border: 1px solid var(--border); background: var(--bg); color: var(--text);">Sonraki ▶</button>
-                </div>
-                <div id="int-question-text" style="text-align: justify; padding: 40px; background: #fdfcf8; border-radius: 4px; border: 1px solid #d1d5db; color: #111827; line-height: 1.6; font-size: 15px; font-family: Arial, Helvetica, sans-serif; letter-spacing: 0.3px; column-count: 2; column-gap: 60px; column-rule: 1px solid #e5e7eb; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">${interactiveData.carousel.questions[currentCarouselIndex].htmlContent}</div>
-            </div>
+    var notesDiv = document.createElement('div');
+    notesDiv.innerHTML = '<div style="margin-top: 20px;"><h3 style="margin-bottom: 8px; color: var(--text); font-size: 14px;">\u{1F4DD} Taktik Notlar\u0131</h3><textarea id="int-notes-area" style="width: 100%; height: 150px; padding: 12px; border-radius: 8px; border: 1px solid var(--border); background: var(--surface); color: var(--text); resize: vertical; line-height: 1.6;" oninput="triggerInteractiveSave()">' + ((interactiveData._notes && interactiveData._notes.text) || '') + '</textarea></div>';
+    container.appendChild(notesDiv);
+};
 
-            <div>
-                <h3 style="margin-bottom: 8px; color: var(--text); font-size: 14px;">📝 Taktik Notları</h3>
-                <textarea id="int-notes-area" style="width: 100%; height: 150px; padding: 12px; border-radius: 8px; border: 1px solid var(--border); background: var(--surface); color: var(--text); resize: vertical; line-height: 1.6;" oninput="triggerInteractiveSave()">${interactiveData.notes.text}</textarea>
-            </div>
-        </div>
-    `;
+window._getTopicTemplate = function(topicKey) {
+    var dataByTopic = {
+        "Sözcükte ve Cümlede Anlam": {
+            _template: "interactive-v2",
+            _layout: [
+                {
+                    type: "split",
+                    linked: true,
+                    left: {
+                        type: "slide",
+                        tag: "KONU",
+                        slides: [
+                            { ref: "sozcuk", key: "Sözcükte Anlam", items: [
+                                { label: "Gerçek (Temel) Anlam", text: "Bir kelimenin sözlükteki ilk anlamı, aklımıza gelen en yaygın karşılığıdır." },
+                                { label: "Yan Anlam", text: "Gerçek anlamından kopmadan kazandığı yeni anlamdır." },
+                                { label: "Mecaz Anlam", text: "Kelimenin gerçek anlamından tamamen uzaklaşarak kazandığı yeni anlamdır." },
+                                { label: "Terim Anlam", text: "Bilim, sanat, spor gibi alanlarda kullanılan özel anlamlı kelimelerdir." }
+                            ]},
+                            { ref: "cumle", key: "Cümlede Anlam", items: [
+                                { label: "Öznel Anlatım", text: "Kişisel görüş, duygu ve yorum içeren ifadelerdir." },
+                                { label: "Nesnel Anlatım", text: "Kişisel yargı içermeyen, herkes için aynı olan ifadelerdir." },
+                                { label: "Doğrudan Anlatım", text: "Bir düşüncenin olduğu gibi, değiştirilmeden aktarılmasıdır." },
+                                { label: "Dolaylı Anlatım", text: "Bir düşüncenin yorum katarak, değiştirilerek aktarılmasıdır." }
+                            ]},
+                            { ref: "anlam", key: "Anlam İlişkileri", items: [
+                                { label: "Eş Anlamlılık", text: "Yazılışları farklı, anlamları aynı olan kelimelerdir." },
+                                { label: "Zıt Anlamlılık", text: "Anlamca birbirinin karşıtı olan kelimelerdir." },
+                                { label: "Eş Sesli (Sesteş) Kelimeler", text: "Yazılış ve okunuşları aynı, anlamları farklı olan kelimelerdir." }
+                            ]}
+                        ]
+                    },
+                    right: {
+                        type: "carousel",
+                        tag: "SORU",
+                        questions: [
+                            { ref: "sozcuk", id: 1, htmlContent: "<b>1. Aşağıdaki cümlelerin hangisinde altı çizili sözcük gerçek anlamıyla kullanılmıştır?</b><br><br>A) Bu ağır yükü taşımaktan yoruldu.<br>B) Ona ağır sözler söyledi.<br>C) Çok ağır bir hasta olmuştu.<br>D) İşlerimiz ağır aksak gidiyor.<br>E) Ağır bir yenilgi aldılar." },
+                            { ref: "sozcuk", id: 2, htmlContent: "<b>2. &quot;Boş&quot; sözcüğü aşağıdakilerin hangisinde mecaz anlamıyla kullanılmıştır?</b><br><br>A) Boş odada hiç eşya yoktu.<br>B) Boş tenekeyi bahçeye attı.<br>C) Boş sözlerle vaktimi alma.<br>D) Cüzdanı tamamen boştu.<br>E) Boş arsayı satın aldı." },
+                            { ref: "cumle", id: 3, htmlContent: "<b>3. Aşağıdaki cümlelerden hangisi öznel anlatıma örnek olabilir?</b><br><br>A) Türkiye'nin başkenti Ankara'dır.<br>B) Dünyanın en büyük gölü Hazar'dır.<br>C) Bu romanın kurgusu çok başarılı.<br>D) 2020 nüfus sayımına göre nüfus 83 milyondur.<br>E) Buzullar eridikçe deniz seviyesi yükseliyor." },
+                            { ref: "cumle", id: 4, htmlContent: "<b>4. &quot;Bence bu sınav çok kolaydı.&quot; cümlesi için ne söylenebilir?</b><br><br>A) Nesnel anlatım<br>B) Öznel anlatım<br>C) Doğrudan anlatım<br>D) Dolaylı anlatım<br>E) Koşul anlatımı" },
+                            { ref: "anlam", id: 5, htmlContent: "<b>5. Aşağıdaki kelime çiftlerinden hangisi eş anlamlıdır?</b><br><br>A) Siyah - Beyaz<br>B) Uzun - Kısa<br>C) Okul - Mektep<br>D) Girmek - Çıkmak<br>E) Açmak - Kapatmak" },
+                            { ref: "anlam", id: 6, htmlContent: "<b>6. &quot;Yüz&quot; sözcüğü aşağıdakilerin hangisinde sesteş (eş sesli) olarak kullanılmıştır?</b><br><br>A) Yüz lira borcum var.<br>B) Yüzünde güller açtı.<br>C) Ona yüz vermemelisin.<br>D) Yüzünü yıkadı ve çıktı.<br>E) Yüz öğrenci sınava girdi." }
+                        ]
+                    }
+                }
+            ]
+        },
+        "Paragrafta Yapı": {
+            _template: "interactive-v2",
+            _layout: [
+                {
+                    type: "split",
+                    linked: true,
+                    left: {
+                        type: "slide",
+                        tag: "KONU",
+                        slides: [
+                            { ref: "giris", key: "Giriş Cümlesi", items: [
+                                { label: "Tanım", text: "Paragrafın ilk cümlesidir. Genellikle konuyu tanıtır, okuyucuyu hazırlar." },
+                                { label: "Özellikler", text: "Kendinden önce bir cümle varmış izlenimi vermez. Bağımsız bir giriş yapar." },
+                                { label: "İpuçları", text: "'Bir gün', 'Geçmişte', 'Günümüzde', 'Aslında' gibi ifadelerle başlayabilir." }
+                            ]},
+                            { ref: "gelisme", key: "Gelişme Bölümü", items: [
+                                { label: "İşlev", text: "Paragrafın ana fikrini destekleyen ayrıntıları, örnekleri ve açıklamaları içerir." },
+                                { label: "Yapı", text: "Her cümle bir öncekinin devamı niteliğindedir. Düşünceyi olgunlaştırır." },
+                                { label: "Geçiş İfadeleri", text: "'Ayrıca', 'Üstelik', 'Bununla birlikte', 'Oysa' gibi bağlaçlarla zenginleşir." }
+                            ]},
+                            { ref: "sonuc", key: "Sonuç Cümlesi", items: [
+                                { label: "İşlev", text: "Paragrafı bağlar, çıkarım yapar veya yazarın asıl vurgulamak istediği noktayı belirtir." },
+                                { label: "İpuçları", text: "'Sonuç olarak', 'Özetle', 'Kısacası', 'Bu nedenle' gibi ifadeler sonuç cümlesini haber verir." },
+                                { label: "Ana Fikir İlişkisi", text: "Paragrafın ana fikri genellikle sonuç cümlesinde veya sonuca yakın cümlelerde bulunur." }
+                            ]}
+                        ]
+                    },
+                    right: {
+                        type: "carousel",
+                        tag: "SORU",
+                        questions: [
+                            { ref: "giris", id: 1, htmlContent: "<b>1. Aşağıdakilerden hangisi bir paragrafın giriş cümlesi olmaya en uygundur?</b><br><br>A) Bu nedenle eğitim sistemi sürekli güncellenmelidir.<br>B) Ayrıca okulların fiziki koşulları da iyileştirilmelidir.<br>C) Günümüzde eğitim, bireyin gelişiminde kritik rol oynar.<br>D) Sonuç olarak eğitime yapılan yatırım geleceğe yapılır.<br>E) Oysa birçok öğrenci temel becerilerden yoksun mezun oluyor." },
+                            { ref: "giris", id: 2, htmlContent: "<b>2. Bir paragrafın giriş cümlesi aşağıdaki özelliklerden hangisini taşımamalıdır?</b><br><br>A) Bağımsız bir anlam taşımalıdır.<br>B) Okuyucuyu konuya hazırlamalıdır.<br>C) Kendinden önce bir cümle varmış izlenimi vermemelidir.<br>D) Açıklayıcı ve tanıtıcı olmalıdır.<br>E) Bir önceki paragrafa bağlı olmalıdır." },
+                            { ref: "gelisme", id: 3, htmlContent: "<b>3. Bir gelişme bölümü cümlesinde aşağıdaki geçiş ifadelerinden hangisinin kullanılması beklenmez?</b><br><br>A) Ayrıca<br>B) Sonuç olarak<br>C) Bununla birlikte<br>D) Üstelik<br>E) Aynı şekilde" },
+                            { ref: "gelisme", id: 4, htmlContent: "<b>4. Gelişme bölümüyle ilgili aşağıdaki yargılardan hangisi yanlıştır?</b><br><br>A) Örnekler içerebilir.<br>B) Ana fikri destekler.<br>C) Bağımsız bir giriş yapar.<br>D) Açıklamalar içerir.<br>E) Düşünceyi olgunlaştırır." },
+                            { ref: "sonuc", id: 5, htmlContent: "<b>5. Aşağıdakilerden hangisi bir paragrafın sonuç cümlesinde bulunması beklenen bir ifade değildir?</b><br><br>A) Kısacası<br>B) Özetle<br>C) İlk olarak<br>D) Bu nedenle<br>E) Sonuç olarak" },
+                            { ref: "sonuc", id: 6, htmlContent: "<b>6. Paragrafta ana fikir genellikle hangi bölümde bulunur?</b><br><br>A) Sadece giriş cümlesinde<br>B) Sadece gelişme bölümünde<br>C) Sonuç cümlesinde veya sonuca yakın cümlelerde<br>D) Paragrafın her yerinde eşit dağılır<br>E) Sadece örneklerin içinde" }
+                        ]
+                    }
+                }
+            ]
+        },
+        "Problemler": {
+            _template: "interactive-v2",
+            _layout: [
+                {
+                    type: "carousel",
+                    tag: "SORU",
+                    questions: [
+                        { id: 1, htmlContent: "<b>1. Bir sınıftaki öğrencilerin %40'ı kızdır. Erkek öğrencilerin sayısı 18 olduğuna göre sınıf mevcudu kaçtır?</b><br><br>A) 24<br>B) 26<br>C) 28<br>D) 30<br>E) 32" },
+                        { id: 2, htmlContent: "<b>2. Bir araç saatte 80 km hızla 3 saat, saatte 60 km hızla 2 saat yol alıyor. Buna göre aracın ortalama hızı saatte kaç km'dir?</b><br><br>A) 68<br>B) 70<br>C) 72<br>D) 74<br>E) 76" }
+                    ]
+                }
+            ]
+        },
+        "Merkezi Eğilim": {
+            _template: "interactive-v2",
+            _layout: [
+                {
+                    type: "carousel",
+                    tag: "SORU",
+                    questions: [
+                        { id: 1, htmlContent: "<b>1. 3, 5, 7, 9, 11 sayılarının aritmetik ortalaması kaçtır?</b><br><br>A) 5<br>B) 6<br>C) 7<br>D) 8<br>E) 9" },
+                        { id: 2, htmlContent: "<b>2. 2, 4, 4, 6, 8, 10 serisinin medyanı (ortanca değeri) kaçtır?</b><br><br>A) 4<br>B) 5<br>C) 6<br>D) 7<br>E) 8" }
+                    ]
+                }
+            ]
+        },
+        "Merkezi Dağılım": {
+            _template: "interactive-v2",
+            _layout: [
+                {
+                    type: "carousel",
+                    tag: "SORU",
+                    questions: [
+                        { id: 1, htmlContent: "<b>1. 4, 6, 8, 10, 12 serisinin varyansı kaçtır?</b><br><br>A) 6<br>B) 8<br>C) 10<br>D) 12<br>E) 14" }
+                    ]
+                }
+            ]
+        }
+    };
+    return dataByTopic[topicKey] || null;
+};
 
+window._buildSlideHtml = function(slide) {
+    var html = '';
+    if (slide.items && slide.items.length) {
+        for (var si = 0; si < slide.items.length; si++) {
+            if (si > 0) html += '<div style="border-top: 1px solid #e0e0e0; margin: 16px 0;"></div>';
+            html += '<div style="margin-bottom: 4px; font-size: 15px; font-weight: 700; color: #1a1a1a;">' + slide.items[si].label + '</div>';
+            html += '<div style="font-size: 15px; color: #444; line-height: 1.6; text-align: justify;">' + slide.items[si].text + '</div>';
+        }
+    } else if (slide.value) {
+        html = '<div style="font-size: 15px; color: #444; line-height: 1.6; text-align: justify;">' + slide.value + '</div>';
+    }
+    return html;
+};
+
+window._renderSection = function(section, idx) {
+    var h = '';
+    if (section.type === "carousel") {
+        if (section.columns) {
+            window._carouselSections = window._carouselSections || {};
+            h += '<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">';
+            section.columns.forEach(function(col, colIdx) {
+                var cid = idx + '-' + colIdx;
+                window._carouselSections[cid] = col;
+                h += '<div style="background: #ffffff; border: 1px solid #e0e0e0; border-radius: 8px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); height: 100%; display: flex; flex-direction: column;">';
+                h += '<div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 18px; border-bottom: 1px solid #f0f0f0; flex-shrink: 0;">';
+                h += '<div style="color: #2563eb; font-size: 11px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;">' + (col.tag || col.title || '') + '</div>';
+                h += '<div style="display: flex; align-items: center; gap: 10px;">';
+                h += '<button onclick="changeMultiCarousel(\'' + cid + '\', -1)" style="padding: 2px 8px; cursor: pointer; border: none; background: transparent; color: #9ca3af; font-size: 14px;">\u25C0</button>';
+                h += '<span id="int-counter-' + cid + '" style="color: #9ca3af; font-weight: 500; font-size: 12px;">1 / ' + col.questions.length + '</span>';
+                h += '<button onclick="changeMultiCarousel(\'' + cid + '\', 1)" style="padding: 2px 8px; cursor: pointer; border: none; background: transparent; color: #9ca3af; font-size: 14px;">\u25B6</button>';
+                h += '</div></div>';
+                h += '<div id="int-question-text-' + cid + '" style="padding: 22px 22px; min-height: 240px; flex: 1; color: #111827; line-height: 1.8; font-size: 14.5px; font-family: Arial, Helvetica, sans-serif; letter-spacing: 0.2px; background: #f3f4f6;">' + col.questions[0].htmlContent + '</div>';
+                h += '</div>';
+            });
+            h += '</div>';
+        } else {
+            window._carouselSections = window._carouselSections || {};
+            window._carouselSections[idx] = section;
+            h += '<div style="background: #ffffff; border: 1px solid #e0e0e0; border-radius: 8px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); height: 100%; display: flex; flex-direction: column; text-align: left;">';
+            h += '<div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 18px; border-bottom: 1px solid #f0f0f0; flex-shrink: 0;">';
+            h += '<div id="carousel-tag-' + idx + '" style="color: #2563eb; font-size: 11px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;">' + (section.tag || '') + '</div>';
+            h += '<div style="display: flex; align-items: center; gap: 10px;">';
+            h += '<button onclick="changeMultiCarousel(\'' + idx + '\', -1)" style="padding: 2px 8px; cursor: pointer; border: none; background: transparent; color: #9ca3af; font-size: 14px;">\u25C0</button>';
+            h += '<span id="int-counter-' + idx + '" style="color: #9ca3af; font-weight: 500; font-size: 12px;">1 / ' + section.questions.length + '</span>';
+            h += '<button onclick="changeMultiCarousel(\'' + idx + '\', 1)" style="padding: 2px 8px; cursor: pointer; border: none; background: transparent; color: #9ca3af; font-size: 14px;">\u25B6</button>';
+            h += '</div></div>';
+            h += '<div id="int-question-text-' + idx + '" style="padding: 22px 22px; min-height: 240px; flex: 1; color: #111827; line-height: 1.8; font-size: 14.5px; font-family: Arial, Helvetica, sans-serif; letter-spacing: 0.2px; background: #f3f4f6;">' + section.questions[0].htmlContent + '</div>';
+            h += '</div>';
+        }
+    } else if (section.type === "slide") {
+        window._slideSections = window._slideSections || {};
+        window._slideSections[idx] = section;
+        var s0 = section.slides[0];
+        var firstKey = (s0.key || '');
+        var firstItemsHtml = window._buildSlideHtml(s0);
+        h += '<div style="background: #ffffff; border: 1px solid #e0e0e0; border-radius: 8px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); height: 100%; display: flex; flex-direction: column;">';
+        h += '<div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 18px; border-bottom: 1px solid #f0f0f0; flex-shrink: 0;">';
+        h += '<div id="slide-tag-' + idx + '" style="color: #2563eb; font-size: 11px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;">' + (section.tag || '') + '</div>';
+        h += '<div style="display: flex; align-items: center; gap: 10px;">';
+        h += '<button onclick="changeSlide(\'' + idx + '\', -1)" style="padding: 2px 8px; cursor: pointer; border: none; background: transparent; color: #9ca3af; font-size: 14px;">\u25C0</button>';
+        h += '<span id="slide-counter-' + idx + '" style="color: #9ca3af; font-weight: 500; font-size: 12px;">1 / ' + section.slides.length + '</span>';
+        h += '<button onclick="changeSlide(\'' + idx + '\', 1)" style="padding: 2px 8px; cursor: pointer; border: none; background: transparent; color: #9ca3af; font-size: 14px;">\u25B6</button>';
+        h += '</div></div>';
+        h += '<div id="slide-content-' + idx + '" style="padding: 24px 28px; min-height: 240px; flex: 1; background: #f3f4f6;">';
+        h += '<div style="max-width: 640px; margin: 0 auto;">';
+        if (firstKey) h += '<div style="font-size: 22px; font-weight: 800; color: #1a1a1a; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 2px solid #2563eb;">' + firstKey + '</div>';
+        h += firstItemsHtml;
+        h += '</div></div></div>';
+    } else if (section.type === "rules") {
+        h += '<div style="background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 16px;">';
+        h += '<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">';
+        h += '<div><h4 style="margin-bottom: 12px; color: var(--text);">' + (section.title || "Kurallar") + '</h4>';
+        h += (section.items || []).map(function(r) {
+            return '<div style="background: var(--bg); border: 1px solid var(--border); border-radius: 6px; padding: 12px; margin-bottom: 8px;">' + r.html + '</div>';
+        }).join('');
+        h += '</div><div><h4 style="margin-bottom: 12px; color: var(--text);">' + (section.questionsTitle || "Sorular") + '</h4>';
+        h += (section.questions || []).map(function(q) {
+            return '<div style="background: var(--bg); border: 1px solid var(--border); border-radius: 6px; padding: 12px; margin-bottom: 8px;">' + q.html + '</div>';
+        }).join('');
+        h += '</div></div></div>';
+    } else if (section.type === "notes") {
+        h += '<div style="background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 16px;">';
+        h += '<pre style="white-space: pre-wrap; font-family: inherit; color: var(--text); margin: 0; font-size: 14px; line-height: 1.6;">' + section.text + '</pre></div>';
+    } else if (section.type === "text") {
+        h += '<div style="background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 16px; color: var(--text); font-size: 14px; line-height: 1.6;">';
+        h += (section.html || section.content || "") + '</div>';
+    } else if (section.type === "diagram") {
+        h += '<div style="background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 16px;">';
+        h += '<h3 style="margin-bottom: 16px; color: var(--text); font-size: 16px; font-weight: 700;">' + section.title + '</h3>';
+        h += '<div style="display: flex; gap: 12px; justify-content: space-between;">';
+        (section.boxes || []).forEach(function(b) {
+            h += '<div style="flex: 1; border-top: 4px solid ' + b.color + '; background: var(--bg); padding: 12px; border-radius: 6px; text-align: center;">';
+            h += '<strong style="color: var(--text); display: block; font-size: 14px;">' + b.title + '</strong>';
+            h += '<span style="color: var(--text2); font-size: 12px;">' + b.desc + '</span>';
+            h += '</div>';
+        });
+        h += '</div></div>';
+    }
+    return h;
+};
+
+window.renderSections = function(container, layout) {
+    var html = '<div style="width: 100%; max-width: none; padding: 0 10px; margin: 0 auto; display: flex; flex-direction: column; gap: 24px;">';
+
+    layout.forEach(function(section, idx) {
+        if (section.type === "split") {
+            html += '<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">';
+            html += '<div style="display: flex;">' + window._renderSection(section.left, idx + '_l') + '</div>';
+            html += '<div style="display: flex;">' + window._renderSection(section.right, idx + '_r') + '</div>';
+            html += '</div>';
+            if (section.linked) {
+                window._splitLinks[idx + '_l'] = idx + '_r';
+                setTimeout(function() {
+                    var firstRef = section.left.slides && section.left.slides[0] && section.left.slides[0].ref;
+                    if (firstRef) window._filterCarouselByRef(idx + '_r', firstRef);
+                    var firstLabel = section.left.slides && section.left.slides[0] && window._cleanLabel(section.left.slides[0].key);
+                    if (firstLabel) {
+                        var st = document.getElementById('slide-tag-' + (idx + '_l'));
+                        if (st) st.innerText = firstLabel;
+                        var ct = document.getElementById('carousel-tag-' + (idx + '_r'));
+                        if (ct) ct.innerText = firstLabel;
+                    }
+                }, 100);
+            }
+        } else {
+            html += window._renderSection(section, idx);
+        }
+    });
+
+    html += '</div>';
     container.innerHTML = html;
+
+    setTimeout(function() {
+        if (window.renderMathInElement) {
+            renderMathInElement(container, {
+                delimiters: [
+                    {left: '$$', right: '$$', display: true},
+                    {left: '$', right: '$', display: false}
+                ],
+                throwOnError: false
+            });
+        }
+    }, 50);
+};
+
+window.changeSlide = function(sectionIdx, direction) {
+    var section = window._slideSections[sectionIdx];
+    if (!section) return;
+    var idx = (section._currentIdx || 0) + direction;
+    if (idx < 0) idx = section.slides.length - 1;
+    if (idx >= section.slides.length) idx = 0;
+    section._currentIdx = idx;
+    var el = document.getElementById('slide-content-' + sectionIdx);
+    if (!el) return;
+    var s = section.slides[idx];
+    var keyHtml = (s.key || '') ? '<div style="font-size: 22px; font-weight: 800; color: #1a1a1a; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 2px solid #2563eb;">' + s.key + '</div>' : '';
+    var html = '<div style="max-width: 640px; margin: 0 auto;">' + keyHtml + window._buildSlideHtml(s) + '</div>';
+    el.innerHTML = html;
+    var counter = document.getElementById('slide-counter-' + sectionIdx);
+    if (counter) counter.innerText = (idx + 1) + ' / ' + section.slides.length;
+    var label = window._cleanLabel(s.key) || '';
+    var tagEl = document.getElementById('slide-tag-' + sectionIdx);
+    if (tagEl) tagEl.innerText = label;
+    if (window._splitLinks && window._splitLinks[sectionIdx]) {
+        window._filterCarouselByRef(window._splitLinks[sectionIdx], s.ref || '');
+        var carouselTagEl = document.getElementById('carousel-tag-' + window._splitLinks[sectionIdx]);
+        if (carouselTagEl) carouselTagEl.innerText = label;
+    }
+    setTimeout(function() {
+        if (window.renderMathInElement) {
+            renderMathInElement(el, {
+                delimiters: [
+                    {left: '$$', right: '$$', display: true},
+                    {left: '$', right: '$', display: false}
+                ],
+                throwOnError: false
+            });
+        }
+    }, 50);
+};
+
+window.changeMultiCarousel = function(sectionIdx, direction) {
+    var section = window._carouselSections[sectionIdx];
+    if (!section) return;
+    var q = section.questions;
+    var indices = section._filteredIndices;
+    if (!indices) {
+        indices = [];
+        for (var i = 0; i < q.length; i++) indices.push(i);
+    }
+    var idx = (section._currentIdx || 0) + direction;
+    if (idx < 0) idx = indices.length - 1;
+    if (idx >= indices.length) idx = 0;
+    section._currentIdx = idx;
+    var qEl = document.getElementById('int-question-text-' + sectionIdx);
+    if (qEl) qEl.innerHTML = q[indices[idx]].htmlContent;
+    var counter = document.getElementById('int-counter-' + sectionIdx);
+    if (counter) counter.innerText = (idx + 1) + ' / ' + indices.length;
+    setTimeout(function() {
+        if (window.renderMathInElement) {
+            renderMathInElement(qEl, {
+                delimiters: [
+                    {left: '$$', right: '$$', display: true},
+                    {left: '$', right: '$', display: false}
+                ],
+                throwOnError: false
+            });
+        }
+    }, 50);
+};
+
+window._filterCarouselByRef = function(sectionIdx, ref) {
+    var section = window._carouselSections && window._carouselSections[sectionIdx];
+    if (!section) return;
+    var allQ = section.questions;
+    var filtered = [];
+    if (ref) {
+        for (var i = 0; i < allQ.length; i++) {
+            if (allQ[i].ref === ref) filtered.push(i);
+        }
+    }
+    if (filtered.length === 0) {
+        for (var j = 0; j < allQ.length; j++) filtered.push(j);
+    }
+    section._filteredIndices = filtered;
+    section._currentIdx = 0;
+    var qEl = document.getElementById('int-question-text-' + sectionIdx);
+    if (qEl) qEl.innerHTML = allQ[filtered[0]].htmlContent;
+    var counter = document.getElementById('int-counter-' + sectionIdx);
+    if (counter) counter.innerText = '1 / ' + filtered.length;
+    setTimeout(function() {
+        if (window.renderMathInElement) {
+            renderMathInElement(qEl, {
+                delimiters: [
+                    {left: '$$', right: '$$', display: true},
+                    {left: '$', right: '$', display: false}
+                ],
+                throwOnError: false
+            });
+        }
+    }, 50);
 };
 
 window.changeInteractiveQuestion = function(direction) {
     if (!interactiveData) return;
-
-    let total = interactiveData.carousel.questions.length;
-    currentCarouselIndex += direction;
-
-    if (currentCarouselIndex < 0) currentCarouselIndex = total - 1;
-    if (currentCarouselIndex >= total) currentCarouselIndex = 0;
-
-    document.getElementById('int-question-text').innerHTML = interactiveData.carousel.questions[currentCarouselIndex].htmlContent;
-    document.getElementById('int-counter').innerText = `${currentCarouselIndex + 1} / ${total}`;
-
-    interactiveData.carousel.activeIndex = currentCarouselIndex;
-    saveInteractiveNote();
+    var layout = interactiveData._layout;
+    for (var i = 0; i < layout.length; i++) {
+        if (layout[i].type === "carousel") {
+            window.changeMultiCarousel(i, direction);
+            return;
+        }
+        if (layout[i].type === "split" && layout[i].right && layout[i].right.type === "carousel") {
+            window.changeMultiCarousel(i + '_r', direction);
+            return;
+        }
+    }
 };
 
 window.triggerInteractiveSave = function() {
     clearTimeout(interactiveAutoSaveTimeout);
-    interactiveAutoSaveTimeout = setTimeout(() => {
+    interactiveAutoSaveTimeout = setTimeout(function() {
         if (interactiveData) {
-            interactiveData.notes.text = document.getElementById('int-notes-area').value;
+            var notesEl = document.getElementById('int-notes-area');
+            if (!interactiveData._notes) interactiveData._notes = {};
+            interactiveData._notes.text = notesEl ? notesEl.value : '';
             saveInteractiveNote();
         }
     }, 1000);
@@ -1119,11 +1471,8 @@ window.triggerInteractiveSave = function() {
 
 window.saveInteractiveNote = function() {
     if (!interactiveData) return Promise.resolve();
-
-    const currentSubject = document.getElementById('ws-subject').innerText.replace(' (Kaydedildi ✓)', '').trim();
-    const currentTopic = document.getElementById('ws-topic').innerText.trim();
-    const storageKey = `note_${currentSubject}_${currentTopic}`;
-
+    var currentSubject = document.getElementById('ws-subject').innerText.replace(' (Kaydedildi \u2713)', '').trim();
+    var currentTopic = document.getElementById('ws-topic').innerText.trim();
     fetch('/api/notes', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -1132,17 +1481,15 @@ window.saveInteractiveNote = function() {
             topic: currentTopic,
             content: interactiveData
         })
-    }).catch(err => console.error("Not DB'ye kaydedilemedi:", err));
-
-    const saveStatusIndicator = document.getElementById('ws-subject');
-    const originalText = currentSubject;
-    saveStatusIndicator.innerText = originalText + " (Kaydedildi ✓)";
-    setTimeout(() => {
+    }).catch(function(err) { console.error("Not DB'ye kaydedilemedi:", err); });
+    var saveStatusIndicator = document.getElementById('ws-subject');
+    var originalText = currentSubject;
+    saveStatusIndicator.innerText = originalText + " (Kaydedildi \u2713)";
+    setTimeout(function() {
         if (document.getElementById('ws-topic').innerText.trim() === currentTopic) {
             saveStatusIndicator.innerText = originalText;
         }
     }, 2000);
-
     return Promise.resolve();
 };
 
@@ -1659,15 +2006,20 @@ function renderSubjectCards(subjects) {
         '<div class="cc-meta">' + (subj.total_questions || 0) + ' Soruda <strong>' +
         (subj.target_correct || 0) + ' Net</strong> Hedef</div></div>' +
       '<div class="cc-body">' +
-      '<div class="cc-topic" style="border-bottom:2px solid var(--border);padding-bottom:8px;font-size:11px;color:var(--text2);text-transform:uppercase;letter-spacing:0.5px;cursor:default">' +
-        '<div>Konu</div><div class="cc-col">Soru</div><div class="cc-col">Hedef</div><div class="cc-col" style="text-align:center;">OTURUM</div></div>';
+      '<div class="cc-topic" style="border-bottom:2px solid var(--border);padding-bottom:8px;font-size:10px;color:var(--text2);text-transform:uppercase;letter-spacing:0.5px;cursor:default">' +
+        '<div>Konu</div><div class="cc-col">Soru</div><div class="cc-col">Hedef</div><div class="cc-col">Sıra</div><div class="cc-col" style="text-align:center;">OTURUM</div></div>';
 
     (subj.topics || []).forEach(function(t) {
+      var ci = t.chronologicalIndex !== undefined && t.chronologicalIndex !== null ? t.chronologicalIndex : '-';
+      var routineTag = t.isRoutine ? 'R' : '';
+      var displayOrder = (routineTag === 'R') ? 'R' : ci;
+      var orderColor = routineTag === 'R' ? '#8b5cf6' : (typeof ci === 'number' && ci <= 3 ? '#34d399' : '#9ca3af');
       html += '<div class="cc-topic" onclick="openWorkspace(\'' + esc(subj.subject) + '\',\'' + esc(t.name) + '\',' + (t.target_net || 0) + ')">' +
-        '<div class="cc-t-name">' + esc(t.name) + '</div>' +
+        '<div class="cc-t-name">' + esc(t.name) + (routineTag ? ' <span style="color:#8b5cf6;font-size:10px;font-weight:600">⟳</span>' : '') + '</div>' +
         '<div class="cc-col soru">' + (t.avg_questions > 0 ? Math.round(t.avg_questions) + ' Soru' : '-') + '</div>' +
         '<div class="cc-col hedef">' + (t.target_net > 0 ? t.target_net + ' Net' : '-') + '</div>' +
-        '<div class="cc-col" style="text-align:center; font-weight:700; font-size:12px; color: var(--text); background: var(--surface); padding:4px 8px; border-radius:4px; border:1px solid var(--border); display:inline-block; margin:0 auto; min-width:70px;">' + (t.allocated_sessions || 0) + ' Oturum</div>';
+        '<div class="cc-col sira" style="color:' + orderColor + ';">' + esc(displayOrder) + '</div>' +
+        '<div class="cc-col" style="text-align:center; font-weight:700; font-size:12px; color: var(--text); background: var(--surface); padding:4px 6px; border-radius:4px; border:1px solid var(--border); display:inline-block; margin:0 auto; min-width:50px;">' + (t.allocated_sessions || 0) + '</div>';
       if (t.subtopics && t.subtopics.length) {
         html += '<div class="cc-subtopics">';
         t.subtopics.forEach(function(st) {
@@ -1737,11 +2089,6 @@ function isPinned(subject, topic, subtopic) {
     return !item.subtopic;
   });
 }
-
-function closeWorkspace() {
-  document.getElementById('ws-overlay').classList.remove('active');
-}
-
 
 
 
@@ -2014,7 +2361,7 @@ function renderMacro(macroData) {
 
   var html = '<div style="display:flex; flex-direction:column; gap:12px">' +
     '<div style="font-size:13px; color:var(--text2); line-height:1.6">' +
-      'Bu ayki ana odak: P0 öncelikli ' + (focusNames || 'herhangi bir konu bulunmuyor') + ' konularını eritmek.' +
+      'Bu ayki ana odak: en yüksek öncelikli (Sıra 1-5) ' + (focusNames || 'herhangi bir konu bulunmuyor') + ' konularını eritmek.' +
     '</div>' +
     '<div style="margin-top:8px">' +
       '<div style="display:flex; justify-content:space-between; font-size:14px; font-weight:700; margin-bottom:6px">' +
@@ -2046,12 +2393,12 @@ function renderRoadmap(roadmapData) {
         '<div class="card" style="background:var(--surface2); border:1px solid var(--border); padding:16px; border-radius:10px">' +
           '<div style="font-size:12px; color:var(--text2); text-transform:uppercase; font-weight:700">' + esc(mStats.sprint_1.name) + ' (' + esc(mStats.sprint_1.weeks_range) + ')</div>' +
           '<div style="font-size:16px; font-weight:800; color:var(--accent); margin-top:8px">⏱ ' + mStats.sprint_1.total_hours + ' Saat | ✍ ' + mStats.sprint_1.total_questions + ' Soru</div>' +
-          '<div style="font-size:11px; color:var(--text2); margin-top:4px">Kritik P0 konuları için öngörülen hacim.</div>' +
+          '<div style="font-size:11px; color:var(--text2); margin-top:4px">Öncelikli konular için öngörülen hacim.</div>' +
         '</div>' +
         '<div class="card" style="background:var(--surface2); border:1px solid var(--border); padding:16px; border-radius:10px">' +
           '<div style="font-size:12px; color:var(--text2); text-transform:uppercase; font-weight:700">' + esc(mStats.sprint_2.name) + ' (' + esc(mStats.sprint_2.weeks_range) + ')</div>' +
           '<div style="font-size:16px; font-weight:800; color:var(--accent2); margin-top:8px">⏱ ' + mStats.sprint_2.total_hours + ' Saat | ✍ ' + mStats.sprint_2.total_questions + ' Soru</div>' +
-          '<div style="font-size:11px; color:var(--text2); margin-top:4px">Gelecek aşama P0 konuları için öngörülen hacim.</div>' +
+          '<div style="font-size:11px; color:var(--text2); margin-top:4px">İkinci aşama öncelikli konular için öngörülen hacim.</div>' +
         '</div>' +
       '</div>';
   }

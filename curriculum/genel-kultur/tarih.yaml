@@ -5,49 +5,71 @@ total_questions: 27
 total_target_net: 14
 target_correct: 14
 target_net: 14
-priority: P1
 topics:
-  - name: İnkılap Tarihi
-    avg_questions: 12
-    target_net: 9
-    priority: P0
-    subtopics:
-      - XX. Yüzyıl Başlarında Osmanlı
-      - Millî Mücadele Hazırlık Dönemi
-      - Kurtuluş Savaşı Cepheleri
-      - Atatürk İlke ve İnkılapları
-      - Atatürk Dönemi İç ve Dış Politika
-  - name: Osmanlı Devleti
-    avg_questions: 9
-    target_net: 4
-    priority: P0
-    subtopics:
-      - Kuruluş ve Yükselme Dönemi
-      - Duraklama ve Gerileme Dönemi
-      - Dağılma Dönemi
-      - Osmanlı Kültür ve Medeniyeti
-  - name: Çağdaş Türk ve Dünya Tarihi
-    avg_questions: 3
-    target_net: 1
-    priority: P2
-    subtopics:
-      - İki Savaş Arası Dönem
-      - II. Dünya Savaşı
-      - Soğuk Savaş Dönemi
-      - Küreselleşen Dünya
-  - name: İlk Türk-İslam Devletleri
-    avg_questions: 2
-    target_net: 0
-    priority: P2
-    subtopics:
-      - Türklerin İslamiyet'i Kabulü
-      - Karahanlılar ve Gazneliler
-      - Büyük Selçuklu Devleti
-      - Türk-İslam Kültür ve Medeniyeti
-  - name: İslamiyet Öncesi Türk Tarihi
-    avg_questions: 1
-    target_net: 0
-    priority: P2
-    subtopics:
-      - Orta Asya Türk Tarihi
-      - İlk Türk Devletlerinde Kültür ve Medeniyet
+- name: İslamiyet Öncesi Türk Tarihi
+  chronologicalIndex: 1
+  avg_questions: 1
+  target_net: 0
+  subtopics:
+  - Orta Asya Türk Tarihi
+  - İlk Türk Devletlerinde Kültür
+- name: İlk Türk-İslam Devletleri
+  chronologicalIndex: 2
+  avg_questions: 2
+  target_net: 1
+  subtopics:
+  - Türklerin İslamiyet'i Kabulü
+  - Karahanlılar ve Gazneliler
+  - Selçuklular
+  - Kültür ve Medeniyet
+- name: Osmanlı Devleti Siyasi Tarihi
+  chronologicalIndex: 3
+  avg_questions: 5
+  target_net: 2
+  subtopics:
+  - Kuruluş
+  - Yükselme
+  - Duraklama
+  - Gerileme
+  - Dağılma
+- name: Osmanlı Kültür ve Medeniyeti
+  chronologicalIndex: 4
+  avg_questions: 4
+  target_net: 2
+  subtopics:
+  - Devlet Yönetimi
+  - Toprak Sistemi
+  - Hukuk
+  - Bilim ve Mimari
+- name: XX. Yüzyıl Osmanlı ve İnkılap Tarihine Giriş
+  chronologicalIndex: 5
+  avg_questions: 3
+  target_net: 2
+  subtopics:
+  - Trablusgarp ve Balkan Savaşları
+  - I. Dünya Savaşı
+  - Cemiyetler
+- name: Milli Mücadele Dönemi
+  chronologicalIndex: 6
+  avg_questions: 4
+  target_net: 3
+  subtopics:
+  - Hazırlık Dönemi ve Kongreler
+  - I. TBMM
+  - Kurtuluş Savaşı Cepheleri
+- name: Atatürk Dönemi ve İnkılaplar
+  chronologicalIndex: 7
+  avg_questions: 5
+  target_net: 4
+  subtopics:
+  - Atatürk Dönemi İç Politika
+  - Atatürk İlke ve İnkılapları
+- name: Atatürk Dönemi Dış Politika ve Çağdaş
+  chronologicalIndex: 8
+  avg_questions: 3
+  target_net: 0
+  subtopics:
+  - Dış Politika
+  - İki Savaş Arası
+  - Soğuk Savaş
+  - Küreselleşme
