@@ -2218,21 +2218,17 @@ function renderDailySessionTimeline() {
   var currentMinutes = hour * 60 + minute;
 
   var segments = [
-    { label: '1. Oturum', start: 9*60, end: 14*60, color: '#00d4ff', bg: 'rgba(0,212,255,0.12)' },
-    { label: '2. Oturum', start: 14*60, end: 19*60, color: '#7c5cfc', bg: 'rgba(124,92,252,0.12)' },
-    { label: '3. Oturum', start: 19*60, end: 24*60, color: '#fbbf24', bg: 'rgba(251,191,36,0.12)' }
+    { label: '1. Oturum', start: 9*60, end: 14*60, color: '#3b82f6', bg: 'rgba(59,130,246,0.12)' },
+    { label: '2. Oturum', start: 14*60, end: 19*60, color: '#10b981', bg: 'rgba(16,185,129,0.12)' },
+    { label: '3. Oturum', start: 19*60, end: 24*60, color: '#f59e0b', bg: 'rgba(245,158,11,0.12)' }
   ];
 
   var totalDayMinutes = 24 * 60;
-  var dayStartMinutes = 9 * 60;
-  var dayEndMinutes = 24 * 60;
-  var activeDayMinutes = dayEndMinutes - dayStartMinutes;
 
-  var barHtml = '<div style="display:flex;height:8px;border-radius:4px;overflow:hidden;position:relative;">';
+  var barHtml = '<div style="display:flex;height:6px;border-radius:3px;overflow:hidden;position:relative;">';
 
   var segmentDetails = [];
   segments.forEach(function(seg) {
-    var segWidth = ((seg.end - seg.start) / totalDayMinutes) * 100;
     var inSegment = currentMinutes >= seg.start && currentMinutes < seg.end;
     var segPct = 0;
     if (inSegment) {
@@ -2243,7 +2239,7 @@ function renderDailySessionTimeline() {
     var activeWidth = inSegment || currentMinutes >= seg.end ? segPct : 0;
     barHtml += '<div style="flex:' + (seg.end - seg.start) + ';position:relative;">' +
       '<div style="width:100%;height:100%;background:' + seg.bg + ';border-right:1px solid var(--border);"></div>' +
-      '<div style="width:' + activeWidth + '%;height:100%;background:' + seg.color + ';position:absolute;top:0;left:0;border-radius:' + (segPct > 0 && segPct < 100 ? '4px 0 0 4px' : '4px') + ';transition:width 1s;"></div>' +
+      '<div style="width:' + activeWidth + '%;height:100%;background:' + seg.color + ';position:absolute;top:0;left:0;border-radius:' + (segPct > 0 && segPct < 100 ? '3px 0 0 3px' : '3px') + ';transition:width 1s;"></div>' +
       '</div>';
     segmentDetails.push({
       label: seg.label,
@@ -2256,12 +2252,13 @@ function renderDailySessionTimeline() {
   });
   barHtml += '</div>';
 
-  var currentSegLabel = '', currentSegEnd = '';
+  var currentSegLabel = '', currentSegEnd = '', currentSegColor = '';
   for (var i = 0; i < segmentDetails.length; i++) {
     if (segmentDetails[i].isActive) {
       var endH = Math.floor(segmentDetails[i].end / 60);
       var endM = segmentDetails[i].end % 60;
       currentSegLabel = segmentDetails[i].label;
+      currentSegColor = segmentDetails[i].color;
       currentSegEnd = ('0' + endH).slice(-2) + ':' + ('0' + endM).slice(-2);
       break;
     }
@@ -2270,10 +2267,10 @@ function renderDailySessionTimeline() {
   var timeStr = ('0' + hour).slice(-2) + ':' + ('0' + minute).slice(-2);
   var isIdle = hour < 9;
 
-  el.innerHTML = '<div style="margin: 0 16px 20px 16px;">' +
-    '<div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;font-weight:700;color:var(--text);margin-bottom:8px">' +
-      '<span>⏳ Günlük Oturum Takibi <span style="font-size:11px;font-weight:500;color:var(--text2)">(' + timeStr + ' İstanbul)</span></span>' +
-      '<span style="color:' + (isIdle ? 'var(--text2)' : (currentSegEnd ? segmentDetails.find(function(s){return s.isActive;}).color : 'var(--text2)')) + ';font-size:11px;">' +
+  el.innerHTML = '<div style="margin: 0 16px 28px 16px;">' +
+    '<div style="display:flex;justify-content:space-between;align-items:center;font-size:11px;color:var(--text2);margin-bottom:6px">' +
+      '<span>⏳ Günlük Oturum Takibi <span style="color:var(--text2)">(' + timeStr + ' İstanbul)</span></span>' +
+      '<span style="font-size:11px;color:var(--text2);">' +
         (isIdle ? 'Dinlenme Aralığı (00:00 - 09:00)' : (currentSegEnd ? currentSegLabel + ' bitiş: ' + currentSegEnd : '')) +
       '</span>' +
     '</div>' +
@@ -2281,7 +2278,6 @@ function renderDailySessionTimeline() {
     '<div style="display:flex;justify-content:space-between;font-size:10px;color:var(--text2);margin-top:4px;">' +
       '<span>09:00</span><span>14:00</span><span>19:00</span><span>24:00</span>' +
     '</div>' +
-    (!isIdle && currentSegEnd ? '<div style="margin-top:8px;font-size:11px;color:var(--text2);text-align:center;">🔵 ' + currentSegLabel + ' aktif — bitiş: <strong style="color:' + segmentDetails.find(function(s){return s.isActive;}).color + '">' + currentSegEnd + '</strong></div>' : '') +
   '</div>';
 }
 
