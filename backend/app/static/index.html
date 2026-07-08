@@ -2009,7 +2009,12 @@ function renderSubjectCards(subjects) {
       '<div class="cc-topic" style="border-bottom:2px solid var(--border);padding-bottom:8px;font-size:10px;color:var(--text2);text-transform:uppercase;letter-spacing:0.5px;cursor:default">' +
         '<div>Konu</div><div class="cc-col">Soru</div><div class="cc-col">Hedef</div><div class="cc-col">Sıra</div><div class="cc-col" style="text-align:center;">OTURUM</div></div>';
 
-    (subj.topics || []).forEach(function(t) {
+var sortedTopics = (subj.topics || []).slice().sort(function(a, b) {
+      var ia = a.chronologicalIndex !== undefined && a.chronologicalIndex !== null ? a.chronologicalIndex : 9999;
+      var ib = b.chronologicalIndex !== undefined && b.chronologicalIndex !== null ? b.chronologicalIndex : 9999;
+      return ia - ib;
+    });
+    sortedTopics.forEach(function(t) {
       var ci = t.chronologicalIndex !== undefined && t.chronologicalIndex !== null ? t.chronologicalIndex : '-';
       var routineTag = t.isRoutine ? 'R' : '';
       var displayOrder = (routineTag === 'R') ? 'R' : ci;
