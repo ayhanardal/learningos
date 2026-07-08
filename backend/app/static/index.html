@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>KPSS Dashboard</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
@@ -687,6 +687,18 @@ h3.ce-header {
     font-style: italic;
     color: var(--text2);
 }
+
+/* Workspace panelinin ve altındaki tüm elemanların kaydırma çubuklarını Chrome/Firefox vb. tarayıcılarda kesin olarak gizle */
+#workspace-panel, #workspace-panel *, #workspace-backdrop, #workspace-backdrop *, .no-scrollbar, [id^="int-question-text-"], [id^="slide-content-"] {
+    scrollbar-width: none !important; /* Firefox */
+    -ms-overflow-style: none !important; /* IE 10+ */
+}
+#workspace-panel::-webkit-scrollbar, #workspace-panel *::-webkit-scrollbar, #workspace-backdrop::-webkit-scrollbar, #workspace-backdrop *::-webkit-scrollbar, .no-scrollbar::-webkit-scrollbar, [id^="int-question-text-"]::-webkit-scrollbar, [id^="slide-content-"]::-webkit-scrollbar {
+    display: none !important; /* WebKit */
+    width: 0 !important;
+    height: 0 !important;
+    background: transparent !important;
+}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest"></script>
 <script src="https://cdn.jsdelivr.net/npm/@editorjs/header@latest"></script>
@@ -772,7 +784,7 @@ h3.ce-header {
             <div id="ws-subpages" style="display: flex; flex-wrap: wrap; gap: 4px; justify-content: flex-end; flex-shrink: 0; margin-left: 12px;"></div>
         </div>
 
-        <div style="padding: 32px 80px; overflow-y: auto; flex: 1;">
+        <div class="no-scrollbar" style="padding: 32px 80px; overflow-y: auto; flex: 1;">
             <div style="max-width: 900px; margin: 0 auto;">
                 <div id="editorjs" style="font-size: 16px; line-height: 1.7; color: var(--text);"></div>
             </div>
@@ -1302,15 +1314,16 @@ window._renderSection = function(section, idx) {
             window._carouselSections = window._carouselSections || {};
             window._carouselSections[idx] = section;
             
-            h += '<div style="background: #ffffff; border: 1px solid #e0e0e0; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.03); padding: 24px; display: flex; flex-direction: column; text-align: left; font-family: Arial, Helvetica, sans-serif; max-width: 50%; width: 100%; box-sizing: border-box;">';
-            h += '<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-shrink: 0;">';
-            h += '<div id="carousel-tag-' + idx + '" style="color: #4b5563; font-size: 11px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;">' + (section.tag || '') + '</div>';
-            h += '<div style="display: flex; align-items: center; gap: 8px;">';
-            h += '<button onclick="changeMultiCarousel(\'' + idx + '\', -1)" style="padding: 2px 6px; cursor: pointer; border: 1px solid #d1d5db; background: #f9fafb; color: #374151; font-size: 10px; border-radius: 3px; font-weight: bold; line-height: 1;">◀</button>';
-            h += '<span id="int-counter-' + idx + '" style="color: #4b5563; font-weight: bold; font-size: 11px; min-width: 35px; text-align: center;">1 / ' + section.questions.length + '</span>';
-            h += '<button onclick="changeMultiCarousel(\'' + idx + '\', 1)" style="padding: 2px 6px; cursor: pointer; border: 1px solid #d1d5db; background: #f9fafb; color: #374151; font-size: 10px; border-radius: 3px; font-weight: bold; line-height: 1;">▶</button>';
-            h += '</div></div>';
-            h += '<div id="int-question-text-' + idx + '" style="padding: 6px 0 20px 0; min-height: 240px; flex: 1; color: #111827; line-height: 1.6; font-size: 14.5px; font-family: Arial, Helvetica, sans-serif; text-align: left; letter-spacing: 0.1px;">' + section.questions[0].htmlContent + '</div>';
+            h += '<div style="background: #F7F5F0; border: 1px solid #e0e0e0; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.03); padding: 24px; display: flex; flex-direction: column; text-align: left; font-family: Arial, Helvetica, sans-serif; max-width: 100%; width: 100%; box-sizing: border-box; height: 100%;">';
+            if (section.questions.length > 1) {
+                h += '<div style="display: flex; justify-content: flex-end; align-items: center; margin-bottom: 14px; flex-shrink: 0;">';
+                h += '<div style="display: flex; align-items: center; gap: 8px;">';
+                h += '<button onclick="changeMultiCarousel(\'' + idx + '\', -1)" style="padding: 2px 6px; cursor: pointer; border: 1px solid #d1d5db; background: #f9fafb; color: #374151; font-size: 10px; border-radius: 3px; font-weight: bold; line-height: 1;">◀</button>';
+                h += '<span id="int-counter-' + idx + '" style="color: #4b5563; font-weight: bold; font-size: 11px; min-width: 35px; text-align: center;">1 / ' + section.questions.length + '</span>';
+                h += '<button onclick="changeMultiCarousel(\'' + idx + '\', 1)" style="padding: 2px 6px; cursor: pointer; border: 1px solid #d1d5db; background: #f9fafb; color: #374151; font-size: 10px; border-radius: 3px; font-weight: bold; line-height: 1;">▶</button>';
+                h += '</div></div>';
+            }
+            h += '<div id="int-question-text-' + idx + '" style="padding: 0; min-height: 240px; flex: 1; display: flex; flex-direction: column; color: #111827; line-height: 1.6; font-size: 14.5px; font-family: Arial, Helvetica, sans-serif; text-align: left; letter-spacing: 0.1px; height: 100%;">' + section.questions[0].htmlContent + '</div>';
             h += '</div>';
         }
     } else if (section.type === "slide") {
@@ -1361,6 +1374,159 @@ window._renderSection = function(section, idx) {
             h += '</div>';
         });
         h += '</div></div>';
+    } else if (section.type === "map") {
+        var mapId = idx;
+        window._mapSections = window._mapSections || {};
+        window._mapSections[mapId] = section;
+        
+        h += '<div style="background: #ffffff; border: 1px solid #e0e0e0; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.03); padding: 24px; font-family: Arial, Helvetica, sans-serif; text-align: center; max-width: 100%; width: 100%; box-sizing: border-box; margin-right: auto; margin-left: 0; height: 100%; display: flex; flex-direction: column; justify-content: center;">';
+        if (section.title) {
+            h += '<h3 style="margin-bottom: 20px; color: #111827; font-size: 16px; font-weight: 700; border-bottom: 2px solid #fcd5b4; padding-bottom: 8px; text-transform: uppercase; text-align: left;">' + section.title + '</h3>';
+        }
+        
+        // Tek Kolon: SVG Harita Konteyneri (Maksimum genişlik verilip ortalandı)
+        h += '<div id="map-svg-container-' + mapId + '" style="width: 100%; border: 1px solid #f3f4f6; border-radius: 4px; padding: 10px; background: #fafafa; display: flex; align-items: center; justify-content: center; min-height: 400px; max-width: 100%; margin: 0 auto; flex: 1;">';
+        h += '<div style="color: #9ca3af; font-size: 13px;">Harita Yükleniyor...</div>';
+        h += '</div>';
+        
+        h += '</div>'; // kart sonu
+        
+        // Dinamik SVG yükleme
+        setTimeout(function() {
+            fetch('/static/turkiye-bolgeler.svg')
+                .then(function(r) { return r.text(); })
+                .then(function(svgText) {
+                    var container = document.getElementById('map-svg-container-' + mapId);
+                    if (!container) return;
+                    container.innerHTML = svgText;
+                    
+                    var svg = container.querySelector('svg');
+                    if (svg) {
+                        svg.style.width = '100%';
+                        svg.style.height = 'auto';
+                        svg.style.maxHeight = '480px';
+                    }
+                    
+                    var regions = container.querySelectorAll('g[data-bolgeadi]');
+                    regions.forEach(function(reg) {
+                        var bolgeAdi = reg.getAttribute('data-bolgeadi');
+                        var regData = (section.regions || []).find(function(r) { return r.name === bolgeAdi; });
+                        var color = (regData && regData.color) || '#cbd5e0';
+                        
+                        // Stil ayarları (doğrudan kendi statik rengine boyanmış, sınır çizgileri kontrast için siyah)
+                        var paths = reg.querySelectorAll('path');
+                        paths.forEach(function(p) {
+                            p.style.fill = color;
+                            p.style.stroke = '#111827';
+                            p.style.strokeWidth = '1';
+                        });
+                        
+                        // Tıklama olayı tamamen kaldırıldı, bölgeler tamamen statik
+                    });
+                    
+                    // Harita üzerine dikey ve yatay olarak ortalanmış şık bölge etiketleri ekleme
+                    // dir parametresi: etiketlerin (badge'lerin) yayılım yönünü sol-üst (left-up), sol-alt (left-down), sağ-üst (right-up) veya sağ-alt (right-down) olarak belirler.
+                    var labelConfigs = {
+                        "Marmara Bölgesi": { x: 230, y: 135, short: "MARMARA", dir: "left-up" },
+                        "Ege Bölgesi": { x: 170, y: 285, short: "EGE", dir: "left-down" },
+                        "Akdeniz Bölgesi": { x: 400, y: 415, short: "AKDENİZ", dir: "right-up" },
+                        "İç Anadolu Bölgesi": { x: 500, y: 275, short: "İÇ ANADOLU", dir: "right-up" },
+                        "Karadeniz Bölgesi": { x: 570, y: 135, short: "KARADENİZ", dir: "right-up" },
+                        "Doğu Anadolu Bölgesi": { x: 810, y: 245, short: "DOĞU ANADOLU", dir: "right-up" },
+                        "Güneydoğu Anadolu Bölgesi": { x: 790, y: 395, short: "GÜNEYDOĞU", dir: "right-down" }
+                    };
+                    
+                    var labelGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+                    labelGroup.setAttribute('id', 'map-labels-' + mapId);
+                    
+                    Object.keys(labelConfigs).forEach(function(key) {
+                        var conf = labelConfigs[key];
+                        var regData = (section.regions || []).find(function(r) { return r.name === key; });
+                        var dir = conf.dir || "right-up"; // varsayılan yayılım yönü
+                        
+                        // 1. Ana Bölge Adı Metni
+                        var textNode = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                        textNode.setAttribute('x', conf.x);
+                        textNode.setAttribute('y', conf.y);
+                        textNode.setAttribute('text-anchor', 'middle');
+                        textNode.setAttribute('style', 'fill: #111827; font-size: 11px; font-weight: bold; font-family: Arial, sans-serif; pointer-events: none; stroke: #ffffff; stroke-width: 3.5px; paint-order: stroke fill; letter-spacing: 0.5px;');
+                        textNode.textContent = conf.short;
+                        labelGroup.appendChild(textNode);
+                        
+                        // 2. Hap (Pill/Badge) Etiketleri (varsa) - Dinamik Yön, Dev Boyut (3-4x) ve Hizalı
+                        if (regData && regData.badge) {
+                            var badges = Array.isArray(regData.badge) ? regData.badge : [regData.badge];
+                            var labelTextWidth = conf.short.length * 6.5; 
+                            
+                            // En uzun kelimenin genişliğini bulup referans alalım
+                            var maxBadgeTextLen = badges.reduce(function(max, b) { return b.length > max ? b.length : max; }, 0);
+                            var maxBadgeWidth = Math.max(maxBadgeTextLen * 11 + 24, 76);
+                            var totalHeight = badges.length * 36 + (badges.length - 1) * 6;
+                            
+                            var currentX, currentY;
+                            
+                            // Yön parametresine göre koordinat belirleme
+                            if (dir === "left-up") {
+                                // Sola doğru ve dikeyde bölge metnini ortalayacak şekilde yukarıdan aşağıya
+                                currentX = conf.x - (labelTextWidth / 2) - maxBadgeWidth - 12;
+                                currentY = conf.y - (totalHeight / 2) - 10;
+                            } else if (dir === "left-down") {
+                                // Sola doğru ve bölge metninin altından aşağıya doğru (Marmara ve Akdeniz'e taşmasın diye)
+                                currentX = conf.x - (labelTextWidth / 2) - maxBadgeWidth - 16;
+                                currentY = conf.y + 12;
+                            } else if (dir === "right-down") {
+                                // Sağa doğru ve bölge metninin altından aşağıya doğru (Doğu Anadolu'ya taşmasın diye)
+                                currentX = conf.x + (labelTextWidth / 2) + 20;
+                                currentY = conf.y + 12;
+                            } else {
+                                // Sağ üst (Standart): Sağa doğru ve dikeyde bölge metnini ortalayacak şekilde yukarıdan aşağıya
+                                currentX = conf.x + (labelTextWidth / 2) + 20;
+                                currentY = conf.y - (totalHeight / 2) - 10;
+                            }
+                            
+                            badges.forEach(function(badgeText) {
+                                var textLen = badgeText.length;
+                                var badgeWidth = Math.max(textLen * 11 + 24, 76); 
+                                var badgeHeight = 36; 
+                                
+                                // Sol/sağ bloklu hizalama için hapa göre X kenar düzeltmesi
+                                var rectX = currentX + (maxBadgeWidth - badgeWidth) / 2;
+                                
+                                // Hap Arka Planı (Kutusu)
+                                var rectNode = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+                                rectNode.setAttribute('x', rectX);
+                                rectNode.setAttribute('y', currentY);
+                                rectNode.setAttribute('width', badgeWidth);
+                                rectNode.setAttribute('height', badgeHeight);
+                                rectNode.setAttribute('rx', '18'); 
+                                rectNode.setAttribute('ry', '18');
+                                rectNode.setAttribute('style', 'fill: #e11d48; stroke: #ffffff; stroke-width: 2.5px; pointer-events: none; filter: drop-shadow(0px 4px 8px rgba(0,0,0,0.22));');
+                                
+                                // Hap Metni (Devasa ve kalın)
+                                var badgeTextNode = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                                badgeTextNode.setAttribute('x', rectX + (badgeWidth / 2));
+                                badgeTextNode.setAttribute('y', currentY + 24); // dikey ortalama
+                                badgeTextNode.setAttribute('text-anchor', 'middle');
+                                badgeTextNode.setAttribute('style', 'fill: #ffffff; font-size: 16px; font-weight: 900; font-family: Arial, sans-serif; pointer-events: none; letter-spacing: 0.5px;');
+                                badgeTextNode.textContent = badgeText;
+                                
+                                labelGroup.appendChild(rectNode);
+                                labelGroup.appendChild(badgeTextNode);
+                                
+                                // Bir sonraki hap için dikey koordinatı aşağıya kaydır
+                                currentY += badgeHeight + 6;
+                            });
+                        }
+                    });
+                    
+                    if (svg) svg.appendChild(labelGroup);
+                })
+                .catch(function(e) {
+                    var container = document.getElementById('map-svg-container-' + mapId);
+                    if (container) container.innerHTML = '<div style="color: #ef4444; font-size: 13px;">Harita yüklenirken hata oluştu.</div>';
+                    console.error("Harita yükleme hatası:", e);
+                });
+        }, 50);
     }
     return h;
 };
@@ -1370,9 +1536,9 @@ window.renderSections = function(container, layout) {
 
     layout.forEach(function(section, idx) {
         if (section.type === "split") {
-            html += '<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">';
-            html += '<div style="display: flex;">' + window._renderSection(section.left, idx + '_l') + '</div>';
-            html += '<div style="display: flex;">' + window._renderSection(section.right, idx + '_r') + '</div>';
+            html += '<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: stretch;">';
+            html += '<div style="display: flex; flex-direction: column; width: 100%; height: 100%;">' + window._renderSection(section.left, idx + '_l') + '</div>';
+            html += '<div style="display: flex; flex-direction: column; width: 100%; height: 100%;">' + window._renderSection(section.right, idx + '_r') + '</div>';
             html += '</div>';
             if (section.linked) {
                 window._splitLinks[idx + '_l'] = idx + '_r';

@@ -4,9 +4,9 @@
 
 ---
 
-## Seçenek 1: Tek Kolon (Yarım Sayfa Genişliği)
+## Seçenek 1: Tek Kolon (Tam Genişlik)
 
-Sayfanın yarısını (%50 genişlik) kaplayacak şekilde render edilir. Bağımsız, tekli soru listesi sunmak için kullanılır.
+Sarmalayıcı container'ın tam genişliğini (%100) kaplayacak şekilde render edilir. Split layout içinde veya tek başına kullanıldığında bulunduğu kolonu tamamen doldurur. Boşluksuz ve temiz bir yerleşim sunar.
 
 ```json
 {

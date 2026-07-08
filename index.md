@@ -39,6 +39,7 @@ Her section `_layout[]` dizisine eklenir:
 | `notes` | Düz metin taktik notu | [`templates/notes.md`](templates/notes.md) |
 | `text` | Serbest HTML | [`templates/text.md`](templates/text.md) |
 | `split` | 2 yan yana section, `linked` ile ref filtreleme | [`templates/split.md`](templates/split.md) |
+| `map` | Etkileşimli Türkiye haritası ve bölgesel nitelikler | [`templates/map.md`](templates/map.md) |
 
 EditorJS blokları (T3/T4) sadece EditorJS içinde kullanılır, `_layout`'a girmez:
 
@@ -114,3 +115,9 @@ Güncelleme: GET ile mevcut içeriği oku → güncelle → POST.
 - SADECE `saveInteractiveNote()` backend'e yazılır.
 - Docker container restart gerekmez (bind mount).
 - `--reload` Python dosyalarında otomatik restart yapar.
+
+---
+
+## 8. Not Alma Rehberi ve Ders Standartları
+
+Her dersin not alma stilini, kullanılan şablon türlerini ve pedagojik yaklaşım standartlarını [NOT_ALMA_REHBERI.md](NOT_ALMA_REHBERI.md) dosyasından takip et. Yeni içerik üretirken bu kılavuza sadık kal.
