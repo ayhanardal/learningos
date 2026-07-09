@@ -62,7 +62,10 @@ Header'ı gizler, slayt geçiş tuşlarını kaldırır ve kartları yan yana "T
 }
 ```
 
-### 3. Şablon: Sadece Görsel Yükleme Alanı (Metinsiz)
+### 3. Şablon: 2x2 Grid Düzeni (Matris Yapısı)
+İki kolonlu slaytlarda `items` dizisi tam olarak 4 elemandan oluştuğunda (`items.length === 4`) otomatik olarak tetiklenir. Sağ bölümdeki metin alanını yan yana ve alt alta 2x2 formatında yerleşen 4 adet bağımsız minik karta böler. Bu, mevsimler ve ekinoks döngüleri gibi 4'lü gruplamalar için idealdir.
+
+### 4. Şablon: Sadece Görsel Yükleme Alanı (Metinsiz)
 ```json
 {
   "type": "slide",
