@@ -95,6 +95,7 @@ Eğer kullanıcı **Tipbox** özelliği isterse veya kritik terimlerin derin det
 | `stack` | boolean | Hayır | `true` ise slayt geçiş tuşları kalkar, tüm slaytlar dikey kartlar olarak alt alta listelenir. |
 | `slides[].key` | string | Hayır | Büyük üst başlık (çizgili). Orijinal kartlarda anahtar kelime sütunudur. |
 | `slides[].image` | string | Hayır | Resmin sunucudaki statik URL'idir. Boş bırakılırsa dosya seçici gösterilir. |
+| `slides[].imageRight` | boolean | Hayır | `true` ise görsel sağ tarafta, metinler sol tarafta render edilir. |
 | `slides[].value` | string | Hayır | Tek kolonlu veya Stacked moddaki açıklama içeriğidir. |
 | `slides[].items` | array | Hayır | Çok kolonlu slayt maddelerini barındırır. |
 

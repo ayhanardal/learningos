@@ -1453,9 +1453,9 @@ window._buildSlideHtml = function(slide, sectionIdx, slideIdx) {
                 html += '  </div>';
                 
                 html += '</div>';
-            } else {
-                // İki kolonlu düzen (Sol: Görsel, Sağ: Metin)
-                html += '<div style="display: flex; gap: 24px; align-items: stretch; flex-wrap: wrap; width: 100%;">';
+                // İki kolonlu düzen (Sol: Görsel, Sağ: Metin veya row-reverse ile tersi)
+                var rowDirection = slide.imageRight === true ? 'flex-direction: row-reverse;' : '';
+                html += '<div style="display: flex; gap: 24px; align-items: stretch; flex-wrap: wrap; width: 100%; ' + rowDirection + '">';
                 
                 // Sol Kolon (Görsel)
                 html += '  <div style="flex: 1; min-width: 250px; display: flex; flex-direction: column; justify-content: center;">';
