@@ -1,12 +1,17 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, File, UploadFile
 from sqlalchemy.orm import Session
 import json
+import uuid
+import os
 
 from app.database import get_db
 from app.models import UserNote, UserRoadmap
 from app.schemas import NoteCreate, RoadmapCreate
 
 router = APIRouter()
+
+UPLOAD_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), "static", "uploads")
+os.makedirs(UPLOAD_DIR, exist_ok=True)
 
 @router.post("/notes")
 def save_note(note: NoteCreate, db: Session = Depends(get_db)):
@@ -44,3 +49,21 @@ def load_roadmap(sprint_start_date: str, db: Session = Depends(get_db)):
     if db_roadmap:
         return {"status": "success", "roadmap_json": db_roadmap.roadmap_json}
     raise HTTPException(status_code=404, detail="Yol haritası bulunamadı")
+
+@router.post("/notes/upload")
+async def upload_note_image(file: UploadFile = File(...)):
+    _, ext = os.path.splitext(file.filename)
+    if ext.lower() not in [".jpg", ".jpeg", ".png", ".gif", ".webp"]:
+        raise HTTPException(status_code=400, detail="Geçersiz dosya formatı!")
+    
+    filename = f"{uuid.uuid4()}{ext.lower()}"
+    filepath = os.path.join(UPLOAD_DIR, filename)
+    
+    try:
+        with open(filepath, "wb") as buffer:
+            content = await file.read()
+            buffer.write(content)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Dosya kaydedilemedi: {str(e)}")
+        
+    return {"status": "success", "url": f"/static/uploads/{filename}"}

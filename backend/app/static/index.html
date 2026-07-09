@@ -699,6 +699,146 @@ h3.ce-header {
     height: 0 !important;
     background: transparent !important;
 }
+
+/* Slayt ve Kart Tasarımı İyileştirmeleri */
+.slide-info-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+    padding: 24px;
+    height: 100%;
+    box-sizing: border-box;
+}
+.slide-card-title {
+    font-family: 'Outfit', 'Inter', Arial, sans-serif;
+    font-size: 17px;
+    font-weight: 800;
+    color: #1e3a8a;
+    margin-bottom: 16px;
+    border-bottom: 2px solid #3b82f6;
+    padding-bottom: 8px;
+    letter-spacing: -0.3px;
+    text-transform: uppercase;
+}
+.slide-card-content {
+    font-family: 'Outfit', 'Inter', Arial, sans-serif;
+    font-size: 14.5px;
+    color: #4b5563;
+    line-height: 1.7;
+}
+.slide-card-content ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.slide-card-content li {
+    position: relative;
+    padding-left: 20px;
+    margin-bottom: 12px;
+}
+.slide-card-content li::before {
+    content: "•";
+    color: #3b82f6;
+    font-weight: bold;
+    font-size: 18px;
+    position: absolute;
+    left: 0;
+    top: -2px;
+}
+.slide-image-container {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.slide-image-placeholder {
+    border: 2px dashed #cbd5e1;
+    border-radius: 10px;
+    padding: 32px;
+    text-align: center;
+    width: 100%;
+    box-sizing: border-box;
+    background: #f8fafc;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 240px;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+}
+.slide-image-placeholder:hover {
+    border-color: #3b82f6;
+    background: #f0f7ff;
+}
+
+/* Gelişmiş Tooltip (Tipbox) Özelliği */
+.app-tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1.5px dashed #3b82f6;
+    color: #1e3a8a;
+    font-weight: 700;
+    cursor: help;
+}
+
+.app-tooltip::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 125%;
+    left: 50%;
+    transform: translateX(-50%) translateY(8px);
+    background: rgba(17, 24, 39, 0.95);
+    color: #ffffff;
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.5;
+    white-space: normal;
+    width: 220px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s, transform 0.2s;
+    z-index: 999;
+    text-align: left;
+    font-family: 'Outfit', 'Inter', Arial, sans-serif;
+    text-transform: none; /* Büyük harfe dönüşümü engellemek için */
+}
+
+.app-tooltip:hover::after {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+.app-tooltip::before {
+    content: "";
+    position: absolute;
+    bottom: 115%;
+    left: 50%;
+    transform: translateX(-50%) translateY(8px);
+    border-width: 6px;
+    border-style: solid;
+    border-color: rgba(17, 24, 39, 0.95) transparent transparent transparent;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s, transform 0.2s;
+    z-index: 999;
+}
+
+.app-tooltip:hover::before {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest"></script>
 <script src="https://cdn.jsdelivr.net/npm/@editorjs/header@latest"></script>
@@ -946,9 +1086,10 @@ window.loadEditorData = async function(subject, topicKey) {
     const storageKey = `note_${subject}_${topicKey}`;
     let savedData = null;
     try {
-        const res = await fetch(`/api/notes?subject=${encodeURIComponent(subject)}&topic=${encodeURIComponent(topicKey)}`);
+        const res = await fetch(`/api/notes?subject=${encodeURIComponent(subject)}&topic=${encodeURIComponent(topicKey)}&t=${Date.now()}`);
         if (res.ok) {
             const data = await res.json();
+            console.log("[loadEditorData] fetched note data:", data);
             savedData = data.content;
         }
     } catch(err) {
@@ -1227,17 +1368,151 @@ window._getTopicTemplate = function(topicKey) {
     return dataByTopic[topicKey] || null;
 };
 
-window._buildSlideHtml = function(slide) {
+window._buildSlideHtml = function(slide, sectionIdx, slideIdx) {
+    console.log("[_buildSlideHtml] slide:", slide, "sectionIdx:", sectionIdx, "slideIdx:", slideIdx);
     var html = '';
-    if (slide.items && slide.items.length) {
-        for (var si = 0; si < slide.items.length; si++) {
-            if (si > 0) html += '<div style="border-top: 1px solid #e0e0e0; margin: 16px 0;"></div>';
-            html += '<div style="margin-bottom: 4px; font-size: 15px; font-weight: 700; color: #1a1a1a;">' + slide.items[si].label + '</div>';
-            html += '<div style="font-size: 15px; color: #444; line-height: 1.6; text-align: justify;">' + slide.items[si].text + '</div>';
+    var hasImageProp = slide.hasOwnProperty('image');
+    
+    if (hasImageProp) {
+        var hasTextContent = (slide.value && slide.value.trim() !== '') || (slide.items && slide.items.length > 0);
+        
+        if (!hasTextContent) {
+            // SADECE GÖRSEL (İçerik yok)
+            if (slide.image) {
+                html += '<div class="slide-image-container" style="min-height: 320px;">';
+                html += '  <div onmouseenter="var b=this.querySelector(\'.img-change-btn\'); if(b) b.style.opacity=1;" onmouseleave="var b=this.querySelector(\'.img-change-btn\'); if(b) b.style.opacity=0;" style="position: relative; display: inline-block; width: 100%; text-align: center;">';
+                html += '    <img src="' + slide.image + '" style="max-width: 100%; max-height: 350px; object-fit: contain; border-radius: 6px;" />';
+                html += '    <label class="img-change-btn" style="position: absolute; top: 8px; right: 8px; opacity: 0; transition: opacity 0.2s; cursor: pointer; background: rgba(17, 24, 39, 0.85); color: white; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; z-index: 10; box-shadow: 0 2px 8px rgba(0,0,0,0.3);" title="Görseli Değiştir">';
+                html += '      📷';
+                html += '      <input type="file" accept="image/*" onchange="window.uploadSlideImage(this, \'' + sectionIdx + '\', ' + slideIdx + ')" style="display: none;" />';
+                html += '    </label>';
+                html += '  </div>';
+                html += '</div>';
+            } else {
+                html += '<div class="slide-image-container" style="min-height: 320px;">';
+                html += '  <div class="slide-image-placeholder" style="min-height: 280px;">';
+                html += '    <span style="display: block; color: #64748b; font-size: 14px; margin-bottom: 16px; font-weight: 600;">Henüz görsel yüklenmemiş.</span>';
+                html += '    <label style="cursor: pointer; background: #2563eb; color: white; padding: 8px 18px; border-radius: 6px; font-size: 13px; font-weight: 700; display: inline-block; transition: background 0.2s; box-shadow: 0 2px 4px rgba(37,99,235,0.2);">';
+                html += '      Görsel Yükle';
+                html += '      <input type="file" accept="image/*" onchange="window.uploadSlideImage(this, \'' + sectionIdx + '\', ' + slideIdx + ')" style="display: none;" />';
+                html += '    </label>';
+                html += '  </div>';
+                html += '</div>';
+            }
+        } else {
+            var useThreeColumns = slide.items && slide.items.length >= 2;
+            
+            if (useThreeColumns) {
+                html += '<div style="display: flex; gap: 24px; align-items: stretch; flex-wrap: wrap; width: 100%;">';
+                
+                // 1. Kolon: Görsel (Sol)
+                html += '  <div style="flex: 1.2; min-width: 250px; display: flex; flex-direction: column; justify-content: center;">';
+                if (slide.image) {
+                    html += '    <div class="slide-image-container">';
+                    html += '      <div onmouseenter="var b=this.querySelector(\'.img-change-btn\'); if(b) b.style.opacity=1;" onmouseleave="var b=this.querySelector(\'.img-change-btn\'); if(b) b.style.opacity=0;" style="position: relative; display: inline-block; width: 100%; text-align: center;">';
+                    html += '        <img src="' + slide.image + '" style="max-width: 100%; max-height: 320px; object-fit: contain; border-radius: 6px;" />';
+                    html += '        <label class="img-change-btn" style="position: absolute; top: 8px; right: 8px; opacity: 0; transition: opacity 0.2s; cursor: pointer; background: rgba(17, 24, 39, 0.85); color: white; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; z-index: 10; box-shadow: 0 2px 8px rgba(0,0,0,0.3);" title="Görseli Değiştir">';
+                    html += '          📷';
+                    html += '          <input type="file" accept="image/*" onchange="window.uploadSlideImage(this, \'' + sectionIdx + '\', ' + slideIdx + ')" style="display: none;" />';
+                    html += '        </label>';
+                    html += '      </div>';
+                    html += '    </div>';
+                } else {
+                    html += '    <div class="slide-image-container">';
+                    html += '      <div class="slide-image-placeholder">';
+                    html += '        <span style="display: block; color: #64748b; font-size: 14px; margin-bottom: 16px; font-weight: 600;">Henüz görsel yüklenmemiş.</span>';
+                    html += '        <label style="cursor: pointer; background: #2563eb; color: white; padding: 8px 18px; border-radius: 6px; font-size: 13px; font-weight: 700; display: inline-block; transition: background 0.2s; box-shadow: 0 2px 4px rgba(37,99,235,0.2);">';
+                    html += '          Görsel Yükle';
+                    html += '          <input type="file" accept="image/*" onchange="window.uploadSlideImage(this, \'' + sectionIdx + '\', ' + slideIdx + ')" style="display: none;" />';
+                    html += '        </label>';
+                    html += '      </div>';
+                    html += '    </div>';
+                }
+                html += '  </div>';
+                
+                // 2. Kolon: Orta (Enlem)
+                html += '  <div style="flex: 1; min-width: 200px;">';
+                html += '    <div class="slide-info-card">';
+                html += '      <div class="slide-card-title">' + slide.items[0].label + '</div>';
+                html += '      <div class="slide-card-content">' + slide.items[0].text + '</div>';
+                html += '    </div>';
+                html += '  </div>';
+                
+                // 3. Kolon: Sağ (Boylam)
+                html += '  <div style="flex: 1; min-width: 200px;">';
+                html += '    <div class="slide-info-card">';
+                html += '      <div class="slide-card-title">' + slide.items[1].label + '</div>';
+                html += '      <div class="slide-card-content">' + slide.items[1].text + '</div>';
+                html += '    </div>';
+                html += '  </div>';
+                
+                html += '</div>';
+            } else {
+                // İki kolonlu düzen (Sol: Görsel, Sağ: Metin)
+                html += '<div style="display: flex; gap: 24px; align-items: stretch; flex-wrap: wrap; width: 100%;">';
+                
+                // Sol Kolon (Görsel)
+                html += '  <div style="flex: 1; min-width: 250px; display: flex; flex-direction: column; justify-content: center;">';
+                if (slide.image) {
+                    html += '    <div class="slide-image-container">';
+                    html += '      <div onmouseenter="var b=this.querySelector(\'.img-change-btn\'); if(b) b.style.opacity=1;" onmouseleave="var b=this.querySelector(\'.img-change-btn\'); if(b) b.style.opacity=0;" style="position: relative; display: inline-block; width: 100%; text-align: center;">';
+                    html += '        <img src="' + slide.image + '" style="max-width: 100%; max-height: 320px; object-fit: contain; border-radius: 6px;" />';
+                    html += '        <label class="img-change-btn" style="position: absolute; top: 8px; right: 8px; opacity: 0; transition: opacity 0.2s; cursor: pointer; background: rgba(17, 24, 39, 0.85); color: white; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; z-index: 10; box-shadow: 0 2px 8px rgba(0,0,0,0.3);" title="Görseli Değiştir">';
+                    html += '          📷';
+                    html += '          <input type="file" accept="image/*" onchange="window.uploadSlideImage(this, \'' + sectionIdx + '\', ' + slideIdx + ')" style="display: none;" />';
+                    html += '        </label>';
+                    html += '      </div>';
+                    html += '    </div>';
+                } else {
+                    html += '    <div class="slide-image-container">';
+                    html += '      <div class="slide-image-placeholder">';
+                    html += '        <span style="display: block; color: #64748b; font-size: 14px; margin-bottom: 16px; font-weight: 600;">Henüz görsel yüklenmemiş.</span>';
+                    html += '        <label style="cursor: pointer; background: #2563eb; color: white; padding: 8px 18px; border-radius: 6px; font-size: 13px; font-weight: 700; display: inline-block; transition: background 0.2s; box-shadow: 0 2px 4px rgba(37,99,235,0.2);">';
+                    html += '          Görsel Yükle';
+                    html += '          <input type="file" accept="image/*" onchange="window.uploadSlideImage(this, \'' + sectionIdx + '\', ' + slideIdx + ')" style="display: none;" />';
+                    html += '        </label>';
+                    html += '      </div>';
+                    html += '    </div>';
+                }
+                html += '  </div>';
+                
+                // Sağ Kolon (Metin)
+                html += '  <div style="flex: 1.2; min-width: 250px;">';
+                html += '    <div class="slide-info-card">';
+                if (slide.items && slide.items.length) {
+                    html += '      <div class="slide-card-content">';
+                    for (var si = 0; si < slide.items.length; si++) {
+                        if (si > 0) html += '<div style="border-top: 1px solid #e2e8f0; margin: 16px 0;"></div>';
+                        html += '<div style="margin-bottom: 4px; font-size: 15px; font-weight: 700; color: #1a1a1a;">' + slide.items[si].label + '</div>';
+                        html += '<div>' + slide.items[si].text + '</div>';
+                    }
+                    html += '      </div>';
+                } else if (slide.value) {
+                    html += '      <div class="slide-card-content">' + slide.value + '</div>';
+                }
+                html += '    </div>';
+                html += '  </div>';
+                
+                html += '</div>';
+            }
         }
-    } else if (slide.value) {
-        html = '<div style="font-size: 15px; color: #444; line-height: 1.6; text-align: justify;">' + slide.value + '</div>';
+    } else {
+        // Eski tek kolonlu düz metin düzeni
+        html += '<div class="slide-info-card">';
+        if (slide.items && slide.items.length) {
+            html += '  <div class="slide-card-content">';
+            for (var si = 0; si < slide.items.length; si++) {
+                if (si > 0) html += '<div style="border-top: 1px solid #e2e8f0; margin: 16px 0;"></div>';
+                html += '<div style="margin-bottom: 4px; font-size: 15px; font-weight: 700; color: #1a1a1a;">' + slide.items[si].label + '</div>';
+                html += '<div>' + slide.items[si].text + '</div>';
+            }
+            html += '  </div>';
+        } else if (slide.value) {
+            html += '  <div class="slide-card-content">' + slide.value + '</div>';
+        }
+        html += '</div>';
     }
+    
     return html;
 };
 
@@ -1330,20 +1605,52 @@ window._renderSection = function(section, idx) {
         window._slideSections = window._slideSections || {};
         window._slideSections[idx] = section;
         var s0 = section.slides[0];
-        var firstKey = (s0.key || '');
-        var firstItemsHtml = window._buildSlideHtml(s0);
+        
         h += '<div style="background: #ffffff; border: 1px solid #e0e0e0; border-radius: 8px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); height: 100%; display: flex; flex-direction: column;">';
-        h += '<div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 18px; border-bottom: 1px solid #f0f0f0; flex-shrink: 0;">';
-        h += '<div id="slide-tag-' + idx + '" style="color: #2563eb; font-size: 11px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;">' + (section.tag || '') + '</div>';
-        h += '<div style="display: flex; align-items: center; gap: 10px;">';
-        h += '<button onclick="changeSlide(\'' + idx + '\', -1)" style="padding: 2px 8px; cursor: pointer; border: none; background: transparent; color: #9ca3af; font-size: 14px;">\u25C0</button>';
-        h += '<span id="slide-counter-' + idx + '" style="color: #9ca3af; font-weight: 500; font-size: 12px;">1 / ' + section.slides.length + '</span>';
-        h += '<button onclick="changeSlide(\'' + idx + '\', 1)" style="padding: 2px 8px; cursor: pointer; border: none; background: transparent; color: #9ca3af; font-size: 14px;">\u25B6</button>';
-        h += '</div></div>';
-        h += '<div id="slide-content-' + idx + '" style="padding: 24px 28px; min-height: 240px; flex: 1; background: #f3f4f6;">';
-        h += '<div style="max-width: 640px; margin: 0 auto;">';
-        if (firstKey) h += '<div style="font-size: 22px; font-weight: 800; color: #1a1a1a; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 2px solid #2563eb;">' + firstKey + '</div>';
-        h += firstItemsHtml;
+        
+        var isStacked = section.stack === true;
+        
+        var showHeader = (section.slides.length > 1 || section.tag) && !section.hideHeader;
+        if (showHeader) {
+            h += '<div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 18px; border-bottom: 1px solid #f0f0f0; flex-shrink: 0;">';
+            h += '<div id="slide-tag-' + idx + '" style="color: #2563eb; font-size: 11px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;">' + (section.tag || '') + '</div>';
+            if (section.slides.length > 1 && !isStacked) {
+                h += '<div style="display: flex; align-items: center; gap: 10px;">';
+                h += '<button onclick="changeSlide(\'' + idx + '\', -1)" style="padding: 2px 8px; cursor: pointer; border: none; background: transparent; color: #9ca3af; font-size: 14px;">\u25C0</button>';
+                h += '<span id="slide-counter-' + idx + '" style="color: #9ca3af; font-weight: 500; font-size: 12px;">1 / ' + section.slides.length + '</span>';
+                h += '<button onclick="changeSlide(\'' + idx + '\', 1)" style="padding: 2px 8px; cursor: pointer; border: none; background: transparent; color: #9ca3af; font-size: 14px;">\u25B6</button>';
+                h += '</div>';
+            }
+            h += '</div>';
+        }
+        
+        var verticalAlignStyle = isStacked ? 'display: flex; flex-direction: column; justify-content: center;' : '';
+        h += '<div id="slide-content-' + idx + '" style="padding: 24px 28px; min-height: 380px; flex: 1; background: #f3f4f6; ' + verticalAlignStyle + '">';
+        
+        var hasAnyImage = section.slides.some(function(s) { return s.hasOwnProperty('image'); });
+        var containerWidth = hasAnyImage ? '100%' : '640px';
+        h += '<div style="max-width: ' + containerWidth + '; margin: 0 auto; display: flex; flex-direction: column; gap: 20px; width: 100%;">';
+        
+        if (isStacked) {
+            section.slides.forEach(function(s, sIdx) {
+                var isKeywordDesc = s.key && s.value && !s.hasOwnProperty('image') && (!s.items || s.items.length === 0);
+                if (isKeywordDesc) {
+                    h += '<div class="slide-info-card" style="display: grid; grid-template-columns: minmax(150px, 28%) auto 1fr; gap: 24px; align-items: center; padding: 20px 28px; max-width: 600px; margin: 0 auto 12px auto; width: 100%; box-sizing: border-box;">';
+                    h += '  <div style="font-family: \'Outfit\', \'Inter\', Arial, sans-serif; font-size: 18px; font-weight: 800; color: #1e3a8a; text-align: left; line-height: 1.2; letter-spacing: -0.3px; text-transform: uppercase;">' + s.key + '</div>';
+                    h += '  <div style="width: 1px; height: 50px; background-color: rgba(0, 0, 0, 0.12); margin: 0 8px;"></div>';
+                    h += '  <div style="font-family: \'Outfit\', \'Inter\', sans-serif; font-size: 14.5px; color: #4b5563; line-height: 1.6; font-weight: 600; text-align: left;">' + s.value + '</div>';
+                    h += '</div>';
+                } else {
+                    var keyHtml = (s.key || '') ? '<div style="font-size: 22px; font-weight: 800; color: #1a1a1a; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 2px solid #2563eb;">' + s.key + '</div>' : '';
+                    h += '<div style="width: 100%;">' + keyHtml + window._buildSlideHtml(s, idx, sIdx) + '</div>';
+                }
+            });
+        } else {
+            var firstKey = (s0.key || '');
+            var firstKeyHtml = firstKey ? '<div style="font-size: 22px; font-weight: 800; color: #1a1a1a; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 2px solid #2563eb;">' + firstKey + '</div>' : '';
+            h += '<div style="width: 100%;">' + firstKeyHtml + window._buildSlideHtml(s0, idx, 0) + '</div>';
+        }
+        
         h += '</div></div></div>';
     } else if (section.type === "rules") {
         h += '<div style="background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 16px;">';
@@ -1586,7 +1893,8 @@ window.changeSlide = function(sectionIdx, direction) {
     if (!el) return;
     var s = section.slides[idx];
     var keyHtml = (s.key || '') ? '<div style="font-size: 22px; font-weight: 800; color: #1a1a1a; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 2px solid #2563eb;">' + s.key + '</div>' : '';
-    var html = '<div style="max-width: 640px; margin: 0 auto;">' + keyHtml + window._buildSlideHtml(s) + '</div>';
+    var containerWidth = (s.hasOwnProperty('image')) ? '100%' : '640px';
+    var html = '<div style="max-width: ' + containerWidth + '; margin: 0 auto;">' + keyHtml + window._buildSlideHtml(s, sectionIdx, idx) + '</div>';
     el.innerHTML = html;
     var counter = document.getElementById('slide-counter-' + sectionIdx);
     if (counter) counter.innerText = (idx + 1) + ' / ' + section.slides.length;
@@ -1609,6 +1917,95 @@ window.changeSlide = function(sectionIdx, direction) {
             });
         }
     }, 50);
+};
+
+window.uploadSlideImage = function(input, sectionIdx, slideIdx) {
+    if (input.files && input.files[0]) {
+        var file = input.files[0];
+        var formData = new FormData();
+        formData.append("file", file);
+        
+        fetch('/api/notes/upload', {
+            method: 'POST',
+            body: formData
+        })
+        .then(function(res) {
+            if (res.ok) {
+                return res.json();
+            } else {
+                throw new Error("Görsel yüklenemedi: " + res.statusText);
+            }
+        })
+        .then(function(data) {
+            if (data && data.url) {
+                var fileUrl = data.url;
+                var section = window._slideSections[sectionIdx];
+                if (section && section.slides && section.slides[slideIdx]) {
+                    section.slides[slideIdx].image = fileUrl;
+                    
+                    var parts = String(sectionIdx).split('_');
+                    var layoutIdx = parseInt(parts[0], 10);
+                    var subKey = parts[1];
+                    
+                    if (interactiveData && interactiveData._layout && interactiveData._layout[layoutIdx]) {
+                        var targetSection = interactiveData._layout[layoutIdx];
+                        if (subKey === 'l') {
+                            if (targetSection.left && targetSection.left.slides && targetSection.left.slides[slideIdx]) {
+                                targetSection.left.slides[slideIdx].image = fileUrl;
+                            }
+                        } else if (subKey === 'r') {
+                            if (targetSection.right && targetSection.right.slides && targetSection.right.slides[slideIdx]) {
+                                targetSection.right.slides[slideIdx].image = fileUrl;
+                            }
+                        } else {
+                            if (targetSection.slides && targetSection.slides[slideIdx]) {
+                                targetSection.slides[slideIdx].image = fileUrl;
+                            }
+                        }
+                    }
+                    window.changeSlide(sectionIdx, 0);
+                    window.saveInteractiveNote();
+                }
+            }
+        })
+        .catch(function(err) {
+            console.error("Görsel yükleme hatası:", err);
+            alert("Görsel yüklenirken bir hata oluştu!");
+        });
+    }
+};
+
+window.saveInteractiveNote = function() {
+    console.log("[saveInteractiveNote] Saving interactiveData:", interactiveData);
+    if (!interactiveData) return Promise.resolve();
+    const currentSubject = document.getElementById('ws-subject').innerText.replace(' (Kaydedildi ✓)', '').replace(' (Kaydediliyor...)', '').trim();
+    const currentTopic = document.getElementById('ws-topic').innerText.trim();
+    
+    return fetch('/api/notes', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            subject: currentSubject,
+            topic: currentTopic,
+            content: interactiveData
+        })
+    }).then(function(res) {
+        if (res.ok) {
+            console.log("İnteraktif not başarıyla kaydedildi.");
+            const saveStatusIndicator = document.getElementById('ws-subject');
+            const originalText = currentSubject;
+            saveStatusIndicator.innerText = originalText + " (Kaydedildi ✓)";
+            setTimeout(() => {
+                if (document.getElementById('ws-topic').innerText.trim() === currentTopic) {
+                    saveStatusIndicator.innerText = originalText;
+                }
+            }, 2000);
+        } else {
+            console.error("İnteraktif not kaydedilemedi:", res.statusText);
+        }
+    }).catch(function(err) {
+        console.error("İnteraktif not kaydedilemedi:", err);
+    });
 };
 
 window.changeMultiCarousel = function(sectionIdx, direction) {
