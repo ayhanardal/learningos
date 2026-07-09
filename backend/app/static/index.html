@@ -1524,6 +1524,18 @@ window._buildSlideHtml = function(slide, sectionIdx, slideIdx) {
 
 window._renderSection = function(section, idx) {
     var h = '';
+    if (section.type === "unit" || section.type === "separator") {
+        var title = section.title || "Ünite";
+        var subtitle = section.subtitle || "";
+        h += '<div style="background: linear-gradient(90deg, #0f172a 0%, #1e293b 100%); border-top: 1px solid #1e293b; border-bottom: 1px solid #1e293b; margin: 12px -80px; padding: 14px 80px; width: calc(100% + 160px); box-sizing: border-box; display: flex; align-items: center; justify-content: flex-start; gap: 16px; min-height: 48px;">';
+        h += '  <div style="font-family: \'Outfit\', \'Inter\', sans-serif; font-size: 15px; font-weight: 800; color: #f8fafc; letter-spacing: 0.5px; text-transform: uppercase; white-space: nowrap;">' + title + '</div>';
+        if (subtitle) {
+            h += '  <div style="width: 1px; height: 18px; background-color: rgba(255, 255, 255, 0.15);"></div>';
+            h += '  <div style="font-family: \'Outfit\', \'Inter\', sans-serif; font-size: 14px; font-weight: 500; color: #94a3b8; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 60%;">' + subtitle + '</div>';
+        }
+        h += '</div>';
+        return h;
+    }
     if (section.type === "carousel") {
         if (section.doubleColumn) {
             window._carouselSections = window._carouselSections || {};
