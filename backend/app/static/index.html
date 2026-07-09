@@ -728,9 +728,9 @@ h3.ce-header {
 }
 .slide-card-content {
     font-family: 'Outfit', 'Inter', Arial, sans-serif;
-    font-size: 14.5px;
+    font-size: 15.5px;
     color: #334155; /* Derin Kömür Grisi */
-    line-height: 1.7;
+    line-height: 1.85;
 }
 .slide-card-content ul {
     list-style: none;
@@ -740,7 +740,7 @@ h3.ce-header {
 .slide-card-content li {
     position: relative;
     padding-left: 20px;
-    margin-bottom: 12px;
+    margin-bottom: 18px;
 }
 .slide-card-content li::before {
     content: "•";
@@ -1487,13 +1487,18 @@ window._buildSlideHtml = function(slide, sectionIdx, slideIdx) {
                 html += '  <div style="flex: 1; min-width: 250px;">';
                 html += '    <div class="slide-info-card">';
                 if (slide.items && slide.items.length) {
-                    html += '      <div class="slide-card-content">';
-                    for (var si = 0; si < slide.items.length; si++) {
-                        if (si > 0) html += '<div style="border-top: 1px solid #e2e8f0; margin: 16px 0;"></div>';
-                        html += '<div style="margin-bottom: 4px; font-size: 15px; font-weight: 700; color: #1a1a1a;">' + slide.items[si].label + '</div>';
-                        html += '<div>' + slide.items[si].text + '</div>';
+                    if (slide.items.length === 1) {
+                        html += '      <div class="slide-card-title">' + slide.items[0].label + '</div>';
+                        html += '      <div class="slide-card-content">' + slide.items[0].text + '</div>';
+                    } else {
+                        html += '      <div class="slide-card-content">';
+                        for (var si = 0; si < slide.items.length; si++) {
+                            if (si > 0) html += '<div style="border-top: 1px solid #e2e8f0; margin: 16px 0;"></div>';
+                            html += '<div style="margin-bottom: 4px; font-size: 15px; font-weight: 700; color: #1a1a1a;">' + slide.items[si].label + '</div>';
+                            html += '<div>' + slide.items[si].text + '</div>';
+                        }
+                        html += '      </div>';
                     }
-                    html += '      </div>';
                 } else if (slide.value) {
                     html += '      <div class="slide-card-content">' + slide.value + '</div>';
                 }
