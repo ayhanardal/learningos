@@ -1411,7 +1411,7 @@ window._buildSlideHtml = function(slide, sectionIdx, slideIdx) {
                 html += '<div style="display: flex; gap: 24px; align-items: stretch; flex-wrap: wrap; width: 100%;">';
                 
                 // 1. Kolon: Görsel (Sol)
-                html += '  <div style="flex: 1.2; min-width: 250px; display: flex; flex-direction: column; justify-content: center;">';
+                html += '  <div style="flex: 1.2; min-width: 250px; display: flex; flex-direction: column; justify-content: flex-start;">';
                 if (slide.image) {
                     html += '    <div class="slide-image-container" style="min-height: 400px; display: flex; align-items: center;">';
                     html += '      <div onmouseenter="var b=this.querySelector(\'.img-change-btn\'); if(b) b.style.opacity=1;" onmouseleave="var b=this.querySelector(\'.img-change-btn\'); if(b) b.style.opacity=0;" style="position: relative; display: inline-block; width: 100%; text-align: center;">';
@@ -1458,7 +1458,7 @@ window._buildSlideHtml = function(slide, sectionIdx, slideIdx) {
                 html += '<div style="display: flex; gap: 24px; align-items: stretch; flex-wrap: wrap; width: 100%; ' + rowDirection + '">';
                 
                 // Sol Kolon (Görsel)
-                html += '  <div style="flex: 1; min-width: 250px; display: flex; flex-direction: column; justify-content: center;">';
+                html += '  <div style="flex: 1; min-width: 250px; display: flex; flex-direction: column; justify-content: flex-start;">';
                 if (slide.image) {
                     html += '    <div class="slide-image-container" style="min-height: 400px; display: flex; align-items: center;">';
                     html += '      <div onmouseenter="var b=this.querySelector(\'.img-change-btn\'); if(b) b.style.opacity=1;" onmouseleave="var b=this.querySelector(\'.img-change-btn\'); if(b) b.style.opacity=0;" style="position: relative; display: inline-block; width: 100%; text-align: center;">';
