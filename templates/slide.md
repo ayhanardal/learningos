@@ -97,3 +97,22 @@ Eğer kullanıcı **Tipbox** özelliği isterse veya kritik terimlerin derin det
 | `slides[].image` | string | Hayır | Resmin sunucudaki statik URL'idir. Boş bırakılırsa dosya seçici gösterilir. |
 | `slides[].value` | string | Hayır | Tek kolonlu veya Stacked moddaki açıklama içeriğidir. |
 | `slides[].items` | array | Hayır | Çok kolonlu slayt maddelerini barındırır. |
+
+---
+
+## 🎨 Tasarım ve Renk Standartları (Design & Color Standards)
+
+Slayt panellerinin görsel hiyerarşisini korumak ve renk çakışmalarını önlemek için aşağıdaki CSS/stil standartları uygulanmalıdır:
+
+### 1. Renk Paleti (Slate & Amber)
+- **Kart Başlığı (Ön Planda):** Koyu Gece Mavisi (`#0f172a`) — en koyu ve vurgulu alandır.
+- **İçerik Metni (Okunaklı):** Derin Kömür Grisi (`#334155`) — yüksek kontrastlı, okuması kolay tondur.
+- **Header Tag Başlığı (Arka Planda):** Soft Çelik Grisi (`#64748b`) — yardımcı bilgidir, kart başlığının önüne geçmez.
+- **Highlight / Tipbox (Sıcak Vurgu):** Kehribar Sarı (`#d97706`) — üzerine gelince bilgi açılan kelimeleri belirtmek için kullanılır.
+
+### 2. Tipografi Kuralları
+- **Yazı Tipi (Font):** Sistemde ortak olarak `'Outfit', 'Inter', Arial, sans-serif` yazı tipi ailesi kullanılır.
+- **Header Tag:** `11px` boyut, `700` (Bold) ağırlık, `uppercase` (büyük harf), `letter-spacing: 0.8px` harf aralığı.
+- **Kart Başlığı:** `17px` - `18px` boyut, `800` (Extra Bold) ağırlık.
+- **İçerik Metni:** `14.5px` - `15px` boyut, `500` (Medium) ağırlık, `1.65` satır yüksekliği (`line-height`).
+- **Tipbox Kelimesi:** `14.5px` (Metinle aynı boyutta), `700` (Bold) ağırlık, `1.5px` kesikli alt çizgi (`border-bottom: 1.5px dashed #d97706`).
