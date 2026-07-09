@@ -1405,7 +1405,7 @@ window._buildSlideHtml = function(slide, sectionIdx, slideIdx) {
                 html += '</div>';
             }
         } else {
-            var useThreeColumns = slide.items && slide.items.length >= 2;
+            var useThreeColumns = slide.items && slide.items.length >= 2 && slide.items.length !== 4;
             
             if (useThreeColumns) {
                 html += '<div style="display: flex; gap: 24px; align-items: stretch; flex-wrap: wrap; width: 100%;">';
@@ -1521,7 +1521,8 @@ window._buildSlideHtml = function(slide, sectionIdx, slideIdx) {
         }
     } else {
         // Eski tek kolonlu düz metin düzeni
-        html += '<div class="slide-info-card">';
+        var cardStyle = slide.transparentCard === true ? 'background: transparent; border: none; box-shadow: none; padding: 0;' : '';
+        html += '<div class="slide-info-card" style="' + cardStyle + '">';
         if (slide.items && slide.items.length) {
             html += '  <div class="slide-card-content">';
             for (var si = 0; si < slide.items.length; si++) {
@@ -1663,7 +1664,7 @@ window._renderSection = function(section, idx) {
         h += '<div id="slide-content-' + idx + '" style="padding: 24px 28px; min-height: 460px; flex: 1; background: #f3f4f6; ' + verticalAlignStyle + '">';
         
         var hasAnyImage = section.slides.some(function(s) { return s.hasOwnProperty('image'); });
-        var containerWidth = hasAnyImage ? '100%' : '640px';
+        var containerWidth = (hasAnyImage || section.fullWidth === true) ? '100%' : '640px';
         h += '<div style="max-width: ' + containerWidth + '; margin: 0 auto; display: flex; flex-direction: column; gap: 20px; width: 100%;">';
         
         if (isStacked) {
