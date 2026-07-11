@@ -123,7 +123,12 @@ def _generate_frozen_schedule():
     remaining = {s: subject_allocations.get(s, 0) for s in GYGK_SUBJECTS}
     while any(remaining.values()):
         for subj in GYGK_SUBJECTS:
-            if remaining.get(subj, 0) > 0:
+            amount = 2 if (subj in ["Matematik", "Türkçe"] and remaining.get(subj, 0) >= 2) else 1
+            if remaining.get(subj, 0) >= amount:
+                for _ in range(amount):
+                    gygk_sequence.append(subj)
+                remaining[subj] -= amount
+            elif remaining.get(subj, 0) > 0:
                 gygk_sequence.append(subj)
                 remaining[subj] -= 1
 
@@ -144,40 +149,40 @@ def _generate_frozen_schedule():
         if is_alan_day and alan_remaining >= 2:
             alan_slots["İstatistik"] = 2
             alan_remaining -= 2
-            if gygk_idx < len(gygk_sequence):
-                subj = gygk_sequence[gygk_idx]
-                genel_slots[subj] = 1
-                gygk_idx += 1
         elif is_alan_day and alan_remaining == 1:
             alan_slots["İstatistik"] = 1
             alan_remaining -= 1
-            remaining_gygk = len(gygk_sequence) - gygk_idx
-            remaining_days = 60 - day_idx
-            genel_today = math.ceil(remaining_gygk / remaining_days) if remaining_days > 0 else 0
-            genel_today = max(1, min(4, genel_today))
-            count = 0
-            day_subjects = []
-            while count < genel_today and gygk_idx < len(gygk_sequence):
-                subj = gygk_sequence[gygk_idx]
+
+        max_genel_slots = max(0, 3 - sum(alan_slots.values()))
+        
+        remaining_gygk = len(gygk_sequence) - gygk_idx
+        remaining_days = 60 - day_idx
+        
+        genel_today = math.ceil(remaining_gygk / remaining_days) if remaining_days > 0 else 0
+        genel_today = min(max_genel_slots, genel_today)
+        if remaining_gygk > 0 and genel_today == 0 and max_genel_slots > 0:
+            genel_today = 1
+
+        count = 0
+        day_subjects = []
+        while count < genel_today and gygk_idx < len(gygk_sequence):
+            subj = gygk_sequence[gygk_idx]
+            if subj in ["Matematik", "Türkçe"] and gygk_idx + 1 < len(gygk_sequence) and gygk_sequence[gygk_idx+1] == subj:
+                if count + 2 <= genel_today:
+                    day_subjects.extend([subj, subj])
+                    gygk_idx += 2
+                    count += 2
+                else:
+                    day_subjects.append(subj)
+                    gygk_idx += 1
+                    count += 1
+            else:
                 day_subjects.append(subj)
                 gygk_idx += 1
                 count += 1
-            for subj in day_subjects:
-                genel_slots[subj] = genel_slots.get(subj, 0) + 1
-        else:
-            remaining_gygk = len(gygk_sequence) - gygk_idx
-            remaining_days = 60 - day_idx
-            genel_today = math.ceil(remaining_gygk / remaining_days) if remaining_days > 0 else 0
-            genel_today = max(1, min(4, genel_today))
-            count = 0
-            day_subjects = []
-            while count < genel_today and gygk_idx < len(gygk_sequence):
-                subj = gygk_sequence[gygk_idx]
-                day_subjects.append(subj)
-                gygk_idx += 1
-                count += 1
-            for subj in day_subjects:
-                genel_slots[subj] = genel_slots.get(subj, 0) + 1
+                
+        for subj in day_subjects:
+            genel_slots[subj] = genel_slots.get(subj, 0) + 1
 
         total_sessions = sum(genel_slots.values()) + sum(alan_slots.values())
 
@@ -246,17 +251,34 @@ def _assign_topics_to_day(genel_slots, alan_slots, queues):
 
     for subj, count in genel_slots.items():
         q = queues.get(subj, {"sequential": [], "routines": []})
-        for i in range(count):
-            topic = None
-            if i == 0 and q["sequential"]:
-                topic = q["sequential"].pop(0)
-            elif q["routines"]:
-                topic = q["routines"][0]
-            if topic is None and q["sequential"]:
-                topic = q["sequential"].pop(0)
-            if topic is None and q["routines"]:
-                topic = q["routines"][0]
+        
+        topics_to_process = []
+        for _ in range(count):
+            has_seq = len(q["sequential"]) > 0
+            has_rout = len(q["routines"]) > 0
+            types_picked_today = [t.get("isRoutine", False) for t in topics_to_process if t]
+            
+            if has_seq and has_rout:
+                if True in types_picked_today and False not in types_picked_today:
+                    t = q["sequential"].pop(0)
+                elif False in types_picked_today and True not in types_picked_today:
+                    t = q["routines"].pop(0)
+                else:
+                    # Pick based on pacing (whichever has more remaining sessions to be scheduled)
+                    if len(q["sequential"]) >= len(q["routines"]):
+                        t = q["sequential"].pop(0)
+                    else:
+                        t = q["routines"].pop(0)
+            elif has_seq:
+                t = q["sequential"].pop(0)
+            elif has_rout:
+                t = q["routines"].pop(0)
+            else:
+                t = None
+                
+            topics_to_process.append(t)
 
+        for topic in topics_to_process:
             if topic:
                 topic_name = topic["name"]
                 topic_slug = f"{slugify(subj)}-{slugify(topic_name)}"
@@ -280,17 +302,33 @@ def _assign_topics_to_day(genel_slots, alan_slots, queues):
 
     for subj, count in alan_slots.items():
         q = queues.get(subj, {"sequential": [], "routines": []})
-        for i in range(count):
-            topic = None
-            if i == 0 and q["sequential"]:
-                topic = q["sequential"].pop(0)
-            elif q["routines"]:
-                topic = q["routines"][0]
-            if topic is None and q["sequential"]:
-                topic = q["sequential"].pop(0)
-            if topic is None and q["routines"]:
-                topic = q["routines"][0]
+        
+        topics_to_process = []
+        for _ in range(count):
+            has_seq = len(q["sequential"]) > 0
+            has_rout = len(q["routines"]) > 0
+            types_picked_today = [t.get("isRoutine", False) for t in topics_to_process if t]
+            
+            if has_seq and has_rout:
+                if True in types_picked_today and False not in types_picked_today:
+                    t = q["sequential"].pop(0)
+                elif False in types_picked_today and True not in types_picked_today:
+                    t = q["routines"].pop(0)
+                else:
+                    if len(q["sequential"]) >= len(q["routines"]):
+                        t = q["sequential"].pop(0)
+                    else:
+                        t = q["routines"].pop(0)
+            elif has_seq:
+                t = q["sequential"].pop(0)
+            elif has_rout:
+                t = q["routines"].pop(0)
+            else:
+                t = None
+                
+            topics_to_process.append(t)
 
+        for topic in topics_to_process:
             if topic:
                 topic_name = topic["name"]
                 topic_slug = f"{slugify(subj)}-{slugify(topic_name)}"
