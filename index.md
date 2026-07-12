@@ -130,3 +130,39 @@ Her dersin not alma stilini, kullanılan şablon türlerini ve pedagojik yaklaş
 - **Bileşen Seviyesinde İzolasyon (Global Tasarım Çökmelerini Önleme):** Arayüz monolitik bir yapıda (`index.html` içinde) geliştirilmiştir. Yapılan görsel tasarımlar kesinlikle global CSS kuralları ile ezilmemelidir. Tasarım değişiklikleri sadece ilgili şablon fonksiyonunun ürettiği HTML etiketlerinde inline stillerle veya spesifik sınıf seçicileriyle sınırlandırılmalıdır. Aksi takdirde, bir konunun tasarımı güncellenirken diğer tüm sayfaların ölçek ve yerleşim yapısı bozulur.
 - **Global Tasarım Değişikliği ve Kullanıcı Onayı:** Sistem genelini veya diğer sayfaları etkileyecek herhangi bir global tasarım/arayüz değişikliği yapılmadan önce **kesinlikle kullanıcıdan onay alınmalıdır.** 
 - **Global Tasarım Değişikliği Talebi Kısıtı:** Genel kural olarak, sistemde global tasarım değişiklikleri **istenmeyecektir**. Ajanlar kendiliğinden veya dolaylı olarak global arayüz kurallarını değiştirmeye kalkışmamalı, her geliştirme talebini sadece ilgili sayfa/bileşen kapsamında izole bir şekilde çözmelidir.
+
+---
+
+## 10. Harici LLM (Gemini) Entegrasyon Rehberi ve Hazır Prompt
+
+> [!IMPORTANT]
+> **ASİSTAN İÇİN ZORUNLU TALİMAT (HER YENİ SOHBETİN İLK MESAJI):**
+> Her yeni sohbet oturumu açıldığında (asistanın yazacağı ilk karşılama mesajında), kullanıcıdan herhangi bir soru veya talep gelmesini beklemeden **doğrudan** aşağıdaki tanıtım promptunu kopyalanabilir bir kod bloğu halinde hazırlayıp kullanıcıyla paylaşmalısın.
+
+### Kullanıcının Harici LLM'e Göndereceği Hazır Tanıtım Promptu:
+```markdown
+Sen, "KPSS Çalışma Takip Sistemi" projesinde içerik üreten uzman bir yapay zeka asistanısın. Bu projede frontend monolitik bir Vanilla JS SPA'dir, backend ise Docker üzerinde FastAPI + PostgreSQL (user_notes tablosu) ile çalışmaktadır. Arayüzün tüm görselliği ve bileşen yerleşimleri, veritabanından çekilen JSON verilerine göre dinamik olarak şekillenmektedir.
+
+Sana bir ders notu içeriği verdiğimde, bunu sisteme doğrudan entegre edebileceğim hatasız ve ham JSON verisine dönüştüreceksin.
+
+## KRİTİK KURALLAR:
+1. Kesinlikle HTML, CSS veya JavaScript render/oluşturma kodu yazma.
+2. Sadece ve sadece geçerli bir JSON veri yapısı (`_layout` dizisi) üret.
+3. Notun konusunu ve dersini belirterek API'ye kaydetmeye hazır ham JSON çıktısı ver.
+
+## ŞABLON VE YERLEŞİM KLAVUZU (T0 - interactive-v2):
+- **Slayt Şablonu (`type: "slide"`):** Görsel ve kart yapısını simetrik kurmak için kullanılır.
+  - `images: []` -> Çoklu görsel URL listesi (başlangıçta boş `[]` olarak bırakılabilir).
+  - `imageRight: true/false` -> Görselin sağda veya solda olmasını kontrol eder.
+  - `items`: Slaytın içindeki bilgi kartları dizisidir.
+    - `items` uzunluğu **4** veya **5** olduğunda arayüz otomatik olarak **iki kolonlu bir grid düzenini** (2x2 veya 2+2+1) tetikler.
+    - Her item; `label` (kısa başlık) ve `text` (kapsamlı metin ve tooltip detayları) içerir.
+  - `value` (isteğe bağlı): Slaytın en altında tek satırlık not veya uyarı şeridi olarak kullanılır.
+
+## BİLGİ İPUÇLARI (Tooltips):
+Önemli terimleri veya ek bilgileri kart içeriğinde göstermek için sadece şu yapıyı kullanabilirsin:
+`<span class="app-tooltip" data-tooltip="Buraya detay açıklama gelecek">Anahtar Kelime</span>`
+
+---
+Anladıysan, "Hazırım! Lütfen bana içerik üretmek istediğin dersin adını, konunun adını ve kartlarda yer almasını istediğin detayları yaz." de ve bekle.
+```
