@@ -1,0 +1,154 @@
+Created At: 2026-07-12T15:59:43+03:00
+Completed At: 2026-07-12T15:59:43+03:00
+
+				The command completed successfully.
+				Output:
+				<truncated 307 lines>
++                    var keyHtml = (s.key && s.transparentCard === true) ? '<div style="font-size: 22px; font-weight: 800; color: var(--text); margin-bottom: 16px; padding-bottom: 12px; border-bottom: 2px solid var(--border);">' + s.key + '</div>' : '';
+                     h += '<div style="width: 100%;">' + keyHtml + window._buildSlideHtml(s, idx, sIdx) + '</div>';
+                 }
+             });
+         } else {
+             var firstKey = (s0.key || '');
+-            var firstKeyHtml = firstKey ? '<div style="font-size: 22px; font-weight: 800; color: #1a1a1a; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 2px solid #2563eb;">' + firstKey + '</div>' : '';
++            var firstKeyHtml = (firstKey && s0.transparentCard === true) ? '<div style="font-size: 22px; font-weight: 800; color: var(--text); margin-bottom: 16px; padding-bottom: 12px; border-bottom: 2px solid var(--border);">' + firstKey + '</div>' : '';
+             h += '<div style="width: 100%;">' + firstKeyHtml + window._buildSlideHtml(s0, idx, 0) + '</div>';
+         }
+         
+@@ -1924,8 +2013,8 @@ window.changeSlide = function(sectionIdx, direction) {
+     var el = document.getElementById('slide-content-' + sectionIdx);
+     if (!el) return;
+     var s = section.slides[idx];
+-    var keyHtml = (s.key || '') ? '<div style="font-size: 22px; font-weight: 800; color: #1a1a1a; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 2px solid #2563eb;">' + s.key + '</div>' : '';
+-    var containerWidth = (s.hasOwnProperty('image')) ? '100%' : '640px';
++    var keyHtml = (s.key && s.transparentCard === true) ? '<div style="font-size: 22px; font-weight: 800; color: var(--text); margin-bottom: 16px; padding-bottom: 12px; border-bottom: 2px solid var(--border);">' + s.key + '</div>' : '';
++    var containerWidth = (s.hasOwnProperty('image') || s.hasOwnProperty('images')) ? '100%' : '640px';
+     var html = '<div style="max-width: ' + containerWidth + '; margin: 0 auto;">' + keyHtml + window._buildSlideHtml(s, sectionIdx, idx) + '</div>';
+     el.innerHTML = html;
+     var counter = document.getElementById('slide-counter-' + sectionIdx);
+@@ -1973,28 +2062,46 @@ window.uploadSlideImage = function(input, sectionIdx, slideIdx) {
+                 var fileUrl = data.url;
+                 var section = window._slideSections[sectionIdx];
+                 if (section && section.slides && section.slides[slideIdx]) {
+-                    section.slides[slideIdx].image = fileUrl;
++                    var slide = section.slides[slideIdx];
++                    var isMulti = Array.isArray(slide.images);
+                     
+                     var parts = String(sectionIdx).split('_');
+                     var layoutIdx = parseInt(parts[0], 10);
+                     var subKey = parts[1];
+                     
++                    var targetSlide = null;
+                     if (interactiveData && interactiveData._layout && interactiveData._layout[layoutIdx]) {
+                         var targetSection = interactiveData._layout[layoutIdx];
+                         if (subKey === 'l') {
+                             if (targetSection.left && targetSection.left.slides && targetSection.left.slides[slideIdx]) {
+-                                targetSection.left.slides[slideIdx].image = fileUrl;
++                                targetSlide = targetSection.left.slides[slideIdx];
+                             }
+                         } else if (subKey === 'r') {
+                             if (targetSection.right && targetSection.right.slides && targetSection.right.slides[slideIdx]) {
+-                                targetSection.right.slides[slideIdx].image = fileUrl;
++                                targetSlide = targetSection.right.slides[slideIdx];
+                             }
+                         } else {
+                             if (targetSection.slides && targetSection.slides[slideIdx]) {
+-                                targetSection.slides[slideIdx].image = fileUrl;
++                                targetSlide = targetSection.slides[slideIdx];
+                             }
+                         }
+                     }
++
++                    var activeSlide = targetSlide || slide;
++                    if (isMulti) {
++                        activeSlide.images = activeSlide.images || [];
++                        if (activeSlide.images.indexOf(fileUrl) === -1) {
++                            activeSlide.images.push(fileUrl);
++                        }
++                        slide.images = activeSlide.images;
++                        
++                        window._activeImageIndices = window._activeImageIndices || {};
++                        window._activeImageIndices[sectionIdx + '_' + slideIdx] = activeSlide.images.length - 1;
++                    } else {
++                        activeSlide.image = fileUrl;
++                        slide.image = fileUrl;
++                    }
++                    
+                     window.changeSlide(sectionIdx, 0);
+                     window.saveInteractiveNote();
+                 }
+@@ -2007,6 +2114,73 @@ window.uploadSlideImage = function(input, sectionIdx, slideIdx) {
+     }
+ };
+ 
++window.changeSlideSubImage = function(sectionIdx, slideIdx, direction) {
++    var key = sectionIdx + '_' + slideIdx;
++    window._activeImageIndices = window._activeImageIndices || {};
++    var curr = window._activeImageIndices[key] || 0;
++    var section = window._slideSections[sectionIdx];
++    if (!section || !section.slides || !section.slides[slideIdx]) return;
++    var slide = section.slides[slideIdx];
++    var imgs = slide.images || [];
++    if (!imgs.length) return;
++    
++    curr += direction;
++    if (curr < 0) curr = imgs.length - 1;
++    if (curr >= imgs.length) curr = 0;
++    window._activeImageIndices[key] = curr;
++    
++    window.changeSlide(sectionIdx, 0);
++};
++
++window.deleteSlideImage = function(sectionIdx, slideIdx) {
++    var section = window._slideSections[sectionIdx];
++    if (!section || !section.slides || !section.slides[slideIdx]) return;
++    var slide = section.slides[slideIdx];
++    var imgs = slide.images || [];
++    if (!imgs.length) return;
++    
++    var key = sectionIdx + '_' + slideIdx;
++    window._activeImageIndices = window._activeImageIndices || {};
++    var curr = window._activeImageIndices[key] || 0;
++    
++    var newImgs = imgs.slice();
++    newImgs.splice(curr, 1);
++    
++    if (curr >= newImgs.length) {
++        curr = Math.max(0, newImgs.length - 1);
++    }
++    window._activeImageIndices[key] = curr;
++    
++    var parts = String(sectionIdx).split('_');
++    var layoutIdx = parseInt(parts[0], 10);
++    var subKey = parts[1];
++    
++    var targetSlide = null;
++    if (interactiveData && interactiveData._layout && interactiveData._layout[layoutIdx]) {
++        var targetSection = interactiveData._layout[layoutIdx];
++        if (subKey === 'l') {
++            if (targetSection.left && targetSection.left.slides && targetSection.left.slides[slideIdx]) {
++                targetSlide = targetSection.left.slides[slideIdx];
++            }
++        } else if (subKey === 'r') {
++            if (targetSection.right && targetSection.right.slides && targetSection.right.slides[slideIdx]) {
++                targetSlide = targetSection.right.slides[slideIdx];
++            }
++        } else {
++            if (targetSection.slides && targetSection.slides[slideIdx]) {
++                targetSlide = targetSection.slides[slideIdx];
++            }
++        }
++    }
++    
++    var activeSlide = targetSlide || slide;
++    activeSlide.images = newImgs;
++    slide.images = newImgs;
++    
++    window.changeSlide(sectionIdx, 0);
++    window.saveInteractiveNote();
++};
++
+ window.saveInteractiveNote = function() {
+     console.log("[saveInteractiveNote] Saving interactiveData:", interactiveData);
+     if (!interactiveData) return Promise.resolve();
+

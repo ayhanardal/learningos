@@ -1,0 +1,259 @@
+Created At: 2026-07-12T15:54:58+03:00
+Completed At: 2026-07-12T15:54:58+03:00
+File Path: `file:///home/ubuntu/Desktop/agentos/projects/learningos/backend/app/static/index.html`
+Total Lines: 3773
+Total Bytes: 193370
+Showing lines 1350 to 1600
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+1350:                     tag: "SORU",
+1351:                     questions: [
+1352:                         { id: 1, htmlContent: "<b>1. Bir sınıftaki öğrencilerin %40'ı kızdır. Erkek öğrencilerin sayısı 18 olduğuna göre sınıf mevcudu kaçtır?</b><br><br>A) 24<br>B) 26<br>C) 28<br>D) 30<br>E) 32" },
+1353:                         { id: 2, htmlContent: "<b>2. Bir araç saatte 80 km hızla 3 saat, saatte 60 km hızla 2 saat yol alıyor. Buna göre aracın ortalama hızı saatte kaç km'dir?</b><br><br>A) 68<br>B) 70<br>C) 72<br>D) 74<br>E) 76" }
+1354:                     ]
+1355:                 }
+1356:             ]
+1357:         },
+1358:         "Merkezi Eğilim": {
+1359:             _template: "interactive-v2",
+1360:             _layout: [
+1361:                 {
+1362:                     type: "carousel",
+1363:                     tag: "SORU",
+1364:                     questions: [
+1365:                         { id: 1, htmlContent: "<b>1. 3, 5, 7, 9, 11 sayılarının aritmetik ortalaması kaçtır?</b><br><br>A) 5<br>B) 6<br>C) 7<br>D) 8<br>E) 9" },
+1366:                         { id: 2, htmlContent: "<b>2. 2, 4, 4, 6, 8, 10 serisinin medyanı (ortanca değeri) kaçtır?</b><br><br>A) 4<br>B) 5<br>C) 6<br>D) 7<br>E) 8" }
+1367:                     ]
+1368:                 }
+1369:             ]
+1370:         },
+1371:         "Merkezi Dağılım": {
+1372:             _template: "interactive-v2",
+1373:             _layout: [
+1374:                 {
+1375:                     type: "carousel",
+1376:                     tag: "SORU",
+1377:                     questions: [
+1378:                         { id: 1, htmlContent: "<b>1. 4, 6, 8, 10, 12 serisinin varyansı kaçtır?</b><br><br>A) 6<br>B) 8<br>C) 10<br>D) 12<br>E) 14" }
+1379:                     ]
+1380:                 }
+1381:             ]
+1382:         }
+1383:     };
+1384:     return dataByTopic[topicKey] || null;
+1385: };
+1386: 
+1387: window._buildSlideHtml = function(slide, sectionIdx, slideIdx) {
+1388:     console.log("[_buildSlideHtml] slide:", slide, "sectionIdx:", sectionIdx, "slideIdx:", slideIdx);
+1389:     var html = '';
+1390:     var hasImageProp = slide.hasOwnProperty('image') || slide.hasOwnProperty('images');
+1391:     
+1392:     if (hasImageProp) {
+1393:         var hasTextContent = (slide.value && slide.value.trim() !== '') || (slide.items && slide.items.length > 0);
+1394:         
+1395:         if (!hasTextContent) {
+1396:             // SADECE GÖRSEL (İçerik yok)
+1397:             if (slide.image) {
+1398:                 html += '<div class="slide-image-container" style="min-height: 400px;">';
+1399:                 html += '  <div onmouseenter="var b=this.querySelector(\'.img-change-btn\'); if(b) b.style.opacity=1;" onmouseleave="var b=this.querySelector(\'.img-change-btn\'); if(b) b.style.opacity=0;" style="position: relative; display: inline-block; width: 100%; text-align: center;">';
+1400:                 html += '    <img src="' + slide.image + '" style="max-width: 100%; max-height: 400px; object-fit: contain; border-radius: 6px;" />';
+1401:                 html += '    <label class="img-change-btn" style="position: absolute; top: 8px; right: 8px; opacity: 0; transition: opacity 0.2s; cursor: pointer; background: rgba(17, 24, 39, 0.85); color: white; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; z-index: 10; box-shadow: 0 2px 8px rgba(0,0,0,0.3);" title="Görseli Değiştir">';
+1402:                 html += '      📷';
+1403:                 html += '      <input type="file" accept="image/*" onchange="window.uploadSlideImage(this, \'' + sectionIdx + '\', ' + slideIdx + ')" style="display: none;" />';
+1404:                 html += '    </label>';
+1405:                 html += '  </div>';
+1406:                 html += '</div>';
+1407:             } else {
+1408:                 html += '<div class="slide-image-container" style="min-height: 400px;">';
+1409:                 html += '  <div class="slide-image-placeholder" style="min-height: 360px;">';
+1410:                 html += '    <span style="display: block; color: #64748b; font-size: 14px; margin-bottom: 16px; font-weight: 600;">Henüz görsel yüklenmemiş.</span>';
+1411:                 html += '    <label style="cursor: pointer; background: #2563eb; color: white; padding: 8px 18px; border-radius: 6px; font-size: 13px; font-weight: 700; display: inline-block; transition: background 0.2s; box-shadow: 0 2px 4px rgba(37,99,235,0.2);">';
+1412:                 html += '      Görsel Yükle';
+1413:                 html += '      <input type="file" accept="image/*" onchange="window.uploadSlideImage(this, \'' + sectionIdx + '\', ' + slideIdx + ')" style="display: none;" />';
+1414:                 html += '    </label>';
+1415:                 html += '  </div>';
+1416:                 html += '</div>';
+1417:             }
+1418:         } else {
+1419:             var useThreeColumns = slide.items && (slide.items.length === 2 || slide.items.length === 3);
+1420:             
+1421:             if (useThreeColumns) {
+1422:                 var imgOrder = slide.imageRight === true ? 'order: 3;' : 'order: 1;';
+1423:                 var item0Order = slide.imageRight === true ? 'order: 1;' : 'order: 2;';
+1424:                 var item1Order = slide.imageRight === true ? 'order: 2;' : 'order: 3;';
+1425:                 var cardClass = 'slide-info-card' + (slide.compact ? ' compact' : '');
+1426: 
+1427:                 html += '<div style="display: flex; gap: 24px; align-items: stretch; flex-wrap: wrap; width: 100%;">';
+1428:                 
+1429:                 // 1. Kolon: Görsel
+1430:                 html += '  <div style="flex: 1.2; min-width: 250px; display: flex; flex-direction: column; justify-content: flex-start; ' + imgOrder + '">';
+1431:                 if (slide.image) {
+1432:                     html += '    <div class="slide-image-container" style="min-height: 400px; display: flex; align-items: center;">';
+1433:                     html += '      <div onmouseenter="var b=this.querySelector(\'.img-change-btn\'); if(b) b.style.opacity=1;" onmouseleave="var b=this.querySelector(\'.img-change-btn\'); if(b) b.style.opacity=0;" style="position: relative; display: inline-block; width: 100%; text-align: center;">';
+1434:                     html += '        <img src="' + slide.image + '" style="max-width: 100%; max-height: 400px; object-fit: contain; border-radius: 6px;" />';
+1435:                     html += '        <label class="img-change-btn" style="position: absolute; top: 8px; right: 8px; opacity: 0; transition: opacity 0.2s; cursor: pointer; background: rgba(17, 24, 39, 0.85); color: white; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; z-index: 10; box-shadow: 0 2px 8px rgba(0,0,0,0.3);" title="Görseli Değiştir">';
+1436:                     html += '          📷';
+1437:                     html += '          <input type="file" accept="image/*" onchange="window.uploadSlideImage(this, \'' + sectionIdx + '\', ' + slideIdx + ')" style="display: none;" />';
+1438:                     html += '        </label>';
+1439:                     html += '      </div>';
+1440:                     html += '    </div>';
+1441:                 } else {
+1442:                     html += '    <div class="slide-image-container" style="min-height: 400px; display: flex; align-items: center;">';
+1443:                     html += '      <div class="slide-image-placeholder" style="min-height: 360px; width: 100%;">';
+1444:                     html += '        <span style="display: block; color: #64748b; font-size: 14px; margin-bottom: 16px; font-weight: 600;">Henüz görsel yüklenmemiş.</span>';
+1445:                     html += '        <label style="cursor: pointer; background: #2563eb; color: white; padding: 8px 18px; border-radius: 6px; font-size: 13px; font-weight: 700; display: inline-block; transition: background 0.2s; box-shadow: 0 2px 4px rgba(37,99,235,0.2);">';
+1446:                     html += '          Görsel Yükle';
+1447:                     html += '          <input type="file" accept="image/*" onchange="window.uploadSlideImage(this, \'' + sectionIdx + '\', ' + slideIdx + ')" style="display: none;" />';
+1448:                     html += '        </label>';
+1449:                     html += '      </div>';
+1450:                     html += '    </div>';
+1451:                 }
+1452:                 html += '  </div>';
+1453:                 
+1454:                 // 2. Kolon: Orta (Enlem)
+1455:                 html += '  <div style="flex: 1; min-width: 200px; ' + item0Order + '">';
+1456:                 html += '    <div class="' + cardClass + '">';
+1457:                 html += '      <div class="slide-card-title">' + slide.items[0].label + '</div>';
+1458:                 html += '      <div class="slide-card-content">' + slide.items[0].text + '</div>';
+1459:                 html += '    </div>';
+1460:                 html += '  </div>';
+1461:                 
+1462:                 // 3. Kolon: Sağ (Boylam)
+1463:                 html += '  <div style="flex: 1; min-width: 200px; ' + item1Order + '">';
+1464:                 html += '    <div class="' + cardClass + '">';
+1465:                 html += '      <div class="slide-card-title">' + slide.items[1].label + '</div>';
+1466:                 html += '      <div class="slide-card-content">' + slide.items[1].text + '</div>';
+1467:                 html += '    </div>';
+1468:                 html += '  </div>';
+1469:                 
+1470:                 html += '</div>';
+1471:             } else {
+1472:                 // İki kolonlu düzen (Sol: Görsel, Sağ: Metin veya row-reverse ile tersi)
+1473:                 var rowDirection = slide.imageRight === true ? 'flex-direction: row-reverse;' : '';
+1474:                 html += '<div style="display: flex; gap: 24px; align-items: stretch; flex-wrap: wrap; width: 100%; ' + rowDirection + '">';
+1475:                 
+1476:                 // Sol Kolon (Görsel)
+1477:                 var separatorStyle = slide.imageRight === true ? 'border-left: 2px solid #94a3b8; padding-left: 24px;' : 'border-right: 2px solid #94a3b8; padding-right: 24px;';
+1478:                 html += '  <div style="flex: 1; min-width: 250px; display: flex; flex-direction: column; justify-content: center; ' + separatorStyle + '">';
+1479:                 
+1480:                 var isMultiImage = Array.isArray(slide.images);
+1481:                 var activeImgIdx = 0;
+1482:                 var currentImage = '';
+1483:                 var hasAnyImages = false;
+1484:                 if (isMultiImage) {
+1485:                     window._activeImageIndices = window._activeImageIndices || {};
+1486:                     var key = sectionIdx + '_' + slideIdx;
+1487:                     activeImgIdx = window._activeImageIndices[key] || 0;
+1488:                     if (activeImgIdx >= slide.images.length) activeImgIdx = 0;
+1489:                     if (activeImgIdx < 0) activeImgIdx = 0;
+1490:                     currentImage = slide.images[activeImgIdx] || '';
+1491:                     hasAnyImages = slide.images.length > 0;
+1492:                 } else {
+1493:                     currentImage = slide.image || '';
+1494:                     hasAnyImages = !!currentImage;
+1495:                 }
+1496: 
+1497:                 if (hasAnyImages) {
+1498:                     html += '    <div class="slide-image-container" style="min-height: 400px; display: flex; align-items: center; position: relative;">';
+1499:                     html += '      <div onmouseenter="var b=this.querySelectorAll(\'.img-ctrl-btn\'); b.forEach(function(x){x.style.opacity=1;});" onmouseleave="var b=this.querySelectorAll(\'.img-ctrl-btn\'); b.forEach(function(x){x.style.opacity=0;});" style="position: relative; display: inline-block; width: 100%; text-align: center;">';
+1500:                     html += '        <img src="' + currentImage + '" style="max-width: 100%; max-height: 400px; object-fit: contain; border-radius: 6px;" />';
+1501:                     
+1502:                     html += '        <div class="img-ctrl-btn" style="position: absolute; top: 8px; right: 8px; opacity: 0; transition: opacity 0.2s; display: flex; gap: 8px; z-index: 10;">';
+1503:                     if (isMultiImage) {
+1504:                         html += '          <button onclick="window.deleteSlideImage(\'' + sectionIdx + '\', ' + slideIdx + ')" style="cursor: pointer; background: rgba(239, 68, 68, 0.85); border: none; color: white; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.3);" title="Görseli Sil">🗑️</button>';
+1505:                     }
+1506:                     html += '          <label style="cursor: pointer; background: rgba(17, 24, 39, 0.85); color: white; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; box-shadow: 0 2px 8px rgba(0,0,0,0.3);" title="' + (isMultiImage ? 'Yeni Görsel Ekle' : 'Görseli Değiştir') + '">';
+1507:                     html += '            📷';
+1508:                     html += '            <input type="file" accept="image/*" onchange="window.uploadSlideImage(this, \'' + sectionIdx + '\', ' + slideIdx + ')" style="display: none;" />';
+1509:                     html += '          </label>';
+1510:                     html += '        </div>';
+1511:                     
+1512:                     if (isMultiImage && slide.images.length > 1) {
+1513:                         html += '        <button class="img-ctrl-btn" onclick="window.changeSlideSubImage(\'' + sectionIdx + '\', ' + slideIdx + ', -1)" style="position: absolute; left: 8px; top: 50%; transform: translateY(-50%); opacity: 0; transition: opacity 0.2s; cursor: pointer; background: rgba(0, 0, 0, 0.6); border: none; color: white; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; z-index: 10; font-weight: bold;">◀</button>';
+1514:                         html += '        <button class="img-ctrl-btn" onclick="window.changeSlideSubImage(\'' + sectionIdx + '\', ' + slideIdx + ', 1)" style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); opacity: 0; transition: opacity 0.2s; cursor: pointer; background: rgba(0, 0, 0, 0.6); border: none; color: white; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; z-index: 10; font-weight: bold;">▶</button>';
+1515:                         html += '        <div class="img-ctrl-btn" style="position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.6); color: white; padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: bold; z-index: 10; opacity: 0; transition: opacity 0.2s;">' + (activeImgIdx + 1) + ' / ' + slide.images.length + '</div>';
+1516:                     }
+1517:                     
+1518:                     html += '      </div>';
+1519:                     html += '    </div>';
+1520:                 } else {
+1521:                     html += '    <div class="slide-image-container" style="min-height: 400px; display: flex; align-items: center;">';
+1522:                     html += '      <div class="slide-image-placeholder" style="min-height: 360px; width: 100%;">';
+1523:                     html += '        <span style="display: block; color: #64748b; font-size: 14px; margin-bottom: 16px; font-weight: 600;">Henüz görsel yüklenmemiş.</span>';
+1524:                     html += '        <label style="cursor: pointer; background: #2563eb; color: white; padding: 8px 18px; border-radius: 6px; font-size: 13px; font-weight: 700; display: inline-block; transition: background 0.2s; box-shadow: 0 2px 4px rgba(37,99,235,0.2);">';
+1525:                     html += '          Görsel Yükle';
+1526:                     html += '          <input type="file" accept="image/*" onchange="window.uploadSlideImage(this, \'' + sectionIdx + '\', ' + slideIdx + ')" style="display: none;" />';
+1527:                     html += '        </label>';
+1528:                     html += '      </div>';
+1529:                     html += '    </div>';
+1530:                 }
+1531:                 html += '  </div>';
+1532:                 
+1533:                 // Sağ Kolon (Metin)
+1534:                 html += '  <div style="flex: 1.5; min-width: 250px; display: flex; flex-direction: column;">';
+1535:                 if (slide.items && (slide.items.length === 4 || slide.items.length === 5)) {
+1536:                     // Grid Düzeni (Minik Kartlar)
+1537:                     html += '    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-content: stretch; overflow: visible;">';
+1538:                     for (var si = 0; si < slide.items.length; si++) {
+1539:                         var isLast = si === slide.items.length - 1;
+1540:                         var isOdd = slide.items.length % 2 !== 0;
+1541:                         var gridSpan = (isLast && isOdd) ? 'grid-column: span 2; max-width: calc(50% - 8px); margin: 0 auto; width: 100%;' : '';
+1542:                         html += '      <div class="slide-info-card" style="padding: 16px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: flex-start; min-height: 170px; ' + gridSpan + '">';
+1543:                         html += '        <div class="slide-card-title" style="font-size: 13.5px; margin-bottom: 10px; padding-bottom: 6px; border-bottom: 1.5px solid #64748b;">' + slide.items[si].label + '</div>';
+1544:                         html += '        <div class="slide-card-content" style="font-size: 12.5px; line-height: 1.6; color: #475569;">' + slide.items[si].text + '</div>';
+1545:                         html += '      </div>';
+1546:                     }
+1547:                     html += '    </div>';
+1548:                     if (slide.value) {
+1549:                         html += '    <div class="slide-info-card" style="margin-top: 12px; padding: 12px 16px; font-size: 13px; line-height: 1.5; color: #334155; border-left: 4px solid #d97706; background: #fafafa;">' + slide.value + '</div>';
+1550:                     }
+1551:                 } else {
+1552:                     html += '    <div class="slide-info-card">';
+1553:                     if (slide.items && slide.items.length) {
+1554:                         if (slide.items.length === 1) {
+1555:                             html += '      <div class="slide-card-title">' + slide.items[0].label + '</div>';
+1556:                             html += '      <div class="slide-card-content">' + slide.items[0].text + '</div>';
+1557:                         } else {
+1558:                             html += '      <div class="slide-card-content">';
+1559:                             for (var si = 0; si < slide.items.length; si++) {
+1560:                                 if (si > 0) html += '<div style="border-top: 1px solid #e2e8f0; margin: 16px 0;"></div>';
+1561:                                 html += '<div style="margin-bottom: 4px; font-size: 15px; font-weight: 700; color: #1a1a1a;">' + slide.items[si].label + '</div>';
+1562:                                 html += '<div>' + slide.items[si].text + '</div>';
+1563:                             }
+1564:                             html += '      </div>';
+1565:                         }
+1566:                     } else if (slide.value) {
+1567:                         html += '      <div class="slide-card-content">' + slide.value + '</div>';
+1568:                     }
+1569:                     html += '    </div>';
+1570:                 }
+1571:                 html += '  </div>';
+1572:                 
+1573:                 html += '</div>';
+1574:             }
+1575:         }
+1576:     } else {
+1577:         // Eski tek kolonlu düz metin düzeni
+1578:         var cardStyle = slide.transparentCard === true ? 'background: transparent; border: none; box-shadow: none; padding: 0;' : '';
+1579:         html += '<div class="slide-info-card" style="' + cardStyle + '">';
+1580:         if (slide.items && slide.items.length) {
+1581:             html += '  <div class="slide-card-content">';
+1582:             for (var si = 0; si < slide.items.length; si++) {
+1583:                 if (si > 0) html += '<div style="border-top: 1px solid #e2e8f0; margin: 16px 0;"></div>';
+1584:                 html += '<div style="margin-bottom: 4px; font-size: 15px; font-weight: 700; color: #1a1a1a;">' + slide.items[si].label + '</div>';
+1585:                 html += '<div>' + slide.items[si].text + '</div>';
+1586:             }
+1587:             html += '  </div>';
+1588:         } else if (slide.value) {
+1589:             html += '  <div class="slide-card-content">' + slide.value + '</div>';
+1590:         }
+1591:         html += '</div>';
+1592:     }
+1593:     
+1594:     return html;
+1595: };
+1596: 
+1597: window._renderSection = function(section, idx) {
+1598:     var h = '';
+1599:     if (section.type === "unit" || section.type === "separator") {
+1600:         var title = section.title || "Ünite";
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.

@@ -121,3 +121,12 @@ Güncelleme: GET ile mevcut içeriği oku → güncelle → POST.
 ## 8. Not Alma Rehberi ve Ders Standartları
 
 Her dersin not alma stilini, kullanılan şablon türlerini ve pedagojik yaklaşım standartlarını [NOT_ALMA_REHBERI.md](NOT_ALMA_REHBERI.md) dosyasından takip et. Yeni içerik üretirken bu kılavuza sadık kal.
+
+---
+
+## 9. Geliştirme Kuralları ve Tasarım İzolasyonu
+
+- **Konu İsimlendirme Tutarlılığı (Veri Kaybı Önleme):** Konu isimleri, müfredat YAML dosyaları (`turkce.yaml` vb.), veritabanı `topic` kolonu ve `INTERACTIVE_TOPICS` listesi ile birebir eşleşmelidir. Konu adlarında yapılacak en ufak harf/karakter değişikliği (örn: `Paragrafta Anlam` yerine `Paragrafta Yapı` yazılması) veritabanındaki not verilerine erişimin tamamen kopmasına neden olur.
+- **Bileşen Seviyesinde İzolasyon (Global Tasarım Çökmelerini Önleme):** Arayüz monolitik bir yapıda (`index.html` içinde) geliştirilmiştir. Yapılan görsel tasarımlar kesinlikle global CSS kuralları ile ezilmemelidir. Tasarım değişiklikleri sadece ilgili şablon fonksiyonunun ürettiği HTML etiketlerinde inline stillerle veya spesifik sınıf seçicileriyle sınırlandırılmalıdır. Aksi takdirde, bir konunun tasarımı güncellenirken diğer tüm sayfaların ölçek ve yerleşim yapısı bozulur.
+- **Global Tasarım Değişikliği ve Kullanıcı Onayı:** Sistem genelini veya diğer sayfaları etkileyecek herhangi bir global tasarım/arayüz değişikliği yapılmadan önce **kesinlikle kullanıcıdan onay alınmalıdır.** 
+- **Global Tasarım Değişikliği Talebi Kısıtı:** Genel kural olarak, sistemde global tasarım değişiklikleri **istenmeyecektir**. Ajanlar kendiliğinden veya dolaylı olarak global arayüz kurallarını değiştirmeye kalkışmamalı, her geliştirme talebini sadece ilgili sayfa/bileşen kapsamında izole bir şekilde çözmelidir.

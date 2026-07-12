@@ -1,0 +1,36 @@
+{
+  "subject": "Türkçe",
+  "topic": "Sözcükte ve Cümlede Anlam",
+  "content": {
+    "_template": "interactive-v2",
+    "_layout": [
+      {
+        "type": "unit",
+        "title": "TÜRKÇE - 1",
+        "subtitle": "Sözcükte ve Cümlede Anlam"
+      },
+      {
+        "type": "slide",
+        "tag": "Sözcükte Anlam Soru Tipleri",
+        "slides": [
+          {
+            "key": "Boşluk Doldurma",
+            "value": "Boşluk doldurma sorularında sadece son boşluğa odaklanmak en büyük çeldiricidir. Metnin genel anlam bütünlüğü ve sözcüklerin birbiriyle olan anlamsal uyumu gözetilmelidir.\n\nTaktik:\n1. Boşlukları bir bütün olarak okuyun.\n2. İkinci veya üçüncü boşluklar genellikle anahtar kelimeleri taşır.\n3. Kelimelerin olumlu/olumsuz çağrışımlarına dikkat edin."
+          },
+          {
+            "key": "Altı Çizili Söz",
+            "value": "Altı çizili söz öbekleri genellikle mecaz veya deyimsel anlam taşır. Yalnızca çizili kısma odaklanmak yerine cümlenin bağlamı mutlaka okunmalıdır.\n\nTaktik:\n1. Sözün cümlenin tamamına kattığı anlamı analiz edin.\n2. Sözün mecazi veya çağrışımsal yönünü belirleyin.\n3. Seçeneklerde bu sözün yerine konabilecek eş veya yakın anlamlı ifadeyi bulun."
+          },
+          {
+            "key": "Anlamca Uyuşmamaktadır",
+            "value": "Bu soru tipinde parantez içindeki açıklama ile verilen sözcüğün anlamca örtüşmesi beklenir. Kelimelerin bağlamsal incelikleri çeldirici olarak kullanılır.\n\nKritik Çeldirici Uyarısı:\n'X'e özgü' veya 'Y biçim' gibi sınırlayıcı ifadelere dikkat edin! Bir durumun geneli ile bir kişiye veya gruba özgü olma durumu arasındaki farkı ÖSYM çok sık sorar."
+          },
+          {
+            "key": "Deyimler",
+            "value": "Deyimler kalıplaşmış söz öbekleridir. Kelimelerin yerleri değiştirilemez ve genellikle mecaz anlam taşırlar. Deyimin cümlenin veya paragrafın anlamına uygunluğu sorgulanır.\n\nTaktik:\n1. Deyimin gerçek anlamından ziyade kazandığı mecazi anlamı düşünün.\n2. Cümledeki genel duygu veya durum ile deyimin anlamının çelişip çelişmediğini kontrol edin.\n3. Sık kullanılan ve ÖSYM'nin sevdiği deyim listelerini tekrar edin."
+          }
+        ]
+      }
+    ]
+  }
+}
