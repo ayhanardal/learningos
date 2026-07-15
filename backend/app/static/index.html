@@ -4027,12 +4027,12 @@ function renderDashboardTodayProgress(data) {
                     <div style="font-size:16px; font-weight:800; color:var(--text); line-height:1.2; display:flex; align-items:center; gap:6px;">
                         ${esc(s.topic)}
                     </div>
-                    <div style="font-size:11px; color:${sColor.border}; opacity:0.6; font-weight:700; text-transform:uppercase; letter-spacing:0.5px;">
-                        ${esc(s.subject)}
-                    </div>
                     ${topicBadgesHtml}
                 </div>
                 <div style="display:flex; flex-direction:column; gap:4px; align-items:flex-end; flex-shrink:0;">
+                    <div style="font-size:9px; color:${sColor.border}; opacity:0.4; font-weight:800; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:2px;">
+                        ${esc(s.subject)}
+                    </div>
                     <div style="font-size:10px; font-weight:700; color:var(--text2); background:var(--surface); padding:3px 8px; border-radius:8px; border:1px solid var(--border);">
                         Beklenen: <b style="color:var(--text);">${elapsedExpected}</b> / ${s.topic_expected || 1}
                     </div>
