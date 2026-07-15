@@ -3868,7 +3868,61 @@ function renderProgressTopics(subjectName) {
     
     if (!subjectData) return;
     
-    let html = '<div style="display:flex; flex-direction:column; gap:10px;">';
+    let html = '';
+    
+    let globalAllocated = 0;
+    let globalCompleted = 0;
+    _globalProgressData.forEach(exam => {
+        exam.tests.forEach(test => {
+            test.subjects.forEach(sub => {
+                sub.topics.forEach(t => {
+                    if (t.allocated_sessions > 0) {
+                        globalAllocated += t.allocated_sessions;
+                        globalCompleted += t.completed_sessions || 0;
+                    }
+                });
+            });
+        });
+    });
+    let globalMissing = globalAllocated - globalCompleted;
+    
+    let subTotalAllocated = 0;
+    let subTotalCompleted = 0;
+    let subMissingTopics = 0;
+    subjectData.topics.forEach(t => {
+        if(t.allocated_sessions > 0) {
+            subTotalAllocated += t.allocated_sessions;
+            subTotalCompleted += t.completed_sessions || 0;
+            if ((t.completed_sessions || 0) < t.allocated_sessions) {
+                subMissingTopics++;
+            }
+        }
+    });
+    let subMissingSessions = subTotalAllocated - subTotalCompleted;
+    
+    html += `<div style="display:flex; flex-wrap:wrap; gap:16px; margin-bottom:24px;">
+        <div style="flex:1; min-width:300px; background:var(--surface); border:1px solid var(--border); border-left:4px solid var(--accent); border-radius:12px; padding:16px;">
+            <h4 style="margin:0 0 8px 0; color:var(--text); font-size:14px; display:flex; align-items:center; gap:6px;">
+                <span>🎯</span> ${esc(subjectName)} Özeti
+            </h4>
+            <div style="font-size:13px; color:var(--text2); line-height:1.5;">
+                Bu derste planlanan <b>${subTotalAllocated}</b> oturumun <b>${subTotalCompleted}</b> tanesi gerçekleşti. 
+                Toplam <b style="color:var(--red); font-size:14px;">${subMissingSessions}</b> eksik oturumunuz (<b>${subMissingTopics}</b> farklı konuda) bulunuyor.
+            </div>
+        </div>
+        
+        <div style="flex:1; min-width:300px; background:var(--surface2); border:1px dashed var(--border); border-radius:12px; padding:16px;">
+            <h4 style="margin:0 0 8px 0; color:var(--text); font-size:14px; display:flex; align-items:center; gap:6px;">
+                <span>🌍</span> Genel Durum (Tüm Dersler)
+            </h4>
+            <div style="font-size:13px; color:var(--text2); line-height:1.5;">
+                Müfredat genelinde toplam <b>${globalAllocated}</b> oturumdan <b>${globalCompleted}</b> tanesini tamamladınız. 
+                Geriye dönük veya henüz başlanmamış toplam <b style="color:var(--red); font-size:14px;">${globalMissing}</b> eksik oturumunuz var.
+            </div>
+        </div>
+    </div>`;
+    
+    html += '<div style="display:flex; flex-direction:column; gap:10px;">';
     
     subjectData.topics.forEach(t => {
         if(t.allocated_sessions > 0) {
