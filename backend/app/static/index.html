@@ -3998,6 +3998,20 @@ function renderDashboardTodayProgress(data) {
             pct = 100;
         }
         
+        let topicBadgesHtml = '';
+        if (hasSubquests) {
+            let altKonuSubquests = s.subquests.filter(sq => sq.label === 'alt konu');
+            if (altKonuSubquests.length > 0) {
+                topicBadgesHtml = '<div style="display:flex; flex-wrap:wrap; gap:4px; margin-top:6px;">' + 
+                    altKonuSubquests.map(sq => {
+                        let bColor = sq.is_completed ? 'var(--success)' : 'var(--accent)';
+                        let bBg = sq.is_completed ? 'rgba(16,185,129,0.1)' : 'rgba(0,212,255,0.1)';
+                        return `<span style="background:${bBg}; border:1px solid ${bColor}; color:${bColor}; padding:2px 8px; border-radius:12px; font-size:10px; font-weight:700;">${esc(sq.text)}</span>`;
+                    }).join('') + 
+                '</div>';
+            }
+        }
+        
         let sColor = subjColors[s.subject] || { border: 'var(--border)', bg: 'var(--bg2)' };
         let elapsedExpected = (window._roadmapElapsedTopics && window._roadmapElapsedTopics[s.topic]) || s.topic_expected || 0;
         let actualCompleted = s.topic_completed || 0;
@@ -4016,6 +4030,7 @@ function renderDashboardTodayProgress(data) {
                     <div style="font-size:11px; color:${sColor.border}; opacity:0.6; font-weight:700; text-transform:uppercase; letter-spacing:0.5px;">
                         ${esc(s.subject)}
                     </div>
+                    ${topicBadgesHtml}
                 </div>
                 <div style="display:flex; flex-direction:column; gap:4px; align-items:flex-end; flex-shrink:0;">
                     <div style="font-size:10px; font-weight:700; color:var(--text2); background:var(--surface); padding:3px 8px; border-radius:8px; border:1px solid var(--border);">
