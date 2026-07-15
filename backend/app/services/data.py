@@ -443,7 +443,18 @@ def get_stats():
         pct = round((done / total * 100) if total else 0, 1)
         names = {"turkce": "Türkçe", "matematik": "Matematik", "tarih": "Tarih",
                  "cografya": "Coğrafya", "vatandaslik": "Vatandaşlık", "istatistik": "İstatistik"}
-        subject_stats[names.get(key, key)] = {"done": done, "total": total, "pct": pct}
+        subject_stats[names.get(key, key)] = {"done": done, "total": total, "pct": pct, "completed_sessions": 0}
+
+    curriculum = get_curriculum_summary()
+    for cat in curriculum:
+        for subj in cat.get("subjects", []):
+            subj_name = subj.get("name")
+            if subj_name not in subject_stats:
+                subject_stats[subj_name] = {"done": 0, "total": 1, "pct": 0, "completed_sessions": 0}
+            for topic in subj.get("topics", []):
+                topic_slug = topic.get("id")
+                if topic_slug:
+                    subject_stats[subj_name]["completed_sessions"] += get_completed_sessions_count(topic_slug)
 
     genel_exam = datetime(2026, 9, 6)
     alan_exam = datetime(2026, 9, 12)

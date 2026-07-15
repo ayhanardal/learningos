@@ -2973,7 +2973,7 @@ async function loadDashboard() {
     }
     if (results[5] && !results[5].error) {
       renderDashboardProgress(results[5]);
-      renderExpectedProgress(results[5]);
+      renderExpectedProgress(results[5], results[0]);
       fetchJSON(API + '/today/progress').then(renderDashboardTodayProgress);
     }
     renderDailySessionTimeline();
@@ -3190,7 +3190,7 @@ function renderDailySessionTimeline() {
   '</div>';
 }
 
-function renderExpectedProgress(roadmapData) {
+function renderExpectedProgress(roadmapData, statsData) {
   var topicsEl = document.getElementById('expected-today-topics-container');
   var generalEl = document.getElementById('expected-general-progress-container');
   if ((!topicsEl && !generalEl) || !roadmapData || !roadmapData.weeks) return;
@@ -3268,18 +3268,30 @@ function renderExpectedProgress(roadmapData) {
   sortedSubjects.forEach(function(subj) {
     var tot = totalSessions.subjects[subj];
     var elCount = elapsedSessions.subjects[subj] || 0;
+    
+    var actualCount = 0;
+    if (statsData && statsData.subjects && statsData.subjects[subj]) {
+        actualCount = statsData.subjects[subj].completed_sessions || 0;
+    }
+    
     var pct = Math.min(100, Math.round((elCount / tot) * 100)) || 0;
     var color = subjectColors[subj] || 'var(--accent)';
+    var diffColor = actualCount < elCount ? 'var(--red)' : (actualCount > elCount ? 'var(--green)' : 'var(--text)');
     
-    subjectsHtml += '<div style="display: flex; align-items: center; gap: 12px; padding: 8px 0;">' +
+    subjectsHtml += '<div style="display: flex; align-items: center; gap: 12px; padding: 8px 0; border-bottom: 1px solid var(--border);">' +
       '<div style="width: 44px; height: 44px; border-radius: 50%; background: conic-gradient(' + color + ' ' + pct + '%, var(--surface2) 0); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">' +
         '<div style="width: 34px; height: 34px; border-radius: 50%; background: var(--surface); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; color: var(--text);">' +
           '%' + pct +
         '</div>' +
       '</div>' +
-      '<div style="display: flex; flex-direction: column; gap: 4px;">' +
+      '<div style="display: flex; flex-direction: column; gap: 4px; flex-grow: 1;">' +
         '<span style="font-size: 12px; font-weight: 700; color: var(--text);">' + esc(subj) + '</span>' +
-        '<span style="font-size: 11px; color: var(--text2); font-weight: 500;">' + elCount + ' / ' + tot + ' Oturum</span>' +
+        '<div style="display: flex; justify-content: space-between; align-items: center;">' +
+          '<span style="font-size: 10px; color: var(--text2); font-weight: 500;">Beklenen: <b style="color:var(--text);">' + elCount + '</b> / ' + tot + '</span>' +
+          '<span style="font-size: 10px; color: var(--text2); font-weight: 600; background: var(--surface2); padding: 2px 6px; border-radius: 6px;">' +
+            'Gerçekleşen: <b style="color:' + diffColor + ';">' + actualCount + '</b>' +
+          '</span>' +
+        '</div>' +
       '</div>' +
     '</div>';
   });
