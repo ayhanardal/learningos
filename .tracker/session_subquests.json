@@ -5,27 +5,7 @@
         "session_index": 1,
         "subquests": [
           {
-            "id": "sq_1",
-            "title": "Sıralama",
-            "text": "Sıralama soru tipini içeren konuya çalış",
-            "label": "alt konu",
-            "is_completed": false,
-            "completed_at": null
-          },
-          {
-            "id": "sq_2",
-            "text": "Not edin",
-            "label": "rutin",
-            "is_completed": false,
-            "completed_at": null
-          }
-        ]
-      },
-      {
-        "session_index": 4,
-        "subquests": [
-          {
-            "id": "sq_4_1",
+            "id": "sq_turkce_paragrafta_anlam_1_1",
             "title": "İlerleme Kontrolü",
             "text": "Eksik oturum analizi yap.",
             "label": "hatırlatıcı",
@@ -36,7 +16,7 @@
             "completed_at": null
           },
           {
-            "id": "sq_4_2",
+            "id": "sq_turkce_paragrafta_anlam_1_2",
             "title": "Kaynak Tespiti",
             "text": "Mevcut konu için video kaynağı bul.",
             "label": "keşif",
@@ -48,7 +28,7 @@
             "completed_at": null
           },
           {
-            "id": "sq_4_3",
+            "id": "sq_turkce_paragrafta_anlam_1_3",
             "title": "Video Taraması",
             "text": "Videoyu hızlıca tara ve plan yap.",
             "label": "planlama",
@@ -61,7 +41,7 @@
             "completed_at": null
           },
           {
-            "id": "sq_4_4",
+            "id": "sq_turkce_paragrafta_anlam_1_4",
             "title": "İçerik Tüketimi",
             "text": "Not çıkararak öğren.",
             "label": "teori",
@@ -73,7 +53,71 @@
             "completed_at": null
           },
           {
-            "id": "sq_4_5",
+            "id": "sq_turkce_paragrafta_anlam_1_5",
+            "title": "Son İnceleme",
+            "text": "Tüm notları gözden geçir.",
+            "label": "kontrol",
+            "sub_items": [
+              "Oluşturulan tüm dijital slaytları ve alınan notları hızlıca kontrol et."
+            ],
+            "is_completed": false,
+            "completed_at": null
+          }
+        ]
+      },
+      {
+        "session_index": 4,
+        "subquests": [
+          {
+            "id": "sq_turkce_paragrafta_anlam_4_1",
+            "title": "İlerleme Kontrolü",
+            "text": "Eksik oturum analizi yap.",
+            "label": "hatırlatıcı",
+            "sub_items": [
+              "İlerleme panosundan bu dersin eksik (beklenen) oturumlarını kontrol et."
+            ],
+            "is_completed": false,
+            "completed_at": null
+          },
+          {
+            "id": "sq_turkce_paragrafta_anlam_4_2",
+            "title": "Kaynak Tespiti",
+            "text": "Mevcut konu için video kaynağı bul.",
+            "label": "keşif",
+            "sub_items": [
+              "İlgili videoları listele.",
+              "Video süresi ve oturum kapasitesini hesapla (Bölünmesi gerekiyor mu?)."
+            ],
+            "is_completed": false,
+            "completed_at": null
+          },
+          {
+            "id": "sq_turkce_paragrafta_anlam_4_3",
+            "title": "Video Taraması",
+            "text": "Videoyu hızlıca tara ve plan yap.",
+            "label": "planlama",
+            "sub_items": [
+              "Hoca tahtayı kaç kez siliyor? (Slayt sayısını belirle).",
+              "Kaba bir soru çözüm sayısı tahmini yap.",
+              "Duraklama (milestone) noktalarını not al."
+            ],
+            "is_completed": false,
+            "completed_at": null
+          },
+          {
+            "id": "sq_turkce_paragrafta_anlam_4_4",
+            "title": "İçerik Tüketimi",
+            "text": "Not çıkararak öğren.",
+            "label": "teori",
+            "sub_items": [
+              "Videoyu normal hızda izlemeye başla.",
+              "Belirlediğin milestone'larda dur ve dijital slayt (page) notlarını tasarla."
+            ],
+            "is_completed": false,
+            "completed_at": null
+          },
+          {
+            "id": "sq_turkce_paragrafta_anlam_4_5",
             "title": "Son İnceleme",
             "text": "Tüm notları gözden geçir.",
             "label": "kontrol",
