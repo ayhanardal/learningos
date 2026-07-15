@@ -4006,7 +4006,7 @@ function renderDashboardTodayProgress(data) {
                     altKonuSubquests.map(sq => {
                         let bColor = sq.is_completed ? 'var(--success)' : 'var(--accent)';
                         let bBg = sq.is_completed ? 'rgba(16,185,129,0.1)' : 'rgba(0,212,255,0.1)';
-                        return `<span style="background:${bBg}; border:1px solid ${bColor}; color:${bColor}; padding:2px 8px; border-radius:12px; font-size:10px; font-weight:700;">${esc(sq.text)}</span>`;
+                        return `<span style="background:${bBg}; border:1px solid ${bColor}; color:${bColor}; padding:2px 8px; border-radius:12px; font-size:10px; font-weight:700;">${esc(sq.title || sq.text)}</span>`;
                     }).join('') + 
                 '</div>';
             }
