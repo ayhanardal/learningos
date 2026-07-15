@@ -3870,72 +3870,54 @@ function renderProgressTopics(subjectName) {
     
     let html = '';
     
-    let globalAllocated = 0;
+    let globalExpected = 0;
     let globalCompleted = 0;
     _globalProgressData.forEach(exam => {
         exam.tests.forEach(test => {
             test.subjects.forEach(sub => {
                 sub.topics.forEach(t => {
+                    let expected = window._roadmapElapsedTopics ? (window._roadmapElapsedTopics[t.name] || 0) : 0;
                     if (t.allocated_sessions > 0) {
-                        globalAllocated += t.allocated_sessions;
+                        globalExpected += expected;
                         globalCompleted += t.completed_sessions || 0;
                     }
                 });
             });
         });
     });
-    let globalMissing = globalAllocated - globalCompleted;
+    let globalMissing = globalExpected - globalCompleted;
+    if (globalMissing < 0) globalMissing = 0;
     
-    let subTotalAllocated = 0;
+    let subTotalExpected = 0;
     let subTotalCompleted = 0;
-    let subMissingTopics = 0;
-    subjectData.topics.forEach(t => {
-        if(t.allocated_sessions > 0) {
-            subTotalAllocated += t.allocated_sessions;
-            subTotalCompleted += t.completed_sessions || 0;
-            if ((t.completed_sessions || 0) < t.allocated_sessions) {
-                subMissingTopics++;
-            }
-        }
-    });
-    let subMissingSessions = subTotalAllocated - subTotalCompleted;
-    
-    html += `<div style="display:flex; flex-wrap:wrap; gap:16px; margin-bottom:24px;">
-        <div style="flex:1; min-width:300px; background:var(--surface); border:1px solid var(--border); border-left:4px solid var(--accent); border-radius:12px; padding:16px;">
-            <h4 style="margin:0 0 8px 0; color:var(--text); font-size:14px; display:flex; align-items:center; gap:6px;">
-                <span>🎯</span> ${esc(subjectName)} Özeti
-            </h4>
-            <div style="font-size:13px; color:var(--text2); line-height:1.5;">
-                Bu derste planlanan <b>${subTotalAllocated}</b> oturumun <b>${subTotalCompleted}</b> tanesi gerçekleşti. 
-                Toplam <b style="color:var(--red); font-size:14px;">${subMissingSessions}</b> eksik oturumunuz (<b>${subMissingTopics}</b> farklı konuda) bulunuyor.
-            </div>
-        </div>
-        
-        <div style="flex:1; min-width:300px; background:var(--surface2); border:1px dashed var(--border); border-radius:12px; padding:16px;">
-            <h4 style="margin:0 0 8px 0; color:var(--text); font-size:14px; display:flex; align-items:center; gap:6px;">
-                <span>🌍</span> Genel Durum (Tüm Dersler)
-            </h4>
-            <div style="font-size:13px; color:var(--text2); line-height:1.5;">
-                Müfredat genelinde toplam <b>${globalAllocated}</b> oturumdan <b>${globalCompleted}</b> tanesini tamamladınız. 
-                Geriye dönük veya henüz başlanmamış toplam <b style="color:var(--red); font-size:14px;">${globalMissing}</b> eksik oturumunuz var.
-            </div>
-        </div>
-    </div>`;
+    let subMissingTopicsCount = 0;
     
     html += '<div style="display:flex; flex-direction:column; gap:10px;">';
     
     subjectData.topics.forEach(t => {
         if(t.allocated_sessions > 0) {
+            let expected = window._roadmapElapsedTopics ? (window._roadmapElapsedTopics[t.name] || 0) : 0;
+            subTotalExpected += expected;
+            subTotalCompleted += t.completed_sessions || 0;
+            
             let status = "Tamamlandı";
             let color = "var(--success)";
-            if (t.completed_sessions < t.allocated_sessions) { status = "Eksik"; color = "var(--warning)"; }
+            
+            if ((t.completed_sessions || 0) < expected) {
+                subMissingTopicsCount++;
+                status = "Eksik (" + (expected - (t.completed_sessions || 0)) + ")"; 
+                color = "var(--warning)";
+            } else if ((t.completed_sessions || 0) === 0 && expected === 0) {
+                status = "Başlanmadı";
+                color = "var(--text2)";
+            }
             
             html += `<div class="card" style="padding:15px; border-left:4px solid ${color};">
                 <div style="display:flex; justify-content:space-between; align-items:center; cursor:pointer;" onclick="toggleTopicCollapse('${esc(t.id)}', '${esc(t.name)}', ${t.allocated_sessions})">
                     <div>
                         <h3 style="margin:0 0 5px 0;">${esc(t.name)}</h3>
                         <div style="font-size:12px; color:var(--text2);">
-                            Atanan: <b>${t.allocated_sessions}</b> | Gerçekleşen: <b>${t.completed_sessions}</b> | Durum: <span style="color:${color}">${status}</span>
+                            Beklenen: <b>${expected}</b> (Toplam: ${t.allocated_sessions}) | Gerçekleşen: <b>${t.completed_sessions || 0}</b> | Durum: <span style="color:${color}; font-weight:700;">${status}</span>
                         </div>
                     </div>
                     <div style="font-size:18px; color:var(--text2); transition:transform 0.3s;" id="icon-${esc(t.id)}">▼</div>
@@ -3948,6 +3930,57 @@ function renderProgressTopics(subjectName) {
     });
     
     html += '</div>';
+    
+    let subMissingSessions = subTotalExpected - subTotalCompleted;
+    if (subMissingSessions < 0) subMissingSessions = 0;
+    
+    html += `<div style="margin-top:40px; padding-top:24px; border-top:1px solid var(--border);">
+        <h3 style="margin:0 0 16px 0; font-size:16px; display:flex; align-items:center; gap:8px;">📊 İlerleme İstatistikleri</h3>
+        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:16px;">
+            
+            <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px; text-align:center; box-shadow:0 4px 12px rgba(0,0,0,0.1);">
+                <div style="font-size:12px; color:var(--text2); font-weight:700; text-transform:uppercase; margin-bottom:16px; letter-spacing:0.5px;">${esc(subjectName)} Durumu</div>
+                <div style="display:flex; justify-content:space-between; align-items:center; max-width:240px; margin:0 auto;">
+                    <div style="display:flex; flex-direction:column; gap:4px; flex:1;">
+                        <span style="font-size:28px; font-weight:800; color:var(--text); line-height:1;">${subTotalExpected}</span>
+                        <span style="font-size:10px; color:var(--text2); font-weight:700; text-transform:uppercase;">Beklenen</span>
+                    </div>
+                    <div style="width:1px; height:36px; background:var(--border);"></div>
+                    <div style="display:flex; flex-direction:column; gap:4px; flex:1;">
+                        <span style="font-size:28px; font-weight:800; color:var(--success); line-height:1;">${subTotalCompleted}</span>
+                        <span style="font-size:10px; color:var(--text2); font-weight:700; text-transform:uppercase;">Gerçekleşen</span>
+                    </div>
+                    <div style="width:1px; height:36px; background:var(--border);"></div>
+                    <div style="display:flex; flex-direction:column; gap:4px; flex:1;">
+                        <span style="font-size:28px; font-weight:800; color:${subMissingSessions > 0 ? 'var(--red)' : 'var(--text2)'}; line-height:1;">${subMissingSessions}</span>
+                        <span style="font-size:10px; color:var(--text2); font-weight:700; text-transform:uppercase;">Eksik</span>
+                    </div>
+                </div>
+                <div style="margin-top:16px; font-size:11px; color:var(--text2); background:var(--bg); padding:6px 12px; border-radius:12px; display:inline-block;">Eksikler <b style="color:var(--text);">${subMissingTopicsCount}</b> farklı konuda birikmiş durumda.</div>
+            </div>
+            
+            <div style="background:var(--surface2); border:1px dashed var(--border); border-radius:12px; padding:20px; text-align:center;">
+                <div style="font-size:12px; color:var(--text2); font-weight:700; text-transform:uppercase; margin-bottom:16px; letter-spacing:0.5px;">Genel Durum (Tüm Dersler)</div>
+                <div style="display:flex; justify-content:space-between; align-items:center; max-width:240px; margin:0 auto;">
+                    <div style="display:flex; flex-direction:column; gap:4px; flex:1;">
+                        <span style="font-size:28px; font-weight:800; color:var(--text); line-height:1;">${globalExpected}</span>
+                        <span style="font-size:10px; color:var(--text2); font-weight:700; text-transform:uppercase;">Beklenen</span>
+                    </div>
+                    <div style="width:1px; height:36px; background:var(--border);"></div>
+                    <div style="display:flex; flex-direction:column; gap:4px; flex:1;">
+                        <span style="font-size:28px; font-weight:800; color:var(--success); line-height:1;">${globalCompleted}</span>
+                        <span style="font-size:10px; color:var(--text2); font-weight:700; text-transform:uppercase;">Gerçekleşen</span>
+                    </div>
+                    <div style="width:1px; height:36px; background:var(--border);"></div>
+                    <div style="display:flex; flex-direction:column; gap:4px; flex:1;">
+                        <span style="font-size:28px; font-weight:800; color:${globalMissing > 0 ? 'var(--red)' : 'var(--text2)'}; line-height:1;">${globalMissing}</span>
+                        <span style="font-size:10px; color:var(--text2); font-weight:700; text-transform:uppercase;">Eksik</span>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>`;
     document.getElementById('progress-topics-container').innerHTML = html;
 }
 
