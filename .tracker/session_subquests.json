@@ -30,6 +30,14 @@
             "label": "test",
             "is_completed": false,
             "completed_at": null
+          },
+          {
+            "id": "sq_4",
+            "title": "Boşluk doldurma",
+            "text": "Boşluk doldurma soru tipini içeren konuya çalış",
+            "label": "alt konu",
+            "is_completed": false,
+            "completed_at": null
           }
         ]
       }
