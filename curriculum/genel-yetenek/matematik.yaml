@@ -10,74 +10,31 @@ topics:
   chronologicalIndex: 1
   avg_questions: 5
   target_net: 5
-  subtopics:
-  - Temel Kavramlar
-  - Tek-Çift Sayılar
-  - Bölme-Bölünebilme
-  - EBOB-EKOK
-  - Rasyonel Sayılar
 - name: Cebirsel İfadeler ve Denklemler
   chronologicalIndex: 2
   avg_questions: 6
   target_net: 5
-  subtopics:
-  - Basit Eşitsizlikler
-  - Mutlak Değer
-  - Üslü Sayılar
-  - Köklü Sayılar
-  - Çarpanlara Ayırma
-  - 1. Dereceden Denklemler
 - name: Oran - Orantı
   chronologicalIndex: 3
   avg_questions: 2
   target_net: 2
-  subtopics:
-  - Oran-Orantı
-  - Denklem Kurma
 - name: Kümeler ve Fonksiyonlar
   chronologicalIndex: 4
   avg_questions: 1
   target_net: 0
-  subtopics:
-  - Kümeler
-  - Fonksiyonlar
-  - Polinomlar
 - name: P.K.O. (Saymanın Kuralları)
   chronologicalIndex: 5
   avg_questions: 2
   target_net: 2
-  subtopics:
-  - Permütasyon
-  - Kombinasyon
-  - Binom
-  - Olasılık
 - name: Problemler
   isRoutine: true
   avg_questions: 9
   target_net: 8
-  subtopics:
-  - Sayı
-  - Kesir
-  - Yaş
-  - Yüzde
-  - Kar-Zarar
-  - Karışım
-  - Hareket
-  - İşçi
 - name: Sayısal Mantık
   isRoutine: true
   avg_questions: 4
   target_net: 4
-  subtopics:
-  - Sayısal Mantık
-  - Grafik Tablo Okuma
-  - Şekil Yeteneği
 - name: Geometri
   chronologicalIndex: 6
   avg_questions: 3
   target_net: 0
-  subtopics:
-  - Üçgenler
-  - Çokgenler ve Dörtgenler
-  - Çember ve Daire
-  - Analitik Geometri

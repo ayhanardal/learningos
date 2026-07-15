@@ -7,89 +7,40 @@ topics:
 - name: Olasılık ve Stokastik Süreçler
   avg_questions: 6
   target_net: 4
-  subtopics:
-  - Olasılık Yoğunluk Fonksiyonları
-  - Beklenen Değer ve Varyans
-  - Kesikli ve Sürekli Dağılımlar
-  - Stokastik Süreçlere Giriş
   chronologicalIndex: 1
 - name: Uygulamalı İstatistik
   avg_questions: 6
   target_net: 3
-  subtopics:
-  - Hipotez Testleri
-  - Güven Aralıkları
-  - p-değeri Yorumlama
-  - Anlamlılık Testleri
   chronologicalIndex: 4
 - name: Matematiksel İstatistik
   avg_questions: 6
   target_net: 2
-  subtopics:
-  - Nokta Tahmini
-  - Yeterlilik ve Tamlık
-  - Maksimum Olabilirlik (MLE)
-  - Momentler Yöntemi
   chronologicalIndex: 2
 - name: Regresyon Analizi
   avg_questions: 4
   target_net: 3
-  subtopics:
-  - Basit Doğrusal Regresyon
-  - Çoklu Regresyon
-  - Model Varsayımları ve İhlalleri
-  - R-kare ve Düzeltilmiş R-kare
   chronologicalIndex: 7
 - name: Varyans Analizi (ANOVA)
   avg_questions: 4
   target_net: 2
-  subtopics:
-  - Tek Yönlü ANOVA
-  - Çift Yönlü ANOVA
-  - Post-Hoc Testleri
-  - Varsayım Kontrolleri
   chronologicalIndex: 5
 - name: Çok Değişkenli Analizler
   avg_questions: 4
   target_net: 2
-  subtopics:
-  - Temel Bileşenler Analizi (PCA)
-  - Faktör Analizi
-  - Diskriminant Analizi
-  - Kümeleme
   chronologicalIndex: 9
 - name: Örnekleme
   avg_questions: 4
   target_net: 2
-  subtopics:
-  - Basit Rastgele Örnekleme
-  - Tabakalı Örnekleme
-  - Küme Örneklemesi
-  - Sistematik Örnekleme
   chronologicalIndex: 3
 - name: Zaman Serileri
   avg_questions: 2
   target_net: 2
-  subtopics:
-  - Durağanlık
-  - Trend ve Mevsimsellik
-  - AR/MA/ARMA Modelleri
-  - Üstel Düzleştirme
   chronologicalIndex: 8
 - name: Yöneylem Araştırması
   avg_questions: 2
   target_net: 0
-  subtopics:
-  - Doğrusal Programlama
-  - Simpleks Yöntemi
-  - Ulaştırma Modelleri
   chronologicalIndex: 10
 - name: Parametrik Olmayan Testler
   avg_questions: 2
   target_net: 0
-  subtopics:
-  - İşaret Testi
-  - Wilcoxon
-  - Kruskal-Wallis
-  - Ki-Kare Bağımsızlık Testi
   chronologicalIndex: 6

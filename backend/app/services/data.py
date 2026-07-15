@@ -244,6 +244,31 @@ def toggle_subquest(topic_slug: str, session_index: int, subquest_id: str, is_co
     return True
 
 
+def get_dynamic_subtopics(subject_name, topic_name):
+    tracker_subquests = {}
+    if TRACKER_SUBQUESTS.exists():
+        try:
+            with open(TRACKER_SUBQUESTS, "r", encoding="utf-8") as f:
+                tracker_subquests = json.load(f)
+        except Exception:
+            pass
+
+    slug = f"{slugify(subject_name)}-{slugify(topic_name)}"
+    topic_data = tracker_subquests.get(slug, {})
+    sessions = topic_data.get("sessions", [])
+    
+    dynamic_subtopics = []
+    seen = set()
+    for session in sessions:
+        for sq in session.get("subquests", []):
+            if sq.get("label") == "alt konu" and sq.get("title"):
+                title = sq.get("title")
+                if title not in seen:
+                    seen.add(title)
+                    dynamic_subtopics.append(title)
+    return dynamic_subtopics
+
+
 def get_curriculum_summary():
     progress = get_progress_raw()
     if not isinstance(progress, dict):
@@ -292,7 +317,7 @@ def get_curriculum_summary():
                     "subtopics": [{
                         "id": f"{slugify(subject_name)}-{slugify(t['name'])}-{slugify(st)}",
                         "name": st
-                    } for st in t.get("subtopics", [])]
+                    } for st in get_dynamic_subtopics(subject_name, t['name'])]
                 } for t in subj.get("topics", [])],
             })
     return [{"name": cat, "subjects": categories[cat]} for cat in ["Genel Yetenek", "Genel Kültür", "Alan Bilgisi"] if cat in categories]
@@ -359,7 +384,7 @@ def get_curriculum_all():
                     "subtopics": [{
                         "id": f"{t_slug}-{slugify(st)}",
                         "name": st
-                    } for st in t.get("subtopics", [])]
+                    } for st in get_dynamic_subtopics(subject_name, t_name)]
                 })
 
             subject_data = {
@@ -471,84 +496,39 @@ def get_dashboard_today_progress():
     
     today_str = datetime.now().strftime("%Y-%m-%d")
     tracker_data = get_session_subquests_raw()
+    from app.services.plan_generator import generate_roadmap_projection, EXACT_ALLOCATIONS
     
-    expected_topics = {}
-    for t in tasks:
-        topic_slug = f"{slugify(t['subject'])}-{slugify(t['topic'])}"
-        if topic_slug not in expected_topics:
-            expected_topics[topic_slug] = 0
-        expected_topics[topic_slug] += 1
-        
-    from app.services.plan_generator import EXACT_ALLOCATIONS
+    roadmap = generate_roadmap_projection()
+    weeks = roadmap.get("weeks", {})
+    sorted_weeks = sorted(weeks.keys(), key=lambda x: int(x.replace("Hafta ", "")))
     
-    topic_stats = {}
-    topic_sessions = {}
-    for slug, count in expected_topics.items():
-        topic_name = next((t["topic"] for t in tasks if f"{slugify(t['subject'])}-{slugify(t['topic'])}" == slug), "")
+    calendar_counts = {}
+    found_today = False
+    task_calendar_indices = []
+    
+    for wk in sorted_weeks:
+        if found_today: break
+        for day in weeks[wk]["days"]:
+            day_tasks = day.get("genel", []) + day.get("alan", [])
+            is_today = (day["date"] == today_str)
+            for dt in day_tasks:
+                d_slug = f"{slugify(dt['subject'])}-{slugify(dt['topic'])}"
+                calendar_counts[d_slug] = calendar_counts.get(d_slug, 0) + 1
+                if is_today:
+                    task_calendar_indices.append(calendar_counts[d_slug])
+            if is_today:
+                found_today = True
+                break
+
+    daily_sessions = []
+    for i, t in enumerate(tasks):
+        slug = f"{slugify(t['subject'])}-{slugify(t['topic'])}"
+        overall_idx = task_calendar_indices[i] if i < len(task_calendar_indices) else 1
         
         topic_data = tracker_data.get(slug, {"sessions": []})
         sessions = topic_data.get("sessions", [])
-        sessions.sort(key=lambda s: s.get("session_index", 0))
         
-        total_completed_count = 0
-        incomplete_sessions = []
-        completed_today_count = 0
-        for s in sessions:
-            subquests = s.get("subquests", [])
-            if not subquests:
-                incomplete_sessions.append(s)
-                continue
-            all_completed = all(sq.get("is_completed") for sq in subquests)
-            if all_completed:
-                total_completed_count += 1
-                completed_dates = [sq.get("completed_at") for sq in subquests if sq.get("completed_at")]
-                if today_str in completed_dates:
-                    completed_today_count += 1
-            else:
-                incomplete_sessions.append(s)
-                
-        topic_stats[slug] = {
-            "expected_sessions": EXACT_ALLOCATIONS.get(topic_name, 0),
-            "completed": total_completed_count
-        }
-        
-        sessions_to_show = []
-        for s in sessions:
-            subquests = s.get("subquests", [])
-            if not subquests: continue
-            if all(sq.get("is_completed") for sq in subquests):
-                completed_dates = [sq.get("completed_at") for sq in subquests if sq.get("completed_at")]
-                if today_str in completed_dates:
-                    sessions_to_show.append(s)
-                    
-        needed = count - len(sessions_to_show)
-        if needed > 0:
-            next_idx = total_completed_count + 1
-            added_incomplete = 0
-            while added_incomplete < needed:
-                existing = next((x for x in incomplete_sessions if x.get("session_index") == next_idx), None)
-                if existing:
-                    sessions_to_show.append(existing)
-                else:
-                    sessions_to_show.append({"session_index": next_idx, "subquests": []})
-                next_idx += 1
-                added_incomplete += 1
-                
-        sessions_to_show.sort(key=lambda s: s.get("session_index", 0))
-        topic_sessions[slug] = sessions_to_show
-        
-    daily_sessions = []
-    topic_pointers = {k: 0 for k in topic_sessions.keys()}
-    
-    for i, t in enumerate(tasks):
-        slug = f"{slugify(t['subject'])}-{slugify(t['topic'])}"
-        ptr = topic_pointers[slug]
-        
-        session_data = None
-        if ptr < len(topic_sessions[slug]):
-            session_data = topic_sessions[slug][ptr]
-        
-        topic_pointers[slug] += 1
+        session_data = next((s for s in sessions if s.get("session_index") == overall_idx), None)
         
         is_completed = False
         if session_data and session_data.get("subquests"):
@@ -560,9 +540,9 @@ def get_dashboard_today_progress():
             "subject": t["subject"],
             "topic": t["topic"],
             "topic_slug": slug,
-            "topic_expected": topic_stats[slug]["expected_sessions"],
-            "topic_completed": topic_stats[slug]["completed"],
-            "overall_session_index": session_data["session_index"] if session_data else 1,
+            "topic_expected": EXACT_ALLOCATIONS.get(t["topic"], 0),
+            "topic_completed": get_completed_sessions_count(slug),
+            "overall_session_index": overall_idx,
             "is_completed": is_completed,
             "subquests": session_data["subquests"] if session_data else []
         })

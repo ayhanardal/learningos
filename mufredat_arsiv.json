@@ -1,0 +1,258 @@
+{
+  "Unknown": {
+    "Paragrafta Anlam": [
+      "Paragrafta Ana Düşünce",
+      "Paragrafta Yardımcı Düşünce",
+      "Paragrafta Yapı",
+      "Anlatım Biçimleri",
+      "Cümle Sıralama"
+    ],
+    "Sözel Mantık": [
+      "Şifreleme",
+      "Tablo ve Şema Okuma",
+      "Yer-Yön ve Sıralama Problemleri"
+    ],
+    "Sözcükte ve Cümlede Anlam": [
+      "Sözcükte Anlam",
+      "Cümlede Anlam İlişkileri",
+      "Cümle Tamamlama"
+    ],
+    "Dil Bilgisi ve Ses Olayları": [
+      "Ses Olayları",
+      "Yazım Kuralları",
+      "Noktalama İşaretleri",
+      "Sözcük Türleri",
+      "Cümle Ögeleri"
+    ],
+    "Temel Kavramlar ve Sayılar": [
+      "Temel Kavramlar",
+      "Tek-Çift Sayılar",
+      "Bölme-Bölünebilme",
+      "EBOB-EKOK",
+      "Rasyonel Sayılar"
+    ],
+    "Cebirsel İfadeler ve Denklemler": [
+      "Basit Eşitsizlikler",
+      "Mutlak Değer",
+      "Üslü Sayılar",
+      "Köklü Sayılar",
+      "Çarpanlara Ayırma",
+      "1. Dereceden Denklemler"
+    ],
+    "Oran - Orantı": [
+      "Oran-Orantı",
+      "Denklem Kurma"
+    ],
+    "Kümeler ve Fonksiyonlar": [
+      "Kümeler",
+      "Fonksiyonlar",
+      "Polinomlar"
+    ],
+    "P.K.O. (Saymanın Kuralları)": [
+      "Permütasyon",
+      "Kombinasyon",
+      "Binom",
+      "Olasılık"
+    ],
+    "Problemler": [
+      "Sayı",
+      "Kesir",
+      "Yaş",
+      "Yüzde",
+      "Kar-Zarar",
+      "Karışım",
+      "Hareket",
+      "İşçi"
+    ],
+    "Sayısal Mantık": [
+      "Sayısal Mantık",
+      "Grafik Tablo Okuma",
+      "Şekil Yeteneği"
+    ],
+    "Geometri": [
+      "Üçgenler",
+      "Çokgenler ve Dörtgenler",
+      "Çember ve Daire",
+      "Analitik Geometri"
+    ],
+    "İslamiyet Öncesi Türk Tarihi": [
+      "Orta Asya Türk Tarihi",
+      "İlk Türk Devletlerinde Kültür"
+    ],
+    "İlk Türk-İslam Devletleri": [
+      "Türklerin İslamiyet'i Kabulü",
+      "Karahanlılar ve Gazneliler",
+      "Selçuklular",
+      "Kültür ve Medeniyet"
+    ],
+    "Osmanlı Devleti Siyasi Tarihi": [
+      "Kuruluş",
+      "Yükselme",
+      "Duraklama",
+      "Gerileme",
+      "Dağılma"
+    ],
+    "Osmanlı Kültür ve Medeniyeti": [
+      "Devlet Yönetimi",
+      "Toprak Sistemi",
+      "Hukuk",
+      "Bilim ve Mimari"
+    ],
+    "XX. Yüzyıl Osmanlı ve İnkılap Tarihine Giriş": [
+      "Trablusgarp ve Balkan Savaşları",
+      "I. Dünya Savaşı",
+      "Cemiyetler"
+    ],
+    "Milli Mücadele Dönemi": [
+      "Hazırlık Dönemi ve Kongreler",
+      "I. TBMM",
+      "Kurtuluş Savaşı Cepheleri"
+    ],
+    "Atatürk Dönemi ve İnkılaplar": [
+      "Atatürk Dönemi İç Politika",
+      "Atatürk İlke ve İnkılapları"
+    ],
+    "Atatürk Dönemi Dış Politika ve Çağdaş": [
+      "Dış Politika",
+      "İki Savaş Arası",
+      "Soğuk Savaş",
+      "Küreselleşme"
+    ],
+    "Hukukun Temel Kavramları": [
+      "Sosyal Hayatı Düzenleyen Kurallar",
+      "Yaptırımlar",
+      "Hak Kavramı",
+      "Kişiler Hukuku"
+    ],
+    "Devlet Biçimleri ve Anayasa Tarihi": [
+      "Hükümet Sistemleri",
+      "1921",
+      "1924",
+      "1961",
+      "1982 Anayasası"
+    ],
+    "Temel Hak ve Hürriyetler": [
+      "Kişi Hakları",
+      "Sosyal ve Siyasi Haklar"
+    ],
+    "Yasama": [
+      "TBMM'nin Oluşumu ve Görevleri",
+      "Kanun Yapım Süreci"
+    ],
+    "Yürütme": [
+      "Cumhurbaşkanı",
+      "Yönetmelikler",
+      "OHAL"
+    ],
+    "Yargı": [
+      "Yüksek Mahkemeler",
+      "HSK"
+    ],
+    "İdare Hukuku": [
+      "İdarenin Bütünlüğü",
+      "Merkezden ve Yerinden Yönetim",
+      "Devlet Memurları"
+    ],
+    "Uluslararası Kuruluşlar ve Güncel Olaylar": [
+      "BM ve AB",
+      "Türkiye'nin Üye Olduğu Kuruluşlar",
+      "Güncel Gelişmeler"
+    ],
+    "Fiziki Coğrafya ve Su Örtüsü": [
+      "Türkiye'nin Yer Şekilleri",
+      "Dağlar ve Ovalar",
+      "Akarsular ve Göller",
+      "Erozyon ve Heyelan"
+    ],
+    "Sanayi, Ulaşım, Ticaret ve Turizm": [
+      "Türkiye'de Sanayi Dağılışı",
+      "Ulaşım Ağları",
+      "İç ve Dış Ticaret",
+      "Turizm Merkezleri"
+    ],
+    "Madenler ve Enerji Kaynakları": [
+      "Önemli Madenlerin Çıkarım Yerleri",
+      "Enerji Üretim Tesisleri",
+      "Yenilenebilir Enerji"
+    ],
+    "Nüfus ve Yerleşme": [
+      "Nüfus Dağılışı ve Yoğunluğu",
+      "Göçler",
+      "Kırsal ve Kentsel Yerleşmeler"
+    ],
+    "İklim ve Bitki Örtüsü": [
+      "Türkiye'nin İklim Tipleri",
+      "Sıcaklık ve Yağış Dağılışı",
+      "Doğal Bitki Örtüsü"
+    ],
+    "Tarım, Hayvancılık ve Ormancılık": [
+      "Tarım Ürünleri ve Bölgeleri",
+      "Hayvancılık Türleri",
+      "Orman Varlığı"
+    ],
+    "Türkiye'nin Coğrafi Konumu": [
+      "Matematik ve Özel Konum",
+      "Sınır Kapıları",
+      "Jeopolitik Konum"
+    ],
+    "Olasılık ve Stokastik Süreçler": [
+      "Olasılık Yoğunluk Fonksiyonları",
+      "Beklenen Değer ve Varyans",
+      "Kesikli ve Sürekli Dağılımlar",
+      "Stokastik Süreçlere Giriş"
+    ],
+    "Uygulamalı İstatistik": [
+      "Hipotez Testleri",
+      "Güven Aralıkları",
+      "p-değeri Yorumlama",
+      "Anlamlılık Testleri"
+    ],
+    "Matematiksel İstatistik": [
+      "Nokta Tahmini",
+      "Yeterlilik ve Tamlık",
+      "Maksimum Olabilirlik (MLE)",
+      "Momentler Yöntemi"
+    ],
+    "Regresyon Analizi": [
+      "Basit Doğrusal Regresyon",
+      "Çoklu Regresyon",
+      "Model Varsayımları ve İhlalleri",
+      "R-kare ve Düzeltilmiş R-kare"
+    ],
+    "Varyans Analizi (ANOVA)": [
+      "Tek Yönlü ANOVA",
+      "Çift Yönlü ANOVA",
+      "Post-Hoc Testleri",
+      "Varsayım Kontrolleri"
+    ],
+    "Çok Değişkenli Analizler": [
+      "Temel Bileşenler Analizi (PCA)",
+      "Faktör Analizi",
+      "Diskriminant Analizi",
+      "Kümeleme"
+    ],
+    "Örnekleme": [
+      "Basit Rastgele Örnekleme",
+      "Tabakalı Örnekleme",
+      "Küme Örneklemesi",
+      "Sistematik Örnekleme"
+    ],
+    "Zaman Serileri": [
+      "Durağanlık",
+      "Trend ve Mevsimsellik",
+      "AR/MA/ARMA Modelleri",
+      "Üstel Düzleştirme"
+    ],
+    "Yöneylem Araştırması": [
+      "Doğrusal Programlama",
+      "Simpleks Yöntemi",
+      "Ulaştırma Modelleri"
+    ],
+    "Parametrik Olmayan Testler": [
+      "İşaret Testi",
+      "Wilcoxon",
+      "Kruskal-Wallis",
+      "Ki-Kare Bağımsızlık Testi"
+    ]
+  }
+}

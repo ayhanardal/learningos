@@ -10,63 +10,31 @@ topics:
   chronologicalIndex: 1
   avg_questions: 3
   target_net: 1
-  subtopics:
-  - Sosyal Hayatı Düzenleyen Kurallar
-  - Yaptırımlar
-  - Hak Kavramı
-  - Kişiler Hukuku
 - name: Devlet Biçimleri ve Anayasa Tarihi
   chronologicalIndex: 2
   avg_questions: 1
   target_net: 0
-  subtopics:
-  - Hükümet Sistemleri
-  - '1921'
-  - '1924'
-  - '1961'
-  - 1982 Anayasası
 - name: Temel Hak ve Hürriyetler
   chronologicalIndex: 3
   avg_questions: 1
   target_net: 1
-  subtopics:
-  - Kişi Hakları
-  - Sosyal ve Siyasi Haklar
 - name: Yasama
   chronologicalIndex: 4
   avg_questions: 1
   target_net: 1
-  subtopics:
-  - TBMM'nin Oluşumu ve Görevleri
-  - Kanun Yapım Süreci
 - name: Yürütme
   chronologicalIndex: 5
   avg_questions: 1
   target_net: 1
-  subtopics:
-  - Cumhurbaşkanı
-  - Yönetmelikler
-  - OHAL
 - name: Yargı
   chronologicalIndex: 6
   avg_questions: 1
   target_net: 0
-  subtopics:
-  - Yüksek Mahkemeler
-  - HSK
 - name: İdare Hukuku
   chronologicalIndex: 7
   avg_questions: 1
   target_net: 0
-  subtopics:
-  - İdarenin Bütünlüğü
-  - Merkezden ve Yerinden Yönetim
-  - Devlet Memurları
 - name: Uluslararası Kuruluşlar ve Güncel Olaylar
   isRoutine: true
   avg_questions: 6
   target_net: 2
-  subtopics:
-  - BM ve AB
-  - Türkiye'nin Üye Olduğu Kuruluşlar
-  - Güncel Gelişmeler
