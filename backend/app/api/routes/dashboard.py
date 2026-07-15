@@ -19,6 +19,17 @@ class NoteEntry(BaseModel):
     solution: str = Field(default="", description="Çözüm / Açıklama")
 
 
+class SubquestSave(BaseModel):
+    session_index: int
+    subquests: list
+
+
+class SubquestToggle(BaseModel):
+    session_index: int
+    subquest_id: str
+    is_completed: bool
+
+
 def sync_wrap(fn):
     def wrapper(*args, **kwargs):
         try:
@@ -47,6 +58,11 @@ async def get_plan():
 @router.get("/today")
 async def get_today():
     return sync_wrap(data.get_today)()
+
+
+@router.get("/today/progress")
+async def get_today_progress():
+    return sync_wrap(data.get_dashboard_today_progress)()
 
 
 @router.get("/progress")
@@ -139,3 +155,25 @@ async def get_plan_week():
 async def get_plan_macro():
     return sync_wrap(data.get_plan_macro)()
 
+
+@router.get("/subquests/{topic_slug}")
+async def api_get_subquests(topic_slug: str):
+    return sync_wrap(data.get_subquests)(topic_slug)
+
+
+@router.post("/subquests/{topic_slug}/save")
+async def api_save_subquests(topic_slug: str, req: SubquestSave):
+    try:
+        data.save_session_subquests(topic_slug, req.session_index, req.subquests)
+        return {"ok": True}
+    except Exception as e:
+        return {"ok": False, "error": str(e)}
+
+
+@router.post("/subquests/{topic_slug}/toggle")
+async def api_toggle_subquest(topic_slug: str, req: SubquestToggle):
+    try:
+        data.toggle_subquest(topic_slug, req.session_index, req.subquest_id, req.is_completed)
+        return {"ok": True}
+    except Exception as e:
+        return {"ok": False, "error": str(e)}
