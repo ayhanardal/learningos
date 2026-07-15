@@ -3823,14 +3823,31 @@ function renderProgressSubjectSelector() {
         return;
     }
     
-    let html = `<div style="margin-bottom: 20px;">
-        <select id="progress-subject-select" onchange="renderProgressTopics(this.value)" style="padding:8px; border:1px solid var(--border); border-radius:6px; background:var(--bg2); color:var(--text); font-size:14px; width:100%; max-width:300px;">`;
+    let html = `<div style="margin-bottom: 24px; display: flex; flex-wrap: wrap; gap: 8px;">`;
     
     subjects.forEach((sub, idx) => {
-        html += `<option value="${esc(sub.subject)}" style="background:var(--bg); color:var(--text);">${esc(sub.subject)}</option>`;
+        let isChecked = idx === 0 ? "checked" : "";
+        let radioId = 'subj-radio-' + idx;
+        
+        html += `
+        <input type="radio" id="${radioId}" name="progress-subject-radio" value="${esc(sub.subject)}" ${isChecked} onchange="renderProgressTopics(this.value)" style="display: none;">
+        <label for="${radioId}" class="progress-radio-label" style="cursor: pointer; padding: 8px 16px; border: 1px solid var(--border); border-radius: 20px; font-size: 13px; font-weight: 600; background: var(--surface); color: var(--text2); transition: all 0.2s;">
+            ${esc(sub.subject)}
+        </label>`;
     });
     
-    html += `</select></div><div id="progress-topics-container"></div>`;
+    html += `</div>
+    <style>
+      .progress-radio-label:hover {
+          background: var(--surface2) !important;
+      }
+      input[name="progress-subject-radio"]:checked + .progress-radio-label {
+          background: var(--accent) !important;
+          color: #fff !important;
+          border-color: var(--accent) !important;
+      }
+    </style>
+    <div id="progress-topics-container"></div>`;
     document.getElementById('progress-analysis-content').innerHTML = html;
     
     // Render first subject by default
