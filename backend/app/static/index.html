@@ -4025,9 +4025,20 @@ function loadInlineSubquests(topicId, allocatedSessions) {
             if (session && session.subquests && session.subquests.length > 0) {
                 session.subquests.forEach(sq => {
                     let checked = sq.is_completed ? 'checked' : '';
+                    let subItemsHtml = '';
+                    if (sq.sub_items && sq.sub_items.length > 0) {
+                        subItemsHtml = '<ul style="margin:4px 0 0 0; padding-left:16px; font-size:11px; color:var(--text2);">';
+                        sq.sub_items.forEach(item => {
+                            subItemsHtml += `<li style="margin-bottom:2px;">${esc(item)}</li>`;
+                        });
+                        subItemsHtml += '</ul>';
+                    }
                     html += `<div style="display:flex; align-items:flex-start; gap:8px; margin-bottom:5px; font-size:12px;">
                         <input type="checkbox" style="margin-top:2px;" id="sq_${topicId}_${i}_${sq.id}" ${checked} onchange="toggleSubquest('${topicId}', ${i}, '${sq.id}', this.checked)">
-                        <label for="sq_${topicId}_${i}_${sq.id}" style="line-height:1.4; color:var(--text2); cursor:pointer;">${esc(sq.text)}</label>
+                        <div style="flex-grow:1;">
+                            <label for="sq_${topicId}_${i}_${sq.id}" style="line-height:1.4; color:var(--text2); cursor:pointer;">${esc(sq.text)}</label>
+                            ${subItemsHtml}
+                        </div>
                     </div>`;
                 });
             } else {
@@ -4152,9 +4163,23 @@ function renderDashboardTodayProgress(data) {
             s.subquests.forEach(sq => {
                 let checked = sq.is_completed ? 'checked' : '';
                 let labelStyle = sq.is_completed ? 'text-decoration:line-through; color:var(--text2);' : 'color:var(--text);';
+                
+                let subItemsHtml = '';
+                if (sq.sub_items && sq.sub_items.length > 0) {
+                    let subItemStyle = sq.is_completed ? 'text-decoration:line-through; opacity:0.6;' : 'opacity:0.8;';
+                    subItemsHtml = `<ul style="margin:6px 0 0 0; padding-left:18px; font-size:11px; color:var(--text2); ${subItemStyle}">`;
+                    sq.sub_items.forEach(item => {
+                        subItemsHtml += `<li style="margin-bottom:3px;">${esc(item)}</li>`;
+                    });
+                    subItemsHtml += '</ul>';
+                }
+                
                 html += `<div style="display:flex; align-items:flex-start; gap:8px; font-size:12px; background:var(--surface); padding:8px 10px; border-radius:8px; border:1px solid var(--border);">
                     <input type="checkbox" style="margin-top:2px;" ${checked} onchange="toggleDashboardSubquest('${s.topic_slug}', ${s.overall_session_index}, '${sq.id}', this.checked)">
-                    <label style="line-height:1.4; cursor:pointer; ${labelStyle} flex-grow:1;">${esc(sq.text)}</label>
+                    <div style="flex-grow:1; line-height:1.4; ${labelStyle}">
+                        <label style="cursor:pointer; display:block;">${esc(sq.text)}</label>
+                        ${subItemsHtml}
+                    </div>
                 </div>`;
             });
         } else {
