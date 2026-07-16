@@ -3050,7 +3050,7 @@ function renderDashboardProgress(roadmapData) {
   el.innerHTML = '<div style="max-width: 100%; margin: 0 16px 24px 16px; position: relative;">' +
     '<div style="display: flex; justify-content: space-between; font-size: 11px; color: var(--text2); margin-bottom: 6px;">' +
       '<span>Başlangıç: ' + fmt(startDate) + '</span>' +
-      '<span>Bitiş: ' + fmt(endDate) + ' (-' + examDiffDays + 'g)</span>' +
+      '<span>Bitiş: ' + fmt(endDate) + ' (-' + examDiffDays + 'g | %' + Math.round(progressPct) + ')</span>' +
     '</div>' +
     '<div style="height: 6px; background: var(--border); border-radius: 3px; position: relative;">' +
       '<div style="height: 100%; width: ' + progressPct + '%; background: #00E5FF; border-radius: 3px;"></div>' +
@@ -3171,7 +3171,7 @@ function renderDailySessionTimeline() {
     var m = minsToEnd % 60;
     
     if (activeSeg.subject) {
-      centerGroupHtml += '<div style="' + badgeStyle + ' border-color:' + activeSeg.color + '; background:' + activeSeg.bg + ';">' +
+      centerGroupHtml += '<div onclick="openWorkspace(\\'' + esc(activeSeg.subject).replace(/'/g, "\\'") + '\\', \\'' + esc(activeSeg.topic).replace(/'/g, "\\'") + '\\')" style="' + badgeStyle + ' border-color:' + activeSeg.color + '; background:' + activeSeg.bg + '; cursor:pointer; transition:opacity 0.2s;" onmouseover="this.style.opacity=\\'0.8\\'" onmouseout="this.style.opacity=\\'1\\'">' +
                    '<span style="color:' + activeSeg.color + '">' + esc(activeSeg.subject) + '</span> | <span style="color:var(--text2)">' + esc(activeSeg.topic) + '</span>' +
                    '</div>';
     } else {
