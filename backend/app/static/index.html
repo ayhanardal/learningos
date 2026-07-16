@@ -4026,7 +4026,9 @@ function loadInlineSubquests(topicId, allocatedSessions) {
             if (session && session.subquests) {
                 let altKonuSubquests = session.subquests.filter(sq => sq.label === 'alt konu');
                 if (altKonuSubquests.length > 0) {
-                    headerTitle = altKonuSubquests.map(sq => esc(sq.title || sq.text)).join(' & ');
+                    headerTitle = '<div style="display:flex; flex-direction:column; gap:6px;">' + 
+                        altKonuSubquests.map(sq => `<span style="font-size:13px; color:var(--text); font-weight:600;"><span style="color:var(--accent); margin-right:4px;">•</span>${esc(sq.title || sq.text)}</span>`).join('') + 
+                    '</div>';
                 }
             }
             html += `<div style="padding:10px; border:1px solid var(--border); border-radius:6px; background:var(--bg2);">
@@ -4060,6 +4062,14 @@ function loadInlineSubquests(topicId, allocatedSessions) {
             html += `</div>`;
         }
         html += '</div>';
+        
+        // Konu calisma sayfasina yonlendiren buton
+        html += `<div style="margin-top:15px; text-align:right;">
+            <a href="workspace.html?topic=${topicId}" style="display:inline-flex; align-items:center; gap:6px; padding:6px 14px; background:var(--surface2); color:var(--text); text-decoration:none; border:1px solid var(--border); border-radius:20px; font-size:11px; font-weight:600; transition:all 0.2s;" onmouseover="this.style.background='var(--accent)'; this.style.color='#fff';" onmouseout="this.style.background='var(--surface2)'; this.style.color='var(--text)';">
+                Konu Çalışma Sayfasına Git <span style="font-size:14px;">➔</span>
+            </a>
+        </div>`;
+        
         container.innerHTML = html;
     }).catch(e => {
         container.innerHTML = `<div style="color:var(--error); font-size:12px;">Yüklenirken hata oluştu.</div>`;
