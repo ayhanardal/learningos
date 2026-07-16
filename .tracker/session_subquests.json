@@ -7621,6 +7621,24 @@
             ],
             "is_completed": false,
             "completed_at": null
+          },
+          {
+            "id": "sq_cografya_fiziki_cografya_ve_su_ortusu_3_6",
+            "title": "Platolar",
+            "text": "Bu alt konuyu çalış ve tamamla.",
+            "label": "alt konu",
+            "sub_items": [],
+            "is_completed": false,
+            "completed_at": null
+          },
+          {
+            "id": "sq_cografya_fiziki_cografya_ve_su_ortusu_3_7",
+            "title": "Ovalar",
+            "text": "Bu alt konuyu çalış ve tamamla.",
+            "label": "alt konu",
+            "sub_items": [],
+            "is_completed": false,
+            "completed_at": null
           }
         ]
       },
