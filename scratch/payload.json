@@ -1,0 +1,35 @@
+{
+  "subject": "Coğrafya",
+  "topic": "Fiziki Coğrafya ve Su Örtüsü",
+  "content": {
+    "_template": "interactive-v2",
+    "_layout": [
+      {
+        "type": "unit",
+        "title": "ÜNİTE - 1",
+        "subtitle": "İç ve Dış Kuvvetler"
+      },
+      {
+        "type": "slide",
+        "tag": "İÇ VE DIŞ KUVVETLER",
+        "slides": [
+          {
+            "key": "Yeryüzünü Şekillendiren Ana Kuvvetler",
+            "images": [],
+            "imageRight": true,
+            "items": [
+              {
+                "label": "İÇ KUVVETLER (Kaynağını Mantodan Alanlar)",
+                "text": "<span class=\"app-tooltip\" data-tooltip=\"Dağ Oluşumu\">Orojenez</span>, <span class=\"app-tooltip\" data-tooltip=\"Kıta Oluşumu\">Epirojenez</span>, Volkanizma, <span class=\"app-tooltip\" data-tooltip=\"Deprem\">Seizma</span>."
+              },
+              {
+                "label": "DIŞ KUVVETLER (Kaynağını Güneşten Alanlar)",
+                "text": "Akarsular, Rüzgarlar, Buzullar, Yeraltı Suları (<span class=\"app-tooltip\" data-tooltip=\"Eriyebilen kayaçların (kalker, jips) sularla şekillenmesi\">Karstik Şekiller</span>), Dalga ve Akıntılar."
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

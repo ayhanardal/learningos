@@ -7453,8 +7453,8 @@
               "Videoyu normal hızda izlemeye başla.",
               "Belirlediğin milestone'larda dur ve dijital slayt (page) notlarını tasarla."
             ],
-            "is_completed": false,
-            "completed_at": null
+            "is_completed": true,
+            "completed_at": "2026-07-16"
           },
           {
             "id": "sq_cografya_fiziki_cografya_ve_su_ortusu_1_5",
@@ -7464,8 +7464,8 @@
             "sub_items": [
               "Oluşturulan tüm dijital slaytları ve alınan notları hızlıca kontrol et."
             ],
-            "is_completed": false,
-            "completed_at": null
+            "is_completed": true,
+            "completed_at": "2026-07-16"
           },
           {
             "id": "sq_cografya_fiziki_cografya_ve_su_ortusu_1_6",
@@ -7498,8 +7498,8 @@
             "sub_items": [
               "İlerleme panosundan bu dersin eksik (beklenen) oturumlarını kontrol et."
             ],
-            "is_completed": false,
-            "completed_at": null
+            "is_completed": true,
+            "completed_at": "2026-07-16"
           },
           {
             "id": "sq_cografya_fiziki_cografya_ve_su_ortusu_2_2",
@@ -7510,8 +7510,8 @@
               "İlgili videoları listele.",
               "Video süresi ve oturum kapasitesini hesapla (Bölünmesi gerekiyor mu?)."
             ],
-            "is_completed": false,
-            "completed_at": null
+            "is_completed": true,
+            "completed_at": "2026-07-16"
           },
           {
             "id": "sq_cografya_fiziki_cografya_ve_su_ortusu_2_3",
@@ -7523,8 +7523,8 @@
               "Kaba bir soru çözüm sayısı tahmini yap.",
               "Duraklama (milestone) noktalarını not al."
             ],
-            "is_completed": false,
-            "completed_at": null
+            "is_completed": true,
+            "completed_at": "2026-07-16"
           },
           {
             "id": "sq_cografya_fiziki_cografya_ve_su_ortusu_2_4",
@@ -7535,8 +7535,8 @@
               "Videoyu normal hızda izlemeye başla.",
               "Belirlediğin milestone'larda dur ve dijital slayt (page) notlarını tasarla."
             ],
-            "is_completed": false,
-            "completed_at": null
+            "is_completed": true,
+            "completed_at": "2026-07-16"
           },
           {
             "id": "sq_cografya_fiziki_cografya_ve_su_ortusu_2_5",
@@ -7546,8 +7546,8 @@
             "sub_items": [
               "Oluşturulan tüm dijital slaytları ve alınan notları hızlıca kontrol et."
             ],
-            "is_completed": false,
-            "completed_at": null
+            "is_completed": true,
+            "completed_at": "2026-07-16"
           },
           {
             "id": "sq_cografya_fiziki_cografya_ve_su_ortusu_2_6",
@@ -7555,8 +7555,8 @@
             "text": "Bu alt konuyu çalış ve tamamla.",
             "label": "alt konu",
             "sub_items": [],
-            "is_completed": false,
-            "completed_at": null
+            "is_completed": true,
+            "completed_at": "2026-07-16"
           }
         ]
       },
