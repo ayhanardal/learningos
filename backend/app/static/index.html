@@ -3808,6 +3808,10 @@ function loadProgressAnalysis() {
     fetchJSON(API + '/curriculum/all').then(data => {
         _globalProgressData = data;
         renderProgressSubjectSelector();
+        if (window._pendingProgressAction) {
+            window._pendingProgressAction();
+            window._pendingProgressAction = null;
+        }
     }).catch(e => {
         document.getElementById('progress-analysis-content').innerHTML = '<div style="color:var(--error)">Veri yüklenemedi.</div>';
     });
@@ -4114,9 +4118,7 @@ function toggleSubquest(topicId, sessionIndex, subquestId, isCompleted) {
     });
 }
 window.goToProgressAnalysis = function(subjectName, topicName) {
-    switchTab('progress-analysis');
-    
-    function doSelect() {
+    window._pendingProgressAction = function() {
         window.lastSelectedProgressSubject = subjectName;
         renderProgressSubjectSelector(); 
         
@@ -4130,19 +4132,10 @@ window.goToProgressAnalysis = function(subjectName, topicName) {
                         break;
                     }
                 }
-            }, 150);
+            }, 100);
         }
-    }
-    
-    setTimeout(function() {
-        if (typeof _globalProgressData !== 'undefined' && _globalProgressData) {
-            doSelect();
-        } else {
-            setTimeout(function() {
-                if (typeof _globalProgressData !== 'undefined' && _globalProgressData) doSelect();
-            }, 500);
-        }
-    }, 100);
+    };
+    switchTab('progress-analysis');
 };
 
 function renderDashboardTodayProgress(data) {
