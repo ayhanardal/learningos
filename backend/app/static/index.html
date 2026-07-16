@@ -907,7 +907,6 @@ h3.ce-header {
 
 <div class="tab-panel" id="tab-progress-analysis">
   <div class="card grid-full" style="margin-bottom:20px">
-    <p style="font-size:13px; color:var(--text2); margin-bottom:16px">Oturum bazlı alt görev ilerlemelerinizi buradan takip edin.</p>
     <div id="progress-analysis-content"><div class="loading">İlerleme verileri yükleniyor...</div></div>
   </div>
 </div>
@@ -3981,18 +3980,8 @@ function renderProgressTopics(subjectName) {
     let compactStatsHtml = `
     <div style="display:flex; align-items:center; gap:16px; background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:6px 16px;">
         <div style="display:flex; align-items:center; gap:6px;">
-            <span style="font-size:10px; color:var(--text2); font-weight:700; text-transform:uppercase;">Beklenen:</span>
-            <span style="font-size:14px; font-weight:800; color:var(--text);">${subTotalExpected}</span>
-        </div>
-        <div style="width:1px; height:16px; background:var(--border);"></div>
-        <div style="display:flex; align-items:center; gap:6px;">
-            <span style="font-size:10px; color:var(--text2); font-weight:700; text-transform:uppercase;">Gerçekleşen:</span>
-            <span style="font-size:14px; font-weight:800; color:var(--success);">${subTotalCompleted}</span>
-        </div>
-        <div style="width:1px; height:16px; background:var(--border);"></div>
-        <div style="display:flex; align-items:center; gap:6px;">
-            <span style="font-size:10px; color:var(--text2); font-weight:700; text-transform:uppercase;">Eksik:</span>
-            <span style="font-size:14px; font-weight:800; color:${subMissingSessions > 0 ? 'var(--red)' : 'var(--text2)'};">${subMissingSessions}</span>
+            <span style="font-size:10px; color:var(--text2); font-weight:700; text-transform:uppercase;">Eksik Oturum:</span>
+            <span style="font-size:14px; font-weight:800; color:${subMissingSessions > 0 ? 'var(--red)' : 'var(--success)'};">${subMissingSessions}</span>
         </div>
     </div>`;
     
