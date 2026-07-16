@@ -78,6 +78,32 @@ Header'ı gizler, slayt geçiş tuşlarını kaldırır ve kartları yan yana "T
 }
 ```
 
+### 5. Şablon: Çoklu Görsel ve Dinamik Akış (Multi-Image Carousel)
+Sol veya sağ alanda tek bir görsel yerine birden fazla görselin (slider/carousel) gösterilmesini sağlar. Soru çözümleri ve adım adım görsellik gerektiren yapılar için idealdir. `image` (string) yerine `images` (array) parametresi alır. Başlangıçta boş dizi `[]` bırakıldığında arayüz gelişmiş çoklu görsel yükleyiciyi devreye sokar.
+```json
+{
+  "type": "slide",
+  "tag": "CÜMLE SIRALAMA · 5 ADIM",
+  "slides": [
+    {
+      "key": "",
+      "images": [],
+      "imageRight": true,
+      "items": [
+        {
+          "label": "1. Adım",
+          "text": "Açıklama metni..."
+        },
+        {
+          "label": "2. Adım",
+          "text": "Açıklama metni..."
+        }
+      ]
+    }
+  ]
+}
+```
+
 ---
 
 ## 💡 Tipbox (Tooltip) Özelliğinin Kullanımı
@@ -97,7 +123,8 @@ Eğer kullanıcı **Tipbox** özelliği isterse veya kritik terimlerin derin det
 | `tag` | string | Hayır | Üstteki kibar mavi renkli başlık alanıdır. |
 | `stack` | boolean | Hayır | `true` ise slayt geçiş tuşları kalkar, tüm slaytlar dikey kartlar olarak alt alta listelenir. |
 | `slides[].key` | string | Hayır | Büyük üst başlık (çizgili). Orijinal kartlarda anahtar kelime sütunudur. |
-| `slides[].image` | string | Hayır | Resmin sunucudaki statik URL'idir. Boş bırakılırsa dosya seçici gösterilir. |
+| `slides[].image` | string | Hayır | Resmin sunucudaki statik URL'idir. Tekli görsel modu. Boş bırakılırsa tekli dosya seçici gösterilir. |
+| `slides[].images` | array | Hayır | Çoklu görsel (slider/carousel) istendiğinde kullanılır. Boş bir dizi `[]` olarak başlatılırsa arayüzde çoklu görsel yükleyici aktif olur. |
 | `slides[].imageRight` | boolean | Hayır | `true` ise görsel sağ tarafta, metinler sol tarafta render edilir. |
 | `slides[].value` | string | Hayır | Tek kolonlu veya Stacked moddaki açıklama içeriğidir. |
 | `slides[].items` | array | Hayır | Çok kolonlu slayt maddelerini barındırır. |
