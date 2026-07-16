@@ -3952,12 +3952,23 @@ function renderProgressTopics(subjectName) {
             let isUnplanned = (expected === 0 && (t.completed_sessions || 0) === 0);
             let displayStyle = (isUnplanned && window._hideUnplannedTopics) ? 'display: none;' : 'display: block;';
             
+            let prefixHtml = "";
+            if (t.isRoutine) {
+                prefixHtml = `<span style="font-size:10px; font-weight:800; color:var(--text2); background:var(--bg); padding:2px 6px; border-radius:6px; margin-right:8px; letter-spacing:0.5px;">RUTİN</span>`;
+            } else if (t.chronologicalIndex) {
+                prefixHtml = `<span style="font-size:10px; font-weight:800; color:var(--text2); background:var(--bg); padding:2px 6px; border-radius:6px; margin-right:8px; letter-spacing:0.5px;">${t.chronologicalIndex}</span>`;
+            }
+            
             html += `<div class="card ${isUnplanned ? 'unplanned-topic' : ''}" style="padding:15px; border-left:4px solid ${borderColor}; transition: all 0.2s; ${opacityStyle} ${displayStyle}" onmouseover="this.style.opacity='1'; this.style.filter='none';" onmouseout="if(${expected === 0 && (t.completed_sessions || 0) === 0}) { this.style.opacity='0.4'; this.style.filter='grayscale(50%)'; }">
                 <div style="display:flex; justify-content:space-between; align-items:center; cursor:pointer;" onclick="toggleTopicCollapse(this, '${esc(t.id)}', ${t.allocated_sessions})" data-subject="${esc(subjectName)}" data-topic="${esc(t.name)}">
                     <div>
-                        <h3 style="margin:0 0 5px 0;">${esc(t.name)}</h3>
-                        <div style="font-size:12px; color:var(--text2);">
-                            Beklenen: <b>${expected}</b> (Toplam: ${t.allocated_sessions}) | Gerçekleşen: <b>${t.completed_sessions || 0}</b> | Durum: <span style="color:${color}; font-weight:700;">${status}</span>
+                        <h3 style="margin:0 0 5px 0; display:flex; align-items:center;">
+                            ${prefixHtml}
+                            ${esc(t.name)}
+                        </h3>
+                        <div style="font-size:12px; color:var(--text2); display:flex; align-items:center; gap:12px; margin-top:8px;">
+                            <span style="background:var(--bg2); padding:2px 8px; border-radius:12px; font-weight:600;"><i style="font-style:normal; margin-right:4px;">⏱️</i> Toplam: <b style="color:var(--text);">${t.allocated_sessions}</b></span>
+                            <span style="color:${color}; font-weight:700;">${status}</span>
                         </div>
                     </div>
                     <div style="font-size:18px; color:var(--text2); transition:transform 0.3s;" id="icon-${esc(t.id)}">▼</div>
