@@ -3175,12 +3175,17 @@ function renderDailySessionTimeline() {
       var safeTop = esc(activeSeg.topic).replace(/'/g, "\\'");
       
       var needsSubquestBadge = false;
+      var altKonular = [];
       if (window._todayProgressData) {
         var sessionData = window._todayProgressData[activeSeg.slotId - 1];
         if (sessionData && sessionData.subject === activeSeg.subject) {
           var sqs = sessionData.subquests || [];
-          var hasAltKonu = sqs.some(function(sq) { return sq.label === 'alt konu'; });
-          if (!hasAltKonu) {
+          sqs.forEach(function(sq) {
+              if (sq.label === 'alt konu') {
+                  altKonular.push(sq.title);
+              }
+          });
+          if (altKonular.length === 0) {
             needsSubquestBadge = true;
           }
         }
@@ -3193,6 +3198,11 @@ function renderDailySessionTimeline() {
       if (needsSubquestBadge) {
           centerGroupHtml += "<div onclick=\"goToProgressAnalysis('" + safeSubj + "', '" + safeTop + "')\" style=\"" + badgeStyle + " border-color:var(--warning); background:rgba(245,158,11,0.1); cursor:pointer; transition:opacity 0.2s;\" onmouseover=\"this.style.opacity='0.8'\" onmouseout=\"this.style.opacity='1'\">" +
                              "<span style=\"color:var(--warning)\">Konu planı yapılmadı</span>" +
+                             "</div>";
+      } else if (altKonular.length > 0) {
+          var altKonularStr = esc(altKonular.join(" • "));
+          centerGroupHtml += "<div onclick=\"openWorkspace('" + safeSubj + "', '" + safeTop + "')\" style=\"" + badgeStyle + " border-color:transparent; background:var(--surface2); cursor:pointer; transition:opacity 0.2s;\" onmouseover=\"this.style.opacity='0.8'\" onmouseout=\"this.style.opacity='1'\">" +
+                             "<span style=\"color:var(--text2);\">" + altKonularStr + "</span>" +
                              "</div>";
       }
     } else {
