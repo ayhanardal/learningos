@@ -8768,6 +8768,15 @@
             ],
             "is_completed": false,
             "completed_at": null
+          },
+          {
+            "id": "sq_istatistik_olasilik_1_altkonu",
+            "title": "Temel Olasılık ve Bayes Teoremi",
+            "text": "Koşullu olasılık, toplam olasılık kuralı ve Bayes teoreminin mantığı.",
+            "label": "alt konu",
+            "sub_items": [],
+            "is_completed": false,
+            "completed_at": null
           }
         ]
       },
@@ -8830,6 +8839,15 @@
             "sub_items": [
               "Oluşturulan tüm dijital slaytları ve alınan notları hızlıca kontrol et."
             ],
+            "is_completed": false,
+            "completed_at": null
+          },
+          {
+            "id": "sq_istatistik_olasilik_2_altkonu",
+            "title": "Tek Değişkenli Rastgele Değişkenler",
+            "text": "Olasılık kütle/yoğunluk fonksiyonları, CDF (Birikimli Dağılım), Beklenen Değer ve Varyans özellikleri.",
+            "label": "alt konu",
+            "sub_items": [],
             "is_completed": false,
             "completed_at": null
           }
@@ -8896,6 +8914,15 @@
             ],
             "is_completed": false,
             "completed_at": null
+          },
+          {
+            "id": "sq_istatistik_olasilik_3_altkonu",
+            "title": "Özel Kesikli Dağılımlar",
+            "text": "Binom, Poisson, Geometrik, Negatif Binom ve Hipergeometrik dağılımlar.",
+            "label": "alt konu",
+            "sub_items": [],
+            "is_completed": false,
+            "completed_at": null
           }
         ]
       },
@@ -8958,6 +8985,15 @@
             "sub_items": [
               "Oluşturulan tüm dijital slaytları ve alınan notları hızlıca kontrol et."
             ],
+            "is_completed": false,
+            "completed_at": null
+          },
+          {
+            "id": "sq_istatistik_olasilik_4_altkonu",
+            "title": "Özel Sürekli Dağılımlar",
+            "text": "Normal, Standart Normal (Z), Üstel, Düzgün (Uniform) ve Gamma dağılımları.",
+            "label": "alt konu",
+            "sub_items": [],
             "is_completed": false,
             "completed_at": null
           }
@@ -9024,6 +9060,15 @@
             ],
             "is_completed": false,
             "completed_at": null
+          },
+          {
+            "id": "sq_istatistik_olasilik_5_altkonu",
+            "title": "Moment Çıkaran Fonksiyonlar (MÇF)",
+            "text": "MÇF tanımı, MÇF kullanarak beklenen değer ve varyans bulma, dağılımları MÇF'den tanıma.",
+            "label": "alt konu",
+            "sub_items": [],
+            "is_completed": false,
+            "completed_at": null
           }
         ]
       },
@@ -9086,6 +9131,15 @@
             "sub_items": [
               "Oluşturulan tüm dijital slaytları ve alınan notları hızlıca kontrol et."
             ],
+            "is_completed": false,
+            "completed_at": null
+          },
+          {
+            "id": "sq_istatistik_olasilik_6_altkonu",
+            "title": "Çok Değişkenli Dağılımlar (Ortak ve Marjinal)",
+            "text": "Ortak (Joint) olasılık fonksiyonları, Marjinal olasılık bulma, Değişkenlerin bağımsızlığı.",
+            "label": "alt konu",
+            "sub_items": [],
             "is_completed": false,
             "completed_at": null
           }
@@ -9152,6 +9206,15 @@
             ],
             "is_completed": false,
             "completed_at": null
+          },
+          {
+            "id": "sq_istatistik_olasilik_7_altkonu",
+            "title": "Ortak Dağılımlarda Beklenen Değer ve İlişki",
+            "text": "Koşullu beklenen değer, Kovaryans hesabı ve Korelasyon katsayısı.",
+            "label": "alt konu",
+            "sub_items": [],
+            "is_completed": false,
+            "completed_at": null
           }
         ]
       },
@@ -9216,6 +9279,15 @@
             ],
             "is_completed": false,
             "completed_at": null
+          },
+          {
+            "id": "sq_istatistik_olasilik_8_altkonu",
+            "title": "Rastgele Değişkenlerin Fonksiyonları (Dönüşümler)",
+            "text": "Y = g(X) şeklindeki dönüşümlerin beklenen değerini ve yeni dağılımını bulma (Jakobiyen matrisine giriş).",
+            "label": "alt konu",
+            "sub_items": [],
+            "is_completed": false,
+            "completed_at": null
           }
         ]
       },
@@ -9278,6 +9350,15 @@
             "sub_items": [
               "Oluşturulan tüm dijital slaytları ve alınan notları hızlıca kontrol et."
             ],
+            "is_completed": false,
+            "completed_at": null
+          },
+          {
+            "id": "sq_istatistik_olasilik_9_altkonu",
+            "title": "Stokastik Süreçler ve Markov Zincirleri",
+            "text": "Durum uzayları, geçiş olasılık matrisleri, kararlı (steady-state) durum analizleri.",
+            "label": "alt konu",
+            "sub_items": [],
             "is_completed": false,
             "completed_at": null
           }
@@ -9736,6 +9817,15 @@
             ],
             "is_completed": false,
             "completed_at": null
+          },
+          {
+            "id": "sq_istatistik_matematiksel_1_altkonu",
+            "title": "Örneklem Dağılımları ve Asimptotik Teori",
+            "text": "Merkezi Limit Teoremi, Ki-kare, t ve F dağılımlarının birbiriyle olan genetik akrabalığı (hangisi hangisinden türer).",
+            "label": "alt konu",
+            "sub_items": [],
+            "is_completed": false,
+            "completed_at": null
           }
         ]
       },
@@ -9798,6 +9888,15 @@
             "sub_items": [
               "Oluşturulan tüm dijital slaytları ve alınan notları hızlıca kontrol et."
             ],
+            "is_completed": false,
+            "completed_at": null
+          },
+          {
+            "id": "sq_istatistik_matematiksel_2_altkonu",
+            "title": "Nokta Tahmini Yöntemleri",
+            "text": "Momentler Yöntemi (Method of Moments) ve En Çok Olabilirlik Yöntemi (Maximum Likelihood Estimation - MLE) ile tahmin edici bulma.",
+            "label": "alt konu",
+            "sub_items": [],
             "is_completed": false,
             "completed_at": null
           }
@@ -9864,6 +9963,15 @@
             ],
             "is_completed": false,
             "completed_at": null
+          },
+          {
+            "id": "sq_istatistik_matematiksel_3_altkonu",
+            "title": "Tahmin Edicilerin Özellikleri - 1",
+            "text": "Yansızlık (Unbiasedness), Asimptotik Yansızlık ve Hata Kareler Ortalaması (MSE).",
+            "label": "alt konu",
+            "sub_items": [],
+            "is_completed": false,
+            "completed_at": null
           }
         ]
       },
@@ -9926,6 +10034,15 @@
             "sub_items": [
               "Oluşturulan tüm dijital slaytları ve alınan notları hızlıca kontrol et."
             ],
+            "is_completed": false,
+            "completed_at": null
+          },
+          {
+            "id": "sq_istatistik_matematiksel_4_altkonu",
+            "title": "Tahmin Edicilerin Özellikleri - 2",
+            "text": "Tutarlılık (Consistency), Yeterlilik (Sufficiency), Cramer-Rao Alt Sınırı ve Etkinlik (Efficiency).",
+            "label": "alt konu",
+            "sub_items": [],
             "is_completed": false,
             "completed_at": null
           }
@@ -9992,6 +10109,15 @@
             ],
             "is_completed": false,
             "completed_at": null
+          },
+          {
+            "id": "sq_istatistik_matematiksel_5_altkonu",
+            "title": "Aralık Tahmini (Güven Aralıkları)",
+            "text": "Kitle ortalaması, varyansı ve oranı için güven aralığı formüllerinin mantığı (Z mi, t mi, Ki-kare mi kullanılacak?).",
+            "label": "alt konu",
+            "sub_items": [],
+            "is_completed": false,
+            "completed_at": null
           }
         ]
       },
@@ -10054,6 +10180,15 @@
             "sub_items": [
               "Oluşturulan tüm dijital slaytları ve alınan notları hızlıca kontrol et."
             ],
+            "is_completed": false,
+            "completed_at": null
+          },
+          {
+            "id": "sq_istatistik_matematiksel_6_altkonu",
+            "title": "Hipotez Testleri ve Karar Teorisi",
+            "text": "1. ve 2. Tip Hatalar, Güç Fonksiyonu, Neyman-Pearson Lemması ve Olabilirlik Oranı Testi.",
+            "label": "alt konu",
+            "sub_items": [],
             "is_completed": false,
             "completed_at": null
           }
