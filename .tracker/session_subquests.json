@@ -7548,6 +7548,15 @@
             ],
             "is_completed": false,
             "completed_at": null
+          },
+          {
+            "id": "sq_cografya_fiziki_cografya_ve_su_ortusu_2_6",
+            "title": "Dağlar",
+            "text": "Bu alt konuyu çalış ve tamamla.",
+            "label": "alt konu",
+            "sub_items": [],
+            "is_completed": false,
+            "completed_at": null
           }
         ]
       },
