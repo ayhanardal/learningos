@@ -7466,6 +7466,24 @@
             ],
             "is_completed": false,
             "completed_at": null
+          },
+          {
+            "id": "sq_cografya_fiziki_cografya_ve_su_ortusu_1_6",
+            "title": "İç ve Dış Kuvvetler",
+            "text": "Bu alt konuyu çalış ve tamamla.",
+            "label": "alt konu",
+            "sub_items": [],
+            "is_completed": false,
+            "completed_at": null
+          },
+          {
+            "id": "sq_cografya_fiziki_cografya_ve_su_ortusu_1_7",
+            "title": "Jeolojik Zamanlar",
+            "text": "Bu alt konuyu çalış ve tamamla.",
+            "label": "alt konu",
+            "sub_items": [],
+            "is_completed": false,
+            "completed_at": null
           }
         ]
       },
