@@ -1601,7 +1601,20 @@ var cardStyle = slide.transparentCard === true ? 'background: transparent; borde
 if (slide.items && slide.items.length >= 2 && !slide.transparentCard) {
     html += '<div style="display: flex; justify-content: center; align-items: stretch; gap: 48px; flex-wrap: wrap;">';
     for (var si = 0; si < slide.items.length; si++) {
-        html += '<div class="slide-info-card" style="padding: 24px 48px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; min-width: 420px; max-width: 560px; flex: 0 1 auto; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">';
+        html += '<div class="slide-info-card" style="padding: 24px 48px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: flex-start; min-width: 420px; max-width: 560px; flex: 0 1 auto; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">';
+        if (slide.items[si].hasOwnProperty('image')) {
+            html += '<div style="margin: -24px -48px 24px -48px; border-radius: 12px 12px 0 0; overflow: hidden; position: relative;">';
+            if (slide.items[si].image) {
+                html += '<img src="' + slide.items[si].image + '" style="width: 100%; height: 260px; object-fit: cover; display: block; border-bottom: 2px solid #f1f5f9;">';
+                html += '<label class="img-change-btn" style="position: absolute; top: 12px; right: 12px; cursor: pointer; background: rgba(17, 24, 39, 0.85); color: white; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; z-index: 10; box-shadow: 0 2px 8px rgba(0,0,0,0.3);" title="Görseli Değiştir">📷<input type="file" accept="image/*" onchange="window.uploadSlideImage(this, \'' + idx + '\', ' + sIdx + ', ' + si + ')" style="display: none;" /></label>';
+            } else {
+                html += '<div style="height: 260px; background: #f1f5f9; display: flex; flex-direction: column; justify-content: center; align-items: center; color: #94a3b8; border-bottom: 2px dashed #cbd5e1;">';
+                html += '<div style="font-size: 32px; margin-bottom: 8px;">📷</div>';
+                html += '<label style="cursor: pointer; background: #2563eb; color: white; padding: 8px 18px; border-radius: 6px; font-size: 13px; font-weight: 700; display: inline-block; transition: background 0.2s; box-shadow: 0 2px 4px rgba(37,99,235,0.2);">Görsel Yükle<input type="file" accept="image/*" onchange="window.uploadSlideImage(this, \'' + idx + '\', ' + sIdx + ', ' + si + ')" style="display: none;" /></label>';
+                html += '</div>';
+            }
+            html += '</div>';
+        }
         html += '<div class="slide-card-title" style="font-size: 32px; font-weight: 900; text-align: center; margin-bottom: 24px; letter-spacing: 0.5px; color: #0f172a;">' + slide.items[si].label + '</div>';
         html += '<div class="slide-card-content" style="font-size: 22px; font-weight: 600; line-height: 1.55; color: #334155; text-align: center;">' + slide.items[si].text + '</div>';
         html += '</div>';
@@ -2048,7 +2061,7 @@ window.changeSlide = function(sectionIdx, direction) {
     }, 50);
 };
 
-window.uploadSlideImage = function(input, sectionIdx, slideIdx) {
+window.uploadSlideImage = function(input, sectionIdx, slideIdx, itemIdx) {
     if (input.files && input.files[0]) {
         var file = input.files[0];
         var formData = new FormData();
@@ -2096,7 +2109,16 @@ window.uploadSlideImage = function(input, sectionIdx, slideIdx) {
                     }
 
                     var activeSlide = targetSlide || slide;
-                    if (isMulti) {
+                    
+                    if (typeof itemIdx !== 'undefined' && itemIdx !== null) {
+                        if (!activeSlide.items) activeSlide.items = [];
+                        if (activeSlide.items[itemIdx]) {
+                            activeSlide.items[itemIdx].image = fileUrl;
+                            if (slide.items && slide.items[itemIdx]) {
+                                slide.items[itemIdx].image = fileUrl;
+                            }
+                        }
+                    } else if (isMulti) {
                         activeSlide.images = activeSlide.images || [];
                         if (activeSlide.images.indexOf(fileUrl) === -1) {
                             activeSlide.images.push(fileUrl);
