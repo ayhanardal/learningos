@@ -3923,7 +3923,7 @@ function renderProgressTopics(subjectName) {
             }
             
             html += `<div class="card" style="padding:15px; border-left:4px solid ${color};">
-                <div style="display:flex; justify-content:space-between; align-items:center; cursor:pointer;" onclick="toggleTopicCollapse('${esc(t.id)}', ${t.allocated_sessions})">
+                <div style="display:flex; justify-content:space-between; align-items:center; cursor:pointer;" onclick="toggleTopicCollapse(this, '${esc(t.id)}', ${t.allocated_sessions})" data-subject="${esc(subjectName)}" data-topic="${esc(t.name)}">
                     <div>
                         <h3 style="margin:0 0 5px 0;">${esc(t.name)}</h3>
                         <div style="font-size:12px; color:var(--text2);">
@@ -4001,21 +4001,23 @@ function renderProgressTopics(subjectName) {
     document.getElementById('progress-topics-container').innerHTML = html;
 }
 
-function toggleTopicCollapse(topicId, allocatedSessions) {
+function toggleTopicCollapse(element, topicId, allocatedSessions) {
     let collapseDiv = document.getElementById('collapse-' + topicId);
     let icon = document.getElementById('icon-' + topicId);
+    let subjectName = element.getAttribute('data-subject');
+    let topicName = element.getAttribute('data-topic');
     
     if (collapseDiv.style.display === 'none') {
         collapseDiv.style.display = 'block';
         icon.style.transform = 'rotate(180deg)';
-        loadInlineSubquests(topicId, allocatedSessions);
+        loadInlineSubquests(topicId, allocatedSessions, subjectName, topicName);
     } else {
         collapseDiv.style.display = 'none';
         icon.style.transform = 'rotate(0deg)';
     }
 }
 
-function loadInlineSubquests(topicId, allocatedSessions) {
+function loadInlineSubquests(topicId, allocatedSessions, subjectName, topicName) {
     let container = document.getElementById('collapse-' + topicId);
     
     fetchJSON(API + '/subquests/' + topicId).then(data => {
@@ -4035,7 +4037,8 @@ function loadInlineSubquests(topicId, allocatedSessions) {
                 <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:12px; gap:8px;">
                     <h4 style="margin:0; font-size:13px; color:var(--text); line-height:1.4;">${headerTitle}</h4>
                     <span style="font-size:10px; color:var(--text2); opacity:0.6; font-weight:600; white-space:nowrap; margin-top:2px;">Oturum ${i}</span>
-                </div>`;
+                </div>
+                <div style="height:1px; background:var(--border); margin:8px 0 12px 0; opacity:0.6;"></div>`;
             
             if (session && session.subquests && session.subquests.length > 0) {
                 session.subquests.forEach(sq => {
@@ -4064,8 +4067,10 @@ function loadInlineSubquests(topicId, allocatedSessions) {
         html += '</div>';
         
         // Konu calisma sayfasina yonlendiren buton
+        let safeSubj = subjectName ? subjectName.replace(/'/g, "\\'") : '';
+        let safeTop = topicName ? topicName.replace(/'/g, "\\'") : '';
         html += `<div style="margin-top:15px; text-align:right;">
-            <a href="workspace.html?topic=${topicId}" style="display:inline-flex; align-items:center; gap:6px; padding:6px 14px; background:var(--surface2); color:var(--text); text-decoration:none; border:1px solid var(--border); border-radius:20px; font-size:11px; font-weight:600; transition:all 0.2s;" onmouseover="this.style.background='var(--accent)'; this.style.color='#fff';" onmouseout="this.style.background='var(--surface2)'; this.style.color='var(--text)';">
+            <a href="javascript:void(0)" onclick="openWorkspace('${esc(safeSubj)}', '${esc(safeTop)}')" style="display:inline-flex; align-items:center; gap:6px; padding:6px 14px; background:var(--surface2); color:var(--text); text-decoration:none; border:1px solid var(--border); border-radius:20px; font-size:11px; font-weight:600; transition:all 0.2s;" onmouseover="this.style.background='var(--accent)'; this.style.color='#fff';" onmouseout="this.style.background='var(--surface2)'; this.style.color='var(--text)';">
                 Konu Çalışma Sayfasına Git <span style="font-size:14px;">➔</span>
             </a>
         </div>`;
