@@ -889,7 +889,7 @@ h3.ce-header {
     </div>
 
     <div class="card grid-full" id="weekly-card" style="margin-bottom: 24px;">
-      <h2>Haftalık Yol Haritası</h2>
+
       <div id="weekly-content"><div class="loading">Yükleniyor...</div></div>
     </div>
 
@@ -3386,7 +3386,7 @@ function renderExpectedProgress(roadmapData, statsData) {
   var generalEl = document.getElementById('expected-general-progress-container');
   if (generalEl) {
     var generalWrapper = '<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">' + subjectsHtml + '</div>';
-    generalEl.innerHTML = '<h3 style="font-size: 14px; margin-bottom: 20px; border-bottom: 1px solid var(--border); padding-bottom: 12px; margin-top: 0;">📈 Ders İlerlemeleri (Beklenen)</h3>' + generalWrapper;
+    generalEl.innerHTML = generalWrapper;
   }
 }
 
@@ -4100,7 +4100,7 @@ function renderDashboardTodayProgress(data) {
     var topicsEl = document.getElementById('expected-today-topics-container');
     if (!topicsEl) return;
     
-    var html = '<h2 style="margin-bottom:16px;">Günün İlerlemesi</h2>';
+    var html = '';
     if (!data || data.length === 0) {
         html += '<div style="font-size: 13px; color: var(--text2); text-align: center; margin-top: 24px;">Bugün için planlanmış oturum bulunmuyor.</div>';
         topicsEl.innerHTML = html;
