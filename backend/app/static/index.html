@@ -3042,10 +3042,15 @@ function renderDashboardProgress(roadmapData) {
     return d.getDate() + ' ' + months[d.getMonth()];
   }
   
+  var targetYear = today.getFullYear();
+  if (today.getMonth() > 8) targetYear++;
+  var targetDate = new Date(targetYear, 8, 1);
+  var examDiffDays = Math.max(0, Math.ceil((targetDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24)));
+  
   el.innerHTML = '<div style="max-width: 100%; margin: 0 16px 24px 16px; position: relative;">' +
     '<div style="display: flex; justify-content: space-between; font-size: 11px; color: var(--text2); margin-bottom: 6px;">' +
       '<span>Başlangıç: ' + fmt(startDate) + '</span>' +
-      '<span>Bitiş: ' + fmt(endDate) + '</span>' +
+      '<span>Bitiş: ' + fmt(endDate) + ' (-' + examDiffDays + 'g)</span>' +
     '</div>' +
     '<div style="height: 6px; background: var(--border); border-radius: 3px; position: relative;">' +
       '<div style="height: 100%; width: ' + progressPct + '%; background: #00E5FF; border-radius: 3px;"></div>' +
@@ -3156,8 +3161,12 @@ function renderDailySessionTimeline() {
   
   var sidebarTimeEl = document.getElementById('sidebar-time-container');
   if (sidebarTimeEl) {
-    sidebarTimeEl.innerHTML = '<span>' + timeStr + '</span>' + 
-                              '<span style="margin-top:2px;">🌙 -' + endH + ':' + endM + '</span>';
+    sidebarTimeEl.innerHTML = 
+      '<div style="background:var(--surface2); border:1px solid var(--border); border-radius:8px; padding:4px 0; width:44px; display:flex; flex-direction:column; align-items:center; opacity:0.6;">' +
+        '<div style="padding:2px 0; font-size:10px; width:100%; text-align:center;">' + timeStr + '</div>' +
+        '<div style="width:70%; height:1px; background:var(--border);"></div>' +
+        '<div style="padding:2px 0; font-size:10px; width:100%; text-align:center;">-' + endH + ':' + endM + '</div>' +
+      '</div>';
   }
 
   var centerGroupHtml = '';
