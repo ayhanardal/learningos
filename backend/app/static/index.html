@@ -1115,7 +1115,7 @@ window.loadEditorData = async function(subject, topicKey) {
         console.log("DB'de not bulunamadı veya hata oluştu");
     }
 
-    const isInteractive = INTERACTIVE_TOPICS[subject] && INTERACTIVE_TOPICS[subject].includes(topicKey);
+    const isInteractive = INTERACTIVE_TOPICS[subject] && INTERACTIVE_TOPICS[subject].includes(topicKey) || INTERACTIVE_TOPICS[subject].includes(currentMainTopic);
 
     if (isInteractive) {
         document.getElementById('editorjs').style.paddingRight = '0';
@@ -1230,6 +1230,7 @@ window.renderInteractiveStudyView = function(subject, topicKey, savedData) {
             interactiveData = {
                 _template: "interactive-v2",
                 _layout: [
+                    { type: "slide", tag: "KONU ANLATIMI", slides: [ { key: "Yeni Konu", value: "İçerik buraya gelecek..." } ] },
                     { type: "carousel", tag: "SORU", questions: [
                         { id: 1, htmlContent: "<b>Soru içeriği buraya gelecek</b>" }
                     ]}

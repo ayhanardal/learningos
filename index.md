@@ -166,3 +166,13 @@ Sana bir ders notu içeriği verdiğimde, bunu sisteme doğrudan entegre edebile
 ---
 Anladıysan, "Hazırım! Lütfen bana içerik üretmek istediğin dersin adını, konunun adını ve kartlarda yer almasını istediğin detayları yaz." de ve bekle.
 ```
+
+---
+
+## 11. Alt Konu ve Boş Şablon (Fallback) Mekanizması
+
+Arayüzde bir konu veya alt konu açıldığında `interactive-v2` motorunun tetiklenmesi ve veritabanında henüz veri yoksa **boş şablon** (placeholder) yüklenmesi iki ana kurala bağlıdır:
+
+1. **Alt Konu Algılaması:** Bir alt konunun (örn: 'İç ve Dış Kuvvetler') yeni nesil `interactive-v2` motoru ile açılabilmesi için, bağlı olduğu ana konunun (örn: 'Fiziki Coğrafya ve Su Örtüsü') `INTERACTIVE_TOPICS` listesinde kayıtlı olması yeterlidir. Önceden sadece ana başlıklar kontrol edildiği için alt konularda eski tip (EditorJS) ekranlar açılıyordu; bu kökten çözüldü.
+2. **Boş (Fallback) Şablon İçeriği:** Eğer açılan konu veya alt konuya ait veritabanında önceden kaydedilmiş hiçbir JSON içeriği yoksa, sistem otomatik olarak **içinde hem bir boş slayt (`type: "slide"`) hem de bir boş soru seti (`type: "carousel"`) barındıran varsayılan bir taslak** üretir. Kullanıcı bu şablonun üzerine inşa ederek yeni veri yaratabilir.
+
