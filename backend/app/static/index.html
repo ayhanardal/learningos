@@ -3856,6 +3856,20 @@ function renderProgressSubjectSelector() {
     renderProgressTopics(window.lastSelectedProgressSubject);
 }
 
+window._hideUnplannedTopics = false;
+window.toggleUnplannedTopics = function() {
+    window._hideUnplannedTopics = !window._hideUnplannedTopics;
+    let els = document.querySelectorAll('.unplanned-topic');
+    let btn = document.getElementById('toggle-unplanned-btn');
+    if (window._hideUnplannedTopics) {
+        els.forEach(el => el.style.display = 'none');
+        if (btn) btn.innerHTML = 'Planlanmayanları Göster <span style="font-size:14px; margin-left:4px;">👁️</span>';
+    } else {
+        els.forEach(el => el.style.display = 'block');
+        if (btn) btn.innerHTML = 'Planlanmayanları Gizle <span style="font-size:14px; margin-left:4px;">🙈</span>';
+    }
+};
+
 function renderProgressTopics(subjectName) {
     window.lastSelectedProgressSubject = subjectName;
     if (!_globalProgressData) return;
@@ -3901,6 +3915,11 @@ function renderProgressTopics(subjectName) {
     let subTotalCompleted = 0;
     let subMissingTopicsCount = 0;
     
+    let btnText = window._hideUnplannedTopics ? 'Planlanmayanları Göster <span style="font-size:14px; margin-left:4px;">👁️</span>' : 'Planlanmayanları Gizle <span style="font-size:14px; margin-left:4px;">🙈</span>';
+    html += `<div style="display:flex; justify-content:flex-end; margin-bottom:12px;">
+        <button id="toggle-unplanned-btn" onclick="toggleUnplannedTopics()" style="background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:6px 14px; color:var(--text2); font-size:11px; font-weight:600; cursor:pointer; opacity:0.8; transition:all 0.2s; display:flex; align-items:center;" onmouseover="this.style.opacity='1'; this.style.borderColor='var(--text2)';" onmouseout="this.style.opacity='0.8'; this.style.borderColor='var(--border)';">${btnText}</button>
+    </div>`;
+    
     html += '<div style="display:flex; flex-direction:column; gap:10px;">';
     
     subjectData.topics.sort((a, b) => (a.chronologicalIndex || 999) - (b.chronologicalIndex || 999));
@@ -3928,7 +3947,10 @@ function renderProgressTopics(subjectName) {
                 borderColor = "transparent";
             }
             
-            html += `<div class="card" style="padding:15px; border-left:4px solid ${borderColor}; transition: all 0.2s; ${opacityStyle}" onmouseover="this.style.opacity='1'; this.style.filter='none';" onmouseout="if(${expected === 0 && (t.completed_sessions || 0) === 0}) { this.style.opacity='0.4'; this.style.filter='grayscale(50%)'; }">
+            let isUnplanned = (expected === 0 && (t.completed_sessions || 0) === 0);
+            let displayStyle = (isUnplanned && window._hideUnplannedTopics) ? 'display: none;' : 'display: block;';
+            
+            html += `<div class="card ${isUnplanned ? 'unplanned-topic' : ''}" style="padding:15px; border-left:4px solid ${borderColor}; transition: all 0.2s; ${opacityStyle} ${displayStyle}" onmouseover="this.style.opacity='1'; this.style.filter='none';" onmouseout="if(${expected === 0 && (t.completed_sessions || 0) === 0}) { this.style.opacity='0.4'; this.style.filter='grayscale(50%)'; }">
                 <div style="display:flex; justify-content:space-between; align-items:center; cursor:pointer;" onclick="toggleTopicCollapse(this, '${esc(t.id)}', ${t.allocated_sessions})" data-subject="${esc(subjectName)}" data-topic="${esc(t.name)}">
                     <div>
                         <h3 style="margin:0 0 5px 0;">${esc(t.name)}</h3>
