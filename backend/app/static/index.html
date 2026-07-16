@@ -3914,18 +3914,21 @@ function renderProgressTopics(subjectName) {
             
             let status = "Tamamlandı";
             let color = "var(--success)";
+            let borderColor = color;
             let opacityStyle = (expected === 0 && (t.completed_sessions || 0) === 0) ? 'opacity: 0.4; filter: grayscale(50%);' : '';
             
             if ((t.completed_sessions || 0) < expected) {
                 subMissingTopicsCount++;
                 status = "Eksik (" + (expected - (t.completed_sessions || 0)) + ")"; 
                 color = "var(--warning)";
+                borderColor = color;
             } else if ((t.completed_sessions || 0) === 0 && expected === 0) {
                 status = "Planlanmadı";
                 color = "var(--text2)";
+                borderColor = "transparent";
             }
             
-            html += `<div class="card" style="padding:15px; border-left:4px solid ${color}; transition: all 0.2s; ${opacityStyle}" onmouseover="this.style.opacity='1'; this.style.filter='none';" onmouseout="if(${expected === 0 && (t.completed_sessions || 0) === 0}) { this.style.opacity='0.4'; this.style.filter='grayscale(50%)'; }">
+            html += `<div class="card" style="padding:15px; border-left:4px solid ${borderColor}; transition: all 0.2s; ${opacityStyle}" onmouseover="this.style.opacity='1'; this.style.filter='none';" onmouseout="if(${expected === 0 && (t.completed_sessions || 0) === 0}) { this.style.opacity='0.4'; this.style.filter='grayscale(50%)'; }">
                 <div style="display:flex; justify-content:space-between; align-items:center; cursor:pointer;" onclick="toggleTopicCollapse(this, '${esc(t.id)}', ${t.allocated_sessions})" data-subject="${esc(subjectName)}" data-topic="${esc(t.name)}">
                     <div>
                         <h3 style="margin:0 0 5px 0;">${esc(t.name)}</h3>
