@@ -3903,6 +3903,8 @@ function renderProgressTopics(subjectName) {
     
     html += '<div style="display:flex; flex-direction:column; gap:10px;">';
     
+    subjectData.topics.sort((a, b) => (a.chronologicalIndex || 999) - (b.chronologicalIndex || 999));
+    
     subjectData.topics.forEach(t => {
         if(t.allocated_sessions > 0) {
             let expected = window._roadmapElapsedTopics ? (window._roadmapElapsedTopics[t.name] || 0) : 0;
@@ -3912,17 +3914,18 @@ function renderProgressTopics(subjectName) {
             
             let status = "Tamamlandı";
             let color = "var(--success)";
+            let opacityStyle = (expected === 0 && (t.completed_sessions || 0) === 0) ? 'opacity: 0.4; filter: grayscale(50%);' : '';
             
             if ((t.completed_sessions || 0) < expected) {
                 subMissingTopicsCount++;
                 status = "Eksik (" + (expected - (t.completed_sessions || 0)) + ")"; 
                 color = "var(--warning)";
             } else if ((t.completed_sessions || 0) === 0 && expected === 0) {
-                status = "Başlanmadı";
+                status = "Planlanmadı";
                 color = "var(--text2)";
             }
             
-            html += `<div class="card" style="padding:15px; border-left:4px solid ${color};">
+            html += `<div class="card" style="padding:15px; border-left:4px solid ${color}; transition: all 0.2s; ${opacityStyle}" onmouseover="this.style.opacity='1'; this.style.filter='none';" onmouseout="if(${expected === 0 && (t.completed_sessions || 0) === 0}) { this.style.opacity='0.4'; this.style.filter='grayscale(50%)'; }">
                 <div style="display:flex; justify-content:space-between; align-items:center; cursor:pointer;" onclick="toggleTopicCollapse(this, '${esc(t.id)}', ${t.allocated_sessions})" data-subject="${esc(subjectName)}" data-topic="${esc(t.name)}">
                     <div>
                         <h3 style="margin:0 0 5px 0;">${esc(t.name)}</h3>
