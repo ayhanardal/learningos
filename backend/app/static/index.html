@@ -1608,7 +1608,9 @@ if (slide.items && slide.items.length >= 2 && !slide.transparentCard) {
     }
     html += '</div>';
     if (slide.value) {
-        html += '<div class="slide-info-card" style="margin-top: 16px; padding: 12px 16px;">' + slide.value + '</div>';
+        html += '<div class="slide-info-card" style="margin-top: 48px; padding: 24px 32px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">';
+        html += '<div style="font-size: 20px; font-weight: 600; line-height: 1.6; color: #334155; text-align: center;">' + slide.value + '</div>';
+        html += '</div>';
     }
 } else {
     html += '<div class="slide-info-card" style="' + cardStyle + '">';
