@@ -7703,6 +7703,24 @@
             ],
             "is_completed": false,
             "completed_at": null
+          },
+          {
+            "id": "sq_cografya_fiziki_cografya_ve_su_ortusu_4_6",
+            "title": "Akarsu Şekilleri",
+            "text": "Bu alt konuyu çalış ve tamamla.",
+            "label": "alt konu",
+            "sub_items": [],
+            "is_completed": false,
+            "completed_at": null
+          },
+          {
+            "id": "sq_cografya_fiziki_cografya_ve_su_ortusu_4_7",
+            "title": "Rüzgar ve Buzullar",
+            "text": "Bu alt konuyu çalış ve tamamla.",
+            "label": "alt konu",
+            "sub_items": [],
+            "is_completed": false,
+            "completed_at": null
           }
         ]
       },
@@ -7765,6 +7783,33 @@
             "sub_items": [
               "Oluşturulan tüm dijital slaytları ve alınan notları hızlıca kontrol et."
             ],
+            "is_completed": false,
+            "completed_at": null
+          },
+          {
+            "id": "sq_cografya_fiziki_cografya_ve_su_ortusu_5_6",
+            "title": "Karstik Şekiller",
+            "text": "Bu alt konuyu çalış ve tamamla.",
+            "label": "alt konu",
+            "sub_items": [],
+            "is_completed": false,
+            "completed_at": null
+          },
+          {
+            "id": "sq_cografya_fiziki_cografya_ve_su_ortusu_5_7",
+            "title": "Kıyı Şekillenmesi",
+            "text": "Bu alt konuyu çalış ve tamamla.",
+            "label": "alt konu",
+            "sub_items": [],
+            "is_completed": false,
+            "completed_at": null
+          },
+          {
+            "id": "sq_cografya_fiziki_cografya_ve_su_ortusu_5_8",
+            "title": "Genel Özellikler",
+            "text": "Bu alt konuyu çalış ve tamamla.",
+            "label": "alt konu",
+            "sub_items": [],
             "is_completed": false,
             "completed_at": null
           }
