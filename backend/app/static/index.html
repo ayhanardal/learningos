@@ -3171,7 +3171,9 @@ function renderDailySessionTimeline() {
     var m = minsToEnd % 60;
     
     if (activeSeg.subject) {
-      centerGroupHtml += '<div onclick="openWorkspace(\\'' + esc(activeSeg.subject).replace(/'/g, "\\'") + '\\', \\'' + esc(activeSeg.topic).replace(/'/g, "\\'") + '\\')" style="' + badgeStyle + ' border-color:' + activeSeg.color + '; background:' + activeSeg.bg + '; cursor:pointer; transition:opacity 0.2s;" onmouseover="this.style.opacity=\\'0.8\\'" onmouseout="this.style.opacity=\\'1\\'">' +
+      var safeSubj = esc(activeSeg.subject).replace(/'/g, "\\'");
+      var safeTop = esc(activeSeg.topic).replace(/'/g, "\\'");
+      centerGroupHtml += "<div onclick=\"openWorkspace('" + safeSubj + "', '" + safeTop + "')\" style=\"" + badgeStyle + " border-color:" + activeSeg.color + "; background:" + activeSeg.bg + "; cursor:pointer; transition:opacity 0.2s;\" onmouseover=\"this.style.opacity='0.8'\" onmouseout=\"this.style.opacity='1'\">" +
                    '<span style="color:' + activeSeg.color + '">' + esc(activeSeg.subject) + '</span> | <span style="color:var(--text2)">' + esc(activeSeg.topic) + '</span>' +
                    '</div>';
     } else {
