@@ -169,10 +169,11 @@ Anladıysan, "Hazırım! Lütfen bana içerik üretmek istediğin dersin adını
 
 ---
 
-## 11. Alt Konu ve Boş Şablon (Fallback) Mekanizması
+## 11. Alt Konular ve Single Page (Tek Sayfa) Mimarisi (Kritik Kural)
 
-Arayüzde bir konu veya alt konu açıldığında `interactive-v2` motorunun tetiklenmesi ve veritabanında henüz veri yoksa **boş şablon** (placeholder) yüklenmesi iki ana kurala bağlıdır:
+Sistemde **alt konular için ayrı birer sayfa veya yönlendirme sistemi (page) BULUNMAMAKTADIR**. Tüm alt konular, bağlı oldukları ana konunun sayfasında (örn: "Fiziki Coğrafya ve Su Örtüsü") tek bir JSON `_layout` dizisi içerisinde **alt alta** listelenmelidir.
 
-1. **Alt Konu Algılaması:** Bir alt konunun (örn: 'İç ve Dış Kuvvetler') yeni nesil `interactive-v2` motoru ile açılabilmesi için, bağlı olduğu ana konunun (örn: 'Fiziki Coğrafya ve Su Örtüsü') `INTERACTIVE_TOPICS` listesinde kayıtlı olması yeterlidir. Önceden sadece ana başlıklar kontrol edildiği için alt konularda eski tip (EditorJS) ekranlar açılıyordu; bu kökten çözüldü.
-2. **Boş (Fallback) Şablon İçeriği:** Eğer açılan konu veya alt konuya ait veritabanında önceden kaydedilmiş hiçbir JSON içeriği yoksa, sistem otomatik olarak **içinde hem bir boş slayt (`type: "slide"`) hem de bir boş soru seti (`type: "carousel"`) barındıran varsayılan bir taslak** üretir. Kullanıcı bu şablonun üzerine inşa ederek yeni veri yaratabilir.
+1. **Alt Konu Ayrımı (Seperatör):** Alt konuları birbirinden ayırmak için mutlaka `{"type": "unit", "title": "ÜNİTE - X", "subtitle": "Alt Konu Adı"}` şablonu kullanılmalıdır.
+2. **Alt Konu Rozetleri (Tag):** Her alt konunun içerik blokları (slide, carousel), bağlı olduğu ünitenin hemen altına yerleştirilmeli ve bloklardaki `tag` (rozet) parametresine alt konunun adı (BÜYÜK HARFLERLE) yazılmalıdır (Örn: `"tag": "İÇ VE DIŞ KUVVETLER"`).
+3. **Sayfa Yenileme Sorunu:** Sistemde fiziksel bir alt konu sayfası olmadığı için, asistanın alt konuları yeni bir sayfa (endpoint) açmaya çalışarak veya yeni bir sayfa şablonu arayarak ele alması büyük bir kurgu hatasıdır. Geliştirmeler ve içerik eklemeleri her zaman **mevcut ana konunun JSON verisinin içine append (ekleme)** yöntemiyle yapılmalıdır.
 
