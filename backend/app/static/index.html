@@ -3959,9 +3959,6 @@ function renderProgressTopics(subjectName) {
                 prefixHtml = `<span style="font-size:10px; font-weight:800; color:var(--text2); background:var(--bg); padding:2px 6px; border-radius:6px; margin-right:8px; letter-spacing:0.5px;">${t.chronologicalIndex}</span>`;
             }
             
-            let bgBadgeColor = status === "Tamamlandı" ? "rgba(16, 185, 129, 0.1)" : (status.startsWith("Eksik") ? "rgba(245, 158, 11, 0.1)" : "var(--bg)");
-            let iconStr = status === "Tamamlandı" ? "✅" : (status.startsWith("Eksik") ? "⚠️" : "⏳");
-            
             html += `<div class="card ${isUnplanned ? 'unplanned-topic' : ''}" style="padding:15px; border-left:4px solid ${borderColor}; transition: all 0.2s; ${opacityStyle} ${displayStyle}" onmouseover="this.style.opacity='1'; this.style.filter='none';" onmouseout="if(${expected === 0 && (t.completed_sessions || 0) === 0}) { this.style.opacity='0.4'; this.style.filter='grayscale(50%)'; }">
                 <div style="display:flex; justify-content:space-between; align-items:center; cursor:pointer;" onclick="toggleTopicCollapse(this, '${esc(t.id)}', ${t.allocated_sessions})" data-subject="${esc(subjectName)}" data-topic="${esc(t.name)}">
                     <div>
@@ -3970,11 +3967,11 @@ function renderProgressTopics(subjectName) {
                             ${esc(t.name)}
                         </h3>
                         <div style="font-size:11px; display:flex; align-items:center; gap:8px; margin-top:8px;">
-                            <span style="background:var(--bg); border:1px solid var(--border); color:var(--text2); padding:3px 8px; border-radius:12px; font-weight:600; display:flex; align-items:center; gap:4px;">
-                                <span>⏱️</span> <span>Toplam:</span> <b style="color:var(--text);">${t.allocated_sessions}</b>
+                            <span style="background:var(--bg); border:1px solid var(--border); color:var(--text2); padding:3px 8px; border-radius:12px; font-weight:600;">
+                                Toplam: <b style="color:var(--text);">${t.allocated_sessions}</b>
                             </span>
-                            <span style="background:${bgBadgeColor}; color:${color}; padding:3px 8px; border-radius:12px; font-weight:700; display:flex; align-items:center; gap:4px;">
-                                <span>${iconStr}</span> <span>${status}</span>
+                            <span style="background:var(--bg); border:1px solid var(--border); color:var(--text2); padding:3px 8px; border-radius:12px; font-weight:600;">
+                                Durum: <b style="color:var(--text);">${status}</b>
                             </span>
                         </div>
                     </div>
