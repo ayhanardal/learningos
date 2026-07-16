@@ -1573,7 +1573,7 @@ html += '    <div class="slide-info-card" style="margin-top: 12px; padding: 12px
 html += '    <div class="slide-info-card">';
 if (slide.items && slide.items.length) {
 if (slide.items.length === 1) {
-html += '      <div class="slide-card-title">' + slide.items[0].label + '</div>';
+html += '      <div class="slide-card-title" style="font-size: 16px;">' + slide.items[0].label + '</div>';
 html += '      <div class="slide-card-content">' + slide.items[0].text + '</div>';
 } else {
 html += '      <div class="slide-card-content">';
@@ -1601,8 +1601,8 @@ var cardStyle = slide.transparentCard === true ? 'background: transparent; borde
 if (slide.items && slide.items.length >= 2 && !slide.transparentCard) {
     html += '<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px;">';
     for (var si = 0; si < slide.items.length; si++) {
-        html += '<div class="slide-info-card" style="padding: 16px; box-sizing: border-box; display: flex; flex-direction: column;">';
-        html += '<div class="slide-card-title" style="font-size: 16px; margin-bottom: 10px; padding-bottom: 6px; border-bottom: 1.5px solid #64748b;">' + slide.items[si].label + '</div>';
+        html += '<div class="slide-info-card" style="padding: 16px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center;">';
+        html += '<div class="slide-card-title" style="font-size: 16px;">' + slide.items[si].label + '</div>';
         html += '<div class="slide-card-content" style="font-size: 14.5px; line-height: 1.6; color: #475569;">' + slide.items[si].text + '</div>';
         html += '</div>';
     }
