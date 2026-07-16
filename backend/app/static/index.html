@@ -889,12 +889,7 @@ h3.ce-header {
 
 <div class="tab-panel" id="tab-roadmap">
   <div class="card grid-full" style="margin-bottom:20px">
-    <h2>🗺️ 60 Günlük Yol Haritası</h2>
-    <p style="font-size:13px; color:var(--text2); margin-bottom:16px">60 günlük tüm çalışma planını ve asenkron paralel ilerleyişinizi buradan kuşbakışı görebilirsiniz.</p>
     
-    <!-- PROJEKSİYON ÖZETİ -->
-    <div id="roadmap-projection-summary" style="margin-bottom: 24px;"></div>
-
     <!-- PLAN YETERLİLİK RAPORU -->
     <div id="roadmap-adequacy-report" style="margin-bottom: 24px;"></div>
 
@@ -3414,23 +3409,7 @@ function renderRoadmap(roadmapData) {
   var el = document.getElementById('roadmap-content');
   if (!roadmapData || roadmapData.error) { el.innerHTML = errHtml(roadmapData ? roadmapData.error : 'Veri alınamadı'); return; }
 
-  var summaryEl = document.getElementById('roadmap-projection-summary');
   var mStats = roadmapData.monthly_stats;
-  if (mStats && summaryEl) {
-    summaryEl.innerHTML = '<h3>📊 Projeksiyon Özeti</h3>' +
-      '<div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:12px">' +
-        '<div class="card" style="background:var(--surface2); border:1px solid var(--border); padding:16px; border-radius:10px">' +
-          '<div style="font-size:12px; color:var(--text2); text-transform:uppercase; font-weight:700">' + esc(mStats.sprint_1.name) + ' (' + esc(mStats.sprint_1.weeks_range) + ')</div>' +
-          '<div style="font-size:16px; font-weight:800; color:var(--accent); margin-top:8px">⏱ ' + mStats.sprint_1.total_hours + ' Saat | ✍ ' + mStats.sprint_1.total_questions + ' Soru</div>' +
-          '<div style="font-size:11px; color:var(--text2); margin-top:4px">Öncelikli konular için öngörülen hacim.</div>' +
-        '</div>' +
-        '<div class="card" style="background:var(--surface2); border:1px solid var(--border); padding:16px; border-radius:10px">' +
-          '<div style="font-size:12px; color:var(--text2); text-transform:uppercase; font-weight:700">' + esc(mStats.sprint_2.name) + ' (' + esc(mStats.sprint_2.weeks_range) + ')</div>' +
-          '<div style="font-size:16px; font-weight:800; color:var(--accent2); margin-top:8px">⏱ ' + mStats.sprint_2.total_hours + ' Saat | ✍ ' + mStats.sprint_2.total_questions + ' Soru</div>' +
-          '<div style="font-size:11px; color:var(--text2); margin-top:4px">İkinci aşama öncelikli konular için öngörülen hacim.</div>' +
-        '</div>' +
-      '</div>';
-  }
 
   var analysisEl = document.getElementById('roadmap-analysis-panel');
   var dist = roadmapData.distribution;
