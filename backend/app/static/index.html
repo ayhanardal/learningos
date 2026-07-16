@@ -865,12 +865,19 @@ h3.ce-header {
 </head>
 <body>
 <div class="sidebar">
-  <div class="sidebar-logo">L</div>
   <div class="tab-bar">
-    <button class="tab-btn active" onclick="switchTab('dashboard')" title="Dashboard">📊</button>
-    <button class="tab-btn" onclick="switchTab('curriculum')" title="Müfredat Merkezi">📋</button>
-    <button class="tab-btn" onclick="switchTab('roadmap')" title="Yol Haritası">🗺️</button>
-    <button class="tab-btn" onclick="switchTab('progress-analysis')" title="İlerleme Analizi">📈</button>
+    <button class="tab-btn active app-tooltip" onclick="switchTab('dashboard')" data-tooltip="Dashboard">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    </button>
+    <button class="tab-btn app-tooltip" onclick="switchTab('curriculum')" data-tooltip="Müfredat Merkezi">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
+    </button>
+    <button class="tab-btn app-tooltip" onclick="switchTab('roadmap')" data-tooltip="Yol Haritası">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" x2="9" y1="3" y2="18"/><line x1="15" x2="15" y1="6" y2="21"/></svg>
+    </button>
+    <button class="tab-btn app-tooltip" onclick="switchTab('progress-analysis')" data-tooltip="İlerleme (Subquest)">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="14.5 17.5 3 6 3 3 6 3 17.5 14.5"/><line x1="13" x2="19" y1="19" y2="13"/><line x1="16" x2="20" y1="16" y2="20"/><line x1="19" x2="21" y1="21" y2="19"/></svg>
+    </button>
   </div>
 </div>
 <div class="container" id="app">
