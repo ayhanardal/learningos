@@ -8464,7 +8464,7 @@
             "sub_items": [
               "İlerleme panosundan bu dersin eksik (beklenen) oturumlarını kontrol et."
             ],
-            "is_completed": false,
+            "is_completed": true,
             "completed_at": null
           },
           {
@@ -8476,7 +8476,7 @@
               "İlgili videoları listele.",
               "Video süresi ve oturum kapasitesini hesapla (Bölünmesi gerekiyor mu?)."
             ],
-            "is_completed": false,
+            "is_completed": true,
             "completed_at": null
           },
           {
@@ -8489,7 +8489,7 @@
               "Kaba bir soru çözüm sayısı tahmini yap.",
               "Duraklama (milestone) noktalarını not al."
             ],
-            "is_completed": false,
+            "is_completed": true,
             "completed_at": null
           },
           {
@@ -8501,7 +8501,7 @@
               "Videoyu normal hızda izlemeye başla.",
               "Belirlediğin milestone'larda dur ve dijital slayt (page) notlarını tasarla."
             ],
-            "is_completed": false,
+            "is_completed": true,
             "completed_at": null
           },
           {
@@ -8512,8 +8512,24 @@
             "sub_items": [
               "Oluşturulan tüm dijital slaytları ve alınan notları hızlıca kontrol et."
             ],
-            "is_completed": false,
+            "is_completed": true,
             "completed_at": null
+          },
+          {
+            "id": "sq_cografya_turkiyenin_cografi_konumu_1_6",
+            "title": "Temel Konum Kavramları ve Türkiye",
+            "text": "Temel Konum Kavramları ve Türkiye alt konusunu tamamla.",
+            "label": "alt konu",
+            "is_completed": true,
+            "completed_at": "2026-07-16"
+          },
+          {
+            "id": "sq_cografya_turkiyenin_cografi_konumu_1_7",
+            "title": "Enlem Etkisi",
+            "text": "Enlem Etkisi alt konusunu tamamla.",
+            "label": "alt konu",
+            "is_completed": true,
+            "completed_at": "2026-07-16"
           }
         ]
       },
@@ -8528,7 +8544,7 @@
             "sub_items": [
               "İlerleme panosundan bu dersin eksik (beklenen) oturumlarını kontrol et."
             ],
-            "is_completed": false,
+            "is_completed": true,
             "completed_at": null
           },
           {
@@ -8540,7 +8556,7 @@
               "İlgili videoları listele.",
               "Video süresi ve oturum kapasitesini hesapla (Bölünmesi gerekiyor mu?)."
             ],
-            "is_completed": false,
+            "is_completed": true,
             "completed_at": null
           },
           {
@@ -8553,7 +8569,7 @@
               "Kaba bir soru çözüm sayısı tahmini yap.",
               "Duraklama (milestone) noktalarını not al."
             ],
-            "is_completed": false,
+            "is_completed": true,
             "completed_at": null
           },
           {
@@ -8565,7 +8581,7 @@
               "Videoyu normal hızda izlemeye başla.",
               "Belirlediğin milestone'larda dur ve dijital slayt (page) notlarını tasarla."
             ],
-            "is_completed": false,
+            "is_completed": true,
             "completed_at": null
           },
           {
@@ -8576,8 +8592,24 @@
             "sub_items": [
               "Oluşturulan tüm dijital slaytları ve alınan notları hızlıca kontrol et."
             ],
-            "is_completed": false,
+            "is_completed": true,
             "completed_at": null
+          },
+          {
+            "id": "sq_cografya_turkiyenin_cografi_konumu_2_6",
+            "title": "Boylam Etkisi",
+            "text": "Boylam Etkisi alt konusunu tamamla.",
+            "label": "alt konu",
+            "is_completed": true,
+            "completed_at": "2026-07-16"
+          },
+          {
+            "id": "sq_cografya_turkiyenin_cografi_konumu_2_7",
+            "title": "Göreceli Konum",
+            "text": "Göreceli Konum alt konusunu tamamla.",
+            "label": "alt konu",
+            "is_completed": true,
+            "completed_at": "2026-07-16"
           }
         ]
       }

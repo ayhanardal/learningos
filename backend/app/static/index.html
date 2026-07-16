@@ -4022,8 +4022,24 @@ function loadInlineSubquests(topicId, allocatedSessions) {
         let html = '<div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap:15px;">';
         for (let i = 1; i <= allocatedSessions; i++) {
             let session = data.sessions ? data.sessions.find(s => s.session_index === i) : null;
+            let topicBadgesHtml = '';
+            if (session && session.subquests) {
+                let altKonuSubquests = session.subquests.filter(sq => sq.label === 'alt konu');
+                if (altKonuSubquests.length > 0) {
+                    topicBadgesHtml = '<div style="display:flex; flex-wrap:wrap; gap:4px; margin-top:4px;">' + 
+                        altKonuSubquests.map(sq => {
+                            let bColor = sq.is_completed ? 'var(--success)' : 'var(--accent)';
+                            let bBg = sq.is_completed ? 'rgba(16,185,129,0.1)' : 'rgba(0,212,255,0.1)';
+                            return `<span style="background:${bBg}; border:1px solid ${bColor}; color:${bColor}; padding:2px 6px; border-radius:12px; font-size:9px; font-weight:700;">${esc(sq.title || sq.text)}</span>`;
+                        }).join('') + 
+                    '</div>';
+                }
+            }
             html += `<div style="padding:10px; border:1px solid var(--border); border-radius:6px; background:var(--bg2);">
-                <h4 style="margin:0 0 10px 0; font-size:13px; color:var(--text);">Oturum ${i}</h4>`;
+                <div style="margin-bottom:10px;">
+                    <h4 style="margin:0; font-size:13px; color:var(--text);">Oturum ${i}</h4>
+                    ${topicBadgesHtml}
+                </div>`;
             
             if (session && session.subquests && session.subquests.length > 0) {
                 session.subquests.forEach(sq => {
