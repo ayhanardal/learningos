@@ -1750,10 +1750,11 @@ window._renderSection = function(section, idx) {
             h += '</div>';
         }
         
-        var verticalAlignStyle = isStacked ? 'display: flex; flex-direction: column; justify-content: center;' : '';
+        var hasAnyImage = section.slides.some(function(s) { return s.hasOwnProperty('image') || s.hasOwnProperty('images'); });
+        var isCenterAligned = isStacked || !hasAnyImage;
+        var verticalAlignStyle = isCenterAligned ? 'display: flex; flex-direction: column; justify-content: center;' : '';
         h += '<div id="slide-content-' + idx + '" style="padding: 24px 28px; min-height: 460px; flex: 1; background: #f3f4f6; ' + verticalAlignStyle + '">';
         
-        var hasAnyImage = section.slides.some(function(s) { return s.hasOwnProperty('image') || s.hasOwnProperty('images'); });
         var containerWidth = '100%';
         h += '<div style="max-width: ' + containerWidth + '; margin: 0 auto; display: flex; flex-direction: column; gap: 20px; width: 100%;">';
         
