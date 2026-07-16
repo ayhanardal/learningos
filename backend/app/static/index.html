@@ -149,27 +149,23 @@ header h1 span { color: var(--accent); }
 /* Tabs */
 .sidebar {
   width: 60px; min-width: 60px; background: transparent;
-  border-right: 1px solid var(--border); display: flex; flex-direction: column;
+  display: flex; flex-direction: column;
   align-items: center; padding: 40px 0; gap: 32px; position: sticky; top: 0; height: 100vh;
   z-index: 100;
-}
-.sidebar-logo {
-  font-size: 24px; font-weight: 900; color: var(--accent);
 }
 .tab-bar {
   display: flex; flex-direction: column; gap: 24px; width: 100%; align-items: center;
 }
 .tab-btn {
-  background: transparent; border: none; color: var(--text2);
+  background: transparent; border: none !important; color: var(--text2);
   cursor: pointer; padding: 8px; border-radius: 8px;
   display: flex; justify-content: center; align-items: center;
-  opacity: 0.3; transition: opacity 0.1s;
+  opacity: 0.3; outline: none !important; box-shadow: none !important;
 }
 .tab-btn svg {
   width: 20px; height: 20px; stroke-width: 1.5;
 }
-.tab-btn:hover { opacity: 0.7; }
-.tab-btn.active { opacity: 1; color: var(--text); }
+.tab-btn.active { opacity: 1; color: #ffffff; }
 .tab-panel { display: none; }
 .tab-panel.active { display: block; }
 
@@ -869,16 +865,16 @@ h3.ce-header {
 <body>
 <div class="sidebar">
   <div class="tab-bar">
-    <button class="tab-btn active app-tooltip" onclick="switchTab('dashboard')" data-tooltip="Dashboard">
+    <button class="tab-btn active" onclick="switchTab('dashboard')">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
     </button>
-    <button class="tab-btn app-tooltip" onclick="switchTab('curriculum')" data-tooltip="Müfredat Merkezi">
+    <button class="tab-btn" onclick="switchTab('curriculum')">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
     </button>
-    <button class="tab-btn app-tooltip" onclick="switchTab('roadmap')" data-tooltip="Yol Haritası">
+    <button class="tab-btn" onclick="switchTab('roadmap')">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" x2="9" y1="3" y2="18"/><line x1="15" x2="15" y1="6" y2="21"/></svg>
     </button>
-    <button class="tab-btn app-tooltip" onclick="switchTab('progress-analysis')" data-tooltip="İlerleme (Subquest)">
+    <button class="tab-btn" onclick="switchTab('progress-analysis')">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="14.5 17.5 3 6 3 3 6 3 17.5 14.5"/><line x1="13" x2="19" y1="19" y2="13"/><line x1="16" x2="20" y1="16" y2="20"/><line x1="19" x2="21" y1="21" y2="19"/></svg>
     </button>
   </div>
