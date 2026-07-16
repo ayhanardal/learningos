@@ -3191,7 +3191,7 @@ function renderDailySessionTimeline() {
                    '</div>';
       
       if (needsSubquestBadge) {
-          centerGroupHtml += "<div onclick=\"goToProgressAnalysis('" + safeSubj + "')\" style=\"" + badgeStyle + " border-color:var(--warning); background:rgba(245,158,11,0.1); cursor:pointer; transition:opacity 0.2s;\" onmouseover=\"this.style.opacity='0.8'\" onmouseout=\"this.style.opacity='1'\">" +
+          centerGroupHtml += "<div onclick=\"goToProgressAnalysis('" + safeSubj + "', '" + safeTop + "')\" style=\"" + badgeStyle + " border-color:var(--warning); background:rgba(245,158,11,0.1); cursor:pointer; transition:opacity 0.2s;\" onmouseover=\"this.style.opacity='0.8'\" onmouseout=\"this.style.opacity='1'\">" +
                              "<span style=\"color:var(--warning)\">Konu planı yapılmadı</span>" +
                              "</div>";
       }
@@ -4113,14 +4113,33 @@ function toggleSubquest(topicId, sessionIndex, subquestId, isCompleted) {
         }
     });
 }
-window.goToProgressAnalysis = function(subjectName) {
+window.goToProgressAnalysis = function(subjectName, topicName) {
     switchTab('progress-analysis');
+    
+    function doSelect() {
+        window.lastSelectedProgressSubject = subjectName;
+        renderProgressSubjectSelector(); 
+        
+        if (topicName) {
+            setTimeout(function() {
+                var els = document.querySelectorAll('#progress-topics-container div[data-topic]');
+                for (var i = 0; i < els.length; i++) {
+                    if (els[i].getAttribute('data-topic') === topicName) {
+                        els[i].click();
+                        els[i].scrollIntoView({behavior: 'smooth', block: 'center'});
+                        break;
+                    }
+                }
+            }, 150);
+        }
+    }
+    
     setTimeout(function() {
-        if (window._globalProgressData) {
-            renderProgressTopics(subjectName);
+        if (typeof _globalProgressData !== 'undefined' && _globalProgressData) {
+            doSelect();
         } else {
             setTimeout(function() {
-                if (window._globalProgressData) renderProgressTopics(subjectName);
+                if (typeof _globalProgressData !== 'undefined' && _globalProgressData) doSelect();
             }, 500);
         }
     }, 100);
