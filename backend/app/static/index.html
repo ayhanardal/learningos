@@ -1048,6 +1048,51 @@ function slugify(text) {
 }
 window.slugify = slugify;
 
+function getSessionDates(subject, topic) {
+    if (!window._roadmapData || !window._roadmapData.weeks) {
+        return {};
+    }
+    var datesMap = {};
+    var sessionCount = 0;
+    
+    var weeksKeys = Object.keys(window._roadmapData.weeks).sort(function(a, b) {
+        var numA = parseInt(a.replace('Hafta ', ''));
+        var numB = parseInt(b.replace('Hafta ', ''));
+        return numA - numB;
+    });
+    
+    weeksKeys.forEach(function(weekKey) {
+        var days = window._roadmapData.weeks[weekKey].days || [];
+        days.forEach(function(day) {
+            var tasks = (day.genel || []).concat(day.alan || []);
+            tasks.forEach(function(task) {
+                if (task.subject === subject && task.topic === topic) {
+                    sessionCount++;
+                    datesMap[sessionCount] = day.date;
+                }
+            });
+        });
+    });
+    
+    return datesMap;
+}
+window.getSessionDates = getSessionDates;
+
+function formatTimelineDate(dateStr) {
+    if (!dateStr) return { date: "Plan Dışı", day: "Ek Oturum" };
+    var d = new Date(dateStr);
+    if (isNaN(d.getTime())) return { date: dateStr, day: "" };
+    
+    var days = ["Pazar", "Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "Cumartesi"];
+    var months = ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"];
+    
+    var formatted = d.getDate() + " " + months[d.getMonth()];
+    var dayName = days[d.getDay()];
+    
+    return { date: formatted, day: dayName };
+}
+window.formatTimelineDate = formatTimelineDate;
+
 window.renderCurriculumSubtopics = function(subject, topic) {
     const subpagesContainer = document.getElementById('ws-subpages');
     subpagesContainer.innerHTML = "";
@@ -1183,12 +1228,29 @@ window.renderSessionRouter = function(subject, topic, sessions) {
     var container = document.getElementById('editorjs');
     container.style.paddingRight = '0';
     
-    var html = `
-    <div style="padding: 20px 0;">
-        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px;">
-    `;
+    var datesMap = getSessionDates(subject, topic);
+    
+    var groups = {}; // dateStr -> array of sessions
+    var noDateSessions = [];
     
     sessions.forEach(s => {
+        var sIdx = s.session_index;
+        var dStr = datesMap[sIdx];
+        if (dStr) {
+            if (!groups[dStr]) groups[dStr] = [];
+            groups[dStr].push(s);
+        } else {
+            noDateSessions.push(s);
+        }
+    });
+    
+    var sortedDates = Object.keys(groups).sort(function(a, b) {
+        return new Date(a).getTime() - new Date(b).getTime();
+    });
+    
+    var html = `<div style="padding: 20px 0; display: flex; flex-direction: column; gap: 28px;">`;
+    
+    function renderSessionCard(s) {
         var sIdx = s.session_index;
         var subquests = s.subquests || [];
         var total = subquests.length;
@@ -1218,9 +1280,8 @@ window.renderSessionRouter = function(subject, topic, sessions) {
         var borderStyle = pct === 100 ? 'border-color: var(--success);' : 'border-color: var(--border);';
         var mouseOutBorder = pct === 100 ? 'var(--success)' : 'var(--border)';
         
-        html += `
+        return `
         <div class="session-card" onclick="openSessionWorkspace('${safeSubject}', '${safeTopic}', ${sIdx})" style="background: var(--surface2); border: 1px solid var(--border); ${borderStyle} border-radius: 12px; padding: 18px; display: flex; flex-direction: column; cursor: pointer; transition: all 0.2s;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 24px rgba(0,0,0,0.15)'; this.style.borderColor='var(--accent)';" onmouseout="this.style.transform='none'; this.style.boxShadow='none'; this.style.borderColor='${mouseOutBorder}';">
-            
             <!-- Konular Listesi (En üstte, net ve yapılandırılmış) -->
             <div style="display: flex; flex-direction: column; flex-grow: 1;">
                 ${subtopicHtml}
@@ -1232,13 +1293,53 @@ window.renderSessionRouter = function(subject, topic, sessions) {
             </div>
         </div>
         `;
+    }
+    
+    // Render sorted dates
+    sortedDates.forEach(dateStr => {
+        var dateInfo = formatTimelineDate(dateStr);
+        var sessionsInDate = groups[dateStr];
+        var cardsHtml = sessionsInDate.map(renderSessionCard).join('');
+        
+        html += `
+        <div class="timeline-row" style="display: flex; gap: 24px; align-items: flex-start;">
+            <!-- Sol Sütun: Tarih (120px) -->
+            <div class="timeline-date-col" style="width: 120px; flex-shrink: 0; padding-top: 6px; border-right: 2px solid var(--border); padding-right: 16px; text-align: right;">
+                <div style="font-size: 14px; font-weight: 800; color: var(--text);">${esc(dateInfo.date)}</div>
+                <div style="font-size: 11px; color: var(--text2); opacity: 0.6; margin-top: 4px;">${esc(dateInfo.day)}</div>
+            </div>
+            
+            <!-- Sağ Sütun: Kartlar Izgarası (Yan yana listelenir) -->
+            <div class="timeline-cards-col" style="flex-grow: 1;">
+                <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px;">
+                    ${cardsHtml}
+                </div>
+            </div>
+        </div>
+        `;
     });
     
-    html += `
+    // Render no-date sessions (Plan dışı)
+    if (noDateSessions.length > 0) {
+        var dateInfo = formatTimelineDate(null);
+        var cardsHtml = noDateSessions.map(renderSessionCard).join('');
+        
+        html += `
+        <div class="timeline-row" style="display: flex; gap: 24px; align-items: flex-start;">
+            <div class="timeline-date-col" style="width: 120px; flex-shrink: 0; padding-top: 6px; border-right: 2px solid var(--border); padding-right: 16px; text-align: right;">
+                <div style="font-size: 14px; font-weight: 800; color: var(--text2);">${esc(dateInfo.date)}</div>
+                <div style="font-size: 11px; color: var(--text2); opacity: 0.6; margin-top: 4px;">${esc(dateInfo.day)}</div>
+            </div>
+            <div class="timeline-cards-col" style="flex-grow: 1;">
+                <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px;">
+                    ${cardsHtml}
+                </div>
+            </div>
         </div>
-    </div>
-    `;
+        `;
+    }
     
+    html += `</div>`;
     container.innerHTML = html;
 };
 
@@ -3328,6 +3429,7 @@ async function loadDashboard(isInitial) {
       _pinnedItems = results[4];
     }
     if (results[5] && !results[5].error) {
+      window._roadmapData = results[5];
       renderDashboardProgress(results[5]);
       renderExpectedProgress(results[5], results[0]);
       fetchJSON(API + '/today/progress').then(renderDashboardTodayProgress);
