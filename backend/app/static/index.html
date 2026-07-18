@@ -1196,26 +1196,39 @@ window.renderSessionRouter = function(subject, topic, sessions) {
         var pct = total > 0 ? Math.round((done / total) * 100) : 0;
         
         var altKonuTitles = subquests.filter(sq => sq.label === 'alt konu' || sq.label === 'alt_konu' || sq.label === 'alt-konu').map(sq => sq.title);
-        var titlesText = altKonuTitles.map(t => truncateWords(t, 4)).join(' • ');
-        if (!titlesText) titlesText = 'Genel Çalışma İçeriği';
         
-        var progressColor = pct === 100 ? 'var(--success)' : (pct > 0 ? 'var(--warning)' : 'var(--text2)');
+        var subtopicHtml = '';
+        if (altKonuTitles.length > 0) {
+            altKonuTitles.forEach(t => {
+                var truncatedTitle = truncateWords(t, 4);
+                subtopicHtml += `
+                <div style="font-size: 13px; font-weight: 600; color: var(--text); padding: 8px 12px; background: rgba(255, 255, 255, 0.02); border-left: 2px solid var(--accent); border-radius: 0 6px 6px 0; margin-bottom: 8px; line-height: 1.4;" title="${esc(t)}">
+                    ${esc(truncatedTitle)}
+                </div>
+                `;
+            });
+        } else {
+            subtopicHtml = `
+            <div style="font-size: 13px; font-weight: 600; color: var(--text2); padding: 8px 12px; background: rgba(255, 255, 255, 0.02); border-left: 2px solid var(--border); border-radius: 0 6px 6px 0; margin-bottom: 8px; font-style: italic;">
+                Genel Çalışma İçeriği
+            </div>
+            `;
+        }
+        
         var borderStyle = pct === 100 ? 'border-color: var(--success);' : 'border-color: var(--border);';
         var mouseOutBorder = pct === 100 ? 'var(--success)' : 'var(--border)';
         
         html += `
         <div class="session-card" onclick="openSessionWorkspace('${safeSubject}', '${safeTopic}', ${sIdx})" style="background: var(--surface2); border: 1px solid var(--border); ${borderStyle} border-radius: 12px; padding: 18px; display: flex; flex-direction: column; cursor: pointer; transition: all 0.2s;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 24px rgba(0,0,0,0.15)'; this.style.borderColor='var(--accent)';" onmouseout="this.style.transform='none'; this.style.boxShadow='none'; this.style.borderColor='${mouseOutBorder}';">
-            <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
-                <span style="font-size: 10px; font-weight: 700; color: var(--text2); background: rgba(255,255,255,0.04); border: 1px solid var(--border); padding: 3px 8px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.5px;">Oturum ${sIdx}</span>
-                <span style="font-size: 11px; font-weight: 700; color: ${progressColor};">${pct}% Tamamlandı</span>
+            
+            <!-- Konular Listesi (En üstte, net ve yapılandırılmış) -->
+            <div style="display: flex; flex-direction: column; flex-grow: 1;">
+                ${subtopicHtml}
             </div>
             
-            <div style="font-size: 15px; font-weight: 700; color: var(--text); margin-top: 16px; margin-bottom: 16px; line-height: 1.5; min-height: 48px; display: flex; align-items: center;" title="${esc(altKonuTitles.join(', ')) || ''}">
-                ${esc(titlesText)}
-            </div>
-            
-            <div style="width: 100%; height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; margin-top: auto;">
-                <div style="width: ${pct}%; height: 100%; background: ${pct === 100 ? 'var(--success)' : 'var(--accent)'}; border-radius: 3px;"></div>
+            <!-- Alt Sağ Kısım - Soluk Oturum Filigranı -->
+            <div style="margin-top: auto; display: flex; justify-content: flex-end; padding-top: 12px;">
+                <span style="font-size: 11px; color: var(--text2); opacity: 0.35; font-weight: 600; letter-spacing: 0.5px;">Oturum ${sIdx}</span>
             </div>
         </div>
         `;
