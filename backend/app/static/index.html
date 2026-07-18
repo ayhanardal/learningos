@@ -1254,7 +1254,7 @@ window.renderSessionRouter = function(subject, topic, sessions) {
     
     var html = `<div style="padding: 20px 0; display: flex; flex-direction: column; gap: 32px;">`;
     
-    function renderSessionCard(s) {
+    function renderSessionCard(s, isPlanned) {
         var sIdx = s.session_index;
         var subquests = s.subquests || [];
         var total = subquests.length;
@@ -1281,18 +1281,31 @@ window.renderSessionRouter = function(subject, topic, sessions) {
             `;
         }
         
-        var borderStyle = pct === 100 ? 'border-color: var(--success);' : 'border-color: var(--border);';
-        var mouseOutBorder = pct === 100 ? 'var(--success)' : 'var(--border)';
-        
+        // Durum ikonlarını belirle (Sade, soluk ve dikkat dağıtmayan)
+        var planIcon = isPlanned
+            ? `<span style="color: var(--text2); font-size: 13px; opacity: 0.3;" title="Planlandı">🗓</span>`
+            : `<span style="color: var(--text2); font-size: 13px; opacity: 0.3;" title="Plan Dışı / Ek Oturum">⚡</span>`;
+            
+        var compIcon = (pct === 100)
+            ? `<span style="color: var(--green); font-size: 14px; font-weight: 700; opacity: 0.5;" title="Oturum Tamamlandı">✓</span>`
+            : `<span style="color: var(--text2); font-size: 14px; opacity: 0.3;" title="Oturum Tamamlanmadı">○</span>`;
+            
         return `
-        <div class="session-card" onclick="openSessionWorkspace('${safeSubject}', '${safeTopic}', ${sIdx})" style="background: var(--surface2); border: 1px solid var(--border); ${borderStyle} border-radius: 12px; padding: 26px; display: flex; flex-direction: column; cursor: pointer; transition: all 0.2s;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 24px rgba(0,0,0,0.15)'; this.style.borderColor='var(--warning)';" onmouseout="this.style.transform='none'; this.style.boxShadow='none'; this.style.borderColor='${mouseOutBorder}';">
+        <div class="session-card" onclick="openSessionWorkspace('${safeSubject}', '${safeTopic}', ${sIdx})" style="background: var(--surface2); border: 1px solid var(--border); border-radius: 12px; padding: 26px; display: flex; flex-direction: column; cursor: pointer; transition: all 0.2s;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 24px rgba(0,0,0,0.15)'; this.style.borderColor='var(--warning)';" onmouseout="this.style.transform='none'; this.style.boxShadow='none'; this.style.borderColor='var(--border)';">
             <!-- Konular Listesi (En üstte, net ve yapılandırılmış) -->
             <div style="display: flex; flex-direction: column; flex-grow: 1;">
                 ${subtopicHtml}
             </div>
             
-            <!-- Alt Sağ Kısım - Soluk Oturum Filigranı -->
-            <div style="margin-top: auto; display: flex; justify-content: flex-end; padding-top: 16px;">
+            <!-- Alt Kısım - İkonlar ve Filigran -->
+            <div style="margin-top: auto; display: flex; justify-content: space-between; align-items: center; padding-top: 16px;">
+                <!-- Sol: Durum İkonları (Sade & Soluk) -->
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    ${planIcon}
+                    ${compIcon}
+                </div>
+                
+                <!-- Sağ: Soluk Oturum Filigranı -->
                 <span style="font-size: 13px; color: var(--text2); opacity: 0.35; font-weight: 600; letter-spacing: 0.5px;">Oturum ${sIdx}</span>
             </div>
         </div>
@@ -1303,7 +1316,7 @@ window.renderSessionRouter = function(subject, topic, sessions) {
     sortedDates.forEach(dateStr => {
         var dateInfo = formatTimelineDate(dateStr);
         var sessionsInDate = groups[dateStr];
-        var cardsHtml = sessionsInDate.map(renderSessionCard).join('');
+        var cardsHtml = sessionsInDate.map(s => renderSessionCard(s, true)).join('');
         
         var isToday = (dateStr === todayStr);
         
@@ -1353,7 +1366,7 @@ window.renderSessionRouter = function(subject, topic, sessions) {
     // Render no-date sessions (Plan dışı)
     if (noDateSessions.length > 0) {
         var dateInfo = formatTimelineDate(null);
-        var cardsHtml = noDateSessions.map(renderSessionCard).join('');
+        var cardsHtml = noDateSessions.map(s => renderSessionCard(s, false)).join('');
         
         html += `
         <div class="timeline-row" style="display: flex; gap: 96px; align-items: center; padding: 16px 20px 16px 0; margin-bottom: 32px;">
