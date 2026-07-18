@@ -5098,6 +5098,42 @@
             ],
             "is_completed": false,
             "completed_at": null
+          },
+          {
+            "id": "sq_tarih_islamiyet_oncesi_turk_tarihi_1_6",
+            "title": "Orta Asya Kültür Merkezleri, Türk Adının Anlamı ve Göçler",
+            "text": "Bu alt konuyu çalış ve tamamla.",
+            "label": "alt konu",
+            "sub_items": [],
+            "is_completed": false,
+            "completed_at": null
+          },
+          {
+            "id": "sq_tarih_islamiyet_oncesi_turk_tarihi_1_7",
+            "title": "İlk Türk Devletleri (Asya Hun, I. ve II. Göktürk, Uygur)",
+            "text": "Bu alt konuyu çalış ve tamamla.",
+            "label": "alt konu",
+            "sub_items": [],
+            "is_completed": false,
+            "completed_at": null
+          },
+          {
+            "id": "sq_tarih_islamiyet_oncesi_turk_tarihi_1_8",
+            "title": "Diğer Türk Boyları ve Devletleri (Kırgızlar, Hazarlar, Avarlar vb.)",
+            "text": "Bu alt konuyu çalış ve tamamla.",
+            "label": "alt konu",
+            "sub_items": [],
+            "is_completed": false,
+            "completed_at": null
+          },
+          {
+            "id": "sq_tarih_islamiyet_oncesi_turk_tarihi_1_9",
+            "title": "Kültür ve Medeniyet (Devlet Yönetimi, Ordu, Toplum, Hukuk ve İnanış)",
+            "text": "Bu alt konuyu çalış ve tamamla.",
+            "label": "alt konu",
+            "sub_items": [],
+            "is_completed": false,
+            "completed_at": null
           }
         ]
       }
@@ -5166,6 +5202,33 @@
             ],
             "is_completed": false,
             "completed_at": null
+          },
+          {
+            "id": "sq_tarih_ilk_turk_islam_devletleri_1_6",
+            "title": "Talas Savaşı ve Türklerin İslamiyet'e Geçişi",
+            "text": "Bu alt konuyu çalış ve tamamla.",
+            "label": "alt konu",
+            "sub_items": [],
+            "is_completed": false,
+            "completed_at": null
+          },
+          {
+            "id": "sq_tarih_ilk_turk_islam_devletleri_1_7",
+            "title": "Orta Asya ve Mısır'da Kurulanlar (Karahanlı, Gazneli, Tolunoğulları, İhşidiler vb.)",
+            "text": "Bu alt konuyu çalış ve tamamla.",
+            "label": "alt konu",
+            "sub_items": [],
+            "is_completed": false,
+            "completed_at": null
+          },
+          {
+            "id": "sq_tarih_ilk_turk_islam_devletleri_1_8",
+            "title": "Büyük Selçuklu Devleti Siyasi Olayları",
+            "text": "Bu alt konuyu çalış ve tamamla.",
+            "label": "alt konu",
+            "sub_items": [],
+            "is_completed": false,
+            "completed_at": null
           }
         ]
       },
@@ -5228,6 +5291,24 @@
             "sub_items": [
               "Oluşturulan tüm dijital slaytları ve alınan notları hızlıca kontrol et."
             ],
+            "is_completed": false,
+            "completed_at": null
+          },
+          {
+            "id": "sq_tarih_ilk_turk_islam_devletleri_2_6",
+            "title": "Türkiye (Anadolu) Selçuklu Devleti Siyasi Tarihi ve Haçlı Seferleri",
+            "text": "Bu alt konuyu çalış ve tamamla.",
+            "label": "alt konu",
+            "sub_items": [],
+            "is_completed": false,
+            "completed_at": null
+          },
+          {
+            "id": "sq_tarih_ilk_turk_islam_devletleri_2_7",
+            "title": "İlk Türk-İslam ve Anadolu Selçuklu'da Kültür Medeniyet (Divan teşkilatı, İkta sistemi, Mimari, Hukuk)",
+            "text": "Bu alt konuyu çalış ve tamamla.",
+            "label": "alt konu",
+            "sub_items": [],
             "is_completed": false,
             "completed_at": null
           }
@@ -5298,6 +5379,24 @@
             ],
             "is_completed": false,
             "completed_at": null
+          },
+          {
+            "id": "sq_tarih_osmanli_devleti_siyasi_tarihi_1_6",
+            "title": "Beylikten Devlete Geçiş (Osman, Orhan, I. Murad, Yıldırım Bayezid dönemi olayları)",
+            "text": "Bu alt konuyu çalış ve tamamla.",
+            "label": "alt konu",
+            "sub_items": [],
+            "is_completed": false,
+            "completed_at": null
+          },
+          {
+            "id": "sq_tarih_osmanli_devleti_siyasi_tarihi_1_7",
+            "title": "Dünya Gücü Osmanlı (Fatih, Yavuz ve Kanuni dönemleri gelişmeleri, coğrafi keşiflerin etkisi)",
+            "text": "Bu alt konuyu çalış ve tamamla.",
+            "label": "alt konu",
+            "sub_items": [],
+            "is_completed": false,
+            "completed_at": null
           }
         ]
       },
@@ -5362,6 +5461,24 @@
             ],
             "is_completed": false,
             "completed_at": null
+          },
+          {
+            "id": "sq_tarih_osmanli_devleti_siyasi_tarihi_2_6",
+            "title": "Yüzyıl isyanları (Celali vb.) ve arayış yılları",
+            "text": "Bu alt konuyu çalış ve tamamla.",
+            "label": "alt konu",
+            "sub_items": [],
+            "is_completed": false,
+            "completed_at": null
+          },
+          {
+            "id": "sq_tarih_osmanli_devleti_siyasi_tarihi_2_7",
+            "title": "Yüzyıl diplomasisi, değişen dünya dengeleri ve Karlofça sonrası politikalar",
+            "text": "Bu alt konuyu çalış ve tamamla.",
+            "label": "alt konu",
+            "sub_items": [],
+            "is_completed": false,
+            "completed_at": null
           }
         ]
       },
@@ -5376,8 +5493,8 @@
             "sub_items": [
               "İlerleme panosundan bu dersin eksik (beklenen) oturumlarını kontrol et."
             ],
-            "is_completed": false,
-            "completed_at": null
+            "is_completed": true,
+            "completed_at": "2026-07-18"
           },
           {
             "id": "sq_tarih_osmanli_devleti_siyasi_tarihi_3_2",
@@ -5388,8 +5505,8 @@
               "İlgili videoları listele.",
               "Video süresi ve oturum kapasitesini hesapla (Bölünmesi gerekiyor mu?)."
             ],
-            "is_completed": false,
-            "completed_at": null
+            "is_completed": true,
+            "completed_at": "2026-07-18"
           },
           {
             "id": "sq_tarih_osmanli_devleti_siyasi_tarihi_3_3",
@@ -5424,6 +5541,24 @@
             "sub_items": [
               "Oluşturulan tüm dijital slaytları ve alınan notları hızlıca kontrol et."
             ],
+            "is_completed": false,
+            "completed_at": null
+          },
+          {
+            "id": "sq_tarih_osmanli_devleti_siyasi_tarihi_3_6",
+            "title": "Denge Stratejisi",
+            "text": "Bu alt konuyu çalış ve tamamla.",
+            "label": "alt konu",
+            "sub_items": [],
+            "is_completed": false,
+            "completed_at": null
+          },
+          {
+            "id": "sq_tarih_osmanli_devleti_siyasi_tarihi_3_7",
+            "title": "Milliyetçilik İsyanları (Sırp, Yunan bağımsızlığı) ve Rus Savaşları (Kırım, 93 Harbi)",
+            "text": "Bu alt konuyu çalış ve tamamla.",
+            "label": "alt konu",
+            "sub_items": [],
             "is_completed": false,
             "completed_at": null
           }
@@ -5488,6 +5623,33 @@
             "sub_items": [
               "Oluşturulan tüm dijital slaytları ve alınan notları hızlıca kontrol et."
             ],
+            "is_completed": false,
+            "completed_at": null
+          },
+          {
+            "id": "sq_tarih_osmanli_devleti_siyasi_tarihi_4_6",
+            "title": "Tanzimat ve Islahat Fermanları",
+            "text": "Bu alt konuyu çalış ve tamamla.",
+            "label": "alt konu",
+            "sub_items": [],
+            "is_completed": false,
+            "completed_at": null
+          },
+          {
+            "id": "sq_tarih_osmanli_devleti_siyasi_tarihi_4_7",
+            "title": "I. ve II. Meşrutiyet Dönemleri",
+            "text": "Bu alt konuyu çalış ve tamamla.",
+            "label": "alt konu",
+            "sub_items": [],
+            "is_completed": false,
+            "completed_at": null
+          },
+          {
+            "id": "sq_tarih_osmanli_devleti_siyasi_tarihi_4_8",
+            "title": "Fikir Akımları (Osmanlıcılık, İslamcılık, Türkçülük vb.)",
+            "text": "Bu alt konuyu çalış ve tamamla.",
+            "label": "alt konu",
+            "sub_items": [],
             "is_completed": false,
             "completed_at": null
           }
@@ -7016,8 +7178,8 @@
             "sub_items": [
               "İlerleme panosundan bu dersin eksik (beklenen) oturumlarını kontrol et."
             ],
-            "is_completed": false,
-            "completed_at": null
+            "is_completed": true,
+            "completed_at": "2026-07-18"
           },
           {
             "id": "sq_vatandaslik_yurutme_1_2",
@@ -7028,8 +7190,8 @@
               "İlgili videoları listele.",
               "Video süresi ve oturum kapasitesini hesapla (Bölünmesi gerekiyor mu?)."
             ],
-            "is_completed": false,
-            "completed_at": null
+            "is_completed": true,
+            "completed_at": "2026-07-18"
           },
           {
             "id": "sq_vatandaslik_yurutme_1_3",
@@ -7653,8 +7815,8 @@
             "sub_items": [
               "İlerleme panosundan bu dersin eksik (beklenen) oturumlarını kontrol et."
             ],
-            "is_completed": false,
-            "completed_at": null
+            "is_completed": true,
+            "completed_at": "2026-07-18"
           },
           {
             "id": "sq_cografya_fiziki_cografya_ve_su_ortusu_4_2",
@@ -7665,8 +7827,8 @@
               "İlgili videoları listele.",
               "Video süresi ve oturum kapasitesini hesapla (Bölünmesi gerekiyor mu?)."
             ],
-            "is_completed": false,
-            "completed_at": null
+            "is_completed": true,
+            "completed_at": "2026-07-18"
           },
           {
             "id": "sq_cografya_fiziki_cografya_ve_su_ortusu_4_3",
