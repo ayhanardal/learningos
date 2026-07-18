@@ -1218,10 +1218,10 @@ window.renderSessionRouter = function(subject, topic, sessions) {
     var wrapper = document.getElementById('workspace-editor-wrapper');
     var scrollContainer = document.getElementById('workspace-scroll-container');
     if (scrollContainer) {
-        scrollContainer.style.setProperty('padding', '32px 40px', 'important');
+        scrollContainer.style.setProperty('padding', '32px 24px 32px 40px', 'important');
     }
     if (wrapper) {
-        wrapper.style.setProperty('max-width', '1000px', 'important');
+        wrapper.style.setProperty('max-width', '1100px', 'important');
         wrapper.style.setProperty('width', '100%', 'important');
     }
     
@@ -1252,7 +1252,7 @@ window.renderSessionRouter = function(subject, topic, sessions) {
     var today = new Date();
     var todayStr = today.getFullYear() + '-' + String(today.getMonth() + 1).padStart(2, '0') + '-' + String(today.getDate()).padStart(2, '0');
     
-    var html = `<div style="padding: 20px 0; display: flex; flex-direction: column; gap: 28px;">`;
+    var html = `<div style="padding: 20px 0; display: flex; flex-direction: column; gap: 32px;">`;
     
     function renderSessionCard(s) {
         var sIdx = s.session_index;
@@ -1268,14 +1268,14 @@ window.renderSessionRouter = function(subject, topic, sessions) {
             altKonuTitles.forEach(t => {
                 var truncatedTitle = truncateWords(t, 4);
                 subtopicHtml += `
-                <div style="font-size: 14px; font-weight: 600; color: var(--text); padding: 10px 14px; background: rgba(255, 255, 255, 0.02); border-left: 2.5px solid var(--accent); border-radius: 0 6px 6px 0; margin-bottom: 10px; line-height: 1.4;" title="${esc(t)}">
+                <div style="font-size: 15px; font-weight: 600; color: var(--text); padding: 12px 16px; background: rgba(255, 255, 255, 0.02); border-left: 3px solid var(--warning); border-radius: 0 6px 6px 0; margin-bottom: 12px; line-height: 1.4;" title="${esc(t)}">
                     ${esc(truncatedTitle)}
                 </div>
                 `;
             });
         } else {
             subtopicHtml = `
-            <div style="font-size: 14px; font-weight: 600; color: var(--text2); padding: 10px 14px; background: rgba(255, 255, 255, 0.02); border-left: 2.5px solid var(--border); border-radius: 0 6px 6px 0; margin-bottom: 10px; font-style: italic;">
+            <div style="font-size: 15px; font-weight: 600; color: var(--text2); padding: 12px 16px; background: rgba(255, 255, 255, 0.02); border-left: 3px solid var(--border); border-radius: 0 6px 6px 0; margin-bottom: 12px; font-style: italic;">
                 Genel Çalışma İçeriği
             </div>
             `;
@@ -1285,15 +1285,15 @@ window.renderSessionRouter = function(subject, topic, sessions) {
         var mouseOutBorder = pct === 100 ? 'var(--success)' : 'var(--border)';
         
         return `
-        <div class="session-card" onclick="openSessionWorkspace('${safeSubject}', '${safeTopic}', ${sIdx})" style="background: var(--surface2); border: 1px solid var(--border); ${borderStyle} border-radius: 12px; padding: 22px; display: flex; flex-direction: column; cursor: pointer; transition: all 0.2s;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 24px rgba(0,0,0,0.15)'; this.style.borderColor='var(--accent)';" onmouseout="this.style.transform='none'; this.style.boxShadow='none'; this.style.borderColor='${mouseOutBorder}';">
+        <div class="session-card" onclick="openSessionWorkspace('${safeSubject}', '${safeTopic}', ${sIdx})" style="background: var(--surface2); border: 1px solid var(--border); ${borderStyle} border-radius: 12px; padding: 26px; display: flex; flex-direction: column; cursor: pointer; transition: all 0.2s;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 24px rgba(0,0,0,0.15)'; this.style.borderColor='var(--warning)';" onmouseout="this.style.transform='none'; this.style.boxShadow='none'; this.style.borderColor='${mouseOutBorder}';">
             <!-- Konular Listesi (En üstte, net ve yapılandırılmış) -->
             <div style="display: flex; flex-direction: column; flex-grow: 1;">
                 ${subtopicHtml}
             </div>
             
             <!-- Alt Sağ Kısım - Soluk Oturum Filigranı -->
-            <div style="margin-top: auto; display: flex; justify-content: flex-end; padding-top: 14px;">
-                <span style="font-size: 12px; color: var(--text2); opacity: 0.35; font-weight: 600; letter-spacing: 0.5px;">Oturum ${sIdx}</span>
+            <div style="margin-top: auto; display: flex; justify-content: flex-end; padding-top: 16px;">
+                <span style="font-size: 13px; color: var(--text2); opacity: 0.35; font-weight: 600; letter-spacing: 0.5px;">Oturum ${sIdx}</span>
             </div>
         </div>
         `;
@@ -1307,26 +1307,27 @@ window.renderSessionRouter = function(subject, topic, sessions) {
         
         var isToday = (dateStr === todayStr);
         var dayText = dateInfo.day;
+        var rowIdAttr = isToday ? 'id="today-timeline-row"' : '';
         if (isToday) {
-            dayText += ' <span style="color: var(--accent); font-weight: 800;">(Bugün)</span>';
+            dayText += ' <span style="color: var(--warning); font-weight: 800;">(Bugün)</span>';
         }
         
         // Bugünün satırı için yatay şerit arka planı ve sol vurgu çizgisi ekle
         var rowStyle = isToday
-            ? `display: flex; gap: 48px; align-items: center; background: linear-gradient(90deg, rgba(0, 212, 255, 0.04) 0%, rgba(0, 212, 255, 0.01) 70%, transparent 100%); border-left: 3px solid var(--accent); padding: 16px 20px; margin-left: -23px; border-radius: 0 12px 12px 0; margin-bottom: 32px;`
-            : `display: flex; gap: 48px; align-items: center; padding: 16px 20px 16px 0; margin-bottom: 32px;`;
+            ? `display: flex; gap: 64px; align-items: center; background: linear-gradient(90deg, rgba(255, 193, 7, 0.04) 0%, rgba(255, 193, 7, 0.01) 70%, transparent 100%); border-left: 3px solid var(--warning); padding: 16px 20px; margin-left: -23px; border-radius: 0 12px 12px 0; margin-bottom: 32px;`
+            : `display: flex; gap: 64px; align-items: center; padding: 16px 20px 16px 0; margin-bottom: 32px;`;
         
         html += `
-        <div class="timeline-row" style="${rowStyle}">
-            <!-- Sol Sütun: Tarih (120px, Sola hizalı, çizgisiz sade görünüm) -->
-            <div class="timeline-date-col" style="width: 120px; flex-shrink: 0; text-align: left;">
+        <div class="timeline-row" ${rowIdAttr} style="${rowStyle}">
+            <!-- Sol Sütun: Tarih (140px, Sola hizalı, çizgisiz sade görünüm) -->
+            <div class="timeline-date-col" style="width: 140px; flex-shrink: 0; text-align: left;">
                 <div style="font-size: 14px; font-weight: 800; color: var(--text);">${esc(dateInfo.date)}</div>
                 <div style="font-size: 11px; color: var(--text2); opacity: 0.6; margin-top: 4px;">${dayText}</div>
             </div>
             
             <!-- Sağ Sütun: Kartlar Izgarası (Büyük kartlar yan yana listelenir) -->
             <div class="timeline-cards-col" style="flex-grow: 1;">
-                <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px;">
+                <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 24px;">
                     ${cardsHtml}
                 </div>
             </div>
@@ -1340,13 +1341,13 @@ window.renderSessionRouter = function(subject, topic, sessions) {
         var cardsHtml = noDateSessions.map(renderSessionCard).join('');
         
         html += `
-        <div class="timeline-row" style="display: flex; gap: 48px; align-items: center; padding: 16px 20px 16px 0; margin-bottom: 32px;">
-            <div class="timeline-date-col" style="width: 120px; flex-shrink: 0; text-align: left;">
+        <div class="timeline-row" style="display: flex; gap: 64px; align-items: center; padding: 16px 20px 16px 0; margin-bottom: 32px;">
+            <div class="timeline-date-col" style="width: 140px; flex-shrink: 0; text-align: left;">
                 <div style="font-size: 14px; font-weight: 800; color: var(--text2);">${esc(dateInfo.date)}</div>
                 <div style="font-size: 11px; color: var(--text2); opacity: 0.6; margin-top: 4px;">${esc(dateInfo.day)}</div>
             </div>
             <div class="timeline-cards-col" style="flex-grow: 1;">
-                <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px;">
+                <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 24px;">
                     ${cardsHtml}
                 </div>
             </div>
@@ -1356,6 +1357,14 @@ window.renderSessionRouter = function(subject, topic, sessions) {
     
     html += `</div>`;
     container.innerHTML = html;
+    
+    // Sayfa açıldığında otomatik olarak bugünün tarihine odaklan (scroll focus)
+    setTimeout(() => {
+        var todayRow = document.getElementById('today-timeline-row');
+        if (todayRow) {
+            todayRow.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+    }, 120);
 };
 
 window.openWorkspace = async function(subject, topic) {
