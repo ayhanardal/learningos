@@ -1282,10 +1282,6 @@ window.renderSessionRouter = function(subject, topic, sessions) {
         }
         
         // Durum ikonlarını belirle (Sade, soluk ve dikkat dağıtmayan)
-        var planIcon = isPlanned
-            ? `<span style="color: var(--text2); font-size: 13px; opacity: 0.3;" title="Planlandı">🗓</span>`
-            : `<span style="color: var(--text2); font-size: 13px; opacity: 0.3;" title="Plan Dışı / Ek Oturum">⚡</span>`;
-            
         var compIcon = (pct === 100)
             ? `<span style="color: var(--green); font-size: 14px; font-weight: 700; opacity: 0.5;" title="Oturum Tamamlandı">✓</span>`
             : `<span style="color: var(--text2); font-size: 14px; opacity: 0.3;" title="Oturum Tamamlanmadı">○</span>`;
@@ -1301,7 +1297,6 @@ window.renderSessionRouter = function(subject, topic, sessions) {
             <div style="margin-top: auto; display: flex; justify-content: space-between; align-items: center; padding-top: 16px;">
                 <!-- Sol: Durum İkonları (Sade & Soluk) -->
                 <div style="display: flex; align-items: center; gap: 8px;">
-                    ${planIcon}
                     ${compIcon}
                 </div>
                 
