@@ -933,14 +933,14 @@ h3.ce-header {
 
         <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 20px; border-bottom: 1px solid var(--border); min-height: 44px; flex-shrink: 0;">
             <div style="display: flex; align-items: center; gap: 8px; min-width: 0; flex: 1;">
-                <button onclick="toggleFullScreen()" id="ws-fs-btn" style="background: transparent; border: none; color: var(--text2); cursor: pointer; padding: 4px; font-size: 14px;" title="Genişlet / Daralt">⛶</button>
-                <button onclick="closeWorkspace()" style="background: transparent; border: none; color: var(--text2); cursor: pointer; padding: 4px; font-size: 14px;" title="Kapat">✕</button>
-                <div id="ws-breadcrumb" style="display: none; font-size: 12px; color: var(--text2); cursor: pointer; white-space: nowrap;" onclick="goBackToMainTopic()">←</div>
+                <button onclick="toggleFullScreen()" id="ws-fs-btn" style="background: var(--surface2); border: 1px solid var(--border); color: var(--text2); cursor: pointer; height: 32px; padding: 0 12px; border-radius: 6px; font-size: 13px; display: inline-flex; align-items: center; justify-content: center; box-sizing: border-box; transition: all 0.2s;" onmouseover="this.style.background='var(--border)'; this.style.color='var(--text)'" onmouseout="this.style.background='var(--surface2)'; this.style.color='var(--text2)'" title="Genişlet / Daralt">⛶</button>
+                <button onclick="closeWorkspace()" style="background: var(--surface2); border: 1px solid var(--border); color: var(--text2); cursor: pointer; height: 32px; padding: 0 12px; border-radius: 6px; font-size: 13px; display: inline-flex; align-items: center; justify-content: center; box-sizing: border-box; transition: all 0.2s;" onmouseover="this.style.background='var(--border)'; this.style.color='var(--text)'" onmouseout="this.style.background='var(--surface2)'; this.style.color='var(--text2)'" title="Kapat">✕</button>
+                <button id="ws-breadcrumb" style="display: none; background: var(--surface2); border: 1px solid var(--border); color: var(--text2); cursor: pointer; height: 32px; padding: 0 12px; border-radius: 6px; font-size: 11px; font-weight: 700; white-space: nowrap; transition: all 0.2s; align-items: center; justify-content: center; box-sizing: border-box;" onmouseover="this.style.background='var(--border)'; this.style.color='var(--text)';" onmouseout="this.style.background='var(--surface2)'; this.style.color='var(--text2)';" onclick="goBackToMainTopic()">←</button>
                 <span id="ws-subject" style="font-size: 12px; color: var(--text2); white-space: nowrap;">DERS</span>
-                <span style="font-size: 12px; color: var(--text2);">/</span>
+                <span id="ws-subject-sep" style="font-size: 12px; color: var(--text2);">/</span>
                 <span id="ws-topic" style="font-size: 13px; color: var(--text); font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Konu Adı</span>
             </div>
-            <div id="ws-subpages" style="display: flex; flex-wrap: nowrap; gap: 4px; justify-content: flex-start; max-width: 60%; overflow-x: auto; margin-left: 12px;"></div>
+            <div id="ws-subpages" style="display: none !important;"></div>
         </div>
 
         <div id="workspace-scroll-container" class="no-scrollbar" style="padding: 32px 80px; overflow-y: auto; flex: 1;">
@@ -1018,12 +1018,38 @@ window.saveWorkspaceNote = function() {
     });
 };
 
-window.openWorkspace = function(subject, topic) {
-    currentMainTopic = topic;
-    document.getElementById('ws-subject').innerText = subject;
-    document.getElementById('ws-topic').innerText = topic;
-    document.getElementById('ws-breadcrumb').style.display = 'none';
+function truncateWords(str, maxWords) {
+    if (!str) return "";
+    var words = str.trim().split(/\s+/);
+    if (words.length > maxWords) {
+        return words.slice(0, maxWords).join(" ") + "...";
+    }
+    return str;
+}
+window.truncateWords = truncateWords;
 
+function truncateChars(str, maxChars) {
+    if (!str) return "";
+    if (str.length > maxChars) {
+        return str.substring(0, maxChars) + "...";
+    }
+    return str;
+}
+window.truncateChars = truncateChars;
+
+function slugify(text) {
+    if (!text) return "";
+    var replaceMap = {"ı": "i", "ö": "o", "ü": "u", "ş": "s", "ç": "c", "ğ": "g", "İ": "i", "Ö": "o", "Ü": "u", "Ş": "s", "Ç": "c", "Ğ": "g"};
+    var res = text.toLowerCase();
+    for (var k in replaceMap) {
+        res = res.replaceAll(k, replaceMap[k]);
+    }
+    res = res.replaceAll(" ", "-").replaceAll("'", "").replaceAll("’", "");
+    return res;
+}
+window.slugify = slugify;
+
+window.renderCurriculumSubtopics = function(subject, topic) {
     const subpagesContainer = document.getElementById('ws-subpages');
     subpagesContainer.innerHTML = "";
     const dynamicSubTopics = [];
@@ -1058,10 +1084,10 @@ window.openWorkspace = function(subject, topic) {
         subpagesContainer.style.gap = '4px';
         subpagesContainer.style.padding = '4px 0';
         dynamicSubTopics.forEach(sub => {
-            subpagesContainer.innerHTML += `<span style="display:inline-block;flex-shrink:0;white-space:nowrap;background:rgba(255,255,255,0.06);border:1px solid var(--border);border-radius:4px;padding:2px 8px;font-size:11px;color:var(--text2);margin:1px;">${sub}</span>`;
+            var truncatedSub = truncateWords(sub, 4);
+            subpagesContainer.innerHTML += `<span style="display:inline-block;flex-shrink:0;white-space:nowrap;background:rgba(255,255,255,0.06);border:1px solid var(--border);border-radius:4px;padding:2px 8px;font-size:11px;color:var(--text2);margin:1px;" title="${esc(sub)}">${esc(truncatedSub)}</span>`;
         });
         
-        // Dikey mouse wheel hareketini yatay kaydırmaya (horizontal scroll) çevir
         if (!subpagesContainer._wheelAdded) {
             subpagesContainer.addEventListener('wheel', function(e) {
                 if (e.deltaY !== 0) {
@@ -1074,25 +1100,228 @@ window.openWorkspace = function(subject, topic) {
     } else {
         subpagesContainer.style.display = 'none';
     }
+};
+
+window.openSessionWorkspace = async function(subject, topic, sessionIndex) {
+    var topicSpan = document.getElementById('ws-topic');
+    topicSpan.innerText = topic;
+    topicSpan.title = topic;
+    
+    // Ders adını ve slash ayırıcıyı oturum sayfasında gizle
+    document.getElementById('ws-subject').style.display = 'none';
+    document.getElementById('ws-subject-sep').style.display = 'none';
+    
+    const breadcrumb = document.getElementById('ws-breadcrumb');
+    breadcrumb.style.display = 'inline-flex';
+    breadcrumb.innerText = truncateChars(topic, 20);
+    breadcrumb.title = `${topic} sayfasına dön`;
+    
+    const subpagesContainer = document.getElementById('ws-subpages');
+    subpagesContainer.innerHTML = "";
+    subpagesContainer.style.display = 'none';
+    
+    // Oturumun alt konularını rozet olarak yükle
+    const slug = slugify(subject) + "-" + slugify(topic);
+    try {
+        const response = await fetch(`/api/subquests/${slug}`);
+        if (response.ok) {
+            const sqData = await response.json();
+            const sessions = sqData.sessions || [];
+            const currentSession = sessions.find(s => s.session_index === sessionIndex);
+            if (currentSession) {
+                const subquests = currentSession.subquests || [];
+                const altKonuTitles = subquests
+                    .filter(sq => sq.label === 'alt konu' || sq.label === 'alt_konu' || sq.label === 'alt-konu')
+                    .map(sq => sq.title);
+                
+                if (altKonuTitles.length > 0) {
+                    subpagesContainer.style.display = 'flex';
+                    subpagesContainer.style.flexWrap = 'nowrap';
+                    subpagesContainer.style.overflowX = 'auto';
+                    subpagesContainer.style.justifyContent = 'flex-start';
+                    subpagesContainer.style.maxWidth = '60%';
+                    subpagesContainer.style.gap = '4px';
+                    subpagesContainer.style.padding = '4px 0';
+                    
+                    altKonuTitles.forEach(t => {
+                        var truncatedTitle = truncateWords(t, 4);
+                        subpagesContainer.innerHTML += `<span style="display:inline-block;flex-shrink:0;white-space:nowrap;background:rgba(255, 255, 255, 0.04);border:1px solid var(--border);color:var(--text2);border-radius:4px;padding:2px 8px;font-size:11px;margin:1px;font-weight:700;" title="${esc(t)}">${esc(truncatedTitle)}</span>`;
+                    });
+                    
+                    if (!subpagesContainer._wheelAdded) {
+                        subpagesContainer.addEventListener('wheel', function(e) {
+                            if (e.deltaY !== 0) {
+                                subpagesContainer.scrollLeft += e.deltaY;
+                                e.preventDefault();
+                            }
+                        }, { passive: false });
+                        subpagesContainer._wheelAdded = true;
+                    }
+                }
+            }
+        }
+    } catch (err) {
+        console.error("Failed to load subquests for session badges:", err);
+    }
+    
+    loadEditorData(subject, `${topic} - Oturum ${sessionIndex}`);
+};
+
+window.renderSessionRouter = function(subject, topic, sessions) {
+    if (workspaceEditor) {
+        workspaceEditor.destroy();
+        workspaceEditor = null;
+    }
+    
+    var safeSubject = subject.replace(/'/g, "\\'").replace(/"/g, '\\"');
+    var safeTopic = topic.replace(/'/g, "\\'").replace(/"/g, '\\"');
+    
+    var wrapper = document.getElementById('workspace-editor-wrapper');
+    var scrollContainer = document.getElementById('workspace-scroll-container');
+    if (scrollContainer) {
+        scrollContainer.style.setProperty('padding', '32px 40px', 'important');
+    }
+    if (wrapper) {
+        wrapper.style.setProperty('max-width', '1000px', 'important');
+        wrapper.style.setProperty('width', '100%', 'important');
+    }
+    
+    var container = document.getElementById('editorjs');
+    container.style.paddingRight = '0';
+    
+    var html = `
+    <div style="padding: 20px 0;">
+        <div style="margin-bottom: 24px; border-bottom: 1px solid var(--border); padding-bottom: 16px;">
+            <h2 style="font-size: 20px; font-weight: 800; color: var(--text); margin: 0 0 6px 0;">Çalışma Oturumları</h2>
+            <p style="font-size: 13px; color: var(--text2); margin: 0;">Bu konuya ait oturumlar aşağıda listelenmiştir. Düzenlemek istediğiniz oturumun notlarını açabilirsiniz.</p>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px;">
+    `;
+    
+    sessions.forEach(s => {
+        var sIdx = s.session_index;
+        var subquests = s.subquests || [];
+        var total = subquests.length;
+        var done = subquests.filter(sq => sq.is_completed).length;
+        var pct = total > 0 ? Math.round((done / total) * 100) : 0;
+        
+        var altKonuTitles = subquests.filter(sq => sq.label === 'alt konu' || sq.label === 'alt_konu' || sq.label === 'alt-konu').map(sq => sq.title);
+        var altKonuBadges = altKonuTitles.map(t => {
+            var truncated = truncateWords(t, 4);
+            return `<span style="background:rgba(255, 255, 255, 0.04); border: 1px solid var(--border); color: var(--text2); padding: 2px 8px; border-radius: 12px; font-size: 10px; font-weight: 700; white-space: nowrap;" title="${esc(t)}">${esc(truncated)}</span>`;
+        }).join(' ');
+        
+        var progressColor = pct === 100 ? 'var(--success)' : (pct > 0 ? 'var(--warning)' : 'var(--text2)');
+        var borderStyle = pct === 100 ? 'border-color: var(--success);' : '';
+        
+        html += `
+        <div class="session-card" style="background: var(--surface2); border: 1px solid var(--border); ${borderStyle} border-radius: 12px; padding: 18px; display: flex; flex-direction: column; transition: all 0.2s;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 20px rgba(0,0,0,0.1)';" onmouseout="this.style.transform='none'; this.style.boxShadow='none';">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                <span style="font-size: 15px; font-weight: 800; color: var(--text);">Oturum ${sIdx}</span>
+                <span style="font-size: 11px; font-weight: 700; color: ${progressColor};">${pct}% Tamamlandı</span>
+            </div>
+            
+            <div style="width: 100%; height: 6px; background: var(--border); border-radius: 3px; margin-bottom: 16px; overflow: hidden;">
+                <div style="width: ${pct}%; height: 100%; background: ${pct === 100 ? 'var(--success)' : 'var(--accent)'}; border-radius: 3px;"></div>
+            </div>
+            
+            <div style="flex-grow: 1; margin-bottom: 16px;">
+                <div style="font-size: 11px; font-weight: 700; color: var(--text2); text-transform: uppercase; margin-bottom: 6px; letter-spacing: 0.5px;">Alt Konular</div>
+                <div style="display: flex; flex-wrap: wrap; gap: 4px;">
+                    ${altKonuBadges || '<span style="font-size: 11px; color: var(--text2); font-style: italic;">Alt konu belirtilmemiş</span>'}
+                </div>
+            </div>
+            
+            <button onclick="openSessionWorkspace('${safeSubject}', '${safeTopic}', ${sIdx})" style="width: 100%; padding: 8px 16px; background: var(--surface); color: var(--text); border: 1px solid var(--border); border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer; transition: all 0.2s;" onmouseover="this.style.background='var(--accent)'; this.style.color='#fff'; this.style.borderColor='var(--accent)';" onmouseout="this.style.background='var(--surface)'; this.style.color='var(--text)'; this.style.borderColor='var(--border)';">
+                Oturum Notlarını Aç
+            </button>
+        </div>
+        `;
+    });
+    
+    html += `
+        </div>
+    </div>
+    `;
+    
+    container.innerHTML = html;
+};
+
+window.openWorkspace = async function(subject, topic) {
+    currentMainTopic = topic;
+    
+    // Emniyet için mevcut editörü hemen yok et ve temizle (race condition / veri ezilmesi önleme)
+    if (workspaceEditor) {
+        try {
+            workspaceEditor.destroy();
+        } catch (e) {
+            console.error("Editor destroy error:", e);
+        }
+        workspaceEditor = null;
+    }
+    document.getElementById('editorjs').innerHTML = '<div class="loading">Yükleniyor...</div>';
+    
+    document.getElementById('ws-subject').innerText = subject;
+    document.getElementById('ws-subject').style.display = 'inline';
+    document.getElementById('ws-subject-sep').style.display = 'inline';
+    
+    var topicSpan = document.getElementById('ws-topic');
+    topicSpan.innerText = topic;
+    topicSpan.title = topic;
+    
+    document.getElementById('ws-breadcrumb').style.display = 'none';
+
+    // Konu sayfasında üst rozetler temizlenir (oturum sayfalarında gösterilecek)
+    const subpagesContainer = document.getElementById('ws-subpages');
+    subpagesContainer.innerHTML = "";
+    subpagesContainer.style.display = 'none';
 
     document.getElementById('workspace-backdrop').style.display = 'block';
     isFullScreen = true;
     document.getElementById('workspace-panel').style.width = '100vw';
     document.getElementById('ws-fs-btn').innerText = '🗗';
 
-    loadEditorData(subject, topic);
+    // Oturum bilgilerini kontrol et ve router veya direkt oturum notunu yükle
+    const slug = slugify(subject) + "-" + slugify(topic);
+    let sessions = [];
+    try {
+        const response = await fetch(`/api/subquests/${slug}`);
+        if (response.ok) {
+            const sqData = await response.json();
+            sessions = sqData.sessions || [];
+        }
+    } catch (err) {
+        console.error("Failed to load subquests for router:", err);
+    }
+
+    if (sessions.length > 0) {
+        renderSessionRouter(subject, topic, sessions);
+    } else {
+        // Oturum takibi olmayan konularda eski davranış: müfredat alt konularını göster
+        window.renderCurriculumSubtopics(subject, topic);
+        loadEditorData(subject, topic + " - Oturum 1");
+    }
+    
     localStorage.setItem('ws_state', JSON.stringify({subject: subject, topic: topic}));
 };
 
 window.openSubPage = async function(subject, subTopic) {
     await saveWorkspaceNote();
 
-    document.getElementById('ws-topic').innerText = subTopic;
+    var topicSpan = document.getElementById('ws-topic');
+    topicSpan.innerText = subTopic;
+    topicSpan.title = subTopic;
+    
+    // Ders adını ve slash ayırıcıyı oturum/alt_konu sayfasında gizle
+    document.getElementById('ws-subject').style.display = 'none';
+    document.getElementById('ws-subject-sep').style.display = 'none';
+    
     document.getElementById('ws-subpages').innerHTML = "";
 
     const breadcrumb = document.getElementById('ws-breadcrumb');
-    breadcrumb.style.display = 'block';
-    breadcrumb.innerText = `← ${currentMainTopic} sayfasına dön`;
+    breadcrumb.style.display = 'inline-flex';
+    breadcrumb.innerText = truncateChars(currentMainTopic, 20);
+    breadcrumb.title = `${currentMainTopic} sayfasına dön`;
 
     loadEditorData(subject, subTopic);
 };
@@ -1112,8 +1341,18 @@ window.loadEditorData = async function(subject, topicKey) {
     }
 
     if (workspaceEditor) {
-        workspaceEditor.destroy();
+        try {
+            workspaceEditor.destroy();
+        } catch (e) {
+            console.error("Editor destroy error:", e);
+        }
         workspaceEditor = null;
+    }
+    
+    // Emniyet için mevcut içeriği (Router kartları vb.) hemen temizle ve yükleniyor göster
+    var container = document.getElementById('editorjs');
+    if (container) {
+        container.innerHTML = '<div class="loading">Yükleniyor...</div>';
     }
 
     const storageKey = `note_${subject}_${topicKey}`;
@@ -1129,12 +1368,15 @@ window.loadEditorData = async function(subject, topicKey) {
         console.log("DB'de not bulunamadı veya hata oluştu");
     }
 
-    const isInteractive = INTERACTIVE_TOPICS[subject] && INTERACTIVE_TOPICS[subject].includes(topicKey) || INTERACTIVE_TOPICS[subject].includes(currentMainTopic);
+    const isInteractive = INTERACTIVE_TOPICS[subject] && (INTERACTIVE_TOPICS[subject].includes(topicKey) || INTERACTIVE_TOPICS[subject].includes(currentMainTopic));
 
     if (isInteractive) {
         document.getElementById('editorjs').style.paddingRight = '0';
         renderInteractiveStudyView(subject, topicKey, savedData);
     } else {
+        interactiveData = null; // Eski interaktif verileri sıfırla
+        document.getElementById('editorjs').innerHTML = ''; // Yükleniyor spinner'ını ve artıkları temizle
+        
         var wrapper = document.getElementById('workspace-editor-wrapper');
         var scrollContainer = document.getElementById('workspace-scroll-container');
         if (scrollContainer) {
@@ -3058,7 +3300,7 @@ function esc(s) {
   return _escDiv.innerHTML.replace(/'/g, '&#39;');
 }
 
-async function loadDashboard() {
+async function loadDashboard(isInitial) {
   try {
     let roadmapPromise;
     const sprintDate = "2026-07-04"; // Başlangıç günümüz
@@ -3103,11 +3345,14 @@ async function loadDashboard() {
       fetchJSON(API + '/today/progress').then(renderDashboardTodayProgress);
     }
     renderDailySessionTimeline();
-    var wsState = JSON.parse(localStorage.getItem('ws_state'));
-    if (wsState && wsState.subject && wsState.topic) {
-      setTimeout(function() {
-        openWorkspace(wsState.subject, wsState.topic);
-      }, 100);
+    
+    if (isInitial) {
+        var wsState = JSON.parse(localStorage.getItem('ws_state'));
+        if (wsState && wsState.subject && wsState.topic) {
+          setTimeout(function() {
+            openWorkspace(wsState.subject, wsState.topic);
+          }, 100);
+        }
     }
   } catch(e) {
     console.error(e);
@@ -3903,7 +4148,7 @@ function renderAdequacy(adequacyData) {
 
 
 
-loadDashboard();
+loadDashboard(true);
 setInterval(loadDashboard, 30000);
 
 document.addEventListener('keydown', function(e) {
