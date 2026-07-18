@@ -935,7 +935,6 @@ h3.ce-header {
             <div style="display: flex; align-items: center; gap: 8px; min-width: 0; flex: 1;">
                 <button onclick="toggleFullScreen()" id="ws-fs-btn" style="background: var(--surface2); border: 1px solid var(--border); color: var(--text2); cursor: pointer; height: 32px; padding: 0 12px; border-radius: 6px; font-size: 13px; display: inline-flex; align-items: center; justify-content: center; box-sizing: border-box; transition: all 0.2s;" onmouseover="this.style.background='var(--border)'; this.style.color='var(--text)'" onmouseout="this.style.background='var(--surface2)'; this.style.color='var(--text2)'" title="Genişlet / Daralt">⛶</button>
                 <button onclick="closeWorkspace()" style="background: var(--surface2); border: 1px solid var(--border); color: var(--text2); cursor: pointer; height: 32px; padding: 0 12px; border-radius: 6px; font-size: 13px; display: inline-flex; align-items: center; justify-content: center; box-sizing: border-box; transition: all 0.2s;" onmouseover="this.style.background='var(--border)'; this.style.color='var(--text)'" onmouseout="this.style.background='var(--surface2)'; this.style.color='var(--text2)'" title="Kapat">✕</button>
-                <button id="ws-breadcrumb" style="display: none; background: var(--surface2); border: 1px solid var(--border); color: var(--text2); cursor: pointer; height: 32px; padding: 0 12px; border-radius: 6px; font-size: 11px; font-weight: 700; white-space: nowrap; transition: all 0.2s; align-items: center; justify-content: center; box-sizing: border-box;" onmouseover="this.style.background='var(--border)'; this.style.color='var(--text)';" onmouseout="this.style.background='var(--surface2)'; this.style.color='var(--text2)';" onclick="goBackToMainTopic()">←</button>
                 <span id="ws-subject" style="font-size: 12px; color: var(--text2); white-space: nowrap;">DERS</span>
                 <span id="ws-subject-sep" style="font-size: 12px; color: var(--text2);">/</span>
                 <span id="ws-topic" style="font-size: 13px; color: var(--text); font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Konu Adı</span>
@@ -1111,11 +1110,6 @@ window.openSessionWorkspace = async function(subject, topic, sessionIndex) {
     document.getElementById('ws-subject').style.display = 'none';
     document.getElementById('ws-subject-sep').style.display = 'none';
     
-    const breadcrumb = document.getElementById('ws-breadcrumb');
-    breadcrumb.style.display = 'inline-flex';
-    breadcrumb.innerText = truncateChars(topic, 20);
-    breadcrumb.title = `${topic} sayfasına dön`;
-    
     const subpagesContainer = document.getElementById('ws-subpages');
     subpagesContainer.innerHTML = "";
     subpagesContainer.style.display = 'none';
@@ -1269,8 +1263,6 @@ window.openWorkspace = async function(subject, topic) {
     topicSpan.innerText = topic;
     topicSpan.title = topic;
     
-    document.getElementById('ws-breadcrumb').style.display = 'none';
-
     // Konu sayfasında üst rozetler temizlenir (oturum sayfalarında gösterilecek)
     const subpagesContainer = document.getElementById('ws-subpages');
     subpagesContainer.innerHTML = "";
@@ -1317,11 +1309,6 @@ window.openSubPage = async function(subject, subTopic) {
     document.getElementById('ws-subject-sep').style.display = 'none';
     
     document.getElementById('ws-subpages').innerHTML = "";
-
-    const breadcrumb = document.getElementById('ws-breadcrumb');
-    breadcrumb.style.display = 'inline-flex';
-    breadcrumb.innerText = truncateChars(currentMainTopic, 20);
-    breadcrumb.title = `${currentMainTopic} sayfasına dön`;
 
     loadEditorData(subject, subTopic);
 };
