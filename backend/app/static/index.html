@@ -1306,19 +1306,34 @@ window.renderSessionRouter = function(subject, topic, sessions) {
         var cardsHtml = sessionsInDate.map(renderSessionCard).join('');
         
         var isToday = (dateStr === todayStr);
+        
+        // Gelecek gün kontrolü (midnight timezone emniyetli)
+        var isFuture = false;
+        if (dateStr) {
+            var rowDate = new Date(dateStr + 'T00:00:00');
+            var compareToday = new Date(todayStr + 'T00:00:00');
+            isFuture = (rowDate.getTime() > compareToday.getTime());
+        }
+        
         var dayText = dateInfo.day;
         var rowIdAttr = isToday ? 'id="today-timeline-row"' : '';
         if (isToday) {
             dayText += ' <span style="color: var(--warning); font-weight: 800;">(Bugün)</span>';
         }
         
-        // Bugünün satırı için yatay şerit arka planı boydan boya uzatılmış ve sol vurgu çizgili
-        var rowStyle = isToday
-            ? `display: flex; gap: 96px; align-items: center; background: linear-gradient(90deg, rgba(255, 193, 7, 0.05) 0%, rgba(255, 193, 7, 0.01) 80%, transparent 100%); border-left: 3px solid var(--warning); padding: 16px 20px 16px 297px; margin-left: -300px; border-radius: 0; margin-bottom: 32px;`
-            : `display: flex; gap: 96px; align-items: center; padding: 16px 20px 16px 0; margin-bottom: 32px;`;
+        var rowStyle = "";
+        var rowHoverAttrs = "";
+        if (isToday) {
+            rowStyle = `display: flex; gap: 96px; align-items: center; background: linear-gradient(90deg, rgba(255, 193, 7, 0.05) 0%, rgba(255, 193, 7, 0.01) 80%, transparent 100%); border-left: 3px solid var(--warning); padding: 16px 20px 16px 297px; margin-left: -300px; border-radius: 0; margin-bottom: 32px;`;
+        } else if (isFuture) {
+            rowStyle = `display: flex; gap: 96px; align-items: center; padding: 16px 20px 16px 0; margin-bottom: 32px; opacity: 0.4; transition: opacity 0.25s;`;
+            rowHoverAttrs = `onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.4'"`;
+        } else {
+            rowStyle = `display: flex; gap: 96px; align-items: center; padding: 16px 20px 16px 0; margin-bottom: 32px;`;
+        }
         
         html += `
-        <div class="timeline-row" ${rowIdAttr} style="${rowStyle}">
+        <div class="timeline-row" ${rowIdAttr} style="${rowStyle}" ${rowHoverAttrs}>
             <!-- Sol Sütun: Tarih (120px, Sola hizalı, çizgisiz sade görünüm) -->
             <div class="timeline-date-col" style="width: 120px; flex-shrink: 0; text-align: left;">
                 <div style="font-size: 14px; font-weight: 800; color: var(--text);">${esc(dateInfo.date)}</div>
