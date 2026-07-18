@@ -86,7 +86,7 @@ def get_progress():
     raw_progress = load_json(TRACKER_TOPICS, default={})
     
     mapping = {"Türkçe": "turkce", "Matematik": "matematik", "Tarih": "tarih",
-               "Coğrafya": "cografya", "Vatandaşlık": "vatandaslik", "İstatistik": "istatistik"}
+               "Coğrafya": "cografya", "Vatandaşlık": "vatandaslik", "Deneme Sınavı": "deneme-sinavi"}
                
     result = {}
     for lesson_name, lesson_slug in mapping.items():
@@ -320,13 +320,13 @@ def get_curriculum_summary():
                     } for st in get_dynamic_subtopics(subject_name, t['name'])]
                 } for t in subj.get("topics", [])],
             })
-    return [{"name": cat, "subjects": categories[cat]} for cat in ["Genel Yetenek", "Genel Kültür", "Alan Bilgisi"] if cat in categories]
+    return [{"name": cat, "subjects": categories[cat]} for cat in ["Genel Yetenek", "Genel Kültür", "Alan Bilgisi", "Deneme"] if cat in categories]
 
 
 EXAM_MAP = {
     "genel-yetenek": {"exam": "2026 KPSS Lisans", "exam_id": "lisans", "test": "Genel Yetenek (GY)", "test_id": "gy"},
     "genel-kultur": {"exam": "2026 KPSS Lisans", "exam_id": "lisans", "test": "Genel Kültür (GK)", "test_id": "gk"},
-    "alan": {"exam": "2026 KPSS Alan Bilgisi", "exam_id": "alan", "test": "Alan Bilgisi", "test_id": "alan"},
+    "deneme": {"exam": "Deneme Sınavları", "exam_id": "deneme", "test": "Genel Denemeler", "test_id": "deneme"},
 }
 
 
@@ -397,11 +397,11 @@ def get_curriculum_all():
             exams[exam_id]["tests"].setdefault(test_id, {"test": meta["test"], "test_id": test_id, "subjects": []})
             exams[exam_id]["tests"][test_id]["subjects"].append(subject_data)
     result = []
-    for eid in ["lisans", "alan"]:
+    for eid in ["lisans", "alan", "deneme"]:
         if eid not in exams:
             continue
         tests = []
-        for tid in (["gy", "gk"] if eid == "lisans" else ["alan"]):
+        for tid in (["gy", "gk"] if eid == "lisans" else (["alan"] if eid == "alan" else ["deneme"])):
             if tid in exams[eid]["tests"]:
                 tests.append(exams[eid]["tests"][tid])
         result.append({"exam": exams[eid]["exam"], "exam_id": eid, "tests": tests})
@@ -442,7 +442,7 @@ def get_stats():
         done = data.get("done", 0)
         pct = round((done / total * 100) if total else 0, 1)
         names = {"turkce": "Türkçe", "matematik": "Matematik", "tarih": "Tarih",
-                 "cografya": "Coğrafya", "vatandaslik": "Vatandaşlık", "istatistik": "İstatistik"}
+                 "cografya": "Coğrafya", "vatandaslik": "Vatandaşlık", "deneme-sinavi": "Deneme Sınavı"}
         subject_stats[names.get(key, key)] = {"done": done, "total": total, "pct": pct, "completed_sessions": 0}
 
     curriculum = get_curriculum_summary()

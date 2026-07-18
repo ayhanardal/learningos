@@ -3,19 +3,19 @@
     "date": "2026-07-04",
     "phase": "calisma",
     "genel_slots": {
-      "Matematik": 1
+      "Matematik": 2,
+      "Türkçe": 1
     },
-    "alan_slots": {
-      "İstatistik": 2
-    },
+    "alan_slots": {},
     "total_hours": 4.5
   },
   {
     "date": "2026-07-05",
     "phase": "calisma",
     "genel_slots": {
-      "Matematik": 1,
-      "Türkçe": 2
+      "Türkçe": 1,
+      "Tarih": 1,
+      "Coğrafya": 1
     },
     "alan_slots": {},
     "total_hours": 4.5
@@ -24,9 +24,8 @@
     "date": "2026-07-06",
     "phase": "calisma",
     "genel_slots": {
-      "Tarih": 1,
-      "Coğrafya": 1,
-      "Vatandaşlık": 1
+      "Vatandaşlık": 1,
+      "Matematik": 2
     },
     "alan_slots": {},
     "total_hours": 4.5
@@ -35,19 +34,19 @@
     "date": "2026-07-07",
     "phase": "calisma",
     "genel_slots": {
-      "Matematik": 1
+      "Türkçe": 2,
+      "Tarih": 1
     },
-    "alan_slots": {
-      "İstatistik": 2
-    },
+    "alan_slots": {},
     "total_hours": 4.5
   },
   {
     "date": "2026-07-08",
     "phase": "calisma",
     "genel_slots": {
-      "Matematik": 1,
-      "Türkçe": 2
+      "Coğrafya": 1,
+      "Vatandaşlık": 1,
+      "Matematik": 1
     },
     "alan_slots": {},
     "total_hours": 4.5
@@ -56,20 +55,19 @@
     "date": "2026-07-09",
     "phase": "calisma",
     "genel_slots": {
-      "Tarih": 1
+      "Matematik": 1,
+      "Türkçe": 2
     },
-    "alan_slots": {
-      "İstatistik": 2
-    },
+    "alan_slots": {},
     "total_hours": 4.5
   },
   {
     "date": "2026-07-10",
     "phase": "calisma",
     "genel_slots": {
+      "Tarih": 1,
       "Coğrafya": 1,
-      "Vatandaşlık": 1,
-      "Matematik": 1
+      "Vatandaşlık": 1
     },
     "alan_slots": {},
     "total_hours": 4.5
@@ -78,19 +76,19 @@
     "date": "2026-07-11",
     "phase": "calisma",
     "genel_slots": {
-      "Matematik": 1
+      "Matematik": 2,
+      "Türkçe": 1
     },
-    "alan_slots": {
-      "İstatistik": 2
-    },
+    "alan_slots": {},
     "total_hours": 4.5
   },
   {
     "date": "2026-07-12",
     "phase": "calisma",
     "genel_slots": {
-      "Türkçe": 2,
-      "Tarih": 1
+      "Türkçe": 1,
+      "Tarih": 1,
+      "Coğrafya": 1
     },
     "alan_slots": {},
     "total_hours": 4.5
@@ -99,26 +97,14 @@
     "date": "2026-07-13",
     "phase": "calisma",
     "genel_slots": {
-      "Coğrafya": 1,
       "Vatandaşlık": 1,
-      "Matematik": 1
+      "Matematik": 2
     },
     "alan_slots": {},
     "total_hours": 4.5
   },
   {
     "date": "2026-07-14",
-    "phase": "calisma",
-    "genel_slots": {
-      "Matematik": 1
-    },
-    "alan_slots": {
-      "İstatistik": 2
-    },
-    "total_hours": 4.5
-  },
-  {
-    "date": "2026-07-15",
     "phase": "calisma",
     "genel_slots": {
       "Türkçe": 2,
@@ -128,168 +114,18 @@
     "total_hours": 4.5
   },
   {
-    "date": "2026-07-16",
+    "date": "2026-07-15",
     "phase": "calisma",
     "genel_slots": {
-      "Coğrafya": 1
-    },
-    "alan_slots": {
-      "İstatistik": 2
-    },
-    "total_hours": 4.5
-  },
-  {
-    "date": "2026-07-17",
-    "phase": "calisma",
-    "genel_slots": {
-      "Vatandaşlık": 1,
-      "Matematik": 2
-    },
-    "alan_slots": {},
-    "total_hours": 4.5
-  },
-  {
-    "date": "2026-07-18",
-    "phase": "calisma",
-    "genel_slots": {
-      "Türkçe": 1
-    },
-    "alan_slots": {
-      "İstatistik": 2
-    },
-    "total_hours": 4.5
-  },
-  {
-    "date": "2026-07-19",
-    "phase": "calisma",
-    "genel_slots": {
-      "Türkçe": 1,
-      "Tarih": 1,
-      "Coğrafya": 1
-    },
-    "alan_slots": {},
-    "total_hours": 4.5
-  },
-  {
-    "date": "2026-07-20",
-    "phase": "calisma",
-    "genel_slots": {
-      "Vatandaşlık": 1,
-      "Matematik": 2
-    },
-    "alan_slots": {},
-    "total_hours": 4.5
-  },
-  {
-    "date": "2026-07-21",
-    "phase": "calisma",
-    "genel_slots": {
-      "Türkçe": 1
-    },
-    "alan_slots": {
-      "İstatistik": 2
-    },
-    "total_hours": 4.5
-  },
-  {
-    "date": "2026-07-22",
-    "phase": "calisma",
-    "genel_slots": {
-      "Türkçe": 1,
-      "Tarih": 1,
-      "Coğrafya": 1
-    },
-    "alan_slots": {},
-    "total_hours": 4.5
-  },
-  {
-    "date": "2026-07-23",
-    "phase": "calisma",
-    "genel_slots": {
-      "Vatandaşlık": 1
-    },
-    "alan_slots": {
-      "İstatistik": 2
-    },
-    "total_hours": 4.5
-  },
-  {
-    "date": "2026-07-24",
-    "phase": "calisma",
-    "genel_slots": {
-      "Matematik": 2,
-      "Türkçe": 1
-    },
-    "alan_slots": {},
-    "total_hours": 4.5
-  },
-  {
-    "date": "2026-07-25",
-    "phase": "calisma",
-    "genel_slots": {
-      "Türkçe": 1
-    },
-    "alan_slots": {
-      "İstatistik": 2
-    },
-    "total_hours": 4.5
-  },
-  {
-    "date": "2026-07-26",
-    "phase": "calisma",
-    "genel_slots": {
-      "Tarih": 1,
       "Coğrafya": 1,
-      "Vatandaşlık": 1
-    },
-    "alan_slots": {},
-    "total_hours": 4.5
-  },
-  {
-    "date": "2026-07-27",
-    "phase": "calisma",
-    "genel_slots": {
-      "Matematik": 2,
-      "Türkçe": 1
-    },
-    "alan_slots": {},
-    "total_hours": 4.5
-  },
-  {
-    "date": "2026-07-28",
-    "phase": "calisma",
-    "genel_slots": {
-      "Türkçe": 1
-    },
-    "alan_slots": {
-      "İstatistik": 2
-    },
-    "total_hours": 4.5
-  },
-  {
-    "date": "2026-07-29",
-    "phase": "calisma",
-    "genel_slots": {
-      "Tarih": 1,
-      "Coğrafya": 1,
-      "Vatandaşlık": 1
-    },
-    "alan_slots": {},
-    "total_hours": 4.5
-  },
-  {
-    "date": "2026-07-30",
-    "phase": "calisma",
-    "genel_slots": {
+      "Vatandaşlık": 1,
       "Matematik": 1
     },
-    "alan_slots": {
-      "İstatistik": 2
-    },
+    "alan_slots": {},
     "total_hours": 4.5
   },
   {
-    "date": "2026-07-31",
+    "date": "2026-07-16",
     "phase": "calisma",
     "genel_slots": {
       "Matematik": 1,
@@ -299,22 +135,173 @@
     "total_hours": 4.5
   },
   {
+    "date": "2026-07-17",
+    "phase": "deneme",
+    "genel_slots": {},
+    "alan_slots": {},
+    "total_hours": 3.0,
+    "note": "Deneme Sınavı ve Analizi"
+  },
+  {
+    "date": "2026-07-18",
+    "phase": "calisma",
+    "genel_slots": {
+      "Tarih": 1,
+      "Coğrafya": 1,
+      "Vatandaşlık": 1
+    },
+    "alan_slots": {},
+    "total_hours": 4.5
+  },
+  {
+    "date": "2026-07-19",
+    "phase": "calisma",
+    "genel_slots": {
+      "Matematik": 2,
+      "Türkçe": 1
+    },
+    "alan_slots": {},
+    "total_hours": 4.5
+  },
+  {
+    "date": "2026-07-20",
+    "phase": "calisma",
+    "genel_slots": {
+      "Türkçe": 1,
+      "Tarih": 1,
+      "Coğrafya": 1
+    },
+    "alan_slots": {},
+    "total_hours": 4.5
+  },
+  {
+    "date": "2026-07-21",
+    "phase": "calisma",
+    "genel_slots": {
+      "Vatandaşlık": 1,
+      "Matematik": 2
+    },
+    "alan_slots": {},
+    "total_hours": 4.5
+  },
+  {
+    "date": "2026-07-22",
+    "phase": "calisma",
+    "genel_slots": {
+      "Türkçe": 2,
+      "Tarih": 1
+    },
+    "alan_slots": {},
+    "total_hours": 4.5
+  },
+  {
+    "date": "2026-07-23",
+    "phase": "calisma",
+    "genel_slots": {
+      "Coğrafya": 1,
+      "Vatandaşlık": 1,
+      "Matematik": 1
+    },
+    "alan_slots": {},
+    "total_hours": 4.5
+  },
+  {
+    "date": "2026-07-24",
+    "phase": "calisma",
+    "genel_slots": {
+      "Matematik": 1,
+      "Türkçe": 2
+    },
+    "alan_slots": {},
+    "total_hours": 4.5
+  },
+  {
+    "date": "2026-07-25",
+    "phase": "calisma",
+    "genel_slots": {
+      "Tarih": 1,
+      "Coğrafya": 1,
+      "Vatandaşlık": 1
+    },
+    "alan_slots": {},
+    "total_hours": 4.5
+  },
+  {
+    "date": "2026-07-26",
+    "phase": "calisma",
+    "genel_slots": {
+      "Matematik": 2,
+      "Türkçe": 1
+    },
+    "alan_slots": {},
+    "total_hours": 4.5
+  },
+  {
+    "date": "2026-07-27",
+    "phase": "calisma",
+    "genel_slots": {
+      "Türkçe": 1,
+      "Tarih": 1,
+      "Coğrafya": 1
+    },
+    "alan_slots": {},
+    "total_hours": 4.5
+  },
+  {
+    "date": "2026-07-28",
+    "phase": "calisma",
+    "genel_slots": {
+      "Vatandaşlık": 1,
+      "Matematik": 2
+    },
+    "alan_slots": {},
+    "total_hours": 4.5
+  },
+  {
+    "date": "2026-07-29",
+    "phase": "calisma",
+    "genel_slots": {
+      "Türkçe": 2,
+      "Tarih": 1
+    },
+    "alan_slots": {},
+    "total_hours": 4.5
+  },
+  {
+    "date": "2026-07-30",
+    "phase": "calisma",
+    "genel_slots": {
+      "Coğrafya": 1,
+      "Vatandaşlık": 1,
+      "Matematik": 1
+    },
+    "alan_slots": {},
+    "total_hours": 4.5
+  },
+  {
+    "date": "2026-07-31",
+    "phase": "deneme",
+    "genel_slots": {},
+    "alan_slots": {},
+    "total_hours": 3.0,
+    "note": "Deneme Sınavı ve Analizi"
+  },
+  {
     "date": "2026-08-01",
     "phase": "calisma",
     "genel_slots": {
-      "Tarih": 1
+      "Matematik": 1,
+      "Türkçe": 2
     },
-    "alan_slots": {
-      "İstatistik": 2
-    },
+    "alan_slots": {},
     "total_hours": 4.5
   },
   {
     "date": "2026-08-02",
     "phase": "calisma",
     "genel_slots": {
+      "Tarih": 1,
       "Coğrafya": 1,
-      "Vatandaşlık": 1,
       "Matematik": 1
     },
     "alan_slots": {},
@@ -334,185 +321,15 @@
     "date": "2026-08-04",
     "phase": "calisma",
     "genel_slots": {
-      "Tarih": 1
+      "Tarih": 1,
+      "Coğrafya": 1,
+      "Matematik": 1
     },
-    "alan_slots": {
-      "İstatistik": 2
-    },
+    "alan_slots": {},
     "total_hours": 4.5
   },
   {
     "date": "2026-08-05",
-    "phase": "calisma",
-    "genel_slots": {
-      "Coğrafya": 1,
-      "Vatandaşlık": 1,
-      "Matematik": 1
-    },
-    "alan_slots": {},
-    "total_hours": 4.5
-  },
-  {
-    "date": "2026-08-06",
-    "phase": "calisma",
-    "genel_slots": {
-      "Matematik": 1
-    },
-    "alan_slots": {
-      "İstatistik": 2
-    },
-    "total_hours": 4.5
-  },
-  {
-    "date": "2026-08-07",
-    "phase": "calisma",
-    "genel_slots": {
-      "Türkçe": 2,
-      "Tarih": 1
-    },
-    "alan_slots": {},
-    "total_hours": 4.5
-  },
-  {
-    "date": "2026-08-08",
-    "phase": "calisma",
-    "genel_slots": {
-      "Coğrafya": 1
-    },
-    "alan_slots": {
-      "İstatistik": 2
-    },
-    "total_hours": 4.5
-  },
-  {
-    "date": "2026-08-09",
-    "phase": "calisma",
-    "genel_slots": {
-      "Vatandaşlık": 1,
-      "Matematik": 2
-    },
-    "alan_slots": {},
-    "total_hours": 4.5
-  },
-  {
-    "date": "2026-08-10",
-    "phase": "calisma",
-    "genel_slots": {
-      "Türkçe": 2,
-      "Tarih": 1
-    },
-    "alan_slots": {},
-    "total_hours": 4.5
-  },
-  {
-    "date": "2026-08-11",
-    "phase": "calisma",
-    "genel_slots": {
-      "Coğrafya": 1
-    },
-    "alan_slots": {
-      "İstatistik": 2
-    },
-    "total_hours": 4.5
-  },
-  {
-    "date": "2026-08-12",
-    "phase": "calisma",
-    "genel_slots": {
-      "Matematik": 2,
-      "Türkçe": 1
-    },
-    "alan_slots": {},
-    "total_hours": 4.5
-  },
-  {
-    "date": "2026-08-13",
-    "phase": "calisma",
-    "genel_slots": {
-      "Türkçe": 1
-    },
-    "alan_slots": {
-      "İstatistik": 2
-    },
-    "total_hours": 4.5
-  },
-  {
-    "date": "2026-08-14",
-    "phase": "calisma",
-    "genel_slots": {
-      "Tarih": 1,
-      "Coğrafya": 1,
-      "Matematik": 1
-    },
-    "alan_slots": {},
-    "total_hours": 4.5
-  },
-  {
-    "date": "2026-08-15",
-    "phase": "calisma",
-    "genel_slots": {
-      "Matematik": 1
-    },
-    "alan_slots": {
-      "İstatistik": 2
-    },
-    "total_hours": 4.5
-  },
-  {
-    "date": "2026-08-16",
-    "phase": "calisma",
-    "genel_slots": {
-      "Türkçe": 2,
-      "Tarih": 1
-    },
-    "alan_slots": {},
-    "total_hours": 4.5
-  },
-  {
-    "date": "2026-08-17",
-    "phase": "calisma",
-    "genel_slots": {
-      "Coğrafya": 1,
-      "Matematik": 2
-    },
-    "alan_slots": {},
-    "total_hours": 4.5
-  },
-  {
-    "date": "2026-08-18",
-    "phase": "calisma",
-    "genel_slots": {
-      "Türkçe": 1
-    },
-    "alan_slots": {
-      "İstatistik": 2
-    },
-    "total_hours": 4.5
-  },
-  {
-    "date": "2026-08-19",
-    "phase": "calisma",
-    "genel_slots": {
-      "Türkçe": 1,
-      "Tarih": 1,
-      "Coğrafya": 1
-    },
-    "alan_slots": {},
-    "total_hours": 4.5
-  },
-  {
-    "date": "2026-08-20",
-    "phase": "calisma",
-    "genel_slots": {
-      "Matematik": 1
-    },
-    "alan_slots": {
-      "İstatistik": 2
-    },
-    "total_hours": 4.5
-  },
-  {
-    "date": "2026-08-21",
     "phase": "calisma",
     "genel_slots": {
       "Matematik": 1,
@@ -522,28 +339,146 @@
     "total_hours": 4.5
   },
   {
-    "date": "2026-08-22",
+    "date": "2026-08-06",
     "phase": "calisma",
     "genel_slots": {
-      "Tarih": 1
+      "Tarih": 1,
+      "Coğrafya": 1,
+      "Matematik": 1
     },
-    "alan_slots": {
-      "İstatistik": 2
-    },
+    "alan_slots": {},
     "total_hours": 4.5
   },
   {
-    "date": "2026-08-23",
+    "date": "2026-08-07",
+    "phase": "deneme",
+    "genel_slots": {},
+    "alan_slots": {},
+    "total_hours": 3.0,
+    "note": "Deneme Sınavı ve Analizi"
+  },
+  {
+    "date": "2026-08-08",
     "phase": "calisma",
     "genel_slots": {
+      "Matematik": 1,
+      "Türkçe": 2
+    },
+    "alan_slots": {},
+    "total_hours": 4.5
+  },
+  {
+    "date": "2026-08-09",
+    "phase": "calisma",
+    "genel_slots": {
+      "Tarih": 1,
       "Coğrafya": 1,
+      "Matematik": 1
+    },
+    "alan_slots": {},
+    "total_hours": 4.5
+  },
+  {
+    "date": "2026-08-10",
+    "phase": "calisma",
+    "genel_slots": {
+      "Matematik": 1,
+      "Türkçe": 2
+    },
+    "alan_slots": {},
+    "total_hours": 4.5
+  },
+  {
+    "date": "2026-08-11",
+    "phase": "calisma",
+    "genel_slots": {
+      "Tarih": 1,
+      "Coğrafya": 1,
+      "Matematik": 1
+    },
+    "alan_slots": {},
+    "total_hours": 4.5
+  },
+  {
+    "date": "2026-08-12",
+    "phase": "calisma",
+    "genel_slots": {
+      "Matematik": 1,
+      "Türkçe": 2
+    },
+    "alan_slots": {},
+    "total_hours": 4.5
+  },
+  {
+    "date": "2026-08-13",
+    "phase": "calisma",
+    "genel_slots": {
+      "Tarih": 1,
+      "Coğrafya": 1,
+      "Matematik": 1
+    },
+    "alan_slots": {},
+    "total_hours": 4.5
+  },
+  {
+    "date": "2026-08-14",
+    "phase": "deneme",
+    "genel_slots": {},
+    "alan_slots": {},
+    "total_hours": 3.0,
+    "note": "Deneme Sınavı ve Analizi"
+  },
+  {
+    "date": "2026-08-15",
+    "phase": "calisma",
+    "genel_slots": {
+      "Matematik": 1,
+      "Türkçe": 2
+    },
+    "alan_slots": {},
+    "total_hours": 4.5
+  },
+  {
+    "date": "2026-08-16",
+    "phase": "calisma",
+    "genel_slots": {
+      "Tarih": 1,
+      "Coğrafya": 1,
+      "Matematik": 1
+    },
+    "alan_slots": {},
+    "total_hours": 4.5
+  },
+  {
+    "date": "2026-08-17",
+    "phase": "calisma",
+    "genel_slots": {
+      "Matematik": 1,
+      "Türkçe": 2
+    },
+    "alan_slots": {},
+    "total_hours": 4.5
+  },
+  {
+    "date": "2026-08-18",
+    "phase": "calisma",
+    "genel_slots": {
+      "Tarih": 1,
       "Matematik": 2
     },
     "alan_slots": {},
     "total_hours": 4.5
   },
   {
-    "date": "2026-08-24",
+    "date": "2026-08-19",
+    "phase": "deneme",
+    "genel_slots": {},
+    "alan_slots": {},
+    "total_hours": 3.0,
+    "note": "Deneme Sınavı ve Analizi"
+  },
+  {
+    "date": "2026-08-20",
     "phase": "calisma",
     "genel_slots": {
       "Türkçe": 2,
@@ -553,18 +488,7 @@
     "total_hours": 4.5
   },
   {
-    "date": "2026-08-25",
-    "phase": "calisma",
-    "genel_slots": {
-      "Coğrafya": 1
-    },
-    "alan_slots": {
-      "İstatistik": 2
-    },
-    "total_hours": 4.5
-  },
-  {
-    "date": "2026-08-26",
+    "date": "2026-08-21",
     "phase": "calisma",
     "genel_slots": {
       "Matematik": 2,
@@ -574,28 +498,36 @@
     "total_hours": 4.5
   },
   {
-    "date": "2026-08-27",
+    "date": "2026-08-22",
     "phase": "calisma",
     "genel_slots": {
       "Türkçe": 1,
       "Tarih": 1,
-      "Coğrafya": 1
+      "Matematik": 1
     },
     "alan_slots": {},
     "total_hours": 4.5
   },
   {
-    "date": "2026-08-28",
+    "date": "2026-08-23",
+    "phase": "deneme",
+    "genel_slots": {},
+    "alan_slots": {},
+    "total_hours": 3.0,
+    "note": "Deneme Sınavı ve Analizi"
+  },
+  {
+    "date": "2026-08-24",
     "phase": "calisma",
     "genel_slots": {
-      "Matematik": 2,
-      "Türkçe": 1
+      "Matematik": 1,
+      "Türkçe": 2
     },
     "alan_slots": {},
     "total_hours": 4.5
   },
   {
-    "date": "2026-08-29",
+    "date": "2026-08-25",
     "phase": "calisma",
     "genel_slots": {
       "Tarih": 1,
@@ -605,31 +537,66 @@
     "total_hours": 4.5
   },
   {
-    "date": "2026-08-30",
+    "date": "2026-08-26",
+    "phase": "deneme",
+    "genel_slots": {},
+    "alan_slots": {},
+    "total_hours": 3.0,
+    "note": "Deneme Sınavı ve Analizi"
+  },
+  {
+    "date": "2026-08-27",
     "phase": "calisma",
     "genel_slots": {
-      "Tarih": 2,
+      "Türkçe": 1,
+      "Tarih": 1,
       "Matematik": 1
     },
     "alan_slots": {},
     "total_hours": 4.5
   },
   {
+    "date": "2026-08-28",
+    "phase": "deneme",
+    "genel_slots": {},
+    "alan_slots": {},
+    "total_hours": 3.0,
+    "note": "Deneme Sınavı ve Analizi"
+  },
+  {
+    "date": "2026-08-29",
+    "phase": "calisma",
+    "genel_slots": {
+      "Matematik": 1,
+      "Tarih": 1
+    },
+    "alan_slots": {},
+    "total_hours": 3.0
+  },
+  {
+    "date": "2026-08-30",
+    "phase": "deneme",
+    "genel_slots": {},
+    "alan_slots": {},
+    "total_hours": 3.0,
+    "note": "Deneme Sınavı ve Analizi"
+  },
+  {
     "date": "2026-08-31",
     "phase": "calisma",
     "genel_slots": {
-      "Tarih": 2
+      "Matematik": 1,
+      "Tarih": 1
     },
     "alan_slots": {},
     "total_hours": 3.0
   },
   {
     "date": "2026-09-01",
-    "phase": "calisma",
-    "genel_slots": {
-      "Tarih": 2
-    },
+    "phase": "deneme",
+    "genel_slots": {},
     "alan_slots": {},
-    "total_hours": 3.0
+    "total_hours": 3.0,
+    "note": "Deneme Sınavı ve Analizi"
   }
 ]

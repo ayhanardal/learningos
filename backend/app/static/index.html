@@ -2571,8 +2571,8 @@ function renderProgress(progress) {
   var keys = Object.keys(progress);
   if (!keys.length) { el.innerHTML = '<div class="loading">Henüz veri yok</div>'; return; }
   var html = '';
-  var names = {turkce:'Türkçe',matematik:'Matematik',tarih:'Tarih',cografya:'Coğrafya',vatandaslik:'Vatandaşlık',istatistik:'İstatistik'};
-  var order = ['turkce','matematik','tarih','cografya','vatandaslik','istatistik'];
+  var names = {turkce:'Türkçe',matematik:'Matematik',tarih:'Tarih',cografya:'Coğrafya',vatandaslik:'Vatandaşlık','deneme-sinavi':'Deneme Sınavı'};
+  var order = ['turkce','matematik','tarih','cografya','vatandaslik','deneme-sinavi'];
   order.forEach(function(key) {
     var d = progress[key];
     if (!d) return;
@@ -3567,7 +3567,7 @@ function renderRoadmap(roadmapData) {
       listHtml += '<div>' +
         '<div style="display:flex; justify-content:space-between; font-size:12px; font-weight:600; margin-bottom:4px">' +
           '<span>' + esc(s.subject) + '</span>' +
-          '<span>' + s.hours + 's (' + Math.round(s.hours / 1.5) + ' Oturum) | ' + s.questions + ' Soru (%' + s.pct + ')</span>' +
+          '<span>' + s.hours + 's (' + Math.round(s.hours / 1.5) + ' Oturum) (%' + s.pct + ')</span>' +
         '</div>' +
         '<div class="progress-bar" style="height:6px; background:var(--surface2); border-radius:3px; overflow:hidden">' +
           '<div class="fill" style="width:' + s.pct + '%; height:100%; background:linear-gradient(90deg, var(--accent2), var(--accent))"></div>' +
@@ -3588,11 +3588,11 @@ function renderRoadmap(roadmapData) {
           '<div style="display:flex; flex-direction:column; gap:6px; font-size:12px; color:var(--text2)">' +
             '<div style="display:flex; align-items:center; gap:6px">' +
               '<span style="display:inline-block; width:10px; height:10px; border-radius:50%; background:var(--accent)"></span>' +
-              '<strong>Genel Sınav (GY-GK):</strong> %' + cat.gygk.pct + ' (' + cat.gygk.hours + 's [' + Math.round(cat.gygk.hours / 1.5) + ' Oturum] / ' + cat.gygk.questions + ' Soru)' +
+              '<strong>Genel Sınav (GY-GK):</strong> %' + cat.gygk.pct + ' (' + cat.gygk.hours + 's [' + Math.round(cat.gygk.hours / 1.5) + ' Oturum])' +
             '</div>' +
             '<div style="display:flex; align-items:center; gap:6px">' +
               '<span style="display:inline-block; width:10px; height:10px; border-radius:50%; background:var(--accent2)"></span>' +
-              '<strong>Alan Bilgisi (İstatistik):</strong> %' + cat.alan.pct + ' (' + cat.alan.hours + 's [' + Math.round(cat.alan.hours / 1.5) + ' Oturum] / ' + cat.alan.questions + ' Soru)' +
+              '<strong>Deneme Sınavı:</strong> %' + cat.alan.pct + ' (' + cat.alan.hours + 's [' + Math.round(cat.alan.hours / 1.5) + ' Oturum])' +
             '</div>' +
           '</div>' +
         '</div>' +
@@ -3652,7 +3652,7 @@ function renderRoadmap(roadmapData) {
     }
 
     var badgeHtml = '<div class="roadmap-tooltip" style="font-size:11px; font-weight:600; background:rgba(0, 212, 255, 0.08); padding:4px 10px; border-radius:12px; border:1px solid var(--border); color:var(--accent)">' +
-      '📊 Özet: ' + wStats.total_hours + 's | ' + wStats.total_questions + ' Soru' +
+      '📊 Özet: ' + wStats.total_hours + 's' +
       '<span class="tooltip-text">' + distHtml + '</span>' +
       '</div>';
 
@@ -3803,7 +3803,7 @@ function renderRoadmap(roadmapData) {
           '<span>%' + item.pct + '</span>' +
         '</div>' +
         '<div style="font-size:9px; color:var(--text2); margin-bottom:4px; font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">' +
-          item.hours + 's | ' + Math.round(item.hours / 1.5) + ' Oturum | ' + item.questions + ' Soru' +
+          item.hours + 's | ' + Math.round(item.hours / 1.5) + ' Oturum' +
         '</div>' +
         '<div style="height:5px; background:var(--surface); border-radius:2.5px; overflow:hidden; border: 1px solid var(--border)">' +
           '<div style="width:' + item.pct + '%; height:100%; background:' + barColor + '; border-radius:2.5px"></div>' +

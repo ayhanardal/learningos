@@ -8,7 +8,7 @@ from datetime import datetime, timedelta
 from app.services.data import CURRICULUM_DIR, get_progress_raw, slugify
 
 EXACT_ALLOCATIONS = {
-    "Paragrafta Anlam": 19,
+    "Paragrafta Anlam": 27,
     "Sözel Mantık": 7,
     "Sözcükte ve Cümlede Anlam": 5,
     "Dil Bilgisi ve Ses Olayları": 6,
@@ -23,10 +23,10 @@ EXACT_ALLOCATIONS = {
     "Temel Kavramlar ve Sayılar": 8,
     "Cebirsel İfadeler ve Denklemler": 8,
     "Oran - Orantı": 2,
-    "Problemler": 13,
+    "Problemler": 19,
     "Kümeler ve Fonksiyonlar": 3,
     "P.K.O. (Saymanın Kuralları)": 3,
-    "Sayısal Mantık": 4,
+    "Sayısal Mantık": 6,
     "Geometri": 0,
     "Hukukun Temel Kavramları": 2,
     "Devlet Biçimleri ve Anayasa Tarihi": 1,
@@ -43,16 +43,18 @@ EXACT_ALLOCATIONS = {
     "İklim ve Bitki Örtüsü": 2,
     "Tarım, Hayvancılık ve Ormancılık": 2,
     "Türkiye'nin Coğrafi Konumu": 2,
-    "Olasılık ve Stokastik Süreçler": 9,
-    "Matematiksel İstatistik": 6,
-    "Örnekleme": 4,
-    "Uygulamalı İstatistik": 6,
-    "Varyans Analizi (ANOVA)": 4,
-    "Parametrik Olmayan Testler": 2,
-    "Regresyon Analizi": 6,
-    "Zaman Serileri": 4,
-    "Çok Değişkenli Analizler": 5,
-    "Yöneylem Araştırması": 0
+    "Olasılık ve Stokastik Süreçler": 0,
+    "Matematiksel İstatistik": 0,
+    "Örnekleme": 0,
+    "Uygulamalı İstatistik": 0,
+    "Varyans Analizi (ANOVA)": 0,
+    "Parametrik Olmayan Testler": 0,
+    "Regresyon Analizi": 0,
+    "Zaman Serileri": 0,
+    "Çok Değişkenli Analizler": 0,
+    "Yöneylem Araştırması": 0,
+    "Genel Yetenek - Genel Kültür": 10,
+    "Deneme Analizi ve Eksik Kapatma": 20
 }
 
 FROZEN_SCHEDULE_PATH = CURRICULUM_DIR.parent / "study-plans" / "frozen-schedule.json"
@@ -137,10 +139,25 @@ def _generate_frozen_schedule():
     frozen = []
     gygk_idx = 0
     alan_remaining = alan_total
+    
+    DENEME_DAYS = [13, 27, 34, 41, 46, 50, 53, 55, 57, 59]
+
     for day_idx in range(60):
         current_date = start + timedelta(days=day_idx)
         date_str = current_date.strftime("%Y-%m-%d")
         dow = current_date.weekday()
+        
+        if day_idx in DENEME_DAYS:
+            frozen.append({
+                "date": date_str,
+                "phase": "deneme",
+                "genel_slots": {},
+                "alan_slots": {},
+                "total_hours": 3.0,
+                "note": "Deneme Sınavı ve Analizi"
+            })
+            continue
+
         is_alan_day = dow in [1, 3, 5]
 
         genel_slots = {}
@@ -156,7 +173,7 @@ def _generate_frozen_schedule():
         max_genel_slots = max(0, 3 - sum(alan_slots.values()))
         
         remaining_gygk = len(gygk_sequence) - gygk_idx
-        remaining_days = 60 - day_idx
+        remaining_days = sum(1 for i in range(day_idx, 60) if i not in DENEME_DAYS)
         
         genel_today = math.ceil(remaining_gygk / remaining_days) if remaining_days > 0 else 0
         genel_today = min(max_genel_slots, genel_today)
@@ -371,12 +388,30 @@ def generate_roadmap_projection():
         genel_tasks, alan_tasks = _assign_topics_to_day(
             day_entry["genel_slots"], day_entry["alan_slots"], queues
         )
+        
+        if day_entry.get("phase") == "deneme":
+            genel_tasks = [
+                {
+                    "subject": "Deneme Sınavı",
+                    "topic": "Genel Yetenek - Genel Kültür",
+                    "hours": 1.5,
+                    "target_questions": 120,
+                    "topic_slug": "deneme-sinavi-genel-yetenek-genel-kultur"
+                },
+                {
+                    "subject": "Deneme Sınavı",
+                    "topic": "Deneme Analizi ve Eksik Kapatma",
+                    "hours": 3.0,
+                    "target_questions": 0,
+                    "topic_slug": "deneme-sinavi-deneme-analizi-ve-eksik-kapatma"
+                }
+            ]
 
         total_hours = sum(t["hours"] for t in genel_tasks + alan_tasks)
         day_plan = {
             "date": day_entry["date"],
             "phase": day_entry.get("phase", "calisma"),
-            "note": "Frozen schedule + chronologicalIndex assignment",
+            "note": day_entry.get("note", "Frozen schedule + chronologicalIndex assignment"),
             "genel": genel_tasks,
             "alan": alan_tasks,
             "total_hours": round(total_hours, 2)

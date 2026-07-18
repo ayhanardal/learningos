@@ -1,0 +1,18 @@
+subject: Deneme Sınavı
+exam: deneme
+category: Deneme
+total_questions: 120
+total_target_net: 90
+target_correct: 90
+target_net: 90
+topics:
+- name: Genel Yetenek - Genel Kültür
+  avg_questions: 120
+  target_net: 90
+  isRoutine: false
+  chronologicalIndex: 1
+- name: Deneme Analizi ve Eksik Kapatma
+  avg_questions: 0
+  target_net: 0
+  isRoutine: false
+  chronologicalIndex: 2
