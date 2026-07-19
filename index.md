@@ -186,4 +186,5 @@ Sistemde **alt konular için ayrı birer sayfa veya yönlendirme sistemi (page) 
 1. **Alt Konu Ayrımı (Seperatör):** Alt konuları birbirinden ayırmak için mutlaka `{"type": "unit", "title": "ÜNİTE - X", "subtitle": "Alt Konu Adı"}` şablonu kullanılmalıdır.
 2. **Alt Konu Rozetleri (Tag):** Her alt konunun içerik blokları (slide, carousel), bağlı olduğu ünitenin hemen altına yerleştirilmeli ve bloklardaki `tag` (rozet) parametresine alt konunun adı (BÜYÜK HARFLERLE) yazılmalıdır (Örn: `"tag": "İÇ VE DIŞ KUVVETLER"`).
 3. **Sayfa Yenileme Sorunu:** Sistemde fiziksel bir alt konu sayfası olmadığı için, asistanın alt konuları yeni bir sayfa (endpoint) açmaya çalışarak veya yeni bir sayfa şablonu arayarak ele alması büyük bir kurgu hatasıdır. Geliştirmeler ve içerik eklemeleri her zaman **mevcut ana konunun JSON verisinin içine append (ekleme)** yöntemiyle yapılmalıdır.
+4. **Rozetlerin Arayüz Gösterimi (Yeni Mimari):** Alt konular artık konu ana sayfasında üst rozet barında gösterilmez. Bunun yerine, alt konular oturumlarla ilişkilendirildiği için ilgili oturum sayfası açıldığında **üst başlık barında dinamik rozetler olarak** listelenir.
 
