@@ -75,18 +75,18 @@ const INTERACTIVE_TOPICS = {
 ```bash
 curl -X POST http://localhost:8001/api/notes \
   -H "Content-Type: application/json" \
-  -d '{"subject":"...","topic":"...","content":{JSON}}'
+  -d '{"subject":"...","topic":"[Konu Adı] - Oturum [Oturum Numarası]","content":{JSON}}'
 ```
 
 ### READ
 ```bash
-curl -s "http://localhost:8001/api/notes?subject=...&topic=..."
+curl -s "http://localhost:8001/api/notes?subject=...&topic=[Konu Adı] - Oturum [Oturum Numarası]"
 ```
 
 ### DELETE
 ```bash
 docker exec -i learningos-db psql -U learningos -d learningos \
-  -c "DELETE FROM user_notes WHERE subject='...' AND topic='...';"
+  -c "DELETE FROM user_notes WHERE subject='...' AND topic='[Konu Adı] - Oturum [Oturum Numarası]';"
 ```
 
 ### LIST
@@ -155,12 +155,13 @@ Senin yegane görevin; bu karmaşık veya ham veriyi analiz edip, sistemin "inte
    - **Slayt (Slide):** Karşılaştırmalı bilgiler, aşamalı süreçler veya madde madde bilgi kartları (Görsel veya metin kolonları destekler).
    - **Akor (Accordion):** Soru-Cevap formatı, terim sözlüğü veya detayı gizlenmek istenen başlıklar.
    - **Carousel:** Soru çözümleri veya yana kaydırılarak okunan kısa bilgi hapları.
+5. Yeni mimaride ana konu sayfaları birer Yönlendirici (Router) ekrandır. Bu nedenle ürettiğin her talimatın başlığında mutlaka oturum numarasını belirtmelisin (Örn: "Fiziki Coğrafya - Oturum 1" gibi). Notlar doğrudan konu adına kaydedilirse arayüzde görüntülenemez.
 
 ## ÇIKTI FORMATI:
 Analizini yaptıktan sonra kullanıcıya sadece kendi asistanına (Antigravity'ye) yapıştıracağı şu formatta bir komut bloğu sun:
 
 **[Antigravity Asistanı İçin Talimat]**
-"Lütfen [Konu Adı] sayfası için [Bileşen Türü] şablonunda bir içerik oluştur ve aşağıdaki Debug/UI prensiplerini uygula:
+"Lütfen [Konu Adı] - Oturum [Oturum Numarası] sayfası için [Bileşen Türü] şablonunda bir içerik oluştur ve aşağıdaki Debug/UI prensiplerini uygula:
 
 **UI/UX Analiz ve Ölçeklendirme Görevi:**
 - Ana container içindeki boşlukları (padding/margin) analiz ederek gereksiz genişlikleri daralt ve kartları ekranın merkezinde simetrik olarak hizala.
