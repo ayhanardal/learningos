@@ -1894,10 +1894,14 @@
           {
             "id": "sq_turkce_sozcukte_ve_cumlede_anlam_3_6",
             "title": "Cümlede Anlam İlişkileri ve Kavramlar",
-            "text": "Video: 37. videonun ilk yarısı (Cümlede Anlam)",
+            "text": "Video: 37. videonun ilk yarısı (Cümlede Anlam) | Aksiyon: Videonun bu kısmını izle. Cümleler arası ilişkileri (neden, amaç, koşul) ayırt etmenin püf noktalarına (Kadir Hoca'nın vurguladığı edat/bağlaç kullanımları vb.) odaklan.",
             "label": "alt konu",
             "sub_items": [
-              "Neden-Sonuç (Sebep-Sonuç) Cümleleri"
+              "Neden-Sonuç (Sebep-Sonuç) Cümleleri",
+              "Amaç-Sonuç Cümleleri",
+              "Koşul (Şart)-Sonuç Cümleleri",
+              "Karşılaştırma, Eşitlik, Benzerlik Cümleleri",
+              "Nesnel ve Öznel Anlatımlı Cümleler"
             ],
             "is_completed": false,
             "completed_at": null
@@ -1965,6 +1969,21 @@
             ],
             "is_completed": false,
             "completed_at": null
+          },
+          {
+            "id": "sq_turkce_sozcukte_ve_cumlede_anlam_4_6",
+            "title": "Cümle Yorumlama ve İfade Edilen Duygular/Düşünceler",
+            "text": "Video: 37. videonun ikinci yarısı | Aksiyon: Videoyu tamamla. Özellikle birbirine karıştırılan kavramları (hayıflanma/pişmanlık, sitem/yakınma) tablolaştır.",
+            "label": "alt konu",
+            "sub_items": [
+              "Doğrudan ve Dolaylı Anlatım",
+              "Tanım Cümleleri, İçerik (Konu) ve Üslup (Biçem) Cümleleri",
+              "Aşamalı Durum Bildiren Cümleler, Olasılık (İhtimal), Tahmin, Kesinlik Bildiren Cümleler",
+              "Cümleye Hakim Olan Duygular (Öneri, Varsayım, Eleştiri, Öz Eleştiri, Hayıflanma, Pişmanlık, Sitem, Yakınma vb.)",
+              "Cümle Oluşturma, Cümle Tamamlama ve Düşüncenin Akışını Bozan Cümle"
+            ],
+            "is_completed": false,
+            "completed_at": null
           }
         ]
       },
@@ -2026,6 +2045,17 @@
             "label": "kontrol",
             "sub_items": [
               "Oluşturulan tüm dijital slaytları ve alınan notları hızlıca kontrol et."
+            ],
+            "is_completed": false,
+            "completed_at": null
+          },
+          {
+            "id": "sq_turkce_sozcukte_ve_cumlede_anlam_5_6",
+            "title": "Pekiştirme ve Soru Çözümü (Pratik Odaklı)",
+            "text": "İçerik: Bu oturumda konu anlatımı videosu yok. | Aksiyon: Konu anlatımı sürecini tamamladığın için bu oturumu tamamen pratiğe ayır. ÖSYM tarzı karışık soru çözümleri yap, çıkmış sorulara göz at. Yanlış yaptığın sorulardaki kavramları (Örneğin: 'Öz eleştiri neydi?') geriye dönüp notlarından kontrol et.",
+            "label": "alt konu",
+            "sub_items": [
+              "Sözcükte ve Cümlede Anlam karışık"
             ],
             "is_completed": false,
             "completed_at": null
