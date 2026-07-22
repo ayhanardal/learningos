@@ -1738,9 +1738,13 @@
           {
             "id": "sq_turkce_sozcukte_ve_cumlede_anlam_1_6",
             "title": "Sözcükte Anlam Temelleri",
-            "text": "Bu alt konuyu çalış ve tamamla.",
+            "text": "Video: 36. videonun ilk yarısı (Sözcükte Anlam) | Aksiyon: Videoyu izle, kavram haritası çıkar. Notlarını sadece bu temel anlam ilişkileri üzerinden al.",
             "label": "alt konu",
-            "sub_items": [],
+            "sub_items": [
+              "Gerçek (Temel) Anlam, Yan Anlam, Mecaz Anlam, Terim Anlam",
+              "Eş Anlamlılık (Anlamdaşlık), Yakın Anlamlılık",
+              "Zıt (Karşıt) Anlamlılık, Eş Seslilik (Sesteşlik)"
+            ],
             "is_completed": false,
             "completed_at": null
           }
@@ -1811,9 +1815,15 @@
           {
             "id": "sq_turkce_sozcukte_ve_cumlede_anlam_2_6",
             "title": "Sözcükte Anlam Olayları ve İlişkileri",
-            "text": "Bu alt konuyu çalış ve tamamla.",
+            "text": "Video: 36. videonun ikinci yarısı | Aksiyon: Videoyu tamamla, özellikle deyim aktarması ve mecazımürsel arasındaki farkı notlarına belirgin şekilde ekle.",
             "label": "alt konu",
-            "sub_items": [],
+            "sub_items": [
+              "Somut ve Soyut Anlam, Nitel ve Nicel Anlam",
+              "Genel ve Özel Anlam",
+              "Mecazımürsel (Ad Aktarması), Dolaylama",
+              "Deyim Aktarmaları (İnsandan doğaya, doğadan insana, duyular arası vb.)",
+              "Yansıma Sözcükler, İkilemeler, Deyimler ve Atasözleri"
+            ],
             "is_completed": false,
             "completed_at": null
           }
@@ -1884,9 +1894,11 @@
           {
             "id": "sq_turkce_sozcukte_ve_cumlede_anlam_3_6",
             "title": "Cümlede Anlam İlişkileri ve Kavramlar",
-            "text": "Bu alt konuyu çalış ve tamamla.",
+            "text": "Video: 37. videonun ilk yarısı (Cümlede Anlam)",
             "label": "alt konu",
-            "sub_items": [],
+            "sub_items": [
+              "Neden-Sonuç (Sebep-Sonuç) Cümleleri"
+            ],
             "is_completed": false,
             "completed_at": null
           }
