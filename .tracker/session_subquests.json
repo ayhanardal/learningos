@@ -1734,6 +1734,15 @@
             ],
             "is_completed": false,
             "completed_at": null
+          },
+          {
+            "id": "sq_turkce_sozcukte_ve_cumlede_anlam_1_6",
+            "title": "Sözcükte Anlam Temelleri",
+            "text": "Bu alt konuyu çalış ve tamamla.",
+            "label": "alt konu",
+            "sub_items": [],
+            "is_completed": false,
+            "completed_at": null
           }
         ]
       },
@@ -1798,6 +1807,15 @@
             ],
             "is_completed": false,
             "completed_at": null
+          },
+          {
+            "id": "sq_turkce_sozcukte_ve_cumlede_anlam_2_6",
+            "title": "Sözcükte Anlam Olayları ve İlişkileri",
+            "text": "Bu alt konuyu çalış ve tamamla.",
+            "label": "alt konu",
+            "sub_items": [],
+            "is_completed": false,
+            "completed_at": null
           }
         ]
       },
@@ -1860,6 +1878,15 @@
             "sub_items": [
               "Oluşturulan tüm dijital slaytları ve alınan notları hızlıca kontrol et."
             ],
+            "is_completed": false,
+            "completed_at": null
+          },
+          {
+            "id": "sq_turkce_sozcukte_ve_cumlede_anlam_3_6",
+            "title": "Cümlede Anlam İlişkileri ve Kavramlar",
+            "text": "Bu alt konuyu çalış ve tamamla.",
+            "label": "alt konu",
+            "sub_items": [],
             "is_completed": false,
             "completed_at": null
           }
@@ -2834,8 +2861,8 @@
             "sub_items": [
               "İlerleme panosundan bu dersin eksik (beklenen) oturumlarını kontrol et."
             ],
-            "is_completed": false,
-            "completed_at": null
+            "is_completed": true,
+            "completed_at": "2026-07-19"
           },
           {
             "id": "sq_matematik_temel_kavramlar_ve_sayilar_7_2",
@@ -2846,8 +2873,8 @@
               "İlgili videoları listele.",
               "Video süresi ve oturum kapasitesini hesapla (Bölünmesi gerekiyor mu?)."
             ],
-            "is_completed": false,
-            "completed_at": null
+            "is_completed": true,
+            "completed_at": "2026-07-19"
           },
           {
             "id": "sq_matematik_temel_kavramlar_ve_sayilar_7_3",
@@ -4462,8 +4489,8 @@
             "sub_items": [
               "İlerleme panosundan bu dersin eksik (beklenen) oturumlarını kontrol et."
             ],
-            "is_completed": false,
-            "completed_at": null
+            "is_completed": true,
+            "completed_at": "2026-07-19"
           },
           {
             "id": "sq_matematik_problemler_7_2",
@@ -4474,8 +4501,8 @@
               "İlgili videoları listele.",
               "Video süresi ve oturum kapasitesini hesapla (Bölünmesi gerekiyor mu?)."
             ],
-            "is_completed": false,
-            "completed_at": null
+            "is_completed": true,
+            "completed_at": "2026-07-19"
           },
           {
             "id": "sq_matematik_problemler_7_3",
@@ -4487,8 +4514,8 @@
               "Kaba bir soru çözüm sayısı tahmini yap.",
               "Duraklama (milestone) noktalarını not al."
             ],
-            "is_completed": false,
-            "completed_at": null
+            "is_completed": true,
+            "completed_at": "2026-07-19"
           },
           {
             "id": "sq_matematik_problemler_7_4",
@@ -4519,8 +4546,8 @@
             "text": "Bu alt konuyu çalış ve tamamla.",
             "label": "alt konu",
             "sub_items": [],
-            "is_completed": false,
-            "completed_at": null
+            "is_completed": true,
+            "completed_at": "2026-07-19"
           }
         ]
       },
@@ -4535,8 +4562,8 @@
             "sub_items": [
               "İlerleme panosundan bu dersin eksik (beklenen) oturumlarını kontrol et."
             ],
-            "is_completed": false,
-            "completed_at": null
+            "is_completed": true,
+            "completed_at": "2026-07-21"
           },
           {
             "id": "sq_matematik_problemler_8_2",
@@ -4547,8 +4574,8 @@
               "İlgili videoları listele.",
               "Video süresi ve oturum kapasitesini hesapla (Bölünmesi gerekiyor mu?)."
             ],
-            "is_completed": false,
-            "completed_at": null
+            "is_completed": true,
+            "completed_at": "2026-07-21"
           },
           {
             "id": "sq_matematik_problemler_8_3",
