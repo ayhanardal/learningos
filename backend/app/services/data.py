@@ -24,16 +24,26 @@ for _f in [TRACKER_LOG, TRACKER_TOPICS, TRACKER_SUBQUESTS]:
 def slugify(text: str) -> str:
     if not text:
         return ""
-    text = text.lower()
     mapping = {
-        'ı': 'i', 'ğ': 'g', 'ü': 'u', 'ş': 's', 'ö': 'o', 'ç': 'c',
-        'â': 'a', 'î': 'i', 'û': 'u', 'I': 'i', 'İ': 'i'
+        'İ': 'i', 'I': 'i', 'ı': 'i',
+        'Ö': 'o', 'ö': 'o',
+        'Ü': 'u', 'ü': 'u',
+        'Ş': 's', 'ş': 's',
+        'Ç': 'c', 'ç': 'c',
+        'Ğ': 'g', 'ğ': 'g',
+        'â': 'a', 'Â': 'a',
+        'î': 'i', 'Î': 'i',
+        'û': 'u', 'Û': 'u'
     }
     for k, v in mapping.items():
         text = text.replace(k, v)
-    text = re.sub(r'[^a-z0-9\s-]', '', text)
-    text = re.sub(r'[\s_]+', '-', text).strip('-')
-    return text
+    import unicodedata, re
+    text = unicodedata.normalize("NFD", text)
+    text = "".join(c for c in text if unicodedata.category(c) != "Mn").lower()
+    text = re.sub(r"[^\w\s-]", "", text)
+    text = re.sub(r"[\s_]+", "-", text)
+    text = re.sub(r"-+", "-", text)
+    return text.strip("-")
 
 
 def load_json(path, default=None):

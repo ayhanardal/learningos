@@ -3556,138 +3556,6 @@
       }
     ]
   },
-  "matematik-oran---oranti": {
-    "sessions": [
-      {
-        "session_index": 1,
-        "subquests": [
-          {
-            "id": "sq_matematik_oran___oranti_1_1",
-            "title": "İlerleme Kontrolü",
-            "text": "Eksik oturum analizi yap.",
-            "label": "hatırlatıcı",
-            "sub_items": [
-              "İlerleme panosundan bu dersin eksik (beklenen) oturumlarını kontrol et."
-            ],
-            "is_completed": false,
-            "completed_at": null
-          },
-          {
-            "id": "sq_matematik_oran___oranti_1_2",
-            "title": "Kaynak Tespiti",
-            "text": "Mevcut konu için video kaynağı bul.",
-            "label": "keşif",
-            "sub_items": [
-              "İlgili videoları listele.",
-              "Video süresi ve oturum kapasitesini hesapla (Bölünmesi gerekiyor mu?)."
-            ],
-            "is_completed": false,
-            "completed_at": null
-          },
-          {
-            "id": "sq_matematik_oran___oranti_1_3",
-            "title": "Video Taraması",
-            "text": "Videoyu hızlıca tara ve plan yap.",
-            "label": "planlama",
-            "sub_items": [
-              "Hoca tahtayı kaç kez siliyor? (Slayt sayısını belirle).",
-              "Kaba bir soru çözüm sayısı tahmini yap.",
-              "Duraklama (milestone) noktalarını not al."
-            ],
-            "is_completed": false,
-            "completed_at": null
-          },
-          {
-            "id": "sq_matematik_oran___oranti_1_4",
-            "title": "İçerik Tüketimi",
-            "text": "Not çıkararak öğren.",
-            "label": "teori",
-            "sub_items": [
-              "Videoyu normal hızda izlemeye başla.",
-              "Belirlediğin milestone'larda dur ve dijital slayt (page) notlarını tasarla."
-            ],
-            "is_completed": false,
-            "completed_at": null
-          },
-          {
-            "id": "sq_matematik_oran___oranti_1_5",
-            "title": "Son İnceleme",
-            "text": "Tüm notları gözden geçir.",
-            "label": "kontrol",
-            "sub_items": [
-              "Oluşturulan tüm dijital slaytları ve alınan notları hızlıca kontrol et."
-            ],
-            "is_completed": false,
-            "completed_at": null
-          }
-        ]
-      },
-      {
-        "session_index": 2,
-        "subquests": [
-          {
-            "id": "sq_matematik_oran___oranti_2_1",
-            "title": "İlerleme Kontrolü",
-            "text": "Eksik oturum analizi yap.",
-            "label": "hatırlatıcı",
-            "sub_items": [
-              "İlerleme panosundan bu dersin eksik (beklenen) oturumlarını kontrol et."
-            ],
-            "is_completed": false,
-            "completed_at": null
-          },
-          {
-            "id": "sq_matematik_oran___oranti_2_2",
-            "title": "Kaynak Tespiti",
-            "text": "Mevcut konu için video kaynağı bul.",
-            "label": "keşif",
-            "sub_items": [
-              "İlgili videoları listele.",
-              "Video süresi ve oturum kapasitesini hesapla (Bölünmesi gerekiyor mu?)."
-            ],
-            "is_completed": false,
-            "completed_at": null
-          },
-          {
-            "id": "sq_matematik_oran___oranti_2_3",
-            "title": "Video Taraması",
-            "text": "Videoyu hızlıca tara ve plan yap.",
-            "label": "planlama",
-            "sub_items": [
-              "Hoca tahtayı kaç kez siliyor? (Slayt sayısını belirle).",
-              "Kaba bir soru çözüm sayısı tahmini yap.",
-              "Duraklama (milestone) noktalarını not al."
-            ],
-            "is_completed": false,
-            "completed_at": null
-          },
-          {
-            "id": "sq_matematik_oran___oranti_2_4",
-            "title": "İçerik Tüketimi",
-            "text": "Not çıkararak öğren.",
-            "label": "teori",
-            "sub_items": [
-              "Videoyu normal hızda izlemeye başla.",
-              "Belirlediğin milestone'larda dur ve dijital slayt (page) notlarını tasarla."
-            ],
-            "is_completed": false,
-            "completed_at": null
-          },
-          {
-            "id": "sq_matematik_oran___oranti_2_5",
-            "title": "Son İnceleme",
-            "text": "Tüm notları gözden geçir.",
-            "label": "kontrol",
-            "sub_items": [
-              "Oluşturulan tüm dijital slaytları ve alınan notları hızlıca kontrol et."
-            ],
-            "is_completed": false,
-            "completed_at": null
-          }
-        ]
-      }
-    ]
-  },
   "matematik-kumeler-ve-fonksiyonlar": {
     "sessions": [
       {
@@ -12665,6 +12533,138 @@
           },
           {
             "id": "sq_istatistik_parametrik_olmayan_testler_2_5",
+            "title": "Son İnceleme",
+            "text": "Tüm notları gözden geçir.",
+            "label": "kontrol",
+            "sub_items": [
+              "Oluşturulan tüm dijital slaytları ve alınan notları hızlıca kontrol et."
+            ],
+            "is_completed": false,
+            "completed_at": null
+          }
+        ]
+      }
+    ]
+  },
+  "matematik-oran-oranti": {
+    "sessions": [
+      {
+        "session_index": 1,
+        "subquests": [
+          {
+            "id": "sq_matematik_oran___oranti_1_1",
+            "title": "İlerleme Kontrolü",
+            "text": "Eksik oturum analizi yap.",
+            "label": "hatırlatıcı",
+            "sub_items": [
+              "İlerleme panosundan bu dersin eksik (beklenen) oturumlarını kontrol et."
+            ],
+            "is_completed": false,
+            "completed_at": null
+          },
+          {
+            "id": "sq_matematik_oran___oranti_1_2",
+            "title": "Kaynak Tespiti",
+            "text": "Mevcut konu için video kaynağı bul.",
+            "label": "keşif",
+            "sub_items": [
+              "İlgili videoları listele.",
+              "Video süresi ve oturum kapasitesini hesapla (Bölünmesi gerekiyor mu?)."
+            ],
+            "is_completed": false,
+            "completed_at": null
+          },
+          {
+            "id": "sq_matematik_oran___oranti_1_3",
+            "title": "Video Taraması",
+            "text": "Videoyu hızlıca tara ve plan yap.",
+            "label": "planlama",
+            "sub_items": [
+              "Hoca tahtayı kaç kez siliyor? (Slayt sayısını belirle).",
+              "Kaba bir soru çözüm sayısı tahmini yap.",
+              "Duraklama (milestone) noktalarını not al."
+            ],
+            "is_completed": false,
+            "completed_at": null
+          },
+          {
+            "id": "sq_matematik_oran___oranti_1_4",
+            "title": "İçerik Tüketimi",
+            "text": "Not çıkararak öğren.",
+            "label": "teori",
+            "sub_items": [
+              "Videoyu normal hızda izlemeye başla.",
+              "Belirlediğin milestone'larda dur ve dijital slayt (page) notlarını tasarla."
+            ],
+            "is_completed": false,
+            "completed_at": null
+          },
+          {
+            "id": "sq_matematik_oran___oranti_1_5",
+            "title": "Son İnceleme",
+            "text": "Tüm notları gözden geçir.",
+            "label": "kontrol",
+            "sub_items": [
+              "Oluşturulan tüm dijital slaytları ve alınan notları hızlıca kontrol et."
+            ],
+            "is_completed": false,
+            "completed_at": null
+          }
+        ]
+      },
+      {
+        "session_index": 2,
+        "subquests": [
+          {
+            "id": "sq_matematik_oran___oranti_2_1",
+            "title": "İlerleme Kontrolü",
+            "text": "Eksik oturum analizi yap.",
+            "label": "hatırlatıcı",
+            "sub_items": [
+              "İlerleme panosundan bu dersin eksik (beklenen) oturumlarını kontrol et."
+            ],
+            "is_completed": false,
+            "completed_at": null
+          },
+          {
+            "id": "sq_matematik_oran___oranti_2_2",
+            "title": "Kaynak Tespiti",
+            "text": "Mevcut konu için video kaynağı bul.",
+            "label": "keşif",
+            "sub_items": [
+              "İlgili videoları listele.",
+              "Video süresi ve oturum kapasitesini hesapla (Bölünmesi gerekiyor mu?)."
+            ],
+            "is_completed": false,
+            "completed_at": null
+          },
+          {
+            "id": "sq_matematik_oran___oranti_2_3",
+            "title": "Video Taraması",
+            "text": "Videoyu hızlıca tara ve plan yap.",
+            "label": "planlama",
+            "sub_items": [
+              "Hoca tahtayı kaç kez siliyor? (Slayt sayısını belirle).",
+              "Kaba bir soru çözüm sayısı tahmini yap.",
+              "Duraklama (milestone) noktalarını not al."
+            ],
+            "is_completed": false,
+            "completed_at": null
+          },
+          {
+            "id": "sq_matematik_oran___oranti_2_4",
+            "title": "İçerik Tüketimi",
+            "text": "Not çıkararak öğren.",
+            "label": "teori",
+            "sub_items": [
+              "Videoyu normal hızda izlemeye başla.",
+              "Belirlediğin milestone'larda dur ve dijital slayt (page) notlarını tasarla."
+            ],
+            "is_completed": false,
+            "completed_at": null
+          },
+          {
+            "id": "sq_matematik_oran___oranti_2_5",
             "title": "Son İnceleme",
             "text": "Tüm notları gözden geçir.",
             "label": "kontrol",

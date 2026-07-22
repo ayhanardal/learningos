@@ -1038,13 +1038,25 @@ window.truncateChars = truncateChars;
 
 function slugify(text) {
     if (!text) return "";
-    var replaceMap = {"ı": "i", "ö": "o", "ü": "u", "ş": "s", "ç": "c", "ğ": "g", "İ": "i", "Ö": "o", "Ü": "u", "Ş": "s", "Ç": "c", "Ğ": "g"};
-    var res = text.toLowerCase();
+    var replaceMap = {
+        "İ": "i", "I": "i", "ı": "i",
+        "Ö": "o", "ö": "o",
+        "Ü": "u", "ü": "u",
+        "Ş": "s", "ş": "s",
+        "Ç": "c", "ç": "c",
+        "Ğ": "g", "ğ": "g",
+        "â": "a", "Â": "a",
+        "î": "i", "Î": "i",
+        "û": "u", "Û": "u"
+    };
+    var res = text;
     for (var k in replaceMap) {
         res = res.replaceAll(k, replaceMap[k]);
     }
-    res = res.replaceAll(" ", "-").replaceAll("'", "").replaceAll("’", "");
-    return res;
+    res = res.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+    res = res.replace(/[^\w\s-]/g, "");
+    res = res.replace(/[\s_]+/g, "-").replace(/-+/g, "-");
+    return res.replace(/^-+|-+$/g, "");
 }
 window.slugify = slugify;
 
@@ -1147,9 +1159,18 @@ window.renderCurriculumSubtopics = function(subject, topic) {
 };
 
 window.openSessionWorkspace = async function(subject, topic, sessionIndex) {
+    currentMainTopic = topic;
+    document.getElementById('workspace-backdrop').style.display = 'block';
+    isFullScreen = true;
+    document.getElementById('workspace-panel').style.width = '100vw';
+    document.getElementById('ws-fs-btn').innerText = '🗗';
+
     var topicSpan = document.getElementById('ws-topic');
     topicSpan.innerText = topic;
     topicSpan.title = topic;
+    
+    var subjSpan = document.getElementById('ws-subject');
+    if (subjSpan) subjSpan.innerText = subject;
     
     // Ders adını ve slash ayırıcıyı oturum sayfasında gizle
     document.getElementById('ws-subject').style.display = 'none';
@@ -4548,28 +4569,39 @@ function toggleTopicCollapse(element, topicId, allocatedSessions) {
 
 function loadInlineSubquests(topicId, allocatedSessions, subjectName, topicName) {
     let container = document.getElementById('collapse-' + topicId);
+    let safeSubj = subjectName ? subjectName.replace(/'/g, "\\'").replace(/"/g, '\\"') : '';
+    let safeTop = topicName ? topicName.replace(/'/g, "\\'").replace(/"/g, '\\"') : '';
     
     fetchJSON(API + '/subquests/' + topicId).then(data => {
-        let html = '<div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap:15px;">';
+        let html = '<div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap:15px;">';
         for (let i = 1; i <= allocatedSessions; i++) {
             let session = data.sessions ? data.sessions.find(s => s.session_index === i) : null;
-            let headerTitle = "Genel Çalışma";
+            let headerTitle = "Genel Çalışma İçeriği";
             if (session && session.subquests) {
-                let altKonuSubquests = session.subquests.filter(sq => sq.label === 'alt konu');
+                let altKonuSubquests = session.subquests.filter(sq => sq.label === 'alt konu' || sq.label === 'alt_konu' || sq.label === 'alt-konu');
                 if (altKonuSubquests.length > 0) {
-                    headerTitle = '<div style="display:flex; flex-direction:column; gap:6px;">' + 
-                        altKonuSubquests.map(sq => `<span style="font-size:13px; color:var(--text); font-weight:600;"><span style="color:var(--accent); margin-right:4px;">•</span>${esc(sq.title || sq.text)}</span>`).join('') + 
+                    headerTitle = '<div style="display:flex; flex-direction:column; gap:4px;">' + 
+                        altKonuSubquests.map(sq => `<span style="font-size:12px; color:var(--text); font-weight:600;"><span style="color:var(--accent); margin-right:4px;">•</span>${esc(sq.title || sq.text)}</span>`).join('') + 
                     '</div>';
                 }
             }
-            html += `<div style="padding:10px; border:1px solid var(--border); border-radius:6px; background:var(--bg2);">
-                <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:12px; gap:8px;">
+            
+            html += `<div style="padding:12px; border:1px solid var(--border); border-radius:8px; background:var(--bg2); display:flex; flex-direction:column;">
+                <!-- Oturum Başlığı & Yönlendirme Kart Butonu -->
+                <div onclick="openSessionWorkspace('${esc(safeSubj)}', '${esc(safeTop)}', ${i})" 
+                     style="cursor:pointer; padding:10px; border:1px solid var(--border); border-radius:6px; background:var(--surface); transition:all 0.2s; margin-bottom:10px;" 
+                     onmouseover="this.style.borderColor='var(--accent)'; this.style.background='var(--surface2)';" 
+                     onmouseout="this.style.borderColor='var(--border)'; this.style.background='var(--surface)';"
+                     title="Oturum ${i} Çalışma Sayfasına Git">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px; gap:8px;">
+                        <span style="font-size:10px; color:var(--text2); font-weight:700; background:var(--bg); padding:2px 6px; border-radius:4px; border:1px solid var(--border); letter-spacing:0.5px;">OTURUM ${i}</span>
+                        <span style="font-size:11px; color:var(--accent); font-weight:700; display:flex; align-items:center; gap:2px;">Oturuma Git <span style="font-size:12px;">➔</span></span>
+                    </div>
                     <h4 style="margin:0; font-size:13px; color:var(--text); line-height:1.4;">${headerTitle}</h4>
-                    <span style="font-size:10px; color:var(--text2); opacity:0.6; font-weight:600; white-space:nowrap; margin-top:2px;">Oturum ${i}</span>
-                </div>
-                <div style="height:1px; background:var(--border); margin:8px 0 12px 0; opacity:0.6;"></div>`;
+                </div>`;
             
             if (session && session.subquests && session.subquests.length > 0) {
+                html += `<div style="display:flex; flex-direction:column; gap:6px;">`;
                 session.subquests.forEach(sq => {
                     let checked = sq.is_completed ? 'checked' : '';
                     let subItemsHtml = '';
@@ -4580,7 +4612,7 @@ function loadInlineSubquests(topicId, allocatedSessions, subjectName, topicName)
                         });
                         subItemsHtml += '</ul>';
                     }
-                    html += `<div style="display:flex; align-items:flex-start; gap:8px; margin-bottom:5px; font-size:12px;">
+                    html += `<div style="display:flex; align-items:flex-start; gap:8px; font-size:12px;" onclick="event.stopPropagation();">
                         <input type="checkbox" style="margin-top:2px;" id="sq_${topicId}_${i}_${sq.id}" ${checked} onchange="toggleSubquest('${topicId}', ${i}, '${sq.id}', this.checked)">
                         <div style="flex-grow:1;">
                             <label for="sq_${topicId}_${i}_${sq.id}" style="line-height:1.4; color:var(--text2); cursor:pointer;">${esc(sq.text)}</label>
@@ -4588,22 +4620,13 @@ function loadInlineSubquests(topicId, allocatedSessions, subjectName, topicName)
                         </div>
                     </div>`;
                 });
+                html += `</div>`;
             } else {
                 html += `<div style="color:var(--text2); font-size:11px; font-style:italic;">Görev tanımlanmamış.</div>`;
             }
             html += `</div>`;
         }
         html += '</div>';
-        
-        // Konu calisma sayfasina yonlendiren buton
-        let safeSubj = subjectName ? subjectName.replace(/'/g, "\\'") : '';
-        let safeTop = topicName ? topicName.replace(/'/g, "\\'") : '';
-        html += `<div style="margin-top:15px; text-align:right;">
-            <a href="javascript:void(0)" onclick="openWorkspace('${esc(safeSubj)}', '${esc(safeTop)}')" style="display:inline-flex; align-items:center; gap:6px; padding:6px 14px; background:var(--surface2); color:var(--text); text-decoration:none; border:1px solid var(--border); border-radius:20px; font-size:11px; font-weight:600; transition:all 0.2s;" onmouseover="this.style.background='var(--accent)'; this.style.color='#fff';" onmouseout="this.style.background='var(--surface2)'; this.style.color='var(--text)';">
-                Konu Çalışma Sayfasına Git <span style="font-size:14px;">➔</span>
-            </a>
-        </div>`;
-        
         container.innerHTML = html;
     }).catch(e => {
         container.innerHTML = `<div style="color:var(--error); font-size:12px;">Yüklenirken hata oluştu.</div>`;
