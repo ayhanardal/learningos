@@ -4352,6 +4352,39 @@ function loadProgressAnalysis() {
     });
 }
 
+function getActiveSessionSubject() {
+    var now = new Date();
+    var offset = 3; // Istanbul UTC+3
+    var local = new Date(now.getTime() + offset * 3600000);
+    var hour = local.getUTCHours();
+    var minute = local.getUTCMinutes();
+    var currentMinutes = hour * 60 + minute;
+
+    var slots = [
+        { start: 9 * 60, end: 14 * 60, index: 0 },
+        { start: 14 * 60, end: 19 * 60, index: 1 },
+        { start: 19 * 60, end: 24 * 60, index: 2 }
+    ];
+
+    var activeSlot = slots.find(s => currentMinutes >= s.start && currentMinutes < s.end);
+
+    if (activeSlot && window._todayProgressData && window._todayProgressData[activeSlot.index]) {
+        return window._todayProgressData[activeSlot.index].subject;
+    }
+    if (activeSlot && window._dailySessionMapping && window._dailySessionMapping[activeSlot.index]) {
+        return window._dailySessionMapping[activeSlot.index].subject;
+    }
+
+    if (window._todayProgressData && window._todayProgressData.length > 0) {
+        return window._todayProgressData[0].subject;
+    }
+    if (window._dailySessionMapping && window._dailySessionMapping.length > 0) {
+        return window._dailySessionMapping[0].subject;
+    }
+
+    return null;
+}
+
 function renderProgressSubjectSelector() {
     if (!_globalProgressData) return;
     
@@ -4371,7 +4404,17 @@ function renderProgressSubjectSelector() {
         return;
     }
     
-    window.lastSelectedProgressSubject = window.lastSelectedProgressSubject || subjects[0].subject;
+    let availableSubjects = subjects.map(s => s.subject);
+    if (!window._userManuallySelectedProgressSubject) {
+        let activeSubj = getActiveSessionSubject();
+        if (activeSubj && availableSubjects.includes(activeSubj)) {
+            window.lastSelectedProgressSubject = activeSubj;
+        } else {
+            window.lastSelectedProgressSubject = window.lastSelectedProgressSubject || subjects[0].subject;
+        }
+    } else {
+        window.lastSelectedProgressSubject = window.lastSelectedProgressSubject || subjects[0].subject;
+    }
     
     let html = `
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; flex-wrap: wrap; gap: 16px;">
@@ -4382,7 +4425,7 @@ function renderProgressSubjectSelector() {
         let radioId = 'subj-radio-' + idx;
         
         html += `
-        <input type="radio" id="${radioId}" name="progress-subject-radio" value="${esc(sub.subject)}" ${isChecked} onchange="renderProgressTopics(this.value)" style="display: none;">
+        <input type="radio" id="${radioId}" name="progress-subject-radio" value="${esc(sub.subject)}" ${isChecked} onchange="window._userManuallySelectedProgressSubject=true; renderProgressTopics(this.value)" style="display: none;">
         <label for="${radioId}" class="progress-radio-label" style="cursor: pointer; padding: 8px 16px; border: 1px solid var(--border); border-radius: 20px; font-size: 13px; font-weight: 600; background: var(--surface); color: var(--text2); transition: all 0.2s;">
             ${esc(sub.subject)}
         </label>`;
