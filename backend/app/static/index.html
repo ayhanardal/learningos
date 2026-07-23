@@ -3763,6 +3763,7 @@ function renderExpectedProgress(roadmapData, statsData) {
   
   var totalSessions = { subjects: {}, topics: {} };
   var elapsedSessions = { subjects: {}, topics: {} };
+  var pastElapsedSessions = { subjects: {}, topics: {} };
   var todaysTopicsList = []; 
   
   var today = new Date();
@@ -3786,6 +3787,13 @@ function renderExpectedProgress(roadmapData, statsData) {
       totalSessions.subjects[t.subject] += sessions;
       totalSessions.topics[t.topic] += sessions;
       
+      if (i < currentDayIndex) {
+        if (!pastElapsedSessions.subjects[t.subject]) pastElapsedSessions.subjects[t.subject] = 0;
+        if (!pastElapsedSessions.topics[t.topic]) pastElapsedSessions.topics[t.topic] = 0;
+        pastElapsedSessions.subjects[t.subject] += sessions;
+        pastElapsedSessions.topics[t.topic] += sessions;
+      }
+
       if (i <= currentDayIndex) {
         if (!elapsedSessions.subjects[t.subject]) elapsedSessions.subjects[t.subject] = 0;
         if (!elapsedSessions.topics[t.topic]) elapsedSessions.topics[t.topic] = 0;
@@ -3806,6 +3814,7 @@ function renderExpectedProgress(roadmapData, statsData) {
   }
   
   window._roadmapElapsedTopics = elapsedSessions.topics;
+  window._roadmapPastElapsedTopics = pastElapsedSessions.topics;
   window._roadmapTotalTopics = totalSessions.topics;
 
   var subjectColors = {
@@ -4348,6 +4357,7 @@ function loadProgressAnalysis() {
             window._pendingProgressAction = null;
         }
     }).catch(e => {
+        console.error('loadProgressAnalysis error:', e);
         document.getElementById('progress-analysis-content').innerHTML = '<div style="color:var(--error)">Veri yüklenemedi.</div>';
     });
 }
@@ -4507,6 +4517,7 @@ function renderProgressTopics(subjectName) {
     
     let subTotalAllocated = 0;
     let subTotalExpected = 0;
+    let subTotalPastExpected = 0;
     let subTotalCompleted = 0;
     let subMissingTopicsCount = 0;
     
@@ -4522,27 +4533,52 @@ function renderProgressTopics(subjectName) {
     subjectData.topics.forEach(t => {
         if(t.allocated_sessions > 0) {
             let expected = window._roadmapElapsedTopics ? (window._roadmapElapsedTopics[t.name] || 0) : 0;
+            let pastExpected = window._roadmapPastElapsedTopics ? (window._roadmapPastElapsedTopics[t.name] || 0) : 0;
+            let completed = t.completed_sessions || 0;
+
             subTotalAllocated += t.allocated_sessions;
             subTotalExpected += expected;
-            subTotalCompleted += t.completed_sessions || 0;
+            subTotalPastExpected += pastExpected;
+            subTotalCompleted += completed;
             
+            let isTodayFocusTopic = window._todayProgressData && window._todayProgressData.some(s => {
+                let sameSubj = s.subject === subjectName || slugify(s.subject) === slugify(subjectName);
+                if (!sameSubj) return false;
+                let sSlug = slugify(s.topic || "");
+                let tSlug = slugify(t.name || "");
+                return s.topic === t.name || (s.topic_slug && t.id && s.topic_slug === t.id) || sSlug === tSlug || (sSlug && tSlug && (sSlug.includes(tSlug) || tSlug.includes(sSlug)));
+            });
+
             let status = "Tamamlandı";
             let color = "var(--success)";
             let borderColor = color;
-            let opacityStyle = (expected === 0 && (t.completed_sessions || 0) === 0) ? 'opacity: 0.4; filter: grayscale(50%);' : '';
+            let opacityStyle = (!isTodayFocusTopic && expected === 0 && completed === 0) ? 'opacity: 0.4; filter: grayscale(50%);' : '';
             
-            if ((t.completed_sessions || 0) < expected) {
+            if (completed >= t.allocated_sessions) {
+                status = "Tamamlandı";
+                color = "var(--success)";
+                borderColor = color;
+            } else if (completed < pastExpected) {
                 subMissingTopicsCount++;
-                status = "Eksik (" + (expected - (t.completed_sessions || 0)) + ")"; 
+                let missingCount = pastExpected - completed;
+                status = "Eksik (" + missingCount + ")"; 
                 color = "var(--warning)";
                 borderColor = color;
-            } else if ((t.completed_sessions || 0) === 0 && expected === 0) {
+            } else if (isTodayFocusTopic || (completed < expected && expected > pastExpected)) {
+                status = "Devam Ediyor";
+                color = "#d97706";
+                borderColor = color;
+            } else if (completed === 0 && expected === 0) {
                 status = "Planlanmadı";
                 color = "var(--text2)";
                 borderColor = "transparent";
             }
             
-            let isUnplanned = (expected === 0 && (t.completed_sessions || 0) === 0);
+            if (isTodayFocusTopic) {
+                borderColor = "#d97706";
+            }
+
+            let isUnplanned = (expected === 0 && completed === 0);
             let displayStyle = (isUnplanned && window._hideUnplannedTopics) ? 'display: none;' : 'display: block;';
             
             let prefixHtml = "";
@@ -4552,24 +4588,21 @@ function renderProgressTopics(subjectName) {
                 prefixHtml = `<span style="font-size:10px; font-weight:800; color:var(--text2); background:var(--bg); padding:2px 6px; border-radius:6px; margin-right:8px; letter-spacing:0.5px;">${t.chronologicalIndex}</span>`;
             }
             
-            let isTodayFocusTopic = window._todayProgressData && window._todayProgressData.some(s => s.subject === subjectName && s.topic === t.name);
-            let todayTopicBadge = isTodayFocusTopic ? `<span style="font-size:10px; font-weight:700; color:var(--accent); background:rgba(0,212,255,0.08); border:1px solid rgba(0,212,255,0.25); padding:2px 8px; border-radius:10px; margin-left:8px; display:inline-flex; align-items:center; gap:4px; text-transform:uppercase; letter-spacing:0.4px;" title="Bugün Çalışılması Planlanan Odak Konu">🎯 BUGÜNÜN ODAK KONUSU</span>` : '';
-            let focusCardShadow = isTodayFocusTopic ? 'box-shadow: 0 4px 16px rgba(0, 212, 255, 0.08);' : '';
+            let focusCardShadow = isTodayFocusTopic ? 'box-shadow: 0 4px 16px rgba(217, 119, 6, 0.12); border-left: 4px solid #d97706 !important;' : '';
 
-            html += `<div class="card ${isUnplanned ? 'unplanned-topic' : ''}" style="padding:15px; border-left:4px solid ${borderColor}; transition: all 0.2s; ${opacityStyle} ${displayStyle} ${focusCardShadow}" onmouseover="this.style.opacity='1'; this.style.filter='none';" onmouseout="if(${expected === 0 && (t.completed_sessions || 0) === 0}) { this.style.opacity='0.4'; this.style.filter='grayscale(50%)'; }">
+            html += `<div class="card ${isUnplanned ? 'unplanned-topic' : ''}" style="padding:15px; border-left:4px solid ${borderColor}; transition: all 0.2s; ${opacityStyle} ${displayStyle} ${focusCardShadow}" onmouseover="this.style.opacity='1'; this.style.filter='none';" onmouseout="if(!${isTodayFocusTopic} && ${expected === 0 && completed === 0}) { this.style.opacity='0.4'; this.style.filter='grayscale(50%)'; }">
                 <div style="display:flex; justify-content:space-between; align-items:center; cursor:pointer;" onclick="toggleTopicCollapse(this, '${esc(t.id)}', ${t.allocated_sessions})" data-subject="${esc(subjectName)}" data-topic="${esc(t.name)}">
                     <div>
                         <h3 style="margin:0 0 5px 0; display:flex; align-items:center;">
                             ${prefixHtml}
                             ${esc(t.name)}
-                            ${todayTopicBadge}
                         </h3>
                         <div style="font-size:11px; display:flex; align-items:center; gap:8px; margin-top:8px;">
                             <span style="background:var(--bg); border:1px solid var(--border); color:var(--text2); padding:3px 8px; border-radius:12px; font-weight:600;">
                                 Toplam: <b style="color:var(--text);">${t.allocated_sessions}</b>
                             </span>
                             <span style="background:var(--bg); border:1px solid var(--border); color:var(--text2); padding:3px 8px; border-radius:12px; font-weight:600;">
-                                Durum: <b style="color:var(--text);">${status}</b>
+                                Durum: <b style="color:${color};">${status}</b>
                             </span>
                         </div>
                     </div>
@@ -4584,7 +4617,7 @@ function renderProgressTopics(subjectName) {
     
     html += '</div>';
     
-    let subMissingSessions = subTotalExpected - subTotalCompleted;
+    let subMissingSessions = subTotalPastExpected - subTotalCompleted;
     if (subMissingSessions < 0) subMissingSessions = 0;
     
     let subExpectedPct = subTotalAllocated > 0 ? Math.round((subTotalExpected / subTotalAllocated) * 100) : 0;
@@ -4637,8 +4670,15 @@ function loadInlineSubquests(topicId, allocatedSessions, subjectName, topicName)
     let safeSubj = subjectName ? subjectName.replace(/'/g, "\\'").replace(/"/g, '\\"') : '';
     let safeTop = topicName ? topicName.replace(/'/g, "\\'").replace(/"/g, '\\"') : '';
     
-    let focusSessions = (window._todayProgressData || []).filter(s => s.subject === subjectName && s.topic === topicName);
+    let focusSessions = (window._todayProgressData || []).filter(s => {
+        let sameSubj = s.subject === subjectName || slugify(s.subject) === slugify(subjectName);
+        if (!sameSubj) return false;
+        let sSlug = slugify(s.topic || "");
+        let tSlug = slugify(topicName || "");
+        return s.topic === topicName || (s.topic_slug && topicId && s.topic_slug === topicId) || sSlug === tSlug || (sSlug && tSlug && (sSlug.includes(tSlug) || tSlug.includes(sSlug)));
+    });
     let focusSessionIndices = focusSessions.map(s => s.overall_session_index);
+    let pastExpected = window._roadmapPastElapsedTopics ? (window._roadmapPastElapsedTopics[topicName] || 0) : 0;
 
     fetchJSON(API + '/subquests/' + topicId).then(data => {
         let html = '<div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap:15px;">';
@@ -4650,21 +4690,21 @@ function loadInlineSubquests(topicId, allocatedSessions, subjectName, topicName)
                 if (altKonuSubquests.length > 0) {
                     let separatorHtml = '<div style="width:90%; height:1px; background:var(--border); margin:6px auto; opacity:0.6;"></div>';
                     headerTitle = '<div style="display:flex; flex-direction:column;">' + 
-                        altKonuSubquests.map(sq => `<span style="font-size:12px; color:var(--text); font-weight:600;"><span style="color:var(--accent); margin-right:4px;">•</span>${esc(sq.title || sq.text)}</span>`).join(separatorHtml) + 
+                        altKonuSubquests.map(sq => `<span style="font-size:12px; color:var(--text); font-weight:600;"><span style="color:var(--text2); margin-right:4px;">•</span>${esc(sq.title || sq.text)}</span>`).join(separatorHtml) + 
                     '</div>';
                 }
             }
             
             let isTodayFocusSession = focusSessionIndices.includes(i);
-            let cardBorderColor = isTodayFocusSession ? 'var(--accent)' : 'var(--border)';
-            let headerBtnStyle = `cursor:pointer; padding:10px; border:1px solid ${cardBorderColor}; border-radius:6px; background:var(--surface); transition:all 0.2s; margin-bottom:10px;`;
+            let cardBorderColor = isTodayFocusSession ? '#d97706' : 'var(--border)';
+            let headerBtnStyle = `cursor:pointer; padding:10px; border:1px solid var(--border); border-radius:6px; background:var(--surface); transition:all 0.2s; margin-bottom:10px;`;
 
             html += `<div style="padding:12px; border:1px solid ${cardBorderColor}; border-radius:8px; background:var(--bg2); display:flex; flex-direction:column;">
                 <!-- Oturum Başlığı & Yönlendirme Kart Butonu -->
                 <div onclick="openSessionWorkspace('${esc(safeSubj)}', '${esc(safeTop)}', ${i})" 
                      style="${headerBtnStyle}" 
-                     onmouseover="this.style.borderColor='var(--accent)'; this.style.background='var(--surface2)';" 
-                     onmouseout="this.style.borderColor='${cardBorderColor}'; this.style.background='var(--surface)';"
+                     onmouseover="this.style.borderColor='var(--text2)'; this.style.background='var(--surface2)';" 
+                     onmouseout="this.style.borderColor='var(--border)'; this.style.background='var(--surface)';"
                      title="Oturum ${i} Çalışma Sayfasına Git">
                     <h4 style="margin:0; font-size:13px; color:var(--text); line-height:1.4;">${headerTitle}</h4>
                 </div>`;
@@ -4672,13 +4712,17 @@ function loadInlineSubquests(topicId, allocatedSessions, subjectName, topicName)
             if (session && session.subquests && session.subquests.length > 0) {
                 let totalSq = session.subquests.length;
                 let doneSq = session.subquests.filter(sq => sq.is_completed).length;
+                let isPastSession = (i <= pastExpected);
+                let statusIcon = (isPastSession && doneSq < totalSq) 
+                    ? '<span style="color:#d97706; margin-right:4px; font-size:11px;" title="Günü Geçmiş / Eksik Görevler Var">⚠️</span>' 
+                    : '';
 
                 html += `<div onclick="toggleSubquestCollapse(this, 'sq_col_${topicId}_${i}')" 
                              style="display:flex; justify-content:space-between; align-items:center; cursor:pointer; padding:6px 10px; background:var(--surface); border:1px solid var(--border); border-radius:6px; font-size:11px; color:var(--text2); font-weight:600; margin-bottom:6px; transition:all 0.2s; user-select:none;"
                              onmouseover="this.style.borderColor='var(--text2)';"
                              onmouseout="this.style.borderColor='var(--border)';"
                              title="Görevleri Göster / Gizle">
-                            <span id="sq_counter_${topicId}_${i}">Görevler (${doneSq}/${totalSq})</span>
+                            <span id="sq_counter_${topicId}_${i}" data-past-expected="${pastExpected}" data-session-index="${i}" style="display:flex; align-items:center;">${statusIcon} Görevler (${doneSq}/${totalSq})</span>
                             <span class="sq-arrow" style="font-size:10px; transition:transform 0.2s;">▼</span>
                         </div>
                         <div id="sq_col_${topicId}_${i}" style="display:none; margin-bottom:8px; padding:4px 0;">
@@ -4735,7 +4779,14 @@ function toggleSubquest(topicId, sessionIndex, subquestId, isCompleted) {
             if (container && counterEl) {
                 let inputs = container.querySelectorAll('input[type="checkbox"]');
                 let done = container.querySelectorAll('input[type="checkbox"]:checked').length;
-                counterEl.innerText = `Görevler (${done}/${inputs.length})`;
+                let total = inputs.length;
+                let pastExp = parseInt(counterEl.getAttribute('data-past-expected') || 0);
+                let sessIdx = parseInt(counterEl.getAttribute('data-session-index') || sessionIndex);
+                let isPastSession = (sessIdx <= pastExp);
+                let statusIcon = (isPastSession && done < total) 
+                    ? '<span style="color:#d97706; margin-right:4px; font-size:11px;" title="Günü Geçmiş / Eksik Görevler Var">⚠️</span>' 
+                    : '';
+                counterEl.innerHTML = `${statusIcon} Görevler (${done}/${total})`;
             }
         } else {
             alert('Güncelleme hatası: ' + res.error);
@@ -4864,7 +4915,7 @@ function renderDashboardTodayProgress(data) {
                          onmouseover="this.style.borderColor='var(--text2)';"
                          onmouseout="this.style.borderColor='var(--border)';"
                          title="Görevleri Göster / Gizle">
-                        <span>Oturum Görevleri (${doneSq}/${totalSq})</span>
+                        <span style="display:flex; align-items:center;">Oturum Görevleri (${doneSq}/${totalSq})</span>
                         <span class="sq-arrow" style="font-size:10px; transition:transform 0.2s; ${arrowTransform}">▼</span>
                     </div>
                     <div id="${colId}" style="${displayStyle} margin-bottom:6px; padding:4px 0;">

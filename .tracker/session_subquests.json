@@ -8297,8 +8297,8 @@
             "sub_items": [
               "İlerleme panosundan bu dersin eksik (beklenen) oturumlarını kontrol et."
             ],
-            "is_completed": false,
-            "completed_at": null
+            "is_completed": true,
+            "completed_at": "2026-07-23"
           },
           {
             "id": "sq_cografya_fiziki_cografya_ve_su_ortusu_3_2",
@@ -8309,8 +8309,8 @@
               "İlgili videoları listele.",
               "Video süresi ve oturum kapasitesini hesapla (Bölünmesi gerekiyor mu?)."
             ],
-            "is_completed": false,
-            "completed_at": null
+            "is_completed": true,
+            "completed_at": "2026-07-23"
           },
           {
             "id": "sq_cografya_fiziki_cografya_ve_su_ortusu_3_3",
@@ -8322,8 +8322,8 @@
               "Kaba bir soru çözüm sayısı tahmini yap.",
               "Duraklama (milestone) noktalarını not al."
             ],
-            "is_completed": false,
-            "completed_at": null
+            "is_completed": true,
+            "completed_at": "2026-07-23"
           },
           {
             "id": "sq_cografya_fiziki_cografya_ve_su_ortusu_3_4",
@@ -8354,8 +8354,8 @@
             "text": "Bu alt konuyu çalış ve tamamla.",
             "label": "alt konu",
             "sub_items": [],
-            "is_completed": false,
-            "completed_at": null
+            "is_completed": true,
+            "completed_at": "2026-07-23"
           },
           {
             "id": "sq_cografya_fiziki_cografya_ve_su_ortusu_3_7",
@@ -8363,8 +8363,8 @@
             "text": "Bu alt konuyu çalış ve tamamla.",
             "label": "alt konu",
             "sub_items": [],
-            "is_completed": false,
-            "completed_at": null
+            "is_completed": true,
+            "completed_at": "2026-07-23"
           }
         ]
       },
@@ -8404,8 +8404,8 @@
               "Kaba bir soru çözüm sayısı tahmini yap.",
               "Duraklama (milestone) noktalarını not al."
             ],
-            "is_completed": false,
-            "completed_at": null
+            "is_completed": true,
+            "completed_at": "2026-07-23"
           },
           {
             "id": "sq_cografya_fiziki_cografya_ve_su_ortusu_4_4",
@@ -8436,8 +8436,8 @@
             "text": "Bu alt konuyu çalış ve tamamla.",
             "label": "alt konu",
             "sub_items": [],
-            "is_completed": false,
-            "completed_at": null
+            "is_completed": true,
+            "completed_at": "2026-07-23"
           },
           {
             "id": "sq_cografya_fiziki_cografya_ve_su_ortusu_4_7",
@@ -8445,8 +8445,8 @@
             "text": "Bu alt konuyu çalış ve tamamla.",
             "label": "alt konu",
             "sub_items": [],
-            "is_completed": false,
-            "completed_at": null
+            "is_completed": true,
+            "completed_at": "2026-07-23"
           }
         ]
       },
@@ -8461,8 +8461,8 @@
             "sub_items": [
               "İlerleme panosundan bu dersin eksik (beklenen) oturumlarını kontrol et."
             ],
-            "is_completed": false,
-            "completed_at": null
+            "is_completed": true,
+            "completed_at": "2026-07-23"
           },
           {
             "id": "sq_cografya_fiziki_cografya_ve_su_ortusu_5_2",
@@ -8473,8 +8473,8 @@
               "İlgili videoları listele.",
               "Video süresi ve oturum kapasitesini hesapla (Bölünmesi gerekiyor mu?)."
             ],
-            "is_completed": false,
-            "completed_at": null
+            "is_completed": true,
+            "completed_at": "2026-07-23"
           },
           {
             "id": "sq_cografya_fiziki_cografya_ve_su_ortusu_5_3",
@@ -8518,8 +8518,8 @@
             "text": "Bu alt konuyu çalış ve tamamla.",
             "label": "alt konu",
             "sub_items": [],
-            "is_completed": false,
-            "completed_at": null
+            "is_completed": true,
+            "completed_at": "2026-07-23"
           },
           {
             "id": "sq_cografya_fiziki_cografya_ve_su_ortusu_5_7",
