@@ -2083,36 +2083,32 @@
           {
             "id": "sq_turkce_dil_bilgisi_ve_ses_olaylari_1_2",
             "title": "Kaynak Tespiti",
-            "text": "Mevcut konu için video kaynağı bul.",
+            "text": "Kadir Hoca Ses Bilgisi 1 videosunu incele.",
             "label": "keşif",
             "sub_items": [
-              "İlgili videoları listele.",
-              "Video süresi ve oturum kapasitesini hesapla (Bölünmesi gerekiyor mu?)."
+              "Ses Bilgisi 1 (Ünlü Olayları) videosunu listele."
             ],
             "is_completed": false,
             "completed_at": null
           },
           {
             "id": "sq_turkce_dil_bilgisi_ve_ses_olaylari_1_3",
-            "title": "Video Taraması",
-            "text": "Videoyu hızlıca tara ve plan yap.",
+            "title": "Video Taraması & İstisnalar",
+            "text": "Ünlü olayları ve daralma istisnalarını planla.",
             "label": "planlama",
             "sub_items": [
-              "Hoca tahtayı kaç kez siliyor? (Slayt sayısını belirle).",
-              "Kaba bir soru çözüm sayısı tahmini yap.",
-              "Duraklama (milestone) noktalarını not al."
+              "Ünlü düşmesi, daralması, türemesi ve değişimi duraklama noktalarını belirle."
             ],
             "is_completed": false,
             "completed_at": null
           },
           {
             "id": "sq_turkce_dil_bilgisi_ve_ses_olaylari_1_4",
-            "title": "İçerik Tüketimi",
-            "text": "Not çıkararak öğren.",
+            "title": "İçerik Tüketimi & Kadir Hoca Notları",
+            "text": "Videoyu izle ve kaynaştırma harfi istisnalarını not al.",
             "label": "teori",
             "sub_items": [
-              "Videoyu normal hızda izlemeye başla.",
-              "Belirlediğin milestone'larda dur ve dijital slayt (page) notlarını tasarla."
+              "y kaynaştırma harfinin her zaman daraltma yapmadığı istisnaları notlarına ekle."
             ],
             "is_completed": false,
             "completed_at": null
@@ -2120,11 +2116,20 @@
           {
             "id": "sq_turkce_dil_bilgisi_ve_ses_olaylari_1_5",
             "title": "Son İnceleme",
-            "text": "Tüm notları gözden geçir.",
+            "text": "Ünlü olayları notlarını incele.",
             "label": "kontrol",
             "sub_items": [
-              "Oluşturulan tüm dijital slaytları ve alınan notları hızlıca kontrol et."
+              "Oluşturulan slayt notlarını ve ünlü daralması istisnalarını kontrol et."
             ],
+            "is_completed": false,
+            "completed_at": null
+          },
+          {
+            "id": "sq_turkce_dil_bilgisi_ve_ses_olaylari_1_6",
+            "title": "Ses Olayları - Ünlü Olayları",
+            "text": "Ünlü düşmesi, daralması, türemesi, değişimi ve y daralma istisnalarını çalış.",
+            "label": "alt konu",
+            "sub_items": [],
             "is_completed": false,
             "completed_at": null
           }
@@ -2147,36 +2152,33 @@
           {
             "id": "sq_turkce_dil_bilgisi_ve_ses_olaylari_2_2",
             "title": "Kaynak Tespiti",
-            "text": "Mevcut konu için video kaynağı bul.",
+            "text": "Kadir Hoca Ses Bilgisi 2 & 3 videolarını incele.",
             "label": "keşif",
             "sub_items": [
-              "İlgili videoları listele.",
-              "Video süresi ve oturum kapasitesini hesapla (Bölünmesi gerekiyor mu?)."
+              "Ses Bilgisi 2 ve 3 (Ünsüz Olayları) videolarını listele."
             ],
             "is_completed": false,
             "completed_at": null
           },
           {
             "id": "sq_turkce_dil_bilgisi_ve_ses_olaylari_2_3",
-            "title": "Video Taraması",
-            "text": "Videoyu hızlıca tara ve plan yap.",
+            "title": "Video Taraması & Benzeşme/Yumuşama",
+            "text": "Ünsüz benzeşmesi ve yumuşaması sentezini planla.",
             "label": "planlama",
             "sub_items": [
-              "Hoca tahtayı kaç kez siliyor? (Slayt sayısını belirle).",
-              "Kaba bir soru çözüm sayısı tahmini yap.",
-              "Duraklama (milestone) noktalarını not al."
+              "Kökü değişen kelimeleri ve ünsüz türemesi/düşmesi noktalarını not al."
             ],
             "is_completed": false,
             "completed_at": null
           },
           {
             "id": "sq_turkce_dil_bilgisi_ve_ses_olaylari_2_4",
-            "title": "İçerik Tüketimi",
-            "text": "Not çıkararak öğren.",
+            "title": "İçerik Tüketimi & Kadir Hoca Vurguları",
+            "text": "Benzeşme ve yumuşamayı kelimede birlikte bul.",
             "label": "teori",
             "sub_items": [
-              "Videoyu normal hızda izlemeye başla.",
-              "Belirlediğin milestone'larda dur ve dijital slayt (page) notlarını tasarla."
+              "Benzeşme ve yumuşamayı aynı kelimede tespit etme egzersizi yap.",
+              "Kökü değişen kelimeleri (örn: git- -> gidiyor) notlarına aktar."
             ],
             "is_completed": false,
             "completed_at": null
@@ -2184,11 +2186,20 @@
           {
             "id": "sq_turkce_dil_bilgisi_ve_ses_olaylari_2_5",
             "title": "Son İnceleme",
-            "text": "Tüm notları gözden geçir.",
+            "text": "Ünsüz olayları notlarını kontrol et.",
             "label": "kontrol",
             "sub_items": [
-              "Oluşturulan tüm dijital slaytları ve alınan notları hızlıca kontrol et."
+              "Kök değişimleri ve ünsüz uyumu pratiklerini gözden geçir."
             ],
+            "is_completed": false,
+            "completed_at": null
+          },
+          {
+            "id": "sq_turkce_dil_bilgisi_ve_ses_olaylari_2_6",
+            "title": "Ses Olayları - Ünsüz Uyumları",
+            "text": "Ünsüz benzeşmesi, yumuşaması, düşmesi, türemesi ve kök değişimlerini çalış.",
+            "label": "alt konu",
+            "sub_items": [],
             "is_completed": false,
             "completed_at": null
           }
@@ -2211,36 +2222,33 @@
           {
             "id": "sq_turkce_dil_bilgisi_ve_ses_olaylari_3_2",
             "title": "Kaynak Tespiti",
-            "text": "Mevcut konu için video kaynağı bul.",
+            "text": "Sözcükte Yapı 1 (Kök Bilgisi) videosunu incele.",
             "label": "keşif",
             "sub_items": [
-              "İlgili videoları listele.",
-              "Video süresi ve oturum kapasitesini hesapla (Bölünmesi gerekiyor mu?)."
+              "İsim, fiil, kökteş ve sesteş kök videolarını listele."
             ],
             "is_completed": false,
             "completed_at": null
           },
           {
             "id": "sq_turkce_dil_bilgisi_ve_ses_olaylari_3_3",
-            "title": "Video Taraması",
-            "text": "Videoyu hızlıca tara ve plan yap.",
+            "title": "Video Taraması & Anlamsal Bağ",
+            "text": "Cümle içi anlamsal bağ ve kök ayrımlarını planla.",
             "label": "planlama",
             "sub_items": [
-              "Hoca tahtayı kaç kez siliyor? (Slayt sayısını belirle).",
-              "Kaba bir soru çözüm sayısı tahmini yap.",
-              "Duraklama (milestone) noktalarını not al."
+              "İsim/fiil kökü ve sesteş/kökteş kök duraklama noktalarını not al."
             ],
             "is_completed": false,
             "completed_at": null
           },
           {
             "id": "sq_turkce_dil_bilgisi_ve_ses_olaylari_3_4",
-            "title": "İçerik Tüketimi",
-            "text": "Not çıkararak öğren.",
+            "title": "İçerik Tüketimi & Anlamsal Ayrım",
+            "text": "Kök bulurken cümle içi anlam bağına dikkat et.",
             "label": "teori",
             "sub_items": [
-              "Videoyu normal hızda izlemeye başla.",
-              "Belirlediğin milestone'larda dur ve dijital slayt (page) notlarını tasarla."
+              "Kök bulurken cümlenin bütünüyle olan anlamsal bağını analiz et.",
+              "\"Boyacı\" kökünün \"boy\" değil \"boya\" olması gibi temel ayrımları çalış."
             ],
             "is_completed": false,
             "completed_at": null
@@ -2248,11 +2256,20 @@
           {
             "id": "sq_turkce_dil_bilgisi_ve_ses_olaylari_3_5",
             "title": "Son İnceleme",
-            "text": "Tüm notları gözden geçir.",
+            "text": "Kök bilgisi notlarını incele.",
             "label": "kontrol",
             "sub_items": [
-              "Oluşturulan tüm dijital slaytları ve alınan notları hızlıca kontrol et."
+              "Kökteş/sesteş ayrımı ve anlamsal kök egzersizlerini kontrol et."
             ],
+            "is_completed": false,
+            "completed_at": null
+          },
+          {
+            "id": "sq_turkce_dil_bilgisi_ve_ses_olaylari_3_6",
+            "title": "Sözcükte Yapı - Kök Bilgisi",
+            "text": "İsim/fiil kök ayrımı, kökteş, sesteş kökler ve anlamsal bağ egzersizlerini çalış.",
+            "label": "alt konu",
+            "sub_items": [],
             "is_completed": false,
             "completed_at": null
           }
@@ -2275,36 +2292,33 @@
           {
             "id": "sq_turkce_dil_bilgisi_ve_ses_olaylari_4_2",
             "title": "Kaynak Tespiti",
-            "text": "Mevcut konu için video kaynağı bul.",
+            "text": "Sözcükte Yapı 2 & 3 videolarını incele.",
             "label": "keşif",
             "sub_items": [
-              "İlgili videoları listele.",
-              "Video süresi ve oturum kapasitesini hesapla (Bölünmesi gerekiyor mu?)."
+              "Çekim ekleri, iyelik, hâl, tamlama ve kip/şahıs ekleri videolarını listele."
             ],
             "is_completed": false,
             "completed_at": null
           },
           {
             "id": "sq_turkce_dil_bilgisi_ve_ses_olaylari_4_3",
-            "title": "Video Taraması",
-            "text": "Videoyu hızlıca tara ve plan yap.",
+            "title": "Video Taraması & İyelik-Belirtme Taktiği",
+            "text": "İyelik ve belirtme hâli ayrım taktiklerini planla.",
             "label": "planlama",
             "sub_items": [
-              "Hoca tahtayı kaç kez siliyor? (Slayt sayısını belirle).",
-              "Kaba bir soru çözüm sayısı tahmini yap.",
-              "Duraklama (milestone) noktalarını not al."
+              "İyelik (onun) ile belirtme (onu) ayrım noktalarını not al."
             ],
             "is_completed": false,
             "completed_at": null
           },
           {
             "id": "sq_turkce_dil_bilgisi_ve_ses_olaylari_4_4",
-            "title": "İçerik Tüketimi",
-            "text": "Not çıkararak öğren.",
+            "title": "İçerik Tüketimi & İyelik/Belirtme Ayrımı",
+            "text": "İyelik ve belirtme eki taktiğini uygula.",
             "label": "teori",
             "sub_items": [
-              "Videoyu normal hızda izlemeye başla.",
-              "Belirlediğin milestone'larda dur ve dijital slayt (page) notlarını tasarla."
+              "İyelik eki (onun) ile Belirtme hâl ekini (onu) ayırt etme taktiğini zihnine oturt.",
+              "İsim ve fiil çekim eklerini gruplandır."
             ],
             "is_completed": false,
             "completed_at": null
@@ -2312,11 +2326,20 @@
           {
             "id": "sq_turkce_dil_bilgisi_ve_ses_olaylari_4_5",
             "title": "Son İnceleme",
-            "text": "Tüm notları gözden geçir.",
+            "text": "Çekim ekleri notlarını incele.",
             "label": "kontrol",
             "sub_items": [
-              "Oluşturulan tüm dijital slaytları ve alınan notları hızlıca kontrol et."
+              "İyelik-belirtme ayrım taktiklerini ve tamlama eklerini gözden geçir."
             ],
+            "is_completed": false,
+            "completed_at": null
+          },
+          {
+            "id": "sq_turkce_dil_bilgisi_ve_ses_olaylari_4_6",
+            "title": "Sözcükte Yapı - Çekim Ekleri",
+            "text": "İyelik, hâl, çoğul, tamlama ekleri, kip/şahıs ekleri ve İyelik-Belirtme taktiğini çalış.",
+            "label": "alt konu",
+            "sub_items": [],
             "is_completed": false,
             "completed_at": null
           }
@@ -2339,36 +2362,33 @@
           {
             "id": "sq_turkce_dil_bilgisi_ve_ses_olaylari_5_2",
             "title": "Kaynak Tespiti",
-            "text": "Mevcut konu için video kaynağı bul.",
+            "text": "Sözcükte Yapı 4 (Yapım Ekleri) videosunu incele.",
             "label": "keşif",
             "sub_items": [
-              "İlgili videoları listele.",
-              "Video süresi ve oturum kapasitesini hesapla (Bölünmesi gerekiyor mu?)."
+              "Yapım ekleri, gövde ve gövdeden türeme videolarını listele."
             ],
             "is_completed": false,
             "completed_at": null
           },
           {
             "id": "sq_turkce_dil_bilgisi_ve_ses_olaylari_5_3",
-            "title": "Video Taraması",
-            "text": "Videoyu hızlıca tara ve plan yap.",
+            "title": "Video Taraması & Gövde Formülü",
+            "text": "Yapım ekleri ve gövde oluşum kurallarını planla.",
             "label": "planlama",
             "sub_items": [
-              "Hoca tahtayı kaç kez siliyor? (Slayt sayısını belirle).",
-              "Kaba bir soru çözüm sayısı tahmini yap.",
-              "Duraklama (milestone) noktalarını not al."
+              "Tür değiştiren yapım eklerini ve gövdeden türeme noktalarını not al."
             ],
             "is_completed": false,
             "completed_at": null
           },
           {
             "id": "sq_turkce_dil_bilgisi_ve_ses_olaylari_5_4",
-            "title": "İçerik Tüketimi",
-            "text": "Not çıkararak öğren.",
+            "title": "İçerik Tüketimi & Gövde Kuralları",
+            "text": "Gövde kuralını formülize et ve türetme yap.",
             "label": "teori",
             "sub_items": [
-              "Videoyu normal hızda izlemeye başla.",
-              "Belirlediğin milestone'larda dur ve dijital slayt (page) notlarını tasarla."
+              "\"Kelime en az bir yapım eki aldığında gövde olur\" kuralını formülize et.",
+              "Sözcük türünü değiştiren yapım eklerine odaklan."
             ],
             "is_completed": false,
             "completed_at": null
@@ -2376,11 +2396,20 @@
           {
             "id": "sq_turkce_dil_bilgisi_ve_ses_olaylari_5_5",
             "title": "Son İnceleme",
-            "text": "Tüm notları gözden geçir.",
+            "text": "Yapım ekleri notlarını incele.",
             "label": "kontrol",
             "sub_items": [
-              "Oluşturulan tüm dijital slaytları ve alınan notları hızlıca kontrol et."
+              "Gövdeden türeme örneklerini ve yapım eki slaytlarını kontrol et."
             ],
+            "is_completed": false,
+            "completed_at": null
+          },
+          {
+            "id": "sq_turkce_dil_bilgisi_ve_ses_olaylari_5_6",
+            "title": "Sözcükte Yapı - Yapım Ekleri ve Gövde",
+            "text": "Yapım ekleri türleri, gövde formülü ve gövdeden türeme kavramlarını çalış.",
+            "label": "alt konu",
+            "sub_items": [],
             "is_completed": false,
             "completed_at": null
           }
@@ -2403,36 +2432,33 @@
           {
             "id": "sq_turkce_dil_bilgisi_ve_ses_olaylari_6_2",
             "title": "Kaynak Tespiti",
-            "text": "Mevcut konu için video kaynağı bul.",
+            "text": "Yazım Kuralları I & II videolarını incele.",
             "label": "keşif",
             "sub_items": [
-              "İlgili videoları listele.",
-              "Video süresi ve oturum kapasitesini hesapla (Bölünmesi gerekiyor mu?)."
+              "Büyük harflerin kullanımı, kurum/kuruluş ve unvan yazımları videolarını listele."
             ],
             "is_completed": false,
             "completed_at": null
           },
           {
             "id": "sq_turkce_dil_bilgisi_ve_ses_olaylari_6_3",
-            "title": "Video Taraması",
-            "text": "Videoyu hızlıca tara ve plan yap.",
+            "title": "Video Taraması & Kesme İşareti Tablosu",
+            "text": "Büyük harf ve kesme işareti ayrım kurallarını planla.",
             "label": "planlama",
             "sub_items": [
-              "Hoca tahtayı kaç kez siliyor? (Slayt sayısını belirle).",
-              "Kaba bir soru çözüm sayısı tahmini yap.",
-              "Duraklama (milestone) noktalarını not al."
+              "Kurum/kuruluş adlarına gelen eklerde kesme işareti kural tablosunu hazırla."
             ],
             "is_completed": false,
             "completed_at": null
           },
           {
             "id": "sq_turkce_dil_bilgisi_ve_ses_olaylari_6_4",
-            "title": "İçerik Tüketimi",
-            "text": "Not çıkararak öğren.",
+            "title": "İçerik Tüketimi & Tablo Egzersizi",
+            "text": "Kesme işareti tablosunu oluştur ve yazım test et.",
             "label": "teori",
             "sub_items": [
-              "Videoyu normal hızda izlemeye başla.",
-              "Belirlediğin milestone'larda dur ve dijital slayt (page) notlarını tasarla."
+              "Ses olayları ve yapı bilgisini kullanarak kelimelerin doğru yazılışını test et.",
+              "Kurum/kuruluş adlarına gelen eklerin kesme işareti kural tablosunu çıkar."
             ],
             "is_completed": false,
             "completed_at": null
@@ -2440,11 +2466,20 @@
           {
             "id": "sq_turkce_dil_bilgisi_ve_ses_olaylari_6_5",
             "title": "Son İnceleme",
-            "text": "Tüm notları gözden geçir.",
+            "text": "Yazım kuralları tablosunu incele.",
             "label": "kontrol",
             "sub_items": [
-              "Oluşturulan tüm dijital slaytları ve alınan notları hızlıca kontrol et."
+              "Kurum/kuruluş yazım tabloları ve büyük harf kurallarını son kez gözden geçir."
             ],
+            "is_completed": false,
+            "completed_at": null
+          },
+          {
+            "id": "sq_turkce_dil_bilgisi_ve_ses_olaylari_6_6",
+            "title": "Yazım Kuralları - Büyük Harfler ve Ekler",
+            "text": "Büyük harflerin kullanımı, kurum/kuruluş adları ve kesme işareti tablo kurallarını çalış.",
+            "label": "alt konu",
+            "sub_items": [],
             "is_completed": false,
             "completed_at": null
           }
@@ -3059,36 +3094,33 @@
           {
             "id": "sq_matematik_cebirsel_ifadeler_ve_denklemler_1_2",
             "title": "Kaynak Tespiti",
-            "text": "Mevcut konu için video kaynağı bul.",
+            "text": "Rasyonel ve Ondalık Sayılar videolarını incele.",
             "label": "keşif",
             "sub_items": [
-              "İlgili videoları listele.",
-              "Video süresi ve oturum kapasitesini hesapla (Bölünmesi gerekiyor mu?)."
+              "Kesirlerde işlemler, devirli ondalık sayılar ve sıralama videolarını listele."
             ],
             "is_completed": false,
             "completed_at": null
           },
           {
             "id": "sq_matematik_cebirsel_ifadeler_ve_denklemler_1_3",
-            "title": "Video Taraması",
-            "text": "Videoyu hızlıca tara ve plan yap.",
+            "title": "Video Taraması & Strateji",
+            "text": "İşlem sıraları ve milestone noktalarını belirle.",
             "label": "planlama",
             "sub_items": [
-              "Hoca tahtayı kaç kez siliyor? (Slayt sayısını belirle).",
-              "Kaba bir soru çözüm sayısı tahmini yap.",
-              "Duraklama (milestone) noktalarını not al."
+              "Merdivenli işlemler ve pay/payda farkı sabitliği kurallarını not al."
             ],
             "is_completed": false,
             "completed_at": null
           },
           {
             "id": "sq_matematik_cebirsel_ifadeler_ve_denklemler_1_4",
-            "title": "İçerik Tüketimi",
-            "text": "Not çıkararak öğren.",
+            "title": "İçerik Tüketimi & Eyüp B. Notları",
+            "text": "Videoyu izle ve pratik kuralları kodla.",
             "label": "teori",
             "sub_items": [
-              "Videoyu normal hızda izlemeye başla.",
-              "Belirlediğin milestone'larda dur ve dijital slayt (page) notlarını tasarla."
+              "Merdivenli işlemlerde en alttan/en üstten başlama kuralına dikkat et.",
+              "Sıralamada pay/payda farkının sabitliği kuralını kavra."
             ],
             "is_completed": false,
             "completed_at": null
@@ -3099,8 +3131,17 @@
             "text": "Tüm notları gözden geçir.",
             "label": "kontrol",
             "sub_items": [
-              "Oluşturulan tüm dijital slaytları ve alınan notları hızlıca kontrol et."
+              "Oluşturulan slayt notlarını ve sıralama pratiklerini kontrol et."
             ],
+            "is_completed": false,
+            "completed_at": null
+          },
+          {
+            "id": "sq_matematik_cebirsel_ifadeler_ve_denklemler_1_6",
+            "title": "Rasyonel ve Ondalık Sayılar",
+            "text": "Kesirlerde işlemler, devirli ondalıklar ve sıralama kurallarını çalış.",
+            "label": "alt konu",
+            "sub_items": [],
             "is_completed": false,
             "completed_at": null
           }
@@ -3123,36 +3164,33 @@
           {
             "id": "sq_matematik_cebirsel_ifadeler_ve_denklemler_2_2",
             "title": "Kaynak Tespiti",
-            "text": "Mevcut konu için video kaynağı bul.",
+            "text": "Birinci Dereceden Denklemler videolarını incele.",
             "label": "keşif",
             "sub_items": [
-              "İlgili videoları listele.",
-              "Video süresi ve oturum kapasitesini hesapla (Bölünmesi gerekiyor mu?)."
+              "Denklem çözme prensipleri ve çözüm kümesi durumlarını listele."
             ],
             "is_completed": false,
             "completed_at": null
           },
           {
             "id": "sq_matematik_cebirsel_ifadeler_ve_denklemler_2_3",
-            "title": "Video Taraması",
-            "text": "Videoyu hızlıca tara ve plan yap.",
+            "title": "Video Taraması & Mantık",
+            "text": "Çözüm kümesi tiplerini planla.",
             "label": "planlama",
             "sub_items": [
-              "Hoca tahtayı kaç kez siliyor? (Slayt sayısını belirle).",
-              "Kaba bir soru çözüm sayısı tahmini yap.",
-              "Duraklama (milestone) noktalarını not al."
+              "Sonsuz elemanlı, boş küme ve tek elemanlı durumlarını not al."
             ],
             "is_completed": false,
             "completed_at": null
           },
           {
             "id": "sq_matematik_cebirsel_ifadeler_ve_denklemler_2_4",
-            "title": "İçerik Tüketimi",
-            "text": "Not çıkararak öğren.",
+            "title": "İçerik Tüketimi & Eyüp B. Notları",
+            "text": "Denklem mantığını ve matematiksel dili kur.",
             "label": "teori",
             "sub_items": [
-              "Videoyu normal hızda izlemeye başla.",
-              "Belirlediğin milestone'larda dur ve dijital slayt (page) notlarını tasarla."
+              "Çözüm kümesi boş veya reel sayılar için x in katsayısının 0 olma şartını kavra.",
+              "Problem dilini denklemlere dökme pratikleri yap."
             ],
             "is_completed": false,
             "completed_at": null
@@ -3160,11 +3198,20 @@
           {
             "id": "sq_matematik_cebirsel_ifadeler_ve_denklemler_2_5",
             "title": "Son İnceleme",
-            "text": "Tüm notları gözden geçir.",
+            "text": "Denklem çözümlerini kontrol et.",
             "label": "kontrol",
             "sub_items": [
-              "Oluşturulan tüm dijital slaytları ve alınan notları hızlıca kontrol et."
+              "Kritik çözüm kümesi notlarını son kez incele."
             ],
+            "is_completed": false,
+            "completed_at": null
+          },
+          {
+            "id": "sq_matematik_cebirsel_ifadeler_ve_denklemler_2_6",
+            "title": "Birinci Dereceden Denklemler",
+            "text": "Denklem çözme prensipleri ve çözüm kümelerini (boş, sonsuz, tek elemanlı) çalış.",
+            "label": "alt konu",
+            "sub_items": [],
             "is_completed": false,
             "completed_at": null
           }
@@ -3187,36 +3234,33 @@
           {
             "id": "sq_matematik_cebirsel_ifadeler_ve_denklemler_3_2",
             "title": "Kaynak Tespiti",
-            "text": "Mevcut konu için video kaynağı bul.",
+            "text": "Basit Eşitsizlikler videolarını incele.",
             "label": "keşif",
             "sub_items": [
-              "İlgili videoları listele.",
-              "Video süresi ve oturum kapasitesini hesapla (Bölünmesi gerekiyor mu?)."
+              "Yön değiştirme, aralık bulma ve taraf tarafa toplama videolarını listele."
             ],
             "is_completed": false,
             "completed_at": null
           },
           {
             "id": "sq_matematik_cebirsel_ifadeler_ve_denklemler_3_3",
-            "title": "Video Taraması",
-            "text": "Videoyu hızlıca tara ve plan yap.",
+            "title": "Video Taraması & Kritik Uyarılar",
+            "text": "Eşitsizlik kurallarını ve aralık sınırlarını planla.",
             "label": "planlama",
             "sub_items": [
-              "Hoca tahtayı kaç kez siliyor? (Slayt sayısını belirle).",
-              "Kaba bir soru çözüm sayısı tahmini yap.",
-              "Duraklama (milestone) noktalarını not al."
+              "Çıkarma/çarpma yapılamama kuralı ve sınır değer çarpımlarını not al."
             ],
             "is_completed": false,
             "completed_at": null
           },
           {
             "id": "sq_matematik_cebirsel_ifadeler_ve_denklemler_3_4",
-            "title": "İçerik Tüketimi",
-            "text": "Not çıkararak öğren.",
+            "title": "İçerik Tüketimi & Eyüp B. Notları",
+            "text": "Sınır çarpımı ve küme türlerine dikkat et.",
             "label": "teori",
             "sub_items": [
-              "Videoyu normal hızda izlemeye başla.",
-              "Belirlediğin milestone'larda dur ve dijital slayt (page) notlarını tasarla."
+              "Eşitsizliklerde sınır değerleri çarparak yeni aralık bulma kuralını öğren.",
+              "x in reel sayı ile tam sayı farkının çözüme etkisini kavra."
             ],
             "is_completed": false,
             "completed_at": null
@@ -3224,11 +3268,20 @@
           {
             "id": "sq_matematik_cebirsel_ifadeler_ve_denklemler_3_5",
             "title": "Son İnceleme",
-            "text": "Tüm notları gözden geçir.",
+            "text": "Eşitsizlik notlarını incele.",
             "label": "kontrol",
             "sub_items": [
-              "Oluşturulan tüm dijital slaytları ve alınan notları hızlıca kontrol et."
+              "Tüm aralık bulma ve yön değiştirme pratiklerini gözden geçir."
             ],
+            "is_completed": false,
+            "completed_at": null
+          },
+          {
+            "id": "sq_matematik_cebirsel_ifadeler_ve_denklemler_3_6",
+            "title": "Basit Eşitsizlikler",
+            "text": "Yön değiştirmeler, aralık bulma ve sınır çarpımı kurallarını çalış.",
+            "label": "alt konu",
+            "sub_items": [],
             "is_completed": false,
             "completed_at": null
           }
@@ -3251,36 +3304,32 @@
           {
             "id": "sq_matematik_cebirsel_ifadeler_ve_denklemler_4_2",
             "title": "Kaynak Tespiti",
-            "text": "Mevcut konu için video kaynağı bul.",
+            "text": "Mutlak Değer 1 videolarını incele.",
             "label": "keşif",
             "sub_items": [
-              "İlgili videoları listele.",
-              "Video süresi ve oturum kapasitesini hesapla (Bölünmesi gerekiyor mu?)."
+              "Geometrik tanım ve dışarı çıkarma videolarını listele."
             ],
             "is_completed": false,
             "completed_at": null
           },
           {
             "id": "sq_matematik_cebirsel_ifadeler_ve_denklemler_4_3",
-            "title": "Video Taraması",
-            "text": "Videoyu hızlıca tara ve plan yap.",
+            "title": "Video Taraması & Uzaklık Mantığı",
+            "text": "Uzaklık kavramını odağa alarak planla.",
             "label": "planlama",
             "sub_items": [
-              "Hoca tahtayı kaç kez siliyor? (Slayt sayısını belirle).",
-              "Kaba bir soru çözüm sayısı tahmini yap.",
-              "Duraklama (milestone) noktalarını not al."
+              "|x-a| ifadesinin uzaklık tanım noktalarını not al."
             ],
             "is_completed": false,
             "completed_at": null
           },
           {
             "id": "sq_matematik_cebirsel_ifadeler_ve_denklemler_4_4",
-            "title": "İçerik Tüketimi",
-            "text": "Not çıkararak öğren.",
+            "title": "İçerik Tüketimi & Geometrik Tanım",
+            "text": "Formül değil uzaklık mantığıyla öğren.",
             "label": "teori",
             "sub_items": [
-              "Videoyu normal hızda izlemeye başla.",
-              "Belirlediğin milestone'larda dur ve dijital slayt (page) notlarını tasarla."
+              "|x-a| ifadesinin x in a ya olan uzaklığı geometrik mantığını zihnine oturt."
             ],
             "is_completed": false,
             "completed_at": null
@@ -3288,11 +3337,20 @@
           {
             "id": "sq_matematik_cebirsel_ifadeler_ve_denklemler_4_5",
             "title": "Son İnceleme",
-            "text": "Tüm notları gözden geçir.",
+            "text": "Uzaklık notlarını gözden geçir.",
             "label": "kontrol",
             "sub_items": [
-              "Oluşturulan tüm dijital slaytları ve alınan notları hızlıca kontrol et."
+              "Geometrik mutlak değer yorumlarını kontrol et."
             ],
+            "is_completed": false,
+            "completed_at": null
+          },
+          {
+            "id": "sq_matematik_cebirsel_ifadeler_ve_denklemler_4_6",
+            "title": "Mutlak Değer - Tanım ve Uzaklık",
+            "text": "Mutlak değerin geometrik uzaklık tanımı ve dışarı çıkarma kurallarını çalış.",
+            "label": "alt konu",
+            "sub_items": [],
             "is_completed": false,
             "completed_at": null
           }
@@ -3315,36 +3373,33 @@
           {
             "id": "sq_matematik_cebirsel_ifadeler_ve_denklemler_5_2",
             "title": "Kaynak Tespiti",
-            "text": "Mevcut konu için video kaynağı bul.",
+            "text": "Mutlak Değer 2 videolarını incele.",
             "label": "keşif",
             "sub_items": [
-              "İlgili videoları listele.",
-              "Video süresi ve oturum kapasitesini hesapla (Bölünmesi gerekiyor mu?)."
+              "İç içe mutlak değer ve eşitsizlik videolarını listele."
             ],
             "is_completed": false,
             "completed_at": null
           },
           {
             "id": "sq_matematik_cebirsel_ifadeler_ve_denklemler_5_3",
-            "title": "Video Taraması",
-            "text": "Videoyu hızlıca tara ve plan yap.",
+            "title": "Video Taraması & Çözüm Aralıkları",
+            "text": "Eşitsizlik çözüm pratiklerini planla.",
             "label": "planlama",
             "sub_items": [
-              "Hoca tahtayı kaç kez siliyor? (Slayt sayısını belirle).",
-              "Kaba bir soru çözüm sayısı tahmini yap.",
-              "Duraklama (milestone) noktalarını not al."
+              "Mutlak değerli eşitsizliklerin kırılma noktalarını not al."
             ],
             "is_completed": false,
             "completed_at": null
           },
           {
             "id": "sq_matematik_cebirsel_ifadeler_ve_denklemler_5_4",
-            "title": "İçerik Tüketimi",
-            "text": "Not çıkararak öğren.",
+            "title": "İçerik Tüketimi & Pratik Aksiyonu",
+            "text": "Uzaklık mantığını denklemlere dök.",
             "label": "teori",
             "sub_items": [
-              "Videoyu normal hızda izlemeye başla.",
-              "Belirlediğin milestone'larda dur ve dijital slayt (page) notlarını tasarla."
+              "İç içe mutlak değer kalıplarını çöz.",
+              "Uzaklık mantığını mutlak değerli denklemler üzerinde uygula."
             ],
             "is_completed": false,
             "completed_at": null
@@ -3352,11 +3407,20 @@
           {
             "id": "sq_matematik_cebirsel_ifadeler_ve_denklemler_5_5",
             "title": "Son İnceleme",
-            "text": "Tüm notları gözden geçir.",
+            "text": "Mutlak değerli denklem notlarını kontrol et.",
             "label": "kontrol",
             "sub_items": [
-              "Oluşturulan tüm dijital slaytları ve alınan notları hızlıca kontrol et."
+              "Çözüm aralıkları ve pratikleri gözden geçir."
             ],
+            "is_completed": false,
+            "completed_at": null
+          },
+          {
+            "id": "sq_matematik_cebirsel_ifadeler_ve_denklemler_5_6",
+            "title": "Mutlak Değer - Denklem ve Eşitsizlikler",
+            "text": "İç içe mutlak değerler ve mutlak değerli eşitsizlik çözüm aralıklarını çalış.",
+            "label": "alt konu",
+            "sub_items": [],
             "is_completed": false,
             "completed_at": null
           }
@@ -3379,36 +3443,33 @@
           {
             "id": "sq_matematik_cebirsel_ifadeler_ve_denklemler_6_2",
             "title": "Kaynak Tespiti",
-            "text": "Mevcut konu için video kaynağı bul.",
+            "text": "Üslü Sayılar videolarını incele.",
             "label": "keşif",
             "sub_items": [
-              "İlgili videoları listele.",
-              "Video süresi ve oturum kapasitesini hesapla (Bölünmesi gerekiyor mu?)."
+              "Üs kuralları, taban değiştirme ve üslü denklemler videolarını listele."
             ],
             "is_completed": false,
             "completed_at": null
           },
           {
             "id": "sq_matematik_cebirsel_ifadeler_ve_denklemler_6_3",
-            "title": "Video Taraması",
-            "text": "Videoyu hızlıca tara ve plan yap.",
+            "title": "Video Taraması & Parantez Kuralları",
+            "text": "Ortak çarpan ve negatif üs kurallarını planla.",
             "label": "planlama",
             "sub_items": [
-              "Hoca tahtayı kaç kez siliyor? (Slayt sayısını belirle).",
-              "Kaba bir soru çözüm sayısı tahmini yap.",
-              "Duraklama (milestone) noktalarını not al."
+              "Toplama/çıkaramada paranteze alma ve negatif üs kurallarını not al."
             ],
             "is_completed": false,
             "completed_at": null
           },
           {
             "id": "sq_matematik_cebirsel_ifadeler_ve_denklemler_6_4",
-            "title": "İçerik Tüketimi",
-            "text": "Not çıkararak öğren.",
+            "title": "İçerik Tüketimi & Eyüp B. Notları",
+            "text": "Ortak parantez ve negatif üs mantığını kodla.",
             "label": "teori",
             "sub_items": [
-              "Videoyu normal hızda izlemeye başla.",
-              "Belirlediğin milestone'larda dur ve dijital slayt (page) notlarını tasarla."
+              "Toplama/çıkaramada ortak çarpan parantezine alma kuralını kullan.",
+              "Negatif üssün işarete etki etmediğini, sadece sayıyı takla attırdığını kavra."
             ],
             "is_completed": false,
             "completed_at": null
@@ -3416,11 +3477,20 @@
           {
             "id": "sq_matematik_cebirsel_ifadeler_ve_denklemler_6_5",
             "title": "Son İnceleme",
-            "text": "Tüm notları gözden geçir.",
+            "text": "Üslü sayı notlarını incele.",
             "label": "kontrol",
             "sub_items": [
-              "Oluşturulan tüm dijital slaytları ve alınan notları hızlıca kontrol et."
+              "Taban değiştirme ve üslü denklem çözümlerini kontrol et."
             ],
+            "is_completed": false,
+            "completed_at": null
+          },
+          {
+            "id": "sq_matematik_cebirsel_ifadeler_ve_denklemler_6_6",
+            "title": "Üslü Sayılar",
+            "text": "Üs alma, taban değiştirme, üslü denklemler ve ortak parantez kurallarını çalış.",
+            "label": "alt konu",
+            "sub_items": [],
             "is_completed": false,
             "completed_at": null
           }
@@ -3443,36 +3513,33 @@
           {
             "id": "sq_matematik_cebirsel_ifadeler_ve_denklemler_7_2",
             "title": "Kaynak Tespiti",
-            "text": "Mevcut konu için video kaynağı bul.",
+            "text": "Köklü Sayılar videolarını incele.",
             "label": "keşif",
             "sub_items": [
-              "İlgili videoları listele.",
-              "Video süresi ve oturum kapasitesini hesapla (Bölünmesi gerekiyor mu?)."
+              "Kök dışına çıkarma, derece sadeleştirme ve eşlenik videolarını listele."
             ],
             "is_completed": false,
             "completed_at": null
           },
           {
             "id": "sq_matematik_cebirsel_ifadeler_ve_denklemler_7_3",
-            "title": "Video Taraması",
-            "text": "Videoyu hızlıca tara ve plan yap.",
+            "title": "Video Taraması & Çift Kök Kuralları",
+            "text": "Kesirli üs ve çift derece kurallarını planla.",
             "label": "planlama",
             "sub_items": [
-              "Hoca tahtayı kaç kez siliyor? (Slayt sayısını belirle).",
-              "Kaba bir soru çözüm sayısı tahmini yap.",
-              "Duraklama (milestone) noktalarını not al."
+              "Çift dereceli kök içi negatif olamama şartı ve eşlenik kurallarını not al."
             ],
             "is_completed": false,
             "completed_at": null
           },
           {
             "id": "sq_matematik_cebirsel_ifadeler_ve_denklemler_7_4",
-            "title": "İçerik Tüketimi",
-            "text": "Not çıkararak öğren.",
+            "title": "İçerik Tüketimi & Eyüp B. Notları",
+            "text": "Kesirli üs ve tanım kümesi yaklaşımıyla öğren.",
             "label": "teori",
             "sub_items": [
-              "Videoyu normal hızda izlemeye başla.",
-              "Belirlediğin milestone'larda dur ve dijital slayt (page) notlarını tasarla."
+              "Çift dereceli köklerin içinin negatif olamayacağı tanım kümesi kuralını kavra.",
+              "Köklü sayıları kesirli üslü sayılar şeklinde görüp çözme pratiği kazan."
             ],
             "is_completed": false,
             "completed_at": null
@@ -3480,11 +3547,20 @@
           {
             "id": "sq_matematik_cebirsel_ifadeler_ve_denklemler_7_5",
             "title": "Son İnceleme",
-            "text": "Tüm notları gözden geçir.",
+            "text": "Köklü sayı notlarını incele.",
             "label": "kontrol",
             "sub_items": [
-              "Oluşturulan tüm dijital slaytları ve alınan notları hızlıca kontrol et."
+              "Eşlenik ve derece genişletme işlemlerini kontrol et."
             ],
+            "is_completed": false,
+            "completed_at": null
+          },
+          {
+            "id": "sq_matematik_cebirsel_ifadeler_ve_denklemler_7_6",
+            "title": "Köklü Sayılar",
+            "text": "Kök dışına çıkarma, eşlenik ve kesirli üs kurallarını çalış.",
+            "label": "alt konu",
+            "sub_items": [],
             "is_completed": false,
             "completed_at": null
           }
@@ -3507,36 +3583,33 @@
           {
             "id": "sq_matematik_cebirsel_ifadeler_ve_denklemler_8_2",
             "title": "Kaynak Tespiti",
-            "text": "Mevcut konu için video kaynağı bul.",
+            "text": "Çarpanlara Ayırma videolarını incele.",
             "label": "keşif",
             "sub_items": [
-              "İlgili videoları listele.",
-              "Video süresi ve oturum kapasitesini hesapla (Bölünmesi gerekiyor mu?)."
+              "Ortak çarpan, tam kare, iki kare farkı ve küp açılımları videolarını listele."
             ],
             "is_completed": false,
             "completed_at": null
           },
           {
             "id": "sq_matematik_cebirsel_ifadeler_ve_denklemler_8_3",
-            "title": "Video Taraması",
-            "text": "Videoyu hızlıca tara ve plan yap.",
+            "title": "Video Taraması & Özdeşlik Ayrımı",
+            "text": "Özdeşlik refleksleri ve sadeleştirmeleri planla.",
             "label": "planlama",
             "sub_items": [
-              "Hoca tahtayı kaç kez siliyor? (Slayt sayısını belirle).",
-              "Kaba bir soru çözüm sayısı tahmini yap.",
-              "Duraklama (milestone) noktalarını not al."
+              "İki kare farkı ile tam kare ayrım noktalarını not al."
             ],
             "is_completed": false,
             "completed_at": null
           },
           {
             "id": "sq_matematik_cebirsel_ifadeler_ve_denklemler_8_4",
-            "title": "İçerik Tüketimi",
-            "text": "Not çıkararak öğren.",
+            "title": "İçerik Tüketimi & Eyüp B. Refleksleri",
+            "text": "Özdeşlik kalıplarını ve sadeleştirmeyi öğren.",
             "label": "teori",
             "sub_items": [
-              "Videoyu normal hızda izlemeye başla.",
-              "Belirlediğin milestone'larda dur ve dijital slayt (page) notlarını tasarla."
+              "İki kare farkı (a^2 - b^2) ile tam kare ((a-b)^2) ayrımını refleks haline getir.",
+              "Karmaşık rasyonel sadeleştirme sorularında özdeşlik araçlarını kullan."
             ],
             "is_completed": false,
             "completed_at": null
@@ -3544,11 +3617,20 @@
           {
             "id": "sq_matematik_cebirsel_ifadeler_ve_denklemler_8_5",
             "title": "Son İnceleme",
-            "text": "Tüm notları gözden geçir.",
+            "text": "Çarpanlara ayırma notlarını incele.",
             "label": "kontrol",
             "sub_items": [
-              "Oluşturulan tüm dijital slaytları ve alınan notları hızlıca kontrol et."
+              "Özdeşlik ve rasyonel sadeleştirme pratiklerini gözden geçir."
             ],
+            "is_completed": false,
+            "completed_at": null
+          },
+          {
+            "id": "sq_matematik_cebirsel_ifadeler_ve_denklemler_8_6",
+            "title": "Çarpanlara Ayırma ve Özdeşlikler",
+            "text": "Ortak çarpan, tam kare, iki kare farkı, küp açılımları ve rasyonel sadeleştirmeleri çalış.",
+            "label": "alt konu",
+            "sub_items": [],
             "is_completed": false,
             "completed_at": null
           }
@@ -9022,11 +9104,11 @@
           {
             "id": "sq_cografya_iklim_ve_bitki_ortusu_1_2",
             "title": "Kaynak Tespiti",
-            "text": "Mevcut konu için video kaynağı bul.",
+            "text": "TÜRKİYE İKLİMİ 1 & 2 videolarını incele.",
             "label": "keşif",
             "sub_items": [
-              "İlgili videoları listele.",
-              "Video süresi ve oturum kapasitesini hesapla (Bölünmesi gerekiyor mu?)."
+              "Türkiye İklimi - 1 (Sıcaklık) - 38 dk 31 sn",
+              "18. Video: Türkiye İklimi - 2 (Basınç ve Rüzgar) - 53 dk 38 sn"
             ],
             "is_completed": false,
             "completed_at": null
@@ -9034,24 +9116,23 @@
           {
             "id": "sq_cografya_iklim_ve_bitki_ortusu_1_3",
             "title": "Video Taraması",
-            "text": "Videoyu hızlıca tara ve plan yap.",
+            "text": "Süreleri ve duraklama noktalarını planla.",
             "label": "planlama",
             "sub_items": [
-              "Hoca tahtayı kaç kez siliyor? (Slayt sayısını belirle).",
-              "Kaba bir soru çözüm sayısı tahmini yap.",
-              "Duraklama (milestone) noktalarını not al."
+              "Tahta silinme sıklığına göre slayt sayılarını belirle.",
+              "Sıcaklık, basınç ve rüzgar duraklama noktalarını not al."
             ],
             "is_completed": false,
             "completed_at": null
           },
           {
             "id": "sq_cografya_iklim_ve_bitki_ortusu_1_4",
-            "title": "İçerik Tüketimi",
+            "title": "İçerik Tüketimi & Korelasyon Notları",
             "text": "Not çıkararak öğren.",
             "label": "teori",
             "sub_items": [
-              "Videoyu normal hızda izlemeye başla.",
-              "Belirlediğin milestone'larda dur ve dijital slayt (page) notlarını tasarla."
+              "Sıcaklık dağılışına etki eden faktörleri (enlem, karasallık, yükselti) not al.",
+              "Basınç merkezleri ve rüzgar sistemleri (yerel rüzgarlar, meltemler) arasındaki korelasyonu notlarına aktar."
             ],
             "is_completed": false,
             "completed_at": null
@@ -9062,8 +9143,26 @@
             "text": "Tüm notları gözden geçir.",
             "label": "kontrol",
             "sub_items": [
-              "Oluşturulan tüm dijital slaytları ve alınan notları hızlıca kontrol et."
+              "Oluşturulan tüm slayt ve korelasyon notlarını kontrol et."
             ],
+            "is_completed": false,
+            "completed_at": null
+          },
+          {
+            "id": "sq_cografya_iklim_ve_bitki_ortusu_1_6",
+            "title": "Sıcaklık Dağılışı ve Etkenler",
+            "text": "Sıcaklık dağılışı mekaniklerini çalış ve tamamla.",
+            "label": "alt konu",
+            "sub_items": [],
+            "is_completed": false,
+            "completed_at": null
+          },
+          {
+            "id": "sq_cografya_iklim_ve_bitki_ortusu_1_7",
+            "title": "Basınç Merkezleri ve Rüzgarlar",
+            "text": "Basınç ve rüzgar sistemleri arasındaki korelasyonu notlarına aktar.",
+            "label": "alt konu",
+            "sub_items": [],
             "is_completed": false,
             "completed_at": null
           }
@@ -9086,11 +9185,11 @@
           {
             "id": "sq_cografya_iklim_ve_bitki_ortusu_2_2",
             "title": "Kaynak Tespiti",
-            "text": "Mevcut konu için video kaynağı bul.",
+            "text": "TÜRKİYE İKLİMİ 3 & 4 videolarını incele.",
             "label": "keşif",
             "sub_items": [
-              "İlgili videoları listele.",
-              "Video süresi ve oturum kapasitesini hesapla (Bölünmesi gerekiyor mu?)."
+              "Türkiye İklimi - 3 (Nemlilik ve Yağış) - 37 dk 51 sn",
+              "20. Video: Türkiye İklimi - 4 (Mikroklimalar) - 48 dk 02 sn"
             ],
             "is_completed": false,
             "completed_at": null
@@ -9098,24 +9197,23 @@
           {
             "id": "sq_cografya_iklim_ve_bitki_ortusu_2_3",
             "title": "Video Taraması",
-            "text": "Videoyu hızlıca tara ve plan yap.",
+            "text": "Harita haritalandırma ve durak noktalarını belirle.",
             "label": "planlama",
             "sub_items": [
-              "Hoca tahtayı kaç kez siliyor? (Slayt sayısını belirle).",
-              "Kaba bir soru çözüm sayısı tahmini yap.",
-              "Duraklama (milestone) noktalarını not al."
+              "Yağış rejimleri ve mikroklima haritalarını hazırla.",
+              "Duraklama noktalarını not al."
             ],
             "is_completed": false,
             "completed_at": null
           },
           {
             "id": "sq_cografya_iklim_ve_bitki_ortusu_2_4",
-            "title": "İçerik Tüketimi",
-            "text": "Not çıkararak öğren.",
+            "title": "İçerik Tüketimi & Haritayla Görselleştirme",
+            "text": "Harita üzerinde görselleştirerek kavra.",
             "label": "teori",
             "sub_items": [
-              "Videoyu normal hızda izlemeye başla.",
-              "Belirlediğin milestone'larda dur ve dijital slayt (page) notlarını tasarla."
+              "Türkiye’deki yağış rejimlerinin harita üzerindeki dağılışını incele.",
+              "Ana iklim kuşağından farklılık gösteren dar alanlı mikroklimaları (istisnai cepler) haritada görselleştir."
             ],
             "is_completed": false,
             "completed_at": null
@@ -9123,11 +9221,29 @@
           {
             "id": "sq_cografya_iklim_ve_bitki_ortusu_2_5",
             "title": "Son İnceleme",
-            "text": "Tüm notları gözden geçir.",
+            "text": "Harita notlarını gözden geçir.",
             "label": "kontrol",
             "sub_items": [
-              "Oluşturulan tüm dijital slaytları ve alınan notları hızlıca kontrol et."
+              "Oluşturulan yağış ve mikroklima haritalarını kontrol et."
             ],
+            "is_completed": false,
+            "completed_at": null
+          },
+          {
+            "id": "sq_cografya_iklim_ve_bitki_ortusu_2_6",
+            "title": "Nemlilik ve Yağış Rejimleri",
+            "text": "Yağış rejimlerinin fiziksel sonuçlarını çalış.",
+            "label": "alt konu",
+            "sub_items": [],
+            "is_completed": false,
+            "completed_at": null
+          },
+          {
+            "id": "sq_cografya_iklim_ve_bitki_ortusu_2_7",
+            "title": "Mikroklimalar ve Özel Alanlar",
+            "text": "Mikroklimaları harita üzerinde görselleştirerek kavra.",
+            "label": "alt konu",
+            "sub_items": [],
             "is_completed": false,
             "completed_at": null
           }
